@@ -1,0 +1,13 @@
+archive/
+autosave/
+bin/
+db/
+dbd/
+lib/
+include/
+O.*
+RELEASE_SITE
+*.log
+*.out
+*~
+__pycache__
