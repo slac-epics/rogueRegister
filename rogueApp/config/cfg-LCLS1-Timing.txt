@@ -1,0 +1,28 @@
+# Set via python: lcls2-pgp-fw-lib/python/lcls2_pgp_fw_lib/hardware/shared/_TimingRx.py
+# See ConfigLclsTimingV1()
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingPhyMonitor.UseMiniTpg	False
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSelEn	UseClkSel
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxPllReset	1
+# sleep(1)
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxPllReset	0
+# sleep(1)
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClkSel	0 # LCLS-I Clock
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.C_RxReset	1
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.C_RxReset	0
+# sleep(0.1)
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxDown 0 # Reset the latching register
+
+# Settings after configure
+ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.Blowoff	True
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxDown	1
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSel	Lcls1Protocol
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.HwEnable	True
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Link	0
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_Enabled	False
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_RateSel	5	"10 Hz"
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_DestSel	0x8000
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].EnableReg	False
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Polarity	Falling
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[0].MasterEnable	False
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[0].PauseThreshold	0
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[0].TriggerDelay	0

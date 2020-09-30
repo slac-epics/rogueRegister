@@ -1,0 +1,36 @@
+# Set via python: lcls2-pgp-fw-lib/python/lcls2_pgp_fw_lib/hardware/shared/_TimingRx.py
+# See ConfigLclsTimingV2()
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingPhyMonitor.UseMiniTpg	False
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSelEn	0 # UseClkSel
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxPllReset	1
+# sleep(1)
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxPllReset	0
+# sleep(1)
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClkSel	1 # LCLS-II Clock
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.C_RxReset	1
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.C_RxReset	0
+# sleep(0.1)
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxDown 0 # Reset the latching register
+# Enable XpmMini
+# See ConfigXpmMini()
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingPhyMonitor.UseMiniTpg	True
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.HwEnable	True
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Link	0
+# Configure XpmMini Timing
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_RateSel	5	# "10 Hz"
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_Enabled	False
+
+# Settings after configure
+ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.Blowoff	True
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxDown	1
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSel	Lcls2Protocol
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.HwEnable	True
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Link	0
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_Enabled	False
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_RateSel	5	# "10 Hz"
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_DestSel	0x8000
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].EnableReg	False
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Polarity	Rising
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[0].MasterEnable	False
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[0].PauseThreshold	16
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[0].TriggerDelay	42

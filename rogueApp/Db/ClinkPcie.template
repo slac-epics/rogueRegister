@@ -1,0 +1,149 @@
+#
+# ClinkPcie rogue PVs
+# Only one per board
+#
+# Required macros:
+#	P				- Prefix
+#	R				- Region, common camera PV prefix is $(P)$(R)
+#	B				- Board number
+#	L				- Lane number
+#
+# Optional macros
+#	TIMEOUT			- Defaults to 1 sec
+#
+
+record( mbbi, "$(P)$(R)Timing:ClkSel_RBV" )
+{
+	field( DTYP, "RogueMBBI" )
+	field( INP,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClkSel" )
+	field( ZRVL, "0" ) field( ZRST, "LCLS-I  Clock" )
+	field( ONVL, "1" ) field( ONST, "LCLS-II Clock" )
+	info( autosaveFields, "" )
+}
+
+# Clock Select, only one per board
+record( mbbo, "$(P)$(R)Timing:ClkSel" )
+{
+	field( DTYP, "RogueMBBO" )
+	field( OUT,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClkSel" )
+	field( PINI, "YES" )
+	field( ZRVL, "0" ) field( ZRST, "LCLS-I  Clock" )
+	field( ONVL, "1" ) field( ONST, "LCLS-II Clock" )
+	field( FLNK, "$(P)$(R)Timing:ClkSel_RBV" )
+	info( autosaveFields, "VAL" )
+}
+
+# Mode Select
+# only one per board
+record( mbbi, "$(P)$(R)Timing:ModeSel_RBV" )
+{
+	field( DTYP, "RogueMBBI" )
+	field( INP,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSel" )
+	field( ZRVL, "0" ) field( ZRST, "Lcls1Protocol" )
+	field( ONVL, "1" ) field( ONST, "Lcls2Protocol" )
+	info( autosaveFields, "" )
+}
+
+# only one per board
+record( mbbo, "$(P)$(R)Timing:ModeSel" )
+{
+	field( DTYP, "RogueMBBO" )
+	field( OUT,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSel" )
+	field( PINI, "YES" )
+	field( ZRVL, "0" ) field( ZRST, "Lcls1Protocol" )
+	field( ONVL, "1" ) field( ONST, "Lcls2Protocol" )
+	field( FLNK, "$(P)$(R)Timing:ModeSel_RBV" )
+	info( autosaveFields, "VAL" )
+}
+
+# Mode Select Enable
+# only one per board
+record( mbbi, "$(P)$(R)Timing:ModeSelEn_RBV" )
+{
+	field( DTYP, "RogueMBBI" )
+	field( INP,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSelEn" )
+	field( ZRVL, "0" ) field( ZRST, "UseClkSel" )
+	field( ONVL, "1" ) field( ONST, "UseModeSel" )
+	info( autosaveFields, "" )
+}
+
+record( mbbo, "$(P)$(R)Timing:ModeSelEn" )
+{
+	field( DTYP, "RogueMBBO" )
+	field( OUT,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSelEn" )
+	field( PINI, "YES" )
+	field( ZRVL, "0" ) field( ZRST, "UseClkSel" )
+	field( ONVL, "1" ) field( ONST, "UseModeSel" )
+	field( FLNK, "$(P)$(R)Timing:ModeSelEn_RBV" )
+	info( autosaveFields, "VAL" )
+}
+
+# XpmMini LCLS-II Rate Select
+record( mbbi, "$(P)$(R)XpmMini:Config_L0Select_RateSel_RBV" )
+{
+	field( DESC, "XpmMini LCLS-II Rate Select" )
+	field( DTYP, "RogueMBBI" )
+	field( INP,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_RateSel" )
+	field( ZRVL, "0" ) field( ZRST, "929 kHz" )
+	field( ONVL, "1" ) field( ONST, " 71 kHz" )
+	field( TWVL, "2" ) field( TWST, " 10 kHz" )
+	field( THVL, "3" ) field( THST, "  1 kHz" )
+	field( FRVL, "4" ) field( FRST, "100 Hz" )
+	field( FVVL, "5" ) field( FVST, " 10 Hz" )
+	field( SXVL, "6" ) field( SXST, "  1 Hz" )
+	field( SVVL, "32768" ) field( SVST, "Undefined" )
+	info( autosaveFields, "" )
+}
+
+record( mbbo, "$(P)$(R)XpmMini:Config_L0Select_RateSel" )
+{
+	field( DESC, "XpmMini LCLS-II Rate Select" )
+	field( DTYP, "RogueMBBO" )
+	field( OUT,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_RateSel" )
+	field( PINI, "YES" )
+	field( ZRVL, "0" ) field( ZRST, "929 kHz" )
+	field( ONVL, "1" ) field( ONST, " 71 kHz" )
+	field( TWVL, "2" ) field( TWST, " 10 kHz" )
+	field( THVL, "3" ) field( THST, "  1 kHz" )
+	field( FRVL, "4" ) field( FRST, "100 Hz" )
+	field( FVVL, "5" ) field( FVST, " 10 Hz" )
+	field( SXVL, "6" ) field( SXST, "  1 Hz" )
+	field( SVVL, "32768" ) field( SVST, "Undefined" )
+	field( FLNK, "$(P)$(R)XpmMini:Config_L0Select_RateSel_RBV" )
+	info( autosaveFields, "VAL" )
+}
+
+# These could be done via longDevRogue.template
+#		NAME	= "Timing:RxDown",
+#		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxDown"
+#		SAVE	= ""
+#		SCAN	= "\$(SCAN=1 second)"
+record( longin, "$(P)$(R)Timing:RxDown_RBV" )
+{
+	field( DTYP, "RogueLI" )
+	field( INP,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxDown" )
+	field( SCAN, "$(SCAN=1 second)" )
+}
+record( longout, "$(P)$(R)Timing:RxDown" )
+{
+	field( DTYP, "RogueLO" )
+	field( OUT,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxDown" )
+	field( PINI, "YES" )
+	field( FLNK, "$(P)$(R)Timing:RxDown_RBV" )
+}
+#		NAME	= "Timing:RxPllReset",
+#		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxPllReset"
+#		SAVE	= ""
+#		SCAN	= "\$(SCAN=1 second)"
+record( longin, "$(P)$(R)Timing:RxPllReset_RBV" )
+{
+	field( DTYP, "RogueLI" )
+	field( INP,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxPllReset" )
+	field( SCAN, "$(SCAN=1 second)" )
+}
+record( longout, "$(P)$(R)Timing:RxPllReset" )
+{
+	field( DTYP, "RogueLO" )
+	field( OUT,  "@B$(B) L$(L) ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxPllReset" )
+	field( FLNK, "$(P)$(R)Timing:RxPllReset_RBV" )
+}

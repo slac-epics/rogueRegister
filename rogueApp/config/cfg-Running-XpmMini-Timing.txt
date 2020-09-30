@@ -1,0 +1,15 @@
+ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.Blowoff	False
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClkSel	"LCLS-II Clock"
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxDown	0
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSel	Lcls2Protocol
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSelEn	UseClkSel
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.HwEnable	True
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_Enabled	True
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_RateSel	"10 Hz"
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_DestSel	0x8000
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].EnableReg	False
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Polarity	Rising
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[0].MasterEnable	True
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[0].PauseThreshold	16
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[0].TriggerDelay	42
+ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingPhyMonitor.UseMiniTpg	True
