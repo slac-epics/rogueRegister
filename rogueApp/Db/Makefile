@@ -20,7 +20,6 @@ DB += ClinkLane.db
 DB += roguePcie.db
 DB += putMonitor.template
 DB += rbvMonitor.template
-DB += serialMonitor.template
 DB += PgpCannedSequences.db
 DB += PgpChCannedSequences.db
 DB += CamCannedSequences.db

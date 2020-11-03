@@ -17,8 +17,6 @@
 //	register I/O via the SLAC Rogue API
 //
 #ifndef	pgpRogueDev_H
-#ifndef	pgpRogueDev_H
-#define	pgpRogueDev_H
 #define	pgpRogueDev_H
 
 #include <memory>
@@ -31,14 +29,16 @@
 #include <rogue/hardware/axi/AxiMemMap.h>
 #include <rogue/hardware/axi/AxiStreamDma.h>
 #include <rogue/interfaces/memory/Constants.h>
+#include <rogue/interfaces/stream/Fifo.h>
+#include <rogue/interfaces/stream/RateDrop.h>
 #include <rogue/interfaces/stream/Slave.h>
 #include <rogue/interfaces/stream/Master.h>
 
 // ADPgpCamlink headers
 #include "ImageStream.h"
 
-#define PGPCL_DATACHAN_FEB_REG_ACCESS	0
-#define PGPCL_DATACHAN_FEB_FRAME_ACCESS	1
+#define PGP_DATACHAN_REG_ACCESS		0
+#define PGP_DATACHAN_FRAME_ACCESS	1
 
 typedef int (* ImageCallback)( void * pClientContext, ImageCbInfo * pCbInfo );
 
@@ -119,10 +119,13 @@ private:
 	// DMA[lane].DEST[1].DEST[2] = Camera Image (sub-frame)
 	// DMA[lane].DEST[2] = Camera UART
 	// DMA[lane].DEST[255:3] = Unused
-	///
 
+	///	Wave8 Data Stream
+	rogue::hardware::axi::AxiStreamDmaPtr		m_pDataChan;
 	ImageStreamPtr								m_pDataStream;
-	
+	rogue::interfaces::stream::FifoPtr			m_pDataFifo;
+	rogue::interfaces::stream::RateDropPtr		m_pRateDrop;
+
 	void									*	m_pCallbackClient;
 	ImageCallback								m_CallbackClientFunc;
 };

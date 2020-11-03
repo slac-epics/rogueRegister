@@ -29,13 +29,13 @@ file liDevRogue.template
 {
 	{
 		NAME	= "AxiPcieCore:FpgaVersion",
-		PATH	= "ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.FpgaVersion",
+		PATH	= "Top.AxiVersion.FpgaVersion",
 		DESC	= "AxiPcieCore FPGA Version (show as hex)"
 		PINI	= "YES"
 	}
 	{
 		NAME	= "AxiPcieCore:UpTime",
-		PATH	= "ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.UpTimeCnt",
+		PATH	= "Top.AxiVersion.UpTimeCnt",
 		EGU		= "sec"
 		SCAN	= "\$(SCAN=1 second)"
 	}
@@ -78,7 +78,7 @@ file longDevRogue.template
 {
 	{
 		NAME	= "AxiPcieCore:ScratchPad",
-		PATH	= "ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.ScratchPad"
+		PATH	= "Top.AxiVersion.ScratchPad"
 		PINI	= "YES"
 		SAVE	= ""
 	}

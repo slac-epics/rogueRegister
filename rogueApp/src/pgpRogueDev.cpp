@@ -34,8 +34,9 @@
 #include "pgpRogueDev.h"
 
 using namespace	std;
+namespace ris = rogue::interfaces::stream;
 
-int		DEBUG_PGP_ROGUE	= 2;
+int		DEBUG_PGP_ROGUE_DEV	= 2;
 
 
 int		pgpRogueDev::setTriggerEnable( unsigned int triggerNum, bool fEnable )
@@ -55,6 +56,7 @@ pgpRogueDev::pgpRogueDev(
 	m_fConnected(	0		),
 	m_devName(				),
 	m_devLock(				),
+	m_pDataChan(			),
 	m_pDataStream(			)
 {
 //	const char		*	functionName	= "pgpRogueDev::pgpRogueDev";
@@ -103,17 +105,32 @@ pgpRogueDev::pgpRogueDev(
 	}
 
 	//
-	// Create FEB Data Channels
+	// Create Data Channels
 	// TODO: Make a function than encapsulates this
 	uint32_t	dest;
-	dest = (0x100 * m_lane) + PGPCL_DATACHAN_FEB_FRAME_ACCESS;
-	m_pFebFrameChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
+	dest = (0x100 * m_lane) + PGP_DATACHAN_FRAME_ACCESS;
+	m_pDataChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
+	//m_pFebFrameChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
 
 	//
-	// Connect DATACHAN 1 Camera Frames
-	m_pImageStream	= ImageStream::create(this);
-	m_pFebFrameChan->addSlave( m_pImageStream );
-	// or rogueStreamConnect( m_pFebFrameChan, m_pImageStream );
+	// Connect DATACHAN 1 Frame Stream
+	m_pDataStream	= ImageStream::create(this);
+	m_pDataChan->addSlave( m_pDataStream );
+	//rogueStreamConnect( m_pDataChan, m_pDataStream );
+	double	rateDropPeriod		= 1.0;	// seconds?
+	bool	rateDropUsePeriod	= true;
+	m_pRateDrop	= ris::RateDrop::create( rateDropUsePeriod, rateDropPeriod );
+	m_pDataChan->addSlave( m_pRateDrop );
+
+	// 	ris::FifoPtr create(uint32_t maxDepth, uint32_t trimSize, bool noCopy)
+	m_pDataFifo	= ris::Fifo::create( 0, 0, false );
+	m_pRateDrop->addSlave( m_pDataFifo );
+	
+	// unbatchers
+	//m_pEpicsUnbatcher	= rogue::protocols::batcher::SplitterV1::create(this);
+	//m_pDataFifo->addSlave( m_pEpicsUnbatcher );
+	//m_pUnbatcher	= rogue::protocols::batcher::SplitterV1::create(this);
+	//m_pDataChan->addSlave( m_pUnbatcher );
 
 	m_fConnected = 1;	// Do we need this?
 	//StartRun( m_fd );
@@ -144,7 +161,7 @@ void pgpRogueDev::ProcessImage(
 	ImageCbInfo		* pImageInfo )
 {
 	const char		*	functionName	= "pgpRogueDev::ProcessImage";
-	if ( DEBUG_PGP_ROGUE >= 5 ) printf( "%s\n", functionName );
+	if ( DEBUG_PGP_ROGUE_DEV >= 5 ) printf( "%s\n", functionName );
 	//epicsTimeStamp		tsImage	= pImageInfo->m_tsImage;
 
 	if  ( m_CallbackClientFunc != NULL )

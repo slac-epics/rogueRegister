@@ -15,7 +15,7 @@
 #include <rogue/protocols/batcher/CoreV1.h>
 #include <rogue/protocols/batcher/Data.h>
 
-class pgpClDev;
+class pgpRogueDev;
 
 typedef struct _ImageCbInfo
 {
@@ -42,15 +42,15 @@ public:
 
 	// Create a static class creator to return our custom class
 	// wrapped with a shared pointer
-	static std::shared_ptr<ImageStream> create( pgpClDev * pClDev )
+	static std::shared_ptr<ImageStream> create( pgpRogueDev * pRogueDev )
 	{
-		static std::shared_ptr<ImageStream> ret = std::make_shared<ImageStream>( pClDev );
+		static std::shared_ptr<ImageStream> ret = std::make_shared<ImageStream>( pRogueDev );
 		return(ret);
 	}
 
-	ImageStream( pgpClDev * pClDev )
+	ImageStream( pgpRogueDev * pRogueDev )
 		:	rogue::interfaces::stream::Slave( )
-		,	m_pClDev(	pClDev	)
+		,	m_pRogueDev(	pRogueDev	)
 	{
 	}
 
@@ -60,7 +60,7 @@ public:
 	void frameCallback( CALLBACK * pCallbackPvt );
 
 private:
-	pgpClDev		*	m_pClDev;
+	pgpRogueDev		*	m_pRogueDev;
 	void			*	m_pCallbackClient;
 	ImageCbInfo			m_ImageInfo;
 	rogue::protocols::batcher::CoreV1	m_FrameCore;

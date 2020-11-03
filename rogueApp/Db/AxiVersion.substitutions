@@ -1,0 +1,53 @@
+# roguePcie.substitutions
+
+
+#file biDevRogue.template
+#{
+#}
+file boDevRogue.template
+{
+	{
+		NAME	= "AxiPcieCore:FpgaReload",
+		PATH	= "Top.AxiVersion.FpgaReload",
+		DESC	= "AxiPcieCore FPGA Reload"
+		ZNAM	= "Normal" )
+		ONAM	= "Reload" )
+		SAVE	= "" )
+	}
+}
+#file boolDevRogue.template
+#{
+#}
+
+file liDevRogue.template
+{
+	{
+		NAME	= "AxiPcieCore:FpgaVersion",
+		PATH	= "Top.AxiVersion.FpgaVersion",
+		DESC	= "AxiPcieCore FPGA Version (show as hex)"
+		PINI	= "YES"
+	}
+	{
+		NAME	= "AxiPcieCore:UpTime",
+		PATH	= "Top.AxiVersion.UpTimeCnt",
+		EGU		= "sec"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+}
+
+#file loDevRogue.template
+#{
+#}
+
+file longDevRogue.template
+{
+	{
+		NAME	= "AxiPcieCore:ScratchPad",
+		PATH	= "Top.AxiVersion.ScratchPad"
+		PINI	= "YES"
+		SAVE	= ""
+	}
+}
+
+#       DESC    = "0         1         2         3         "
+#       DESC    = "01234567890123 Max 40 char 7890123456789"

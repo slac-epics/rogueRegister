@@ -238,7 +238,7 @@ pgpRogueLib::pgpRogueLib(
 	uint32_t	dest;
 	for ( size_t	lane = 0; lane < N_AXI_LANES; lane++ )
 	{
-		dest = (0x100 * lane) + PGPCL_DATACHAN_FEB_REG_ACCESS;
+		dest = (0x100 * lane) + PGP_DATACHAN_REG_ACCESS;
 		m_pFebRegChan[lane]	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
 
 		//

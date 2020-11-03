@@ -38,8 +38,8 @@
 #define	N_AXI_LANES	4
 #define	N_AXI_CHAN	4	// Needed?
 
-#define PGPCL_DATACHAN_FEB_REG_ACCESS	0
-#define PGPCL_DATACHAN_FEB_FRAME_ACCESS	1
+#define PGP_DATACHAN_REG_ACCESS		0
+#define PGP_DATACHAN_FRAME_ACCESS	1
 
 class rogueAddrMap;
 typedef std::shared_ptr<rogueAddrMap> rogueAddrMapPtr;
