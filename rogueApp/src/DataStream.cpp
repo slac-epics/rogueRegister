@@ -1,6 +1,6 @@
 #include <string>
 #include <string.h>
-#include "ImageStream.h"
+#include "DataStream.h"
 #include "pgpRogueDev.h"
 #include <rogue/interfaces/stream/Frame.h>
 #include <rogue/interfaces/stream/FrameIterator.h>
@@ -25,10 +25,10 @@ extern int	DEBUG_PGP_ROGUE_DEV;
 // Offset 44: 4 byte Modifier6
 
 
-void ImageStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
+void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 {
 	char        	acBuff[40];
-	const char	*	functionName	= "ImageStream::acceptFrame";
+	const char	*	functionName	= "DataStream::acceptFrame";
 	if ( !frame ) {
 		if ( DEBUG_PGP_ROGUE_DEV >= 2 )
 			printf( "%s: No frame!\n", functionName );
@@ -66,7 +66,7 @@ void ImageStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 		// FUSER_BIT_1 = StartOfFrame
 		// LUSER_BIT_0 = FrameError
 		if ( DEBUG_PGP_ROGUE_DEV >= 4 )
-			printf( "ImageStream::acceptFrame SubFrame %d, dest=%u, size=%u, fUser=0x%02x, lUser=0x%02x\n",
+			printf( "DataStream::acceptFrame SubFrame %d, dest=%u, size=%u, fUser=0x%02x, lUser=0x%02x\n",
 					sf, data->dest(), data->size(), data->fUser(), data->lUser() );
 		if ( data->dest() == 0 )
 		{	// TDEST 0 is Trigger (Timing Event)
@@ -84,7 +84,7 @@ void ImageStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 		else if ( data->dest() == 1 )
 		{	// TDEST 1 is event
 			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
-				printf( "ImageStream::acceptFrame TDEST 1 SubFrame %d, Event: \n", sf );
+				printf( "DataStream::acceptFrame TDEST 1 SubFrame %d, Event: \n", sf );
 			//it = data->begin();
 		}
 		else if ( data->dest() == 2 )
@@ -93,7 +93,7 @@ void ImageStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 			uint32_t	size	= data->end() - data->begin();
 			//uint8_t	*	dataPtr	= data->begin().ptr();
 			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
-				printf( "ImageStream::acceptFrame TDEST 2 SubFrame %d, size %u\n", sf, size );
+				printf( "DataStream::acceptFrame TDEST 2 SubFrame %d, size %u\n", sf, size );
 		}
 	}
 

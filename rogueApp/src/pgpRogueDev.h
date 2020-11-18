@@ -35,7 +35,7 @@
 #include <rogue/interfaces/stream/Master.h>
 
 // ADPgpCamlink headers
-#include "ImageStream.h"
+#include "DataStream.h"
 
 #define PGP_DATACHAN_REG_ACCESS		0
 #define PGP_DATACHAN_FRAME_ACCESS	1
@@ -122,7 +122,7 @@ private:
 
 	///	Wave8 Data Stream
 	rogue::hardware::axi::AxiStreamDmaPtr		m_pDataChan;
-	ImageStreamPtr								m_pDataStream;
+	DataStreamPtr								m_pDataStream;
 	rogue::interfaces::stream::FifoPtr			m_pDataFifo;
 	rogue::interfaces::stream::RateDropPtr		m_pRateDrop;
 

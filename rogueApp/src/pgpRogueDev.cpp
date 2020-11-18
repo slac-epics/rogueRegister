@@ -118,7 +118,7 @@ pgpRogueDev::pgpRogueDev(
 	// Connect DATACHAN 1 Frame Stream
 	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
 		printf( "%s: Connecting DataChan to DataStream ...\n", functionName );
-	m_pDataStream	= ImageStream::create(this);
+	m_pDataStream	= DataStream::create(this);
 	m_pDataChan->addSlave( m_pDataStream );
 	//rogueStreamConnect( m_pDataChan, m_pDataStream );
 

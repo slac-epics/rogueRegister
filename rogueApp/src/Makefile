@@ -15,7 +15,7 @@ LIB_SRCS   		+= pgpRogueLib.cpp
 LIB_SRCS		+= rogueRecords.cpp
 
 LIB_SRCS		+= ClStreamSlave.cpp
-LIB_SRCS		+= ImageStream.cpp
+LIB_SRCS		+= DataStream.cpp
 LIB_SRCS		+= pgpRogueDev.cpp
 
 #LIB_LIBS		+= asyn

@@ -25,19 +25,19 @@ typedef struct _ImageCbInfo
 }	ImageCbInfo;
 
 
-class ImageStream : public rogue::interfaces::stream::Slave
+class DataStream : public rogue::interfaces::stream::Slave
 {
 public:
 
 	// Create a static class creator to return our custom class
 	// wrapped with a shared pointer
-	static std::shared_ptr<ImageStream> create( pgpRogueDev * pRogueDev )
+	static std::shared_ptr<DataStream> create( pgpRogueDev * pRogueDev )
 	{
-		static std::shared_ptr<ImageStream> ret = std::make_shared<ImageStream>( pRogueDev );
+		static std::shared_ptr<DataStream> ret = std::make_shared<DataStream>( pRogueDev );
 		return(ret);
 	}
 
-	ImageStream( pgpRogueDev * pRogueDev )
+	DataStream( pgpRogueDev * pRogueDev )
 		:	rogue::interfaces::stream::Slave( )
 		,	m_pRogueDev(	pRogueDev	)
 	{
@@ -56,6 +56,6 @@ private:
 };
 
 // Shared pointer alias
-typedef std::shared_ptr<ImageStream> ImageStreamPtr;
+typedef std::shared_ptr<DataStream> DataStreamPtr;
 
 #endif	/* CL_STREAM_SLAVE_H */
