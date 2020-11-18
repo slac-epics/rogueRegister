@@ -1,14 +1,14 @@
 #include <string>
 #include <string.h>
-#include "ClStreamSlave.h"
+#include "DataStreamSlave.h"
 #include <rogue/interfaces/stream/Frame.h>
 #include <rogue/interfaces/stream/FrameIterator.h>
 
 int	DEBUG_CLSTREAM	= 2;
 
-void ClStreamSlave::acceptFrame ( std::shared_ptr<rogue::interfaces::stream::Frame> frame )
+void DataStreamSlave::acceptFrame ( std::shared_ptr<rogue::interfaces::stream::Frame> frame )
 {
-	const char	*	functionName	= "ClStreamSlave::acceptFrame";
+	const char	*	functionName	= "DataStreamSlave::acceptFrame";
 	if ( !frame ) {
 		if ( DEBUG_CLSTREAM >= 2 )
 			printf( "%s: No frame!\n", functionName );
@@ -30,7 +30,7 @@ void ClStreamSlave::acceptFrame ( std::shared_ptr<rogue::interfaces::stream::Fra
 	{
 		printf( "\n" );
 		// Print the values in the first 10 locations
-		printf( "ClStreamSlave::acceptFrame: SuperFrameSize=%u bytes:", frame->getPayload() );
+		printf( "DataStreamSlave::acceptFrame: SuperFrameSize=%u bytes:", frame->getPayload() );
 		if ( DEBUG_CLSTREAM >= 4 )
 		{
 			for ( uint32_t x=0; x < 20; x++)
@@ -56,7 +56,7 @@ void ClStreamSlave::acceptFrame ( std::shared_ptr<rogue::interfaces::stream::Fra
 	rogue::protocols::batcher::CoreV1		core;
 	core.processFrame(frame);
 	if ( DEBUG_CLSTREAM >= 3 )
-		printf( "ClStreamSlave::acceptFrame: core count=%u, seq=%u, hdrSize=%u, tailSize=%u\n",
+		printf( "DataStreamSlave::acceptFrame: core count=%u, seq=%u, hdrSize=%u, tailSize=%u\n",
 				core.count(), core.sequence(), core.headerSize(), core.tailSize() );
 	for ( uint32_t sf = 0; sf < core.count(); sf++ )
 	{
@@ -65,7 +65,7 @@ void ClStreamSlave::acceptFrame ( std::shared_ptr<rogue::interfaces::stream::Fra
 		// FUSER_BIT_1 = StartOfFrame
 		// LUSER_BIT_0 = FrameError
 		if ( DEBUG_CLSTREAM >= 4 )
-			printf( "ClStreamSlave::acceptFrame SubFrame %d: dest=%u, size=%u, fUser=0x%02x, lUser=0x%02x\n",
+			printf( "DataStreamSlave::acceptFrame SubFrame %d: dest=%u, size=%u, fUser=0x%02x, lUser=0x%02x\n",
 					sf, data->dest(), data->size(), data->fUser(), data->lUser() );
 		if ( data->dest() == 0 )
 		{	// TDEST 0 is Timing Event
@@ -104,7 +104,7 @@ void ClStreamSlave::acceptFrame ( std::shared_ptr<rogue::interfaces::stream::Fra
 		}
 		else if ( data->dest() == 1 && DEBUG_CLSTREAM >= 5 )
 		{	// TDEST 1 is framegrabber image data
-			//printf( "ClStreamSlave::acceptFrame SubFrame %d: ", sf );
+			//printf( "DataStreamSlave::acceptFrame SubFrame %d: ", sf );
 			//it = data->begin();
 			it = data->end();
 			//for ( uint32_t x=0; x < 1030; x++)

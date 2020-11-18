@@ -14,7 +14,7 @@ LIB_SRCS   		+= rogueDev.cpp
 LIB_SRCS   		+= pgpRogueLib.cpp
 LIB_SRCS		+= rogueRecords.cpp
 
-LIB_SRCS		+= ClStreamSlave.cpp
+LIB_SRCS		+= DataStreamSlave.cpp
 LIB_SRCS		+= DataStream.cpp
 LIB_SRCS		+= pgpRogueDev.cpp
 

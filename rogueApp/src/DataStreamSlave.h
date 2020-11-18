@@ -14,25 +14,25 @@
 #include <rogue/protocols/batcher/CoreV1.h>
 #include <rogue/protocols/batcher/Data.h>
 
-class ClStreamSlave : public rogue::interfaces::stream::Slave
-//class ClStreamSlave : public rogue::hardware::axi::AxiStreamDma
+class DataStreamSlave : public rogue::interfaces::stream::Slave
+//class DataStreamSlave : public rogue::hardware::axi::AxiStreamDma
 {
 public:
 
 	// Create a static class creator to return our custom class
 	// wrapped with a shared pointer
-	static std::shared_ptr<ClStreamSlave> create()
+	static std::shared_ptr<DataStreamSlave> create()
 	{
-		static std::shared_ptr<ClStreamSlave> ret = std::make_shared<ClStreamSlave>();
+		static std::shared_ptr<DataStreamSlave> ret = std::make_shared<DataStreamSlave>();
 		return(ret);
 	}
 
-	ClStreamSlave() : rogue::interfaces::stream::Slave() { }
+	DataStreamSlave() : rogue::interfaces::stream::Slave() { }
 
 	void acceptFrame ( std::shared_ptr<rogue::interfaces::stream::Frame> frame );
 };
 
 // Shared pointer alias
-typedef std::shared_ptr<ClStreamSlave> ClStreamSlavePtr;
+typedef std::shared_ptr<DataStreamSlave> DataStreamSlavePtr;
 
 #endif	/* CL_STREAM_SLAVE_H */
