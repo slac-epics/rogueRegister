@@ -1,0 +1,5 @@
+
+registrar(	pgpRogueDevConfigRegister		)
+
+variable(	DEBUG_PGP_ROGUE_DEV,	int	)
+

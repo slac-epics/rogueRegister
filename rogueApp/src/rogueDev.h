@@ -37,8 +37,7 @@ public:		//	Public member functions
 	rogueDev(	const char			*	rogueName,
 				int						board,
 				int						lane,
-				const char			*	modelName,
-				const char			*	clMode,
+				const char			*	szMode,
 				bool					fLcls2Timing
 				);
 
@@ -165,8 +164,7 @@ public:		//	Public class functions
 				const char			*	rogueName,
 				int						board,
 				int						lane,
-				const char			*	modelName,
-				const char			*	clMode,
+				const char			*	szMode,
 				size_t					sizeX,
 				size_t					sizeY,
 				bool					fLcls2Timing,
@@ -219,20 +217,14 @@ private:	//	Private member variables
 	std::string		m_DrvVersion;	// Driver Version
 	std::string		m_AxiVersion;	// PGP AxiVersion
 	std::string		m_LibVersion;	// Library Version
-	std::string		m_ModelName;	// Configuration model name for camera (selected in st.cmd)
-	std::string		m_SerialPort;	// name of camera's serial port
-
-	size_t			m_ClCurWidth;	// CamLink connection cur width  in pixels
-	size_t			m_ClCurHeight;	// CamLink connection cur height in pixels
-	size_t			m_ClMaxWidth;	// CamLink connection max width  in pixels
-	size_t			m_ClMaxHeight;	// CamLink connection max height in pixels
+	std::string		m_Mode;			// Configuration mode name (DataOnly or All)
 
 	unsigned int	m_ReConfigCount;// Reconfiguration counter
 
 	unsigned int	m_ReCfgCnt;		// Reconfigure counter (increments by 1 each reconfigure)
 	epicsMutexId	m_reconfigLock;	// Protect against more than one thread trying to reconfigure the device
 
-	IOSCANPVT				m_ioscan;
+	IOSCANPVT		m_ioscan;
 
 private:	//	Private class variables
 	static	std::map<std::string, rogueDev *>	ms_rogueDevMap;

@@ -12,17 +12,17 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 
 # db templates
-DB += pgpCamlinkBase.template
-DB += ClinkPcie.template
-DB += TriggerEventManager.template
-DB += ClinkFeb.template
+#DB += pgpCamlinkBase.template
+DB += AxiVersion.db
 DB += ClinkLane.db
+DB += ClinkPcie.template
 DB += roguePcie.db
+DB += TriggerEventManager.template
 DB += putMonitor.template
 DB += rbvMonitor.template
-DB += PgpCannedSequences.db
-DB += PgpChCannedSequences.db
-DB += CamCannedSequences.db
+#DB += PgpCannedSequences.db
+#DB += PgpChCannedSequences.db
+#DB += CamCannedSequences.db
 
 # Install archive files
 #ARCHIVE += foo.tpl-arch

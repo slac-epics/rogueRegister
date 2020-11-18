@@ -1,11 +1,11 @@
 #include <string>
 #include <string.h>
 #include "ImageStream.h"
-#include "pgpCamlink.h"
+#include "pgpRogueDev.h"
 #include <rogue/interfaces/stream/Frame.h>
 #include <rogue/interfaces/stream/FrameIterator.h>
 
-extern int	DEBUG_PGP_CAMLINK;
+extern int	DEBUG_PGP_ROGUE_DEV;
 
 // TDEST 0 is Timing Event
 // Offset 0:  4 byte ?
@@ -30,7 +30,7 @@ void ImageStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	char        	acBuff[40];
 	const char	*	functionName	= "ImageStream::acceptFrame";
 	if ( !frame ) {
-		if ( DEBUG_PGP_CAMLINK >= 2 )
+		if ( DEBUG_PGP_ROGUE_DEV >= 2 )
 			printf( "%s: No frame!\n", functionName );
 		return;
 	}
@@ -38,7 +38,7 @@ void ImageStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	if ( errNum ) {
 		// Error code 0x80 is expected when stopping acquisition as it indicates
 		// image data that arrived after we stopped.
-		if ( ( errNum != 0x80 ) || ( DEBUG_PGP_CAMLINK >= 3 ) )
+		if ( ( errNum != 0x80 ) || ( DEBUG_PGP_ROGUE_DEV >= 3 ) )
 			printf( "%s: frame error 0x%X!\n", functionName, errNum );
 		return;
 	}
@@ -65,7 +65,7 @@ void ImageStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 		rogue::protocols::batcher::DataPtr	data = m_FrameCore.record(sf);
 		// FUSER_BIT_1 = StartOfFrame
 		// LUSER_BIT_0 = FrameError
-		if ( DEBUG_PGP_CAMLINK >= 4 )
+		if ( DEBUG_PGP_ROGUE_DEV >= 4 )
 			printf( "ImageStream::acceptFrame SubFrame %d, dest=%u, size=%u, fUser=0x%02x, lUser=0x%02x\n",
 					sf, data->dest(), data->size(), data->fUser(), data->lUser() );
 		if ( data->dest() == 0 )
@@ -75,7 +75,7 @@ void ImageStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 			fromFrame( it, 4, &ts.nsec );
 			fromFrame( it, 4, &ts.secPastEpoch );
 			epicsTimeToStrftime( acBuff, 40, "%H:%M:%S.%04f", &ts );
-			if ( DEBUG_PGP_CAMLINK >= 4 )
+			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
 			{
 				printf( "%s TDEST 0 SubFrame %d, ts %s, pulseId 0x%X\n",
 						functionName, sf, acBuff, ts.nsec & 0x1FFFF );
@@ -83,7 +83,7 @@ void ImageStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 		}
 		else if ( data->dest() == 1 )
 		{	// TDEST 1 is event
-			if ( DEBUG_PGP_CAMLINK >= 4 )
+			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
 				printf( "ImageStream::acceptFrame TDEST 1 SubFrame %d, Event: \n", sf );
 			//it = data->begin();
 		}
@@ -92,18 +92,18 @@ void ImageStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 			m_ImageInfo.m_ImageDataPtr = data;
 			uint32_t	size	= data->end() - data->begin();
 			//uint8_t	*	dataPtr	= data->begin().ptr();
-			if ( DEBUG_PGP_CAMLINK >= 4 )
+			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
 				printf( "ImageStream::acceptFrame TDEST 2 SubFrame %d, size %u\n", sf, size );
 		}
 	}
 
 	// Process image
-	if ( m_pClDev )
+	if ( m_pRogueDev )
 	{
 		m_ImageInfo.m_tsImage			= ts;
-		if ( !m_ImageInfo.m_ImageDataPtr && ( DEBUG_PGP_CAMLINK >= 4 ) )
+		if ( !m_ImageInfo.m_ImageDataPtr && ( DEBUG_PGP_ROGUE_DEV >= 4 ) )
 			printf( "ts %s, pulseId 0x%X, no image!\n", acBuff, ts.nsec & 0x1FFFF );
-		m_pClDev->ProcessImage( &m_ImageInfo );
+		m_pRogueDev->ProcessImage( &m_ImageInfo );
 		m_ImageInfo.m_ImageDataPtr.reset();
 	}
 }

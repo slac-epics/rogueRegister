@@ -59,7 +59,7 @@ pgpRogueDev::pgpRogueDev(
 	m_pDataChan(			),
 	m_pDataStream(			)
 {
-//	const char		*	functionName	= "pgpRogueDev::pgpRogueDev";
+	const char		*	functionName	= "pgpRogueDev::pgpRogueDev";
 
 	// Create mutexes
     m_devLock	= epicsMutexMustCreate();
@@ -109,19 +109,28 @@ pgpRogueDev::pgpRogueDev(
 	// TODO: Make a function than encapsulates this
 	uint32_t	dest;
 	dest = (0x100 * m_lane) + PGP_DATACHAN_FRAME_ACCESS;
+	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+		printf( "%s: Creating DataChan for %s, dest %u ...\n", functionName, m_devName.c_str(), dest );
 	m_pDataChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
 	//m_pFebFrameChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
 
 	//
 	// Connect DATACHAN 1 Frame Stream
+	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+		printf( "%s: Connecting DataChan to DataStream ...\n", functionName );
 	m_pDataStream	= ImageStream::create(this);
 	m_pDataChan->addSlave( m_pDataStream );
 	//rogueStreamConnect( m_pDataChan, m_pDataStream );
+
 	double	rateDropPeriod		= 1.0;	// seconds?
 	bool	rateDropUsePeriod	= true;
+	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+		printf( "%s: Connecting DataChan to RateDrop, period %f0.3 ...\n", functionName, rateDropPeriod );
 	m_pRateDrop	= ris::RateDrop::create( rateDropUsePeriod, rateDropPeriod );
 	m_pDataChan->addSlave( m_pRateDrop );
 
+	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+		printf( "%s: Connecting RateDrop to Fifo ...\n", functionName );
 	// 	ris::FifoPtr create(uint32_t maxDepth, uint32_t trimSize, bool noCopy)
 	m_pDataFifo	= ris::Fifo::create( 0, 0, false );
 	m_pRateDrop->addSlave( m_pDataFifo );
@@ -143,11 +152,6 @@ pgpRogueDev::~pgpRogueDev()
 }
 
 /// Configure timing for LCLS-I
-
-
-
-
-
 
 void pgpRogueDev::connect( )
 {
@@ -180,4 +184,52 @@ void pgpRogueDev::requestImageCallbacks( void * pClientContext, ImageCallback ca
 {
 	m_pCallbackClient		= pClientContext;
 	m_CallbackClientFunc	= callbackFunction;
+}
+
+#include <iocsh.h>
+#include <errlog.h>
+#include <epicsExport.h>
+#include <epicsThread.h>
+
+static	pgpRogueDevPtr	gPgpRogueDev[4];
+
+extern "C" int
+pgpRogueDevConfig(
+	int				board,
+	int				lane,
+	bool			)
+{
+	if ( gPgpRogueDev[lane] )
+	{
+		gPgpRogueDev[lane]->disconnect();
+		gPgpRogueDev[lane].reset();
+	}
+	gPgpRogueDev[lane] = pgpRogueDev::create( board, lane );
+    return 0;
+}
+
+
+// Register Function:
+//	int pgpRogueDevConfig( int board, int lane )
+static const iocshArg		pgpRogueDevConfigArg0	= { "board",		iocshArgInt };
+static const iocshArg		pgpRogueDevConfigArg1	= { "lane",			iocshArgInt };
+static const iocshArg		pgpRogueDevConfigArg2	= { "fLcls2Timing",	iocshArgInt };
+static const iocshArg	*	pgpRogueDevConfigArgs[3]	=
+{
+	&pgpRogueDevConfigArg0, &pgpRogueDevConfigArg1, &pgpRogueDevConfigArg2
+};
+static const iocshFuncDef   pgpRogueDevConfigFuncDef	= { "pgpRogueDevConfig", 3, pgpRogueDevConfigArgs };
+static int  pgpRogueDevConfigCallFunc( const iocshArgBuf * args )
+{
+    return pgpRogueDevConfig( args[0].ival, args[1].ival, args[2].ival );
+}
+void pgpRogueDevConfigRegister(void)
+{
+	iocshRegister( &pgpRogueDevConfigFuncDef, reinterpret_cast<iocshCallFunc>(pgpRogueDevConfigCallFunc) );
+}
+
+extern "C"
+{
+	epicsExportRegistrar( pgpRogueDevConfigRegister );
+	epicsExportAddress( int, DEBUG_PGP_ROGUE_DEV );
 }

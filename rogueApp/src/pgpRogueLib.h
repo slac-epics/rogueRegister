@@ -91,11 +91,17 @@ public:		//	Public member functions
 	/// Load Config file
 	void LoadConfigFile( const char * pszFilePath, double stepDelay );
 
+# ifdef SUPPORT_CLINK
 	void FebFpgaReload();
 
 	void FebPllConfig();
+#endif  /* SUPPORT_CLINK */
 
-	bool FebReady( size_t iFeb );
+	void GetEventBuilderBlowoffPath( unsigned int triggerNum, std::string & retPath );
+	void GetEventBuilderSoftRstPath( unsigned int triggerNum, std::string & retPath );
+	void GetTriggerMasterEnablePath( unsigned int triggerNum, std::string & retPath );
+
+	bool LaneReady( size_t iLane );
 
 	void ResetCounters();
 

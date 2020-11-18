@@ -22,17 +22,6 @@ typedef struct _ImageCbInfo
 	epicsTimeStamp						m_tsImage;
 	rogue::protocols::batcher::DataPtr	m_ImageDataPtr;
 
-#if 0
-	// Do we need image characteristics like these?
-	size_t								m_frameCounter;
-	size_t								m_height;
-	size_t								m_width;
-	size_t								m_xStart;
-	size_t								m_yStart;
-	unsigned long						m_tyData;
-	unsigned long						m_colorMode;
-	size_t								m_nBits;
-#endif
 }	ImageCbInfo;
 
 

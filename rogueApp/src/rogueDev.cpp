@@ -72,8 +72,7 @@ rogueDev::rogueDev(
 	const char			*	rogueName,
 	int						board,					// board
 	int						lane,					// channel
-	const char			*	modelName,
-	const char			*	clMode,
+	const char			*	szMode,
 	bool					fLcls2Timing		)
 	:
 		m_fExitApp(			false			    ),
@@ -87,7 +86,7 @@ rogueDev::rogueDev(
 		m_ConfigFile(							),
 		m_DrvVersion(							),
 		m_LibVersion(							),
-		m_ModelName(		modelName			),
+		m_Mode(				szMode				),
 
 		m_ReCfgCnt(			0					),
 		m_reconfigLock(		NULL				),
@@ -125,8 +124,7 @@ int rogueDev::CreateRogue(
 	const char *	rogueName,
 	int				board,
 	int				lane,
-	const char *	modelName,
-	const char *	clMode,
+	const char *	strMode,
 	size_t			sizeX,
 	size_t			sizeY,
 	bool			fLcls2Timing,
@@ -159,17 +157,10 @@ int rogueDev::CreateRogue(
         return -1;
     }
 
-    if (  modelName == NULL || strlen(modelName) == 0 )
-    {
-        errlogPrintf(	"%s %s: ERROR, NULL or zero length camera configuration.\n",
-						driverName, functionName );
-        return  -1;
-    }
-
     if ( DEBUG_PGP_ROGUE >= 1 )
         cout << "Creating rogueDev: " << string(rogueName) << endl;
-    rogueDev	* pRogue = new rogueDev(	rogueName, board, lane, modelName,
-											clMode, fLcls2Timing );
+    rogueDev	* pRogue = new rogueDev(	rogueName, board, lane,
+											strMode, fLcls2Timing );
     assert( pRogue != NULL );
 
     int	status	= pRogue->ConnectRogue( );
@@ -264,8 +255,6 @@ int rogueDev::ShowReport( int level )
 		cout	<< "\t\tType: "			<< m_RogueClass
 				<< " "					<< m_RogueModel
 				<< ", configuration: " 	<< m_ConfigFile << endl;
-		cout	<< "\t\tMax Res: "		<< m_ClMaxWidth << " x " << m_ClMaxHeight
-				<< endl;
 	}
 	if ( level >= 3 && m_pRogueLib )
 	{
@@ -584,65 +573,6 @@ int rogueDev::_Reconfigure( )
 	// Already shown in _Reopen()
 	//printf( "rogueDev Driver  version: %s\n", m_DrvVersion.c_str() ); 
 	//printf( "rogueDev Library version: %s\n", m_LibVersion.c_str() );
-#if 0
-	{
-	// Fetch the camera manufacturer and model and write them to ADBase parameters
-    //m_RogueClass	= pdv_get_camera_class(	m_pRogueLib );
-    //m_RogueModel	= pdv_get_camera_model(	m_pRogueLib );
-    //m_BuildStamp	= pdv_get_camera_info(	m_pRogueLib );
-
-//	setStringParam( ADManufacturer, m_RogueClass.c_str()	);
-//    setStringParam( CamlinkClass,	m_RogueClass.c_str()	);
-//    setStringParam( CamlinkInfo,	m_BuildStamp.c_str()	);
-	}
-//	setStringParam(	ADModel,		m_ModelName.c_str()	);
-
-//	setIntegerParam( ADMaxSizeX,		m_ClMaxWidth	);
-//	setIntegerParam( ADMaxSizeY,		m_ClMaxHeight	);
-
-	// Make sure we have valid size and binning settings
-	int		intParam;
-//	getIntegerParam( ADBinX,	&intParam	);
-	if ( intParam == 0 )
-	{
-		m_BinX = m_BinXReq = 1;
-//		setIntegerParam( ADBinX, 1 );
-	}
-//	getIntegerParam( ADBinY,	&intParam	);
-	if ( intParam == 0 )
-	{
-		m_BinY = m_BinYReq = 1;
-//		setIntegerParam( ADBinY, 1 );
-	}
-//	getIntegerParam( ADSizeX,	&intParam	);
-	if ( intParam == 0 )
-	{
-		m_SizeX = m_SizeXReq = m_ClMaxWidth;
-//		setIntegerParam( ADSizeX, m_ClMaxWidth	);
-	}
-//	getIntegerParam( ADSizeY,	&intParam	);
-	if ( intParam == 0 )
-	{
-		m_SizeY = m_SizeYReq = m_ClMaxHeight;
-//		setIntegerParam( ADSizeY, m_ClMaxHeight	);
-	}
-
-	// Fetch the pixel depth and update ADBase DataType and BitsPerPixel
-    //m_ClNumBits		= pdv_get_depth(	m_pRogueLib );
-	if ( m_ClNumBits <= 8 )
-	{
-//		setIntegerParam( NDDataType,		NDUInt8	);
-	}
-	else if ( m_ClNumBits <= 16 )
-	{
-//		setIntegerParam( NDDataType,		NDUInt16 );
-	}
-
-	// Set the number of horizontal and vertical taps
-//	setIntegerParam( CamlinkHTaps,		m_ClHTaps	);
-//	setIntegerParam( CamlinkVTaps,		m_ClVTaps	);
-
-#endif
 
 #ifdef	SETUP_ROI_IN_RECONFIG
 	SetupROI();
@@ -781,22 +711,14 @@ void rogueDev::report( FILE * fp, int details )
 	{
 		fprintf( fp, "  Rogue name:       %s\n",   m_RogueName.c_str() );
 		fprintf( fp, "  Rogue model:      %s\n",   m_RogueModel.c_str() );
-		fprintf( fp, "  Config model:      %s\n",   m_ModelName.c_str() );
-		fprintf( fp, "  Config file:       %s\n",   m_ConfigFile.c_str() );
-		fprintf( fp, "  Drv Version:       %s\n",   m_DrvVersion.c_str() );
-		fprintf( fp, "  Lib Version:       %s\n",   m_LibVersion.c_str() );
-		fprintf( fp, "  board:              %u\n",   m_board );
-		fprintf( fp, "  Lane:              %u\n",   m_lane );
+		fprintf( fp, "  Config mode:      %s\n",   m_Mode.c_str() );
+		fprintf( fp, "  Config file:      %s\n",   m_ConfigFile.c_str() );
+		fprintf( fp, "  Drv Version:      %s\n",   m_DrvVersion.c_str() );
+		fprintf( fp, "  Lib Version:      %s\n",   m_LibVersion.c_str() );
+		fprintf( fp, "  board:            %u\n",   m_board );
+		fprintf( fp, "  Lane:             %u\n",   m_lane );
 
-//		fprintf( fp, "  Sensor bits:       %u\n",   m_ClNumBits );
-		fprintf( fp, "  Sensor width:      %zd\n",  m_ClMaxWidth );
-		fprintf( fp, "  Sensor height:     %zd\n",  m_ClMaxHeight );
-//		fprintf( fp, "  Horiz taps:        %d\n",   m_ClHTaps );
-//		fprintf( fp, "  Vert  taps:        %d\n",   m_ClVTaps );
-//		fprintf( fp, "  Mode:              %s\n",   CamlinkModeToString( m_CamlinkMode ) );
-	//      fprintf( fp, "  Trig Level:        %s\n",   TrigLevelToString( m_trigLevel ) );
 		fprintf( fp, "  TraceLevel:  	 %u\n",   GetTraceLevel() );
-//		fprintf( fp, "  Frame Count:       %u\n",   m_ArrayCounter );
 
         fprintf( fp, "\n" );
     }
@@ -813,8 +735,7 @@ rogueDevConfig(
 	const char	*	rogueName,
 	int				board,
 //	int				lane,
-//	const char	*	modelName,
-//	const char	*	clMode,
+//	const char	*	strMode,
 //	size_t			sizeX,
 //	size_t			sizeY,
 	bool			fLcls2Timing )
@@ -824,7 +745,7 @@ rogueDevConfig(
         errlogPrintf( "NULL or zero length camera name.\nUsage: rogueDevConfig(name,board,chan,config)\n");
         return  -1;
     }
-    if ( rogueDev::CreateRogue(	rogueName, board, 0, "noModel", "Base",
+    if ( rogueDev::CreateRogue(	rogueName, board, 0, "DataOnly",
 									10, 10, fLcls2Timing ) != 0 )
     {
         errlogPrintf( "rogueDevConfig failed for camera %s!\n", rogueName );

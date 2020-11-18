@@ -5,8 +5,7 @@ include $(TOP)/configure/CONFIG
 #=============================
 
 LIBRARY_IOC = rogueRegister
-#DBD += pgpCamlinkSupport.dbd
-#DBD += pgpClSerialDev.dbd
+DBD += pgpRogueDevSupport.dbd
 DBD += rogueRecords.dbd
 DBD += rogueSupport.dbd
 
@@ -15,14 +14,9 @@ LIB_SRCS   		+= rogueDev.cpp
 LIB_SRCS   		+= pgpRogueLib.cpp
 LIB_SRCS		+= rogueRecords.cpp
 
-#LIB_SRCS   		+= pgpCamlink.cpp
-#LIB_SRCS		+= ClSerialMaster.cpp
-#LIB_SRCS		+= ClSerialSlave.cpp
 LIB_SRCS		+= ClStreamSlave.cpp
-#LIB_SRCS		+= ImageStream.cpp
+LIB_SRCS		+= ImageStream.cpp
 LIB_SRCS		+= pgpRogueDev.cpp
-#LIB_SRCS		+= pgpClSerialDev.cpp
-#LIB_SRCS		+= asynPgpClSerial.cpp
 
 #LIB_LIBS		+= asyn
 #LIB_LIBS		+= $(EPICS_BASE_IOC_LIBS)
