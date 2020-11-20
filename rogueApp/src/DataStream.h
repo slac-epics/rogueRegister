@@ -1,5 +1,5 @@
-#ifndef	CL_STREAM_SLAVE_H
-#define	CL_STREAM_SLAVE_H
+#ifndef	DATA_STREAM_SLAVE_H
+#define	DATA_STREAM_SLAVE_H
 
 #ifndef	__STDC_FORMAT_MACROS
 #define	__STDC_FORMAT_MACROS
@@ -17,12 +17,12 @@
 
 class pgpRogueDev;
 
-typedef struct _ImageCbInfo
+typedef struct _DataCbInfo
 {
-	epicsTimeStamp						m_tsImage;
-	rogue::protocols::batcher::DataPtr	m_ImageDataPtr;
+	epicsTimeStamp						m_tsData;
+	rogue::protocols::batcher::DataPtr	m_DataPtr;
 
-}	ImageCbInfo;
+}	DataCbInfo;
 
 
 class DataStream : public rogue::interfaces::stream::Slave
@@ -31,15 +31,16 @@ public:
 
 	// Create a static class creator to return our custom class
 	// wrapped with a shared pointer
-	static std::shared_ptr<DataStream> create( pgpRogueDev * pRogueDev )
+	static std::shared_ptr<DataStream> create( pgpRogueDev * pRogueDev, const char * name )
 	{
-		static std::shared_ptr<DataStream> ret = std::make_shared<DataStream>( pRogueDev );
+		static std::shared_ptr<DataStream> ret = std::make_shared<DataStream>( pRogueDev, name );
 		return(ret);
 	}
 
-	DataStream( pgpRogueDev * pRogueDev )
+	DataStream( pgpRogueDev * pRogueDev, const char * name )
 		:	rogue::interfaces::stream::Slave( )
 		,	m_pRogueDev(	pRogueDev	)
+		,	m_StreamName(	name	)
 	{
 	}
 
@@ -48,14 +49,22 @@ public:
 
 	void frameCallback( CALLBACK * pCallbackPvt );
 
+	const std::string & getName( )
+	{
+		return m_StreamName;
+	}
+
 private:
 	pgpRogueDev		*	m_pRogueDev;
 	void			*	m_pCallbackClient;
-	ImageCbInfo			m_ImageInfo;
+	DataCbInfo			m_DataInfo;
+	std::string			m_StreamName;
+	uint32_t				m_ByteCount;
+	uint32_t				m_FrameCount;
 	rogue::protocols::batcher::CoreV1	m_FrameCore;
 };
 
 // Shared pointer alias
 typedef std::shared_ptr<DataStream> DataStreamPtr;
 
-#endif	/* CL_STREAM_SLAVE_H */
+#endif	/* DATA_STREAM_SLAVE_H */

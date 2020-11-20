@@ -114,13 +114,18 @@ pgpRogueDev::pgpRogueDev(
 	m_pDataChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
 	//m_pFebFrameChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
 
+	// Full rate unbatcher
+	m_pUnbatcher	= rogue::protocols::batcher::SplitterV1::create();
+	m_pDataChan->addSlave( m_pUnbatcher );
+
 	//
 	// Connect DATACHAN 1 Frame Stream
 	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
 		printf( "%s: Connecting DataChan to DataStream ...\n", functionName );
-	m_pDataStream	= DataStream::create(this);
+	m_pDataStream	= DataStream::create(this, "DataStream");
 	m_pDataChan->addSlave( m_pDataStream );
-	//rogueStreamConnect( m_pDataChan, m_pDataStream );
+	// or
+	// m_pUnbatcher->addSlave( m_pDataStream );
 
 	double	rateDropPeriod		= 1.0;	// seconds?
 	bool	rateDropUsePeriod	= true;
@@ -135,11 +140,12 @@ pgpRogueDev::pgpRogueDev(
 	m_pDataFifo	= ris::Fifo::create( 0, 0, false );
 	m_pRateDrop->addSlave( m_pDataFifo );
 	
-	// unbatchers
-	//m_pEpicsUnbatcher	= rogue::protocols::batcher::SplitterV1::create(this);
-	//m_pDataFifo->addSlave( m_pEpicsUnbatcher );
-	//m_pUnbatcher	= rogue::protocols::batcher::SplitterV1::create(this);
-	//m_pDataChan->addSlave( m_pUnbatcher );
+	// EPICS unbatcher
+	m_pEpicsUnbatcher	= rogue::protocols::batcher::SplitterV1::create();
+	m_pDataFifo->addSlave( m_pEpicsUnbatcher );
+
+	m_pEpicsDataStream	= DataStream::create(this, "EpicsStream");
+	m_pEpicsUnbatcher->addSlave( m_pEpicsDataStream );
 
 	m_fConnected = 1;	// Do we need this?
 	//StartRun( m_fd );
@@ -161,26 +167,26 @@ void pgpRogueDev::disconnect( )
 {
 }
 
-void pgpRogueDev::ProcessImage(
-	ImageCbInfo		* pImageInfo )
+void pgpRogueDev::ProcessData(
+	DataCbInfo		* pDataInfo )
 {
-	const char		*	functionName	= "pgpRogueDev::ProcessImage";
+	const char		*	functionName	= "pgpRogueDev::ProcessData";
 	if ( DEBUG_PGP_ROGUE_DEV >= 5 ) printf( "%s\n", functionName );
-	//epicsTimeStamp		tsImage	= pImageInfo->m_tsImage;
+	//epicsTimeStamp		tsData	= pDataInfo->m_tsData;
 
 	if  ( m_CallbackClientFunc != NULL )
-		(*m_CallbackClientFunc)( m_pCallbackClient, pImageInfo );
+		(*m_CallbackClientFunc)( m_pCallbackClient, pDataInfo );
 
 	return;
 }
 
-void pgpRogueDev::cancelImageCallbacks( )
+void pgpRogueDev::cancelDataCallbacks( )
 {
 	m_pCallbackClient		= NULL;
 	m_CallbackClientFunc	= NULL;
 }
 
-void pgpRogueDev::requestImageCallbacks( void * pClientContext, ImageCallback callbackFunction )
+void pgpRogueDev::requestDataCallbacks( void * pClientContext, DataCallback callbackFunction )
 {
 	m_pCallbackClient		= pClientContext;
 	m_CallbackClientFunc	= callbackFunction;

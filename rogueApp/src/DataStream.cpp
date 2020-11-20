@@ -28,18 +28,19 @@ extern int	DEBUG_PGP_ROGUE_DEV;
 void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 {
 	char        	acBuff[40];
-	const char	*	functionName	= "DataStream::acceptFrame";
+	const char	*	functionName	= "acceptFrame";
 	if ( !frame ) {
 		if ( DEBUG_PGP_ROGUE_DEV >= 2 )
-			printf( "%s: No frame!\n", functionName );
+			printf( "%s%s: No frame!\n", getName().c_str(), functionName );
 		return;
 	}
+	uint8_t	chanNum = frame->getChannel();
 	uint8_t	errNum = frame->getError();
 	if ( errNum ) {
 		// Error code 0x80 is expected when stopping acquisition as it indicates
 		// image data that arrived after we stopped.
 		if ( ( errNum != 0x80 ) || ( DEBUG_PGP_ROGUE_DEV >= 3 ) )
-			printf( "%s: frame error 0x%X!\n", functionName, errNum );
+			printf( "%s%s: Ch%d frame error 0x%X!\n", getName().c_str(), functionName, chanNum, errNum );
 		return;
 	}
 	// Above test not sufficient to avoid:
@@ -50,6 +51,9 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	// Acquire lock on frame. Will be released when lock class goes out of scope
 	rogue::interfaces::stream::FrameLockPtr lock = frame->lock();
 
+	m_FrameCount++;
+	m_ByteCount += frame->getPayload();
+
 	// Here we get an iterator to the frame data
 	rogue::interfaces::stream::FrameIterator it;
 	it = frame->begin();
@@ -57,6 +61,18 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	// Timestamp should default to TOD
 	epicsTimeStamp		ts;
 	epicsTimeGetCurrent( &ts );
+
+	// From wave8-git/firmware/python/wave8/RawDataReceiver.py
+	// # Get data from frame
+	// loadSize = frame.getPayload()
+	// dat = bytearray(loadSize)
+	// frame.read(dat,0)
+	// ris::fromFrame( it, loadSize, dat )
+	//
+	// array = []
+	// array = [	int.from_bytes( dat[i:i+2], byteorder='little', signed=False )
+	// 					for i in range(0,loadSize,2)	]
+	//
 
 	// Process frame via CoreV1 protocol
 	m_FrameCore.processFrame(frame);
@@ -66,7 +82,8 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 		// FUSER_BIT_1 = StartOfFrame
 		// LUSER_BIT_0 = FrameError
 		if ( DEBUG_PGP_ROGUE_DEV >= 4 )
-			printf( "DataStream::acceptFrame SubFrame %d, dest=%u, size=%u, fUser=0x%02x, lUser=0x%02x\n",
+			printf( "%s::%s SubFrame %d, dest=%u, size=%u, fUser=0x%02x, lUser=0x%02x\n",
+					getName().c_str(), functionName,
 					sf, data->dest(), data->size(), data->fUser(), data->lUser() );
 		if ( data->dest() == 0 )
 		{	// TDEST 0 is Trigger (Timing Event)
@@ -77,8 +94,9 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 			epicsTimeToStrftime( acBuff, 40, "%H:%M:%S.%04f", &ts );
 			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
 			{
-				printf( "%s TDEST 0 SubFrame %d, ts %s, pulseId 0x%X\n",
-						functionName, sf, acBuff, ts.nsec & 0x1FFFF );
+				printf( "%s::%s TDEST 0 SubFrame %d, ts %s, pulseId 0x%X\n",
+						getName().c_str(), functionName,
+						sf, acBuff, ts.nsec & 0x1FFFF );
 			}
 		}
 		else if ( data->dest() == 1 )
@@ -89,7 +107,7 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 		}
 		else if ( data->dest() == 2 )
 		{	// TDEST 2 is framegrabber image data
-			m_ImageInfo.m_ImageDataPtr = data;
+			m_DataInfo.m_DataPtr = data;
 			uint32_t	size	= data->end() - data->begin();
 			//uint8_t	*	dataPtr	= data->begin().ptr();
 			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
@@ -100,10 +118,10 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	// Process image
 	if ( m_pRogueDev )
 	{
-		m_ImageInfo.m_tsImage			= ts;
-		if ( !m_ImageInfo.m_ImageDataPtr && ( DEBUG_PGP_ROGUE_DEV >= 4 ) )
+		m_DataInfo.m_tsData			= ts;
+		if ( !m_DataInfo.m_DataPtr && ( DEBUG_PGP_ROGUE_DEV >= 4 ) )
 			printf( "ts %s, pulseId 0x%X, no image!\n", acBuff, ts.nsec & 0x1FFFF );
-		m_pRogueDev->ProcessImage( &m_ImageInfo );
-		m_ImageInfo.m_ImageDataPtr.reset();
+		m_pRogueDev->ProcessData( &m_DataInfo );
+		m_DataInfo.m_DataPtr.reset();
 	}
 }

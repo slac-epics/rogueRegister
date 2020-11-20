@@ -33,6 +33,7 @@
 #include <rogue/interfaces/stream/RateDrop.h>
 #include <rogue/interfaces/stream/Slave.h>
 #include <rogue/interfaces/stream/Master.h>
+#include <rogue/protocols/batcher/SplitterV1.h>
 
 // ADPgpCamlink headers
 #include "DataStream.h"
@@ -40,7 +41,7 @@
 #define PGP_DATACHAN_REG_ACCESS		0
 #define PGP_DATACHAN_FRAME_ACCESS	1
 
-typedef int (* ImageCallback)( void * pClientContext, ImageCbInfo * pCbInfo );
+typedef int (* DataCallback)( void * pClientContext, DataCbInfo * pCbInfo );
 
 
 ///	pgpRogueDev class
@@ -76,14 +77,14 @@ public:		//	Public member functions
 		return m_LibVersion;
 	}
 
-	void ProcessImage(	ImageCbInfo				*	pCbInfo );
+	void ProcessData(	DataCbInfo				*	pCbInfo );
 
 	void ResetCounters();
 
-	void cancelImageCallbacks( );
+	void cancelDataCallbacks( );
 
-	void requestImageCallbacks(	void			*	pCallbackClient,
-								ImageCallback		CallbackClientFunc );
+	void requestDataCallbacks(	void			*	pCallbackClient,
+								DataCallback		CallbackClientFunc );
 
 	int		setTriggerEnable( unsigned int triggerNum, bool fEnable );
 
@@ -100,16 +101,7 @@ private:
 
 	///
 	// Firmware Lane assignments:
-	// Lane 0: First camera
-	// Lane 1: 2nd camera,
-	// Lane 2: 3rd camera
-	// Lane 3: 4th camera
-	//
-	// PGP channel mapping
-	// PGP[lane].VC[0] = SRPv3 (register access)
-	// PGP[lane].VC[1] = Camera Image (streaming data)
-	// PGP[lane].VC[2] = Camera UART (serial I/O)
-	// PGP[lane].VC[3] = Unused
+	// Lane 0: Wave8
 	//
 	// DMA channel mapping
 	// DMA[lane].DEST[0] = SRPv3
@@ -125,9 +117,12 @@ private:
 	DataStreamPtr								m_pDataStream;
 	rogue::interfaces::stream::FifoPtr			m_pDataFifo;
 	rogue::interfaces::stream::RateDropPtr		m_pRateDrop;
+	rogue::protocols::batcher::SplitterV1Ptr	m_pUnbatcher;
+	DataStreamPtr								m_pEpicsDataStream;
+	rogue::protocols::batcher::SplitterV1Ptr	m_pEpicsUnbatcher;
 
 	void									*	m_pCallbackClient;
-	ImageCallback								m_CallbackClientFunc;
+	DataCallback								m_CallbackClientFunc;
 };
 
 // Shared pointer alias
