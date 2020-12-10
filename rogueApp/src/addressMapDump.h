@@ -17,6 +17,156 @@
      "Top.AxiVersion.GitHash	UInt160	0x600	0x600	RO	[0]	[160]	0	1461501637330902918203684832716283019655932542975	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.AxiVersion.GitHash	0x14	0	160	160	0	GIT SHA-1 Hash|"\
      "Top.AxiVersion.DeviceDna	UInt128	0x700	0x700	RO	[0]	[128]	0	340282366920938463463374607431768211455	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.AxiVersion.DeviceDna	0x10	0	128	128	0	Xilinx Device DNA value burned into FPGA|"\
      "Top.AxiVersion.BuildStamp	String(256)	0x800	0x800	RO	[0]	[2048]	None	None	None	False	True	5	False	False	0	True	True	Unnamed_5	Top.AxiVersion.BuildStamp	0x100	0	2048	2048	0	Firmware Build String|"\
+     "Top.PgpMon[0].CountReset	UInt1	0x2000000	0x0	WO	[0]	[1]	0	1	None	False	False	2	False	False	0	False	True	Unnamed_5	Top.PgpMon[0].CountReset	0x4	0	1	1	0	|"\
+     "Top.PgpMon[0].AutoStatus	Bool	0x2000004	0x4	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].AutoStatus	0x4	0	1	1	0	Auto Status Send Enable (PPI)|"\
+     "Top.PgpMon[0].Loopback	UInt3	0x2000008	0x8	RO	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].Loopback	0x4	0	3	3	0	GT Loopback Mode|"\
+     "Top.PgpMon[0].SkipInterval	UInt32	0x200000c	0xc	RW	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].SkipInterval	0x4	0	32	32	0	|"\
+     "Top.PgpMon[0].RxPhyActive	Bool	0x2000010	0x10	RO	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxPhyActive	0x4	0	1	1	0	RX Phy is Ready|"\
+     "Top.PgpMon[0].RxLocalLinkReady	Bool	0x2000010	0x10	RO	[1]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxPhyActive	0x4	0	1	1	0	Rx Local Link Ready|"\
+     "Top.PgpMon[0].RxRemLinkReady	Bool	0x2000010	0x10	RO	[2]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxPhyActive	0x4	0	1	1	0	Rx Remote Link Ready|"\
+     "Top.PgpMon[0].RxRemPause	UInt4	0x2000020	0x20	RO	[16]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemPause	0x4	0	4	4	0	RX Remote Pause Asserted|"\
+     "Top.PgpMon[0].RxRemOverflow	UInt4	0x2000020	0x20	RO	[0]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemPause	0x4	0	4	4	0	Received remote overflow flag|"\
+     "Top.PgpMon[0].RxClockFreqRaw	UInt32	0x200002c	0x2c	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxClockFreqRaw	0x4	0	32	32	0	|"\
+     "Top.PgpMon[0].RxFrameCount	UInt16	0x2000024	0x24	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxFrameCount	0x4	0	16	16	0	|"\
+     "Top.PgpMon[0].RxFrameErrorCount	UInt8	0x2000028	0x28	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxFrameErrorCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxCellErrorCount	UInt8	0x2000014	0x14	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxCellErrorCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxLinkDownCount	UInt8	0x2000018	0x18	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxLinkDownCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxLinkErrorCount	UInt8	0x200001c	0x1c	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxLinkErrorCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[0]	UInt8	0x2000040	0x40	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[0]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[1]	UInt8	0x2000044	0x44	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[1]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[2]	UInt8	0x2000048	0x48	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[2]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[3]	UInt8	0x200004c	0x4c	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[3]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[4]	UInt8	0x2000050	0x50	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[4]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[5]	UInt8	0x2000054	0x54	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[5]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[6]	UInt8	0x2000058	0x58	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[6]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[7]	UInt8	0x200005c	0x5c	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[7]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[8]	UInt8	0x2000060	0x60	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[8]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[9]	UInt8	0x2000064	0x64	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[9]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[10]	UInt8	0x2000068	0x68	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[10]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[11]	UInt8	0x200006c	0x6c	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[11]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[12]	UInt8	0x2000070	0x70	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[12]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[13]	UInt8	0x2000074	0x74	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[13]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[14]	UInt8	0x2000078	0x78	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[14]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxRemOverflowCount[15]	UInt8	0x200007c	0x7c	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxRemOverflowCount[15]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxOpCodeCount	UInt8	0x2000030	0x30	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxOpCodeCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].RxOpCodeDataLastRaw	UInt56	0x2000034	0x34	RO	[0]	[56]	0	72057594037927935	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxOpCodeDataLastRaw	0x8	0	56	56	0	|"\
+     "Top.PgpMon[0].RxOpCodeNumLastRaw	UInt3	0x2000034	0x34	RO	[56]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RxOpCodeDataLastRaw	0x8	0	3	3	0	|"\
+     "Top.PgpMon[0].PhyRxValid	UInt1	0x2000108	0x108	RO	[2]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].PhyRxValid	0x4	0	1	1	0	|"\
+     "Top.PgpMon[0].PhyRxData	UInt64	0x2000100	0x100	RO	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].PhyRxData	0x8	0	64	64	0	|"\
+     "Top.PgpMon[0].PhyRxHeader	UInt2	0x2000108	0x108	RO	[0]	[2]	0	3	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].PhyRxValid	0x4	0	2	2	0	|"\
+     "Top.PgpMon[0].EbRxValid	UInt1	0x2000118	0x118	RO	[2]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].EbRxValid	0x4	0	1	1	0	|"\
+     "Top.PgpMon[0].EbRxData	UInt64	0x2000110	0x110	RO	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].EbRxData	0x8	0	64	64	0	|"\
+     "Top.PgpMon[0].EbRxHeader	UInt2	0x2000118	0x118	RO	[0]	[2]	0	3	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].EbRxValid	0x4	0	2	2	0	|"\
+     "Top.PgpMon[0].EbRxStatus	UInt9	0x2000118	0x118	RO	[3]	[9]	0	511	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].EbRxValid	0x4	0	9	9	0	|"\
+     "Top.PgpMon[0].EbRxOverflow	UInt1	0x200011c	0x11c	RO	[0]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].EbRxOverflow	0x4	0	1	1	0	|"\
+     "Top.PgpMon[0].EbRxOverflowCnt	UInt8	0x200011c	0x11c	RO	[1]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].EbRxOverflow	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].GearboxAligned	UInt1	0x2000120	0x120	RO	[0]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].GearboxAligned	0x4	0	1	1	0	|"\
+     "Top.PgpMon[0].GearboxAlignCnt	UInt8	0x2000120	0x120	RO	[8]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].GearboxAligned	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].PhyRxInitCnt	UInt4	0x2000130	0x130	RO	[0]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].PhyRxInitCnt	0x4	0	4	4	0	|"\
+     "Top.PgpMon[0].RemLinkData	UInt56	0x2000138	0x138	RO	[0]	[56]	0	72057594037927935	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].RemLinkData	0x8	0	56	56	0	|"\
+     "Top.PgpMon[0].FlowControlDisable	Bool	0x2000080	0x80	RO	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].FlowControlDisable	0x4	0	1	1	0	|"\
+     "Top.PgpMon[0].TxDisable	Bool	0x2000080	0x80	RO	[1]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].FlowControlDisable	0x4	0	1	1	0	|"\
+     "Top.PgpMon[0].TxPhyActive	Bool	0x2000084	0x84	RO	[1]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxPhyActive	0x4	0	1	1	0	TX Phy is Ready|"\
+     "Top.PgpMon[0].TxLinkReady	Bool	0x2000084	0x84	RO	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxPhyActive	0x4	0	1	1	0	|"\
+     "Top.PgpMon[0].TxLocPause	UInt4	0x200008c	0x8c	RO	[16]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocPause	0x4	0	4	4	0	Tx Local Pause Asserted|"\
+     "Top.PgpMon[0].TxLocOverflow	UInt4	0x200008c	0x8c	RO	[0]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocPause	0x4	0	4	4	0	Received local overflow flag|"\
+     "Top.PgpMon[0].TxClockFreqRaw	UInt32	0x200009c	0x9c	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxClockFreqRaw	0x4	0	32	32	0	|"\
+     "Top.PgpMon[0].TxFrameCount	UInt16	0x2000090	0x90	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxFrameCount	0x4	0	16	16	0	|"\
+     "Top.PgpMon[0].TxFrameErrorCount	UInt8	0x2000094	0x94	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxFrameErrorCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[0]	UInt8	0x20000b0	0xb0	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[0]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[1]	UInt8	0x20000b4	0xb4	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[1]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[2]	UInt8	0x20000b8	0xb8	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[2]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[3]	UInt8	0x20000bc	0xbc	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[3]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[4]	UInt8	0x20000c0	0xc0	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[4]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[5]	UInt8	0x20000c4	0xc4	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[5]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[6]	UInt8	0x20000c8	0xc8	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[6]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[7]	UInt8	0x20000cc	0xcc	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[7]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[8]	UInt8	0x20000d0	0xd0	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[8]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[9]	UInt8	0x20000d4	0xd4	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[9]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[10]	UInt8	0x20000d8	0xd8	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[10]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[11]	UInt8	0x20000dc	0xdc	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[11]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[12]	UInt8	0x20000e0	0xe0	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[12]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[13]	UInt8	0x20000e4	0xe4	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[13]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[14]	UInt8	0x20000e8	0xe8	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[14]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxLocOverflowCount[15]	UInt8	0x20000ec	0xec	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxLocOverflowCount[15]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxOpCodeCount	UInt8	0x20000a0	0xa0	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxOpCodeCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[0].TxOpCodeDataLastRaw	UInt56	0x20000a4	0xa4	RO	[0]	[56]	0	72057594037927935	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxOpCodeDataLastRaw	0x8	0	56	56	0	|"\
+     "Top.PgpMon[0].TxOpCodeNumLastRaw	UInt3	0x20000a4	0xa4	RO	[56]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[0].TxOpCodeDataLastRaw	0x8	0	3	3	0	|"\
+     "Top.PgpMon[1].CountReset	UInt1	0x2002000	0x0	WO	[0]	[1]	0	1	None	False	False	2	False	False	0	False	True	Unnamed_5	Top.PgpMon[1].CountReset	0x4	0	1	1	0	|"\
+     "Top.PgpMon[1].AutoStatus	Bool	0x2002004	0x4	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].AutoStatus	0x4	0	1	1	0	Auto Status Send Enable (PPI)|"\
+     "Top.PgpMon[1].Loopback	UInt3	0x2002008	0x8	RO	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].Loopback	0x4	0	3	3	0	GT Loopback Mode|"\
+     "Top.PgpMon[1].SkipInterval	UInt32	0x200200c	0xc	RW	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].SkipInterval	0x4	0	32	32	0	|"\
+     "Top.PgpMon[1].RxPhyActive	Bool	0x2002010	0x10	RO	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxPhyActive	0x4	0	1	1	0	RX Phy is Ready|"\
+     "Top.PgpMon[1].RxLocalLinkReady	Bool	0x2002010	0x10	RO	[1]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxPhyActive	0x4	0	1	1	0	Rx Local Link Ready|"\
+     "Top.PgpMon[1].RxRemLinkReady	Bool	0x2002010	0x10	RO	[2]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxPhyActive	0x4	0	1	1	0	Rx Remote Link Ready|"\
+     "Top.PgpMon[1].RxRemPause	UInt4	0x2002020	0x20	RO	[16]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemPause	0x4	0	4	4	0	RX Remote Pause Asserted|"\
+     "Top.PgpMon[1].RxRemOverflow	UInt4	0x2002020	0x20	RO	[0]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemPause	0x4	0	4	4	0	Received remote overflow flag|"\
+     "Top.PgpMon[1].RxClockFreqRaw	UInt32	0x200202c	0x2c	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxClockFreqRaw	0x4	0	32	32	0	|"\
+     "Top.PgpMon[1].RxFrameCount	UInt16	0x2002024	0x24	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxFrameCount	0x4	0	16	16	0	|"\
+     "Top.PgpMon[1].RxFrameErrorCount	UInt8	0x2002028	0x28	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxFrameErrorCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxCellErrorCount	UInt8	0x2002014	0x14	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxCellErrorCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxLinkDownCount	UInt8	0x2002018	0x18	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxLinkDownCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxLinkErrorCount	UInt8	0x200201c	0x1c	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxLinkErrorCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[0]	UInt8	0x2002040	0x40	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[0]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[1]	UInt8	0x2002044	0x44	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[1]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[2]	UInt8	0x2002048	0x48	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[2]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[3]	UInt8	0x200204c	0x4c	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[3]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[4]	UInt8	0x2002050	0x50	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[4]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[5]	UInt8	0x2002054	0x54	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[5]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[6]	UInt8	0x2002058	0x58	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[6]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[7]	UInt8	0x200205c	0x5c	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[7]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[8]	UInt8	0x2002060	0x60	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[8]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[9]	UInt8	0x2002064	0x64	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[9]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[10]	UInt8	0x2002068	0x68	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[10]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[11]	UInt8	0x200206c	0x6c	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[11]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[12]	UInt8	0x2002070	0x70	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[12]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[13]	UInt8	0x2002074	0x74	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[13]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[14]	UInt8	0x2002078	0x78	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[14]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxRemOverflowCount[15]	UInt8	0x200207c	0x7c	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxRemOverflowCount[15]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxOpCodeCount	UInt8	0x2002030	0x30	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxOpCodeCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].RxOpCodeDataLastRaw	UInt56	0x2002034	0x34	RO	[0]	[56]	0	72057594037927935	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxOpCodeDataLastRaw	0x8	0	56	56	0	|"\
+     "Top.PgpMon[1].RxOpCodeNumLastRaw	UInt3	0x2002034	0x34	RO	[56]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RxOpCodeDataLastRaw	0x8	0	3	3	0	|"\
+     "Top.PgpMon[1].PhyRxValid	UInt1	0x2002108	0x108	RO	[2]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].PhyRxValid	0x4	0	1	1	0	|"\
+     "Top.PgpMon[1].PhyRxData	UInt64	0x2002100	0x100	RO	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].PhyRxData	0x8	0	64	64	0	|"\
+     "Top.PgpMon[1].PhyRxHeader	UInt2	0x2002108	0x108	RO	[0]	[2]	0	3	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].PhyRxValid	0x4	0	2	2	0	|"\
+     "Top.PgpMon[1].EbRxValid	UInt1	0x2002118	0x118	RO	[2]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].EbRxValid	0x4	0	1	1	0	|"\
+     "Top.PgpMon[1].EbRxData	UInt64	0x2002110	0x110	RO	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].EbRxData	0x8	0	64	64	0	|"\
+     "Top.PgpMon[1].EbRxHeader	UInt2	0x2002118	0x118	RO	[0]	[2]	0	3	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].EbRxValid	0x4	0	2	2	0	|"\
+     "Top.PgpMon[1].EbRxStatus	UInt9	0x2002118	0x118	RO	[3]	[9]	0	511	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].EbRxValid	0x4	0	9	9	0	|"\
+     "Top.PgpMon[1].EbRxOverflow	UInt1	0x200211c	0x11c	RO	[0]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].EbRxOverflow	0x4	0	1	1	0	|"\
+     "Top.PgpMon[1].EbRxOverflowCnt	UInt8	0x200211c	0x11c	RO	[1]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].EbRxOverflow	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].GearboxAligned	UInt1	0x2002120	0x120	RO	[0]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].GearboxAligned	0x4	0	1	1	0	|"\
+     "Top.PgpMon[1].GearboxAlignCnt	UInt8	0x2002120	0x120	RO	[8]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].GearboxAligned	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].PhyRxInitCnt	UInt4	0x2002130	0x130	RO	[0]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].PhyRxInitCnt	0x4	0	4	4	0	|"\
+     "Top.PgpMon[1].RemLinkData	UInt56	0x2002138	0x138	RO	[0]	[56]	0	72057594037927935	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].RemLinkData	0x8	0	56	56	0	|"\
+     "Top.PgpMon[1].FlowControlDisable	Bool	0x2002080	0x80	RO	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].FlowControlDisable	0x4	0	1	1	0	|"\
+     "Top.PgpMon[1].TxDisable	Bool	0x2002080	0x80	RO	[1]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].FlowControlDisable	0x4	0	1	1	0	|"\
+     "Top.PgpMon[1].TxPhyActive	Bool	0x2002084	0x84	RO	[1]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxPhyActive	0x4	0	1	1	0	TX Phy is Ready|"\
+     "Top.PgpMon[1].TxLinkReady	Bool	0x2002084	0x84	RO	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxPhyActive	0x4	0	1	1	0	|"\
+     "Top.PgpMon[1].TxLocPause	UInt4	0x200208c	0x8c	RO	[16]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocPause	0x4	0	4	4	0	Tx Local Pause Asserted|"\
+     "Top.PgpMon[1].TxLocOverflow	UInt4	0x200208c	0x8c	RO	[0]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocPause	0x4	0	4	4	0	Received local overflow flag|"\
+     "Top.PgpMon[1].TxClockFreqRaw	UInt32	0x200209c	0x9c	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxClockFreqRaw	0x4	0	32	32	0	|"\
+     "Top.PgpMon[1].TxFrameCount	UInt16	0x2002090	0x90	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxFrameCount	0x4	0	16	16	0	|"\
+     "Top.PgpMon[1].TxFrameErrorCount	UInt8	0x2002094	0x94	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxFrameErrorCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[0]	UInt8	0x20020b0	0xb0	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[0]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[1]	UInt8	0x20020b4	0xb4	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[1]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[2]	UInt8	0x20020b8	0xb8	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[2]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[3]	UInt8	0x20020bc	0xbc	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[3]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[4]	UInt8	0x20020c0	0xc0	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[4]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[5]	UInt8	0x20020c4	0xc4	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[5]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[6]	UInt8	0x20020c8	0xc8	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[6]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[7]	UInt8	0x20020cc	0xcc	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[7]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[8]	UInt8	0x20020d0	0xd0	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[8]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[9]	UInt8	0x20020d4	0xd4	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[9]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[10]	UInt8	0x20020d8	0xd8	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[10]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[11]	UInt8	0x20020dc	0xdc	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[11]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[12]	UInt8	0x20020e0	0xe0	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[12]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[13]	UInt8	0x20020e4	0xe4	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[13]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[14]	UInt8	0x20020e8	0xe8	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[14]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxLocOverflowCount[15]	UInt8	0x20020ec	0xec	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxLocOverflowCount[15]	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxOpCodeCount	UInt8	0x20020a0	0xa0	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxOpCodeCount	0x4	0	8	8	0	|"\
+     "Top.PgpMon[1].TxOpCodeDataLastRaw	UInt56	0x20020a4	0xa4	RO	[0]	[56]	0	72057594037927935	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxOpCodeDataLastRaw	0x8	0	56	56	0	|"\
+     "Top.PgpMon[1].TxOpCodeNumLastRaw	UInt3	0x20020a4	0xa4	RO	[56]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.PgpMon[1].TxOpCodeDataLastRaw	0x8	0	3	3	0	|"\
      "Top.SystemRegs.AvccEn0	Bool	0x100000	0x0	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.AvccEn0	0x4	0	1	1	0	Enable AVCC0 DCDC|"\
      "Top.SystemRegs.AvccEn1	Bool	0x100000	0x0	RW	[1]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.AvccEn0	0x4	0	1	1	0	Enable AVCC1 DCDC|"\
      "Top.SystemRegs.Ap5V5En	Bool	0x100000	0x0	RW	[2]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.AvccEn0	0x4	0	1	1	0	Enable analog buffers 5.5V DCDC|"\
@@ -29,7 +179,7 @@
      "Top.SystemRegs.AdcCtrl1	Bool	0x100004	0x4	RW	[1]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.AdcReset	0x4	0	1	1	0	ADC Cntrl 1|"\
      "Top.SystemRegs.AdcCtrl2	Bool	0x100004	0x4	RW	[2]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.AdcReset	0x4	0	1	1	0	ADC Cntrl 2|"\
      "Top.SystemRegs.TrigEn	Bool	0x100100	0x100	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.TrigEn	0x4	0	1	1	0	Trigger enable|"\
-     "Top.SystemRegs.TrigSrcSel	UInt3	0x100104	0x104	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.SystemRegs.TrigSrcSel	0x4	0	3	3	0	Trigger source select|"\
+     "Top.SystemRegs.TrigSrcSel	UInt3	0x100104	0x104	RW	[0]	[3]	0	7	{0: 'ExternalTTL', 1: 'SoftwareTrig', 2: 'Reserved[2]', 3: 'Reserved[3]', 4: 'Reserved[4]', 5: 'Reserved[5]', 6: 'Reserved[6]', 7: 'InternalAutoTrig'}	False	True	2	False	False	0	True	True	Unnamed_5	Top.SystemRegs.TrigSrcSel	0x4	0	3	3	0	Trigger source select|"\
      "Top.SystemRegs.TrigDelay	UInt32	0x100108	0x108	RW	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.SystemRegs.TrigDelay	0x4	0	32	32	0	Trigger delay|"\
      "Top.SystemRegs.AutoTrigEn	Bool	0x10010c	0x10c	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.AutoTrigEn	0x4	0	1	1	0	Auto Trigger enable|"\
      "Top.SystemRegs.AutoTrigPeriod	UInt32	0x100110	0x110	RW	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.SystemRegs.AutoTrigPeriod	0x4	0	32	32	0	Auto Trigger period|"\
@@ -223,6 +373,28 @@ limit condition when this bit is HIGH.|"\
      "Top.BatcherEventBuilder.TimerRst	UInt1	0x4000ffc	0xffc	WO	[1]	[1]	0	1	None	False	False	2	False	False	0	False	True	Unnamed_5	Top.BatcherEventBuilder.CntRst	0x4	0	1	1	0	|"\
      "Top.BatcherEventBuilder.HardRst	UInt1	0x4000ffc	0xffc	WO	[2]	[1]	0	1	None	False	False	2	False	False	0	False	True	Unnamed_5	Top.BatcherEventBuilder.CntRst	0x4	0	1	1	0	|"\
      "Top.BatcherEventBuilder.SoftRst	UInt1	0x4000ffc	0xffc	WO	[3]	[1]	0	1	None	False	False	2	False	False	0	False	True	Unnamed_5	Top.BatcherEventBuilder.CntRst	0x4	0	1	1	0	|"\
+     "Top.TimingFrameRx.sofCount	UInt32	0x5200000	0x0	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.sofCount	0x4	0	32	32	0	Start of frame count|"\
+     "Top.TimingFrameRx.eofCount	UInt32	0x5200004	0x4	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.eofCount	0x4	0	32	32	0	End of frame count|"\
+     "Top.TimingFrameRx.FidCount	UInt32	0x5200008	0x8	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.FidCount	0x4	0	32	32	0	Valid frame count|"\
+     "Top.TimingFrameRx.CrcErrCount	UInt32	0x520000c	0xc	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.CrcErrCount	0x4	0	32	32	0	CRC error count|"\
+     "Top.TimingFrameRx.RxClkCount	UInt32	0x5200010	0x10	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.RxClkCount	0x4	0	32	32	0	Recovered clock count div 16|"\
+     "Top.TimingFrameRx.RxRstCount	UInt32	0x5200014	0x14	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.RxRstCount	0x4	0	32	32	0	Receive link reset count|"\
+     "Top.TimingFrameRx.RxDecErrCount	UInt32	0x5200018	0x18	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.RxDecErrCount	0x4	0	32	32	0	Receive 8b/10b decode error count|"\
+     "Top.TimingFrameRx.RxDspErrCount	UInt32	0x520001c	0x1c	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.RxDspErrCount	0x4	0	32	32	0	Receive disparity error count|"\
+     "Top.TimingFrameRx.ClearRxCounters	UInt1	0x5200020	0x20	WO	[0]	[1]	0	1	None	False	False	2	False	False	0	False	True	Unnamed_5	Top.TimingFrameRx.ClearRxCounters	0x4	0	1	1	0	Reset receive counters|"\
+     "Top.TimingFrameRx.RxLinkUp	UInt1	0x5200020	0x20	RO	[1]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.ClearRxCounters	0x4	0	1	1	0	Receive link status|"\
+     "Top.TimingFrameRx.RxPolarity	UInt1	0x5200020	0x20	RW	[2]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.ClearRxCounters	0x4	0	1	1	0	Invert receive link polarity|"\
+     "Top.TimingFrameRx.C_RxReset	UInt1	0x5200020	0x20	WO	[3]	[1]	0	1	None	False	False	2	False	False	0	False	True	Unnamed_5	Top.TimingFrameRx.ClearRxCounters	0x4	0	1	1	0	Reset receive link|"\
+     "Top.TimingFrameRx.ClkSel	UInt1	0x5200020	0x20	RW	[4]	[1]	0	1	{0: 'LCLS-I Clock', 1: 'LCLS-II Clock'}	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.ClearRxCounters	0x4	0	1	1	0	Select LCLS-I/LCLS-II Timing|"\
+     "Top.TimingFrameRx.RxDown	UInt1	0x5200020	0x20	RW	[5]	[1]	0	1	None	False	False	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.ClearRxCounters	0x4	0	1	1	0	Rx down latch status|"\
+     "Top.TimingFrameRx.BypassRst	UInt1	0x5200020	0x20	RW	[6]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.ClearRxCounters	0x4	0	1	1	0	Buffer bypass reset status|"\
+     "Top.TimingFrameRx.RxPllReset	UInt1	0x5200020	0x20	WO	[7]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.ClearRxCounters	0x4	0	1	1	0	Reset RX PLL|"\
+     "Top.TimingFrameRx.ModeSel	UInt1	0x5200020	0x20	RW	[9]	[1]	0	1	{0: 'Lcls1Protocol', 1: 'Lcls2Protocol'}	False	False	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.ClearRxCounters	0x4	0	1	1	0	Select timing mode|"\
+     "Top.TimingFrameRx.ModeSelEn	UInt1	0x5200020	0x20	RW	[10]	[1]	0	1	{0: 'UseClkSel', 1: 'UseModeSel'}	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.ClearRxCounters	0x4	0	1	1	0	Enable ModeSel register|"\
+     "Top.TimingFrameRx.MsgDelay	UInt20	0x5200024	0x24	RW	[0]	[20]	0	1048575	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.MsgDelay	0x4	0	20	20	0	LCLS-II timing frame pipeline delay (186MHz clks)|"\
+     "Top.TimingFrameRx.TxClkCount	UInt32	0x5200028	0x28	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.TxClkCount	0x4	0	32	32	0	Transmit clock counter div 16|"\
+     "Top.TimingFrameRx.BypassDoneCount	UInt16	0x520002c	0x2c	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.BypassDoneCount	0x4	0	16	16	0	Buffer bypass done count|"\
+     "Top.TimingFrameRx.BypassResetCount	UInt16	0x520002c	0x2c	RO	[16]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TimingFrameRx.BypassDoneCount	0x4	0	16	16	0	Buffer bypass reset count|"\
      "Top.XpmMiniWrapper.TPGMiniCore.TxPolarity	UInt1	0x5300000	0x0	RW	[1]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.XpmMiniWrapper.TPGMiniCore.TxPolarity	0x4	0	1	1	0	Invert transmit link polarity|"\
      "Top.XpmMiniWrapper.TPGMiniCore.TxLoopback	UInt3	0x5300000	0x0	RW	[2]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.XpmMiniWrapper.TPGMiniCore.TxPolarity	0x4	0	3	3	0	Set transmit link loopback|"\
      "Top.XpmMiniWrapper.TPGMiniCore.TxInhibit	UInt1	0x5300000	0x0	RW	[5]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.XpmMiniWrapper.TPGMiniCore.TxPolarity	0x4	0	1	1	0	Set transmit link inhibit|"\
@@ -306,6 +478,19 @@ limit condition when this bit is HIGH.|"\
      "Top.XpmMiniWrapper.XpmMini.Pipeline_Depth_Clks	UInt16	0x5301048	0x48	RW	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.XpmMiniWrapper.XpmMini.Pipeline_Depth_Clks	0x4	0	16	16	0	|"\
      "Top.XpmMiniWrapper.XpmMini.Pipeline_Depth_Fids	UInt8	0x5301048	0x48	RW	[16]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.XpmMiniWrapper.XpmMini.Pipeline_Depth_Clks	0x4	0	8	8	0	|"\
      "Top.XpmMiniWrapper.XpmMini.PartitionMessage_Hdr	UInt16	0x530104c	0x4c	WO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.XpmMiniWrapper.XpmMini.PartitionMessage_Hdr	0x4	0	16	16	0	|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].EnableReg	Bool	0x5400000	0x0	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].EnableReg	0x4	0	1	1	0	Enable Register|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].RateType	UInt2	0x5400004	0x4	RW	[11]	[2]	0	3	{0: 'FixedRates', 1: 'AcRates', 2: 'ControlWord', 3: 'INVALID'}	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].RateType	0x4	0	2	2	0	|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].RateSel	UInt11	0x5400004	0x4	RW	[0]	[11]	0	2047	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].RateType	0x4	0	11	11	0	Rate select|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].DestType	UInt2	0x5400004	0x4	RW	[29]	[2]	0	3	{2: 'All', 0: 'BeamRequest', 1: 'NotBeamRequest', 3: 'Invalid'}	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].RateType	0x4	0	2	2	0	|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].DestSel	UInt16	0x5400004	0x4	RW	[13]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].RateType	0x4	0	16	16	0	Destination select|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].Count	UInt32	0x5400008	0x8	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].Count	0x4	0	32	32	0	Counts|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].EnableTrig	Bool	0x5401000	0x0	RW	[31]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].EnableTrig	0x4	0	1	1	0	Trigger Enable|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Source	UInt4	0x5401000	0x0	RW	[0]	[4]	0	15	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].EnableTrig	0x4	0	4	4	0	Source mask|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Polarity	UInt1	0x5401000	0x0	RW	[16]	[1]	0	1	{0: 'Falling', 1: 'Rising'}	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].EnableTrig	0x4	0	1	1	0	Signal polarity|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].ComplEn	UInt1	0x5401000	0x0	RW	[29]	[1]	0	1	{0: 'Disabled', 1: 'Enabled'}	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].EnableTrig	0x4	0	1	1	0	Enable complementary trigger outputs|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].ComplAnd	UInt1	0x5401000	0x0	RW	[30]	[1]	0	1	{0: 'LogicOR', 1: 'LogicAND'}	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].EnableTrig	0x4	0	1	1	0	Complementary trigger logic|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Delay	UInt28	0x5401004	0x4	RW	[0]	[28]	0	268435455	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Delay	0x4	0	28	28	0	Delay in ticks|"\
+     "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Width	UInt28	0x5401008	0x8	RW	[0]	[28]	0	268435455	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Width	0x4	0	28	28	0	Width in ticks|"\
      "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[0]	UInt7	0x5408000	0x0	RO	[0]	[7]	0	127	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[0]	0x4	0	7	7	0	|"\
      "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[1]	UInt7	0x5408004	0x4	RO	[0]	[7]	0	127	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[1]	0x4	0	7	7	0	|"\
      "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[2]	UInt7	0x5408008	0x8	RO	[0]	[7]	0	127	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[2]	0x4	0	7	7	0	|"\
