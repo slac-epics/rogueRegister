@@ -12,16 +12,15 @@
 #include <rogue/interfaces/stream/FrameIterator.h>
 #include <rogue/interfaces/stream/FrameLock.h>
 #include <rogue/hardware/axi/AxiStreamDma.h>
-#include <rogue/protocols/batcher/CoreV1.h>
+//#include <rogue/protocols/batcher/CoreV1.h>
 #include <rogue/protocols/batcher/Data.h>
 
 class pgpRogueDev;
 
 typedef struct _DataCbInfo
 {
-	epicsTimeStamp						m_tsData;
-	rogue::protocols::batcher::DataPtr	m_DataPtr;
-
+	epicsTimeStamp							m_tsData;
+	rogue::interfaces::stream::FramePtr 	m_DataPtr;
 }	DataCbInfo;
 
 
@@ -55,13 +54,13 @@ public:
 	}
 
 private:
-	pgpRogueDev		*	m_pRogueDev;
-	void			*	m_pCallbackClient;
-	DataCbInfo			m_DataInfo;
-	std::string			m_StreamName;
+	pgpRogueDev			*	m_pRogueDev;
+	void				*	m_pCallbackClient;
+	DataCbInfo				m_DataInfo;
+	std::string				m_StreamName;
 	uint32_t				m_ByteCount;
 	uint32_t				m_FrameCount;
-	rogue::protocols::batcher::CoreV1	m_FrameCore;
+	//rogue::protocols::batcher::CoreV1	m_FrameCore;
 };
 
 // Shared pointer alias

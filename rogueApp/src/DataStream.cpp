@@ -38,8 +38,8 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	uint8_t	errNum = frame->getError();
 	if ( errNum ) {
 		// Error code 0x80 is expected when stopping acquisition as it indicates
-		// image data that arrived after we stopped.
-		if ( ( errNum != 0x80 ) || ( DEBUG_PGP_ROGUE_DEV >= 3 ) )
+		// data that arrived after we stopped.
+		if ( ( errNum != 0x80 ) || ( DEBUG_PGP_ROGUE_DEV >= 2 ) )
 			printf( "%s%s: Ch%d frame error 0x%X!\n", getName().c_str(), functionName, chanNum, errNum );
 		return;
 	}
@@ -52,7 +52,11 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	rogue::interfaces::stream::FrameLockPtr lock = frame->lock();
 
 	m_FrameCount++;
-	m_ByteCount += frame->getPayload();
+	uint32_t	payload = frame->getPayload();
+	m_ByteCount += payload;
+
+	if ( DEBUG_PGP_ROGUE_DEV >= 5 )
+		printf( "%s:%s: Rcvd frame w/ %u payload\n", getName().c_str(), functionName, payload );
 
 	// Here we get an iterator to the frame data
 	rogue::interfaces::stream::FrameIterator it;
@@ -74,6 +78,7 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	// 					for i in range(0,loadSize,2)	]
 	//
 
+#if 0
 	// Process frame via CoreV1 protocol
 	m_FrameCore.processFrame(frame);
 	for ( uint32_t sf = 0; sf < m_FrameCore.count(); sf++ )
@@ -107,20 +112,26 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 		}
 		else if ( data->dest() == 2 )
 		{	// TDEST 2 is framegrabber image data
-			m_DataInfo.m_DataPtr = data;
+			m_DataInfo.m_DataPtr = frame;
 			uint32_t	size	= data->end() - data->begin();
 			//uint8_t	*	dataPtr	= data->begin().ptr();
 			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
 				printf( "DataStream::acceptFrame TDEST 2 SubFrame %d, size %u\n", sf, size );
 		}
 	}
+#endif
 
 	// Process image
 	if ( m_pRogueDev )
 	{
-		m_DataInfo.m_tsData			= ts;
-		if ( !m_DataInfo.m_DataPtr && ( DEBUG_PGP_ROGUE_DEV >= 4 ) )
+		m_DataInfo.m_DataPtr	= frame;
+		m_DataInfo.m_tsData		= ts;
+		if ( !m_DataInfo.m_DataPtr )
+		if ( ( DEBUG_PGP_ROGUE_DEV >= 4 ) )
+		{
+			epicsTimeToStrftime( acBuff, 40, "%H:%M:%S.%04f", &ts );
 			printf( "ts %s, pulseId 0x%X, no image!\n", acBuff, ts.nsec & 0x1FFFF );
+		}
 		m_pRogueDev->ProcessData( &m_DataInfo );
 		m_DataInfo.m_DataPtr.reset();
 	}
