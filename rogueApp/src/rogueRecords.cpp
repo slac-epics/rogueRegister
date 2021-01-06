@@ -13,6 +13,7 @@
 #include <mbboRecord.h>
 #include <longinRecord.h>
 #include <longoutRecord.h>
+#include <waveformRecord.h>
 //#include <dbAccess.h>
 //#include <dbAccessDefs.h>
 #include <dbScan.h>
@@ -730,6 +731,92 @@ struct
 { 5, NULL, NULL, init_mbbo, NULL, write_mbbo };
 
 epicsExportAddress( dset, dsetRogueMBBO );
+
+#ifdef __cplusplus
+}
+#endif
+
+// waveform record support
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+template int        rogue_init_record(	waveformRecord	*, DBLINK );
+
+#ifdef USE_TYPED_DSET
+static long init_waveform( struct dbCommon * pCommon )
+#else
+static long init_waveform( void * pCommon )
+#endif
+{
+	waveformRecord	*	pRecord	= reinterpret_cast < waveformRecord * >( pCommon );
+	int             status	= rogue_init_record( pRecord, pRecord->inp );
+	if ( status == 0 )
+	{
+#if 0
+		uint64_t	rogueValue;
+		rogue_read_record( pRecord, rogueValue );
+		pRecord->rval = static_cast<epicsEnum16>( rogueValue );
+#endif
+	}
+	return status;
+}
+
+#if 0
+static long rogue_ioinfo( int cmd, struct dbCommon * pRec, IOSCANPVT * pScanPvt )
+{
+}
+#endif
+#ifdef USE_TYPED_DSET
+//static int rogue_read_waveform(	waveformRecord	* record );
+static long read_waveform( waveformRecord	*	pRecord )
+{
+	long		status = 0;
+//	uint64_t	rogueValue;
+//	rogue_read_record( pRecord, rogueValue );
+//	pRecord->rval = static_cast<epicsEnum16>( rogueValue );
+	return status;
+}
+#else
+//static int rogue_read_waveform(	void	* record );
+static long read_waveform( void	*	record )
+{
+	const char 		*	functionName = "read_waveform";
+	long				status = 0;
+	waveformRecord	*	pRecord	= reinterpret_cast <waveformRecord *>( record );
+//	uint64_t			rogueValue;
+//	rogue_read_record( pRecord, rogueValue );
+//	pRecord->rval = static_cast<epicsEnum16>( rogueValue );
+	if ( DEBUG_ROGUE_DEV >= 4 )
+		printf( "%s: status %ld, waveform nElements=%d\n", functionName, status, pRecord->nelm );
+	return status;
+}
+#endif
+
+struct
+{
+#ifndef USE_TYPED_DSET
+	long                number;
+	DEVSUPFUN           report;
+	DEVSUPFUN           init;
+	DEVSUPFUN           init_waveform;
+	DEVSUPFUN           get_ioint_info;
+	DEVSUPFUN           read_waveform;
+	DEVSUPFUN           special_linconv;
+#else
+	dset				common;
+	long (*read_waveform)(	struct waveformRecord	*	pRec );
+#endif
+}	dsetRogueWAVEFORM =
+#ifdef USE_TYPED_DSET
+{ { 5, NULL, NULL, init_waveform, NULL }, read_waveform };
+#else
+{ 5, NULL, NULL, init_waveform, NULL, read_waveform };
+//{ 5, NULL, NULL, init_waveform, rogue_ioinfo, read_waveform };
+#endif
+
+epicsExportAddress( dset, dsetRogueWAVEFORM );
 
 #ifdef __cplusplus
 }
