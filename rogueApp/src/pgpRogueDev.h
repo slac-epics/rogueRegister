@@ -35,7 +35,7 @@
 #include <rogue/interfaces/stream/Master.h>
 #include <rogue/protocols/batcher/SplitterV1.h>
 
-// ADPgpCamlink headers
+// rogueRegister headers
 #include "DataStream.h"
 
 #define PGP_DATACHAN_REG_ACCESS		0

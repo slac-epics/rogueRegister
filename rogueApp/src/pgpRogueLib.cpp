@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////
-// This file is part of 'ADPgpCamlink'.
+// This file is part of 'rogueRegister'.
 // It is subject to the license terms in the LICENSE.txt file found in the 
 // top-level directory of this distribution and at: 
 //    https://confluence.slac.stanford.edu/display/ppareg/LICENSE.html. 
-// No part of 'ADPgpCamlink', including this file,
+// No part of 'rogueRegister', including this file,
 // may be copied, modified, propagated, or distributed except according to 
 // the terms contained in the LICENSE.txt file.
 //////////////////////////////////////////////////////////////////////////////
@@ -35,7 +35,7 @@
 #include <AxiVersion.h>
 #include <DmaDriver.h>
 
-// ADPgpCamlink headers
+// rogueRegister headers
 #include "pgpRogueLib.h"
 
 using namespace	std;
