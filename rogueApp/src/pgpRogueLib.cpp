@@ -46,8 +46,8 @@ typedef	std::map< std::string, rim::VariablePtr >	mapVarPtr_t;
 extern	int		DEBUG_PGP_ROGUE;
 bool	bUseMiniTpg		= 0;
 #ifdef SUPPORT_CLINK
-int		doFebConfig		= 0;
-int		doFebFpgaReload	= 1;
+//int		doFebConfig		= 0;
+//int		doFebFpgaReload	= 1;
 #endif  /* SUPPORT_CLINK */
 
 // TODO Move to new file: src/rogue/memory/interfaces/memory/Constants.cpp
@@ -78,30 +78,15 @@ const char * modelId2String( uint32_t modelId )
 void pgpRogueLib::ResetCounters( )
 {
 	// TODO: Add toggle option to setVariable
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[0].CountReset", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[0].CountReset", 0 );
-
-	if ( LaneReady(0) )
-	{
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.CntRst", 1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.CntRst", 0 );
-
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Ch[0].CntRst", 1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Ch[0].CntRst", 0 );
-
-		setVariable( "ClinkDevRoot.ClinkFeb[0].TrigCtrl[0].CntRst", 1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].TrigCtrl[0].CntRst", 0 );
-
-		setVariable( "ClinkDevRoot.ClinkFeb[0].PgpMon[0].CountReset", 1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].PgpMon[0].CountReset", 0 );
-	}
+//	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[0].CountReset", 1 );
+//	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[0].CountReset", 0 );
 
 	// This resets   ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.DataCnt[0]
-	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.CntRst", 0 );
+//	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.CntRst", 1 );
+//	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.CntRst", 0 );
 
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClearRxCounters", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClearRxCounters", 0 );
+//	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClearRxCounters", 1 );
+//	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClearRxCounters", 0 );
 }
 
 void pgpRogueLib::GetEventBuilderBlowoffPath( unsigned int triggerNum, std::string & retPath )
@@ -217,8 +202,7 @@ pgpRogueLib::pgpRogueLib(
 	m_board(		board	),
 	m_fConnected(	0		),
 	m_devName(				),
-	m_pAxiMemMap(			),
-	m_pSrpFeb(				)
+	m_pAxiMemMap(			)
 {
 	const char		*	functionName	= "pgpRogueLib::pgpRogueLib";
 
@@ -271,38 +255,6 @@ pgpRogueLib::pgpRogueLib(
 	m_pRogueLib->addMemory( szMemName, m_pAxiMemMap );
 	printf("pgpRogueLib: addMemory AxiMemMap interface %s\n", szMemName );
 
-	//
-	// Create FEB Data Channel for each lane
-	// TODO: Make a function than encapsulates this
-	uint32_t	dest;
-	for ( size_t	lane = 0; lane < N_AXI_LANES; lane++ )
-	{
-		dest = (0x100 * lane) + PGP_DATACHAN_REG_ACCESS;
-		m_pFebRegChan[lane]	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
-
-		//
-		// Connect DATACHAN 0 FEB Register Access
-		//
-		m_pSrpFeb[lane] = rogue::protocols::srp::SrpV3::create();	// Serial Rouge Protocol handler
-		// Create bidirectional links between SRP and FebRegChan 
-		m_pFebRegChan[lane]->addSlave( m_pSrpFeb[lane] );
-		m_pSrpFeb[lane]->addSlave( m_pFebRegChan[lane] );
-		switch ( lane )
-		{
-			default:
-			case 0:	szMemName = "SRPv3[0]";	break;
-			case 1:	szMemName = "SRPv3[1]";	break;
-			case 2:	szMemName = "SRPv3[2]";	break;
-			case 3:	szMemName = "SRPv3[3]";	break;
-		}
-		addMemory( szMemName, m_pSrpFeb[lane] );
-		m_pRogueLib->addMemory( szMemName, m_pSrpFeb[lane] );
-		printf("pgpRogueLib: addMemory srpFeb interface %s\n", szMemName );
-		// Create FebMemMaster and link it to SRP
-		m_pFebMemMaster[lane] = FebMemoryMaster::create( );
-		m_pFebMemMaster[lane]->setSlave( m_pSrpFeb[lane] );
-	}
-
 	printf( "Parsing ROGUE_ADDR_MAP\n" );
 	parseMemMap( ROGUE_ADDR_MAP ); // From generated rogueAddrMap.h
 	printf( "ROGUE_ADDR_MAP parsed successfully\n" );
@@ -310,8 +262,8 @@ pgpRogueLib::pgpRogueLib(
 	printf( "m_pRogueLib: ROGUE_ADDR_MAP parsed successfully\n" );
 
 #ifdef SUPPORT_CLINK
-	if ( doFebFpgaReload )
-		FebFpgaReload();
+//	if ( doFebFpgaReload )
+//		FebFpgaReload();
 #endif  /* SUPPORT_CLINK */
 
 	//const mapVarPtr_t &	mapVars		= getVariableList();
@@ -339,61 +291,10 @@ pgpRogueLib::pgpRogueLib(
 	printf( "%s: Read %zu variables\n", functionName, (m_pRogueLib->getVariableList()).size() );
 
 #ifdef SUPPORT_CLINK
-	if ( doFebConfig or true )
-	{
-		if ( LaneReady(0) )
-		{
-			printf( "%s: Set FEB 0 BaudRate and Pll POWER\n", functionName );
-			// Set FEB BaudRate
-			setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Ch[0].BaudRate", 57600 );
-			setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Ch[1].BaudRate", 9600 );
-
-			// Power up FEB Pll's
-			setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Pll[0].POWER", 65535 );
-			setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Pll[1].POWER", 65535 );
-			setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Pll[2].POWER", 65535 );
-		}
-
-		if ( LaneReady(1) )
-		{
-			setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.Ch[0].BaudRate", 57600 );
-			setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.Ch[1].BaudRate", 9600 );
-			setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.Pll[0].POWER", 65535 );
-			setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.Pll[1].POWER", 65535 );
-			setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.Pll[2].POWER", 65535 );
-		}
-
-		if ( LaneReady(2) )
-		{
-			setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.Ch[0].BaudRate", 57600 );
-			setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.Ch[1].BaudRate", 9600 );
-			setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.Pll[0].POWER", 65535 );
-			setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.Pll[1].POWER", 65535 );
-			setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.Pll[2].POWER", 65535 );
-		}
-
-		if ( LaneReady(3) )
-		{
-			setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.Ch[0].BaudRate", 57600 );
-			setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.Ch[1].BaudRate", 9600 );
-			setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.Pll[0].POWER", 65535 );
-			setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.Pll[1].POWER", 65535 );
-			setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.Pll[2].POWER", 65535 );
-		}
-	}
-
 	// Hack: Configure for LCLS-I timing
 	ConfigureLclsTimingV1();
 
 	LoadConfigFile( "db/defaults_LCLS-I.txt", 0.003 );
-	if ( LaneReady(0) )
-		LoadConfigFile( "db/cfgFeb0Opal1000.txt", 0.002 );
-	if ( LaneReady(1) )
-		LoadConfigFile( "db/cfgFeb1Opal1000.txt", 0.002 );
-	if ( LaneReady(2) )
-		LoadConfigFile( "db/cfgFeb2Opal1000.txt", 0.002 );
-	if ( LaneReady(3) )
-		LoadConfigFile( "db/cfgFeb3Opal1000.txt", 0.002 );
 
 	// Misc python resets, etc
 	setVariable( "ClinkDevRoot.ClinkPcie.AxiPcieCore.DmaIbAxisMon.CntRst", 1 );
@@ -423,8 +324,6 @@ pgpRogueLib::pgpRogueLib(
 	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpTxAxisMon[3].CntRst", 1 );
 	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpRxAxisMon[3].CntRst", 1 );
 	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingPhyMonitor.CntRst", 1 );
-	if ( doFebConfig )
-		FebPllConfig();
 #endif  /* SUPPORT_CLINK */
 
 	setTriggerEnable( 0, false );
@@ -441,18 +340,6 @@ pgpRogueLib::pgpRogueLib(
 	showVariable( sDataCnt.c_str(), true );
 	showVariable( "ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.FpgaVersion", true );
 	showVariable( "ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.UpTimeCnt", true );
-	if ( LaneReady(0) )
-	{
-		showVariable( "ClinkDevRoot.ClinkFeb[0].AxiVersion.FpgaVersion", true );
-		showVariable( "ClinkDevRoot.ClinkFeb[0].AxiVersion.UpTimeCnt", true );
-	}
-	if ( LaneReady(1) )
-		showVariable( "ClinkDevRoot.ClinkFeb[1].AxiVersion.UpTimeCnt", true );
-	if ( LaneReady(2) )
-		showVariable( "ClinkDevRoot.ClinkFeb[2].AxiVersion.UpTimeCnt", true );
-	if ( LaneReady(3) )
-		showVariable( "ClinkDevRoot.ClinkFeb[3].AxiVersion.UpTimeCnt", true );
-
 	m_fConnected = 1;	// Do we need this?
 }
 
@@ -1144,13 +1031,5 @@ void pgpRogueLib::disconnect( )
 	//rmMemory( m_pAxiMemMap );
 	//m_pRogueLib->rmMemory( m_pAxiMemMap );
 	m_pAxiMemMap.reset();
-	for ( size_t	lane = 0; lane < N_AXI_LANES; lane++ )
-	{
-		m_pFebRegChan[lane].reset();
-		m_pSrpFeb[lane].reset();
-		//rmMemory( m_pSrpFeb[lane] );
-		//m_pRogueLib->rmMemory( m_pSrpFeb[lane] );
-		m_pFebMemMaster[lane].reset();
-	}
 }
 

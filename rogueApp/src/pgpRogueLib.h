@@ -33,7 +33,6 @@
 
 // rogueRegister headers
 #include "ClMemoryMaster.h"
-#include "FebMemoryMaster.h"
 
 #define	N_AXI_LANES	4
 #define	N_AXI_CHAN	4	// Needed?
@@ -153,9 +152,9 @@ private:
 	///
 
 	//TODO: Move these to new axiFebDataLane class
-	rogue::hardware::axi::AxiStreamDmaPtr		m_pFebRegChan[N_AXI_LANES];
-	FebMemoryMasterPtr				 			m_pFebMemMaster[N_AXI_LANES];
-	rogue::protocols::srp::SrpV3Ptr				m_pSrpFeb[N_AXI_LANES];
+//	rogue::hardware::axi::AxiStreamDmaPtr		m_pFebRegChan[N_AXI_LANES];
+//	FebMemoryMasterPtr				 			m_pFebMemMaster[N_AXI_LANES];
+//	rogue::protocols::srp::SrpV3Ptr				m_pSrpFeb[N_AXI_LANES];
 };
 
 // Shared pointer alias
