@@ -10,7 +10,7 @@ DBD += rogueRecords.dbd
 DBD += rogueSupport.dbd
 
 # TODO: Rethink naming scheme for C++ classes
-LIB_SRCS   		+= rogueDev.cpp
+#LIB_SRCS   		+= rogueDev.cpp
 LIB_SRCS   		+= pgpRogueLib.cpp
 LIB_SRCS		+= rogueRecords.cpp
 

@@ -57,8 +57,6 @@ static	const char *		driverName	= "rogueDev";
 // View and reset via iocsh cmds.
 // From iocsh, type: help *Context*
 
-int		DEBUG_PGP_ROGUE	= 0;
-
 ///	ppgRogue map - Stores ptr to all rogueDev instances indexed by name
 map<string, rogueDev *>	rogueDev::ms_rogueDevMap;
 
@@ -89,19 +87,12 @@ rogueDev::rogueDev(
 		m_Mode(				szMode				),
 
 		m_ReCfgCnt(			0					),
-		m_reconfigLock(		NULL				),
-		
-		m_ioscan(			NULL				)
+		m_reconfigLock(		NULL				)
 {
-	static const char	*	functionName = "rogueDev::rogueDev";
+//	static const char	*	functionName = "rogueDev::rogueDev";
 
 	// Create mutexes
     m_reconfigLock	= epicsMutexMustCreate();
-
-    // Initialize I/O Intr processing
-    scanIoInit( &m_ioscan );
-    if ( m_ioscan == NULL )
-        errlogPrintf( "%s %s: ERROR, scanIoInit failed!\n", driverName, functionName );
 
     // Install exit hook for clean shutdown
     epicsAtExit( (EPICSTHREADFUNC)rogueDev::ExitHook, (void *) this );
@@ -757,6 +748,7 @@ rogueDevConfig(
 }
 
 
+#if 0
 // Register function:
 //		int ShowAllRogue( int level )
 static const iocshArg		ShowAllRogueArg0		= { "level",		iocshArgInt };
@@ -773,6 +765,7 @@ void ShowAllRogueRegister(void)
 {
 	iocshRegister( &ShowAllRogueFuncDef, reinterpret_cast<iocshCallFunc>(ShowAllRogueCallFunc) );
 }
+#endif
 
 extern "C"
 int DumpPgpVars( const char * pszCamName, const char * pszFilePath, int fWriteOnly, int fForceRead )
@@ -919,7 +912,7 @@ extern "C"
 	epicsExportRegistrar( rogueDevConfigRegister );
 	epicsExportRegistrar( DumpPgpVarsRegister );
 	epicsExportRegistrar( SetPgpVarRegister );
-	epicsExportRegistrar( ShowAllRogueRegister );
+//	epicsExportRegistrar( ShowAllRogueRegister );
 	epicsExportRegistrar( ShowPgpVarRegister );
 	epicsExportAddress( int, DEBUG_PGP_ROGUE );
 }

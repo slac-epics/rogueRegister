@@ -28,6 +28,8 @@
 #include "ContextTimerMax.h"
 #endif	//	USE_DIAG_TIMER
 
+#define PGP_NUM_SIGNALS				8
+
 // Rogue operation data structure definition
 class rogueDev
 {
@@ -43,8 +45,6 @@ public:		//	Public member functions
 
 	/// Destructor
 	virtual ~rogueDev();
-
-	enum CamlinkMode_t { CL_MODE_BASE, CL_MODE_MEDIUM, CL_MODE_FULL };
 
 	/// Open a fresh connection to Rogue
     int ConnectRogue( );
@@ -102,11 +102,6 @@ public:		//	Public member functions
 #else
 		return m_LibVersion;
 #endif
-	}
-
-	IOSCANPVT		GetIoScan( ) const
-	{
-		return m_ioscan;
 	}
 
 	///	Dump Rogue PGP variables
@@ -223,8 +218,6 @@ private:	//	Private member variables
 
 	unsigned int	m_ReCfgCnt;		// Reconfigure counter (increments by 1 each reconfigure)
 	epicsMutexId	m_reconfigLock;	// Protect against more than one thread trying to reconfigure the device
-
-	IOSCANPVT		m_ioscan;
 
 private:	//	Private class variables
 	static	std::map<std::string, rogueDev *>	ms_rogueDevMap;

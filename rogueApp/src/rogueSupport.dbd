@@ -1,6 +1,6 @@
 
 registrar(	DumpPgpVarsRegister			)
-registrar(	rogueDevConfigRegister		)
+registrar(	pgpRogueDevConfigRegister		)
 registrar(	SetPgpVarRegister			)
 registrar(	ShowAllRogueRegister		)
 registrar(	ShowPgpVarRegister			)

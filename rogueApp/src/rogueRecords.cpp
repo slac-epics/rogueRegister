@@ -22,7 +22,7 @@
 
 //#include "drvRogue.h"
 #include "rogueRecords.h"
-#include "rogueDev.h"
+#include "pgpRogueDev.h"
 
 
 int	DEBUG_ROGUE_DEV = 2;
@@ -70,7 +70,7 @@ int rogue_init_record(
 		return rogue_bad_field( record, "cannot parse INP or OUT field!\n%s\n", sinp );
 	}
 
-	rogueDev	*	pRogue = rogueDev::RogueFindByBoard( board );
+	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( board );
 	if ( pRogue == NULL )
 	{
 		return rogue_bad_field( record, "cannot find rogue device for INP or OUT field!\n%s\n", sinp );
@@ -82,6 +82,7 @@ int rogue_init_record(
 	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
 	pRogueInfo->m_varPath		= varPath;
 	pRogueInfo->m_pRogueLib		= pRogue->GetRogueLib();
+	pRogueInfo->m_pRogueDev		= pRogue;
 	pRogueInfo->m_fSignedValue	= false;
 	rogue::interfaces::memory::VariablePtr	pVar;
 	pVar = pRogueInfo->m_pRogueLib->getVariable( pRogueInfo->m_varPath );
@@ -152,6 +153,23 @@ int rogue_write_record( R * record, const V & value )
 	}
 #endif
 	return status;
+}
+
+template < class R >
+long rogue_ioinfo( int detach, struct dbCommon * pCommon, IOSCANPVT * pScanPvt )
+{
+	if ( pCommon || !pScanPvt )
+		return 0;
+	R				*	pRec 		= (R *) pCommon;
+	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRec->dpvt );
+	if ( pRogueInfo->m_pRogueDev )
+	{
+		*pScanPvt = pRogueInfo->m_pRogueDev->GetScanIO( pRogueInfo->m_signal );
+	}
+	else
+	{
+		*pScanPvt = NULL;
+	}
 }
 
 #if 0
@@ -750,26 +768,63 @@ static long init_waveform( struct dbCommon * pCommon )
 static long init_waveform( void * pCommon )
 #endif
 {
+	const char * functionName = "init_waveform";
 	waveformRecord	*	pRecord	= reinterpret_cast < waveformRecord * >( pCommon );
-	int             status	= rogue_init_record( pRecord, pRecord->inp );
-	if ( status == 0 )
+	int            	 status	= 0;
+//	status	= rogue_init_record( pRecord, pRecord->inp );
+	DBLINK			link	= pRecord->inp;
+	if ( link.type != INST_IO )
 	{
-#if 0
-		uint64_t	rogueValue;
-		rogue_read_record( pRecord, rogueValue );
-		pRecord->rval = static_cast<epicsEnum16>( rogueValue );
-#endif
+		return rogue_bad_field( pRecord, "wrong link type", "" );
 	}
-	return status;
+	struct instio      *pinstio = &link.value.instio;
+
+	if ( !pinstio->string )
+	{
+		return rogue_bad_field( pRecord, "invalid link", "" );
+	}
+
+	const char			*	sinp	= pinstio->string;
+	epicsUInt32            	board;
+	epicsUInt32            	lane;
+	epicsUInt32            	signal;
+
+	status = sscanf( sinp, "B%u L%u S%u", &board, &lane, &signal );
+	if ( status != 3 )
+	{
+		return rogue_bad_field( pRecord, "cannot parse INP field!\n"
+				"Expected 3 numbers for board, lane, and signal.\n"
+				"Example: B0 L3 S12\n"
+				"Got: %s\n", sinp );
+	}
+
+	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( board );
+	if ( pRogue == NULL )
+	{
+		return rogue_bad_field( pRecord, "cannot find rogue device for INP or OUT field!\n%s\n", sinp );
+	}
+
+	if ( DEBUG_ROGUE_DEV >= 4 )
+		printf( "%s Parse succeeded: Board %u, Lane %u, Signal %u\n", functionName, board, lane, signal );
+
+	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
+	pRogueInfo->m_signal		= signal;
+	pRogueInfo->m_varPath		= "unused";
+	pRogueInfo->m_pRogueLib		= pRogue->GetRogueLib();
+	pRogueInfo->m_pRogueDev		= pRogue;
+	pRogueInfo->m_fSignedValue	= false;
+//	if ( !pVar )
+//	{
+//		printf( "%s error: %s not found!\n", functionName, pRogueInfo->m_varPath.c_str() );
+//	}
+	pRecord->dpvt				= pRogueInfo;
+
+	// Do not convert
+	return 2;
 }
 
-#if 0
-static long rogue_ioinfo( int cmd, struct dbCommon * pRec, IOSCANPVT * pScanPvt )
-{
-}
-#endif
 #ifdef USE_TYPED_DSET
-//static int rogue_read_waveform(	waveformRecord	* record );
+//static int rogue_read_waveform(	waveformRecord	* pRecord );
 static long read_waveform( waveformRecord	*	pRecord )
 {
 	long		status = 0;
@@ -779,7 +834,7 @@ static long read_waveform( waveformRecord	*	pRecord )
 	return status;
 }
 #else
-//static int rogue_read_waveform(	void	* record );
+//static int rogue_read_waveform(	void	* pRecord );
 static long read_waveform( void	*	record )
 {
 	const char 		*	functionName = "read_waveform";

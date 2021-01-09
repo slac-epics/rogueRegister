@@ -18,13 +18,16 @@
 
 #include <dbScan.h>
 #include <link.h>
+#include "pgpRogueDev.h"
 #include "pgpRogueLib.h"
 
 typedef struct _rogue_info_t
 {
 	std::string			m_varPath;
 	pgpRogueLibPtr		m_pRogueLib;
+	pgpRogueDevPtr		m_pRogueDev;
 	bool				m_fSignedValue;
+	size_t				m_signal;
 }	rogue_info_t;
 
 template<class R>		   int		 rogue_init_record(	R * record, DBLINK link	);
@@ -34,6 +37,6 @@ template<class R, class V> int		 rogue_write_record(	R * record, const V & value
 //template<class R>		   int		 rogue_init_record_specialized(	R * record	);
 //template<class R>		   int		 rogue_read_record_specialized(	R * record	);
 //template<class R>		   int		 rogue_write_record_specialized(	R * record	);
-//template<class R>		   IOSCANPVT rogue_getioscanpvt_specialized(	R * record	);
+template<class R>		   IOSCANPVT rogue_getioscanpvt_specialized(	R * record	);
 
 #endif	/* DEV_ROGUE_H */

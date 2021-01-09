@@ -24,6 +24,9 @@
 #include <string.h>
 #include <epicsMutex.h>
 #include <epicsTime.h>
+#include <dbScan.h>
+#include <devSup.h>
+#include "pgpRogueLib.h"
 
 // rogue headers 
 #include <rogue/hardware/axi/AxiMemMap.h>
@@ -33,6 +36,7 @@
 #include <rogue/interfaces/stream/RateDrop.h>
 #include <rogue/interfaces/stream/Slave.h>
 #include <rogue/interfaces/stream/Master.h>
+//#include <rogue/protocols/batcher/Data.h>
 #include <rogue/protocols/batcher/SplitterV1.h>
 
 // rogueRegister headers
@@ -40,6 +44,7 @@
 
 #define PGP_DATACHAN_REG_ACCESS		0
 #define PGP_DATACHAN_FRAME_ACCESS	1
+#define PGP_NUM_SIGNALS				8
 
 typedef int (* DataCallback)( void * pClientContext, DataCbInfo * pCbInfo );
 
@@ -65,21 +70,54 @@ public:		//	Public member functions
 	void connect( );
 	void disconnect( );
 
+    void	report(	FILE	*	fp,	int	details	);
+
+	/// Registered with epicsAtExit() for clean disconnect
+	static void ExitHook( void * pThis );
+ 
+ 	/// Shutdown driver
+	void Shutdown( );
+
 	///	Get Driver Version
 	const std::string	&	GetDrvVersion( ) const
 	{
+#if 0
+		if ( ! m_pRogueLib )
+			return std::string( "Unknown Driver Version" );
+		return m_pRogueLib->GetDrvVersion();
+#else
 		return m_DrvVersion;
+#endif
 	}
 
 	///	Get Library Version
 	const std::string	&	GetLibVersion( ) const
 	{
+#if 0
+		if ( ! m_pRogueLib )
+			return std::string( "Unknown Lib Version" );
+		return m_pRogueLib->GetLibVersion();
+#else
 		return m_LibVersion;
+#endif
 	}
 
 	void ProcessData(	DataCbInfo				*	pCbInfo );
 
 	void ResetCounters();
+
+	///	Dump Rogue PGP variables
+	int	DumpPgpVars( const char * pszFilePath, bool fWriteOnly, bool fForceRead );
+
+	///	Show Rogue info on stdout
+	int	ShowReport( int level );
+
+	///	Set Rogue PGP variable
+	int	SetPgpVariable( const char * pszVarPath, double value );
+
+	///	Show Rogue PGP variable on stdout
+	int	ShowPgpVariable( const char * pszVarPath, int level );
+
 
 	void cancelDataCallbacks( );
 
@@ -88,7 +126,27 @@ public:		//	Public member functions
 
 	int		setTriggerEnable( unsigned int triggerNum, bool fEnable );
 
+	IOSCANPVT		GetScanIO( size_t iSig ) const
+	{
+		return m_scanIoSignal[iSig];
+	}
+
+	/// Return shared_ptr to pgpRogueLib device
+	pgpRogueLibPtr	GetRogueLib( ) const
+	{
+		return m_pRogueLib;
+	}
+
+	static std::shared_ptr<pgpRogueDev>	RogueFindByBoard( unsigned int board );
+
+	static	int	ShowAllRogueDev( int level );
+
+protected:	//	Protected member variables
+	bool			m_fExitApp;			// Set true to shutdown ioc
+
 private:
+	pgpRogueLibPtr 	m_pRogueLib;			// shared_ptr to pgpRogueLib device
+
 	//	Private member variables
 	unsigned int		m_fd;
 	unsigned int		m_board;
@@ -98,6 +156,8 @@ private:
 	std::string			m_DrvVersion;	// Driver Version
 	std::string			m_LibVersion;	// Library Version
 	epicsMutexId		m_devLock;
+	IOSCANPVT			m_scanIoSignal[PGP_NUM_SIGNALS];
+	bool				m_fLcls2Timing;	// true to initialize w/ LCLS2 timing, false for LCLS1
 
 	///
 	// Firmware Lane assignments:
@@ -124,6 +184,9 @@ private:
 	void									*	m_pCallbackClient;
 	DataCallback								m_CallbackClientFunc;
 };
+
+/*	Diagnostic variables	*/
+extern int				DEBUG_PGP_ROGUE;
 
 // Shared pointer alias
 typedef std::shared_ptr<pgpRogueDev> pgpRogueDevPtr;
