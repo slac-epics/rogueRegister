@@ -26,6 +26,7 @@ typedef struct _rogue_info_t
 	std::string			m_varPath;
 	pgpRogueLibPtr		m_pRogueLib;
 	pgpRogueDevPtr		m_pRogueDev;
+	struct dbCommon	*	m_pRecCommon;
 	bool				m_fSignedValue;
 	size_t				m_signal;
 }	rogue_info_t;

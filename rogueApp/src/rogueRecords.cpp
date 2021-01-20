@@ -83,6 +83,7 @@ int rogue_init_record(
 	pRogueInfo->m_varPath		= varPath;
 	pRogueInfo->m_pRogueLib		= pRogue->GetRogueLib();
 	pRogueInfo->m_pRogueDev		= pRogue;
+	pRogueInfo->m_pRecCommon	= (struct dbCommon *) record,
 	pRogueInfo->m_fSignedValue	= false;
 	rogue::interfaces::memory::VariablePtr	pVar;
 	pVar = pRogueInfo->m_pRogueLib->getVariable( pRogueInfo->m_varPath );
@@ -865,10 +866,9 @@ struct
 #endif
 }	dsetRogueWAVEFORM =
 #ifdef USE_TYPED_DSET
-{ { 5, NULL, NULL, init_waveform, NULL }, read_waveform };
+{ { 5, NULL, NULL, init_waveform, rogue_ioinfo }, read_waveform };
 #else
-{ 5, NULL, NULL, init_waveform, NULL, read_waveform };
-//{ 5, NULL, NULL, init_waveform, rogue_ioinfo, read_waveform };
+{ 5, NULL, NULL, init_waveform, rogue_ioinfo, read_waveform };
 #endif
 
 epicsExportAddress( dset, dsetRogueWAVEFORM );
