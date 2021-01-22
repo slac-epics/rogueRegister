@@ -825,6 +825,67 @@ static long init_waveform( void * pCommon )
 }
 
 #ifdef USE_TYPED_DSET
+static long ioinfo_waveform( struct dbCommon * pCommon )
+#else
+static long ioinfo_waveform( void * pCommon )
+#endif
+{
+	const char * functionName = "ioinfo_waveform";
+	waveformRecord	*	pRecord	= reinterpret_cast < waveformRecord * >( pCommon );
+	int            	 	status	= 0;
+//	status	= rogue_init_record( pRecord, pRecord->inp );
+	DBLINK			link	= pRecord->inp;
+	if ( link.type != INST_IO )
+	{
+		return rogue_bad_field( pRecord, "wrong link type", "" );
+	}
+	struct instio      *pinstio = &link.value.instio;
+
+	if ( !pinstio->string )
+	{
+		return rogue_bad_field( pRecord, "invalid link", "" );
+	}
+
+	const char			*	sinp	= pinstio->string;
+	epicsUInt32            	board;
+	epicsUInt32            	lane;
+	epicsUInt32            	signal;
+
+	status = sscanf( sinp, "B%u L%u S%u", &board, &lane, &signal );
+	if ( status != 3 )
+	{
+		return rogue_bad_field( pRecord, "cannot parse INP field!\n"
+				"Expected 3 numbers for board, lane, and signal.\n"
+				"Example: B0 L3 S12\n"
+				"Got: %s\n", sinp );
+	}
+
+	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( board );
+	if ( pRogue == NULL )
+	{
+		return rogue_bad_field( pRecord, "cannot find rogue device for INP or OUT field!\n%s\n", sinp );
+	}
+
+	if ( DEBUG_ROGUE_DEV >= 4 )
+		printf( "%s Parse succeeded: Board %u, Lane %u, Signal %u\n", functionName, board, lane, signal );
+
+	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
+	pRogueInfo->m_signal		= signal;
+	pRogueInfo->m_varPath		= "unused";
+	pRogueInfo->m_pRogueLib		= pRogue->GetRogueLib();
+	pRogueInfo->m_pRogueDev		= pRogue;
+	pRogueInfo->m_fSignedValue	= false;
+//	if ( !pVar )
+//	{
+//		printf( "%s error: %s not found!\n", functionName, pRogueInfo->m_varPath.c_str() );
+//	}
+	pRecord->dpvt				= pRogueInfo;
+
+	// Do not convert
+	return 2;
+}
+
+#ifdef USE_TYPED_DSET
 //static int rogue_read_waveform(	waveformRecord	* pRecord );
 static long read_waveform( waveformRecord	*	pRecord )
 {
@@ -866,9 +927,9 @@ struct
 #endif
 }	dsetRogueWAVEFORM =
 #ifdef USE_TYPED_DSET
-{ { 5, NULL, NULL, init_waveform, rogue_ioinfo }, read_waveform };
+{ { 5, NULL, NULL, init_waveform, ioinfo_waveform }, read_waveform };
 #else
-{ 5, NULL, NULL, init_waveform, rogue_ioinfo, read_waveform };
+{ 5, NULL, NULL, init_waveform, ioinfo_waveform, read_waveform };
 #endif
 
 epicsExportAddress( dset, dsetRogueWAVEFORM );
