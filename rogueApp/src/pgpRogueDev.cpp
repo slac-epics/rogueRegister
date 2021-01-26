@@ -203,7 +203,7 @@ void pgpRogueDev::ProcessData(
 	DataCbInfo		* pDataInfo )
 {
 	const char		*	functionName	= "pgpRogueDev::ProcessData";
-	if ( DEBUG_PGP_ROGUE_DEV >= 5 ) printf( "%s\n", functionName );
+	if ( DEBUG_PGP_ROGUE_DEV >= 6 ) printf( "%s\n", functionName );
 	//epicsTimeStamp		tsData	= pDataInfo->m_tsData;
 
 	// From wave8-git/firmware/python/wave8/RawDataReceiver.py
@@ -217,7 +217,21 @@ void pgpRogueDev::ProcessData(
 	// array = [	int.from_bytes( dat[i:i+2], byteorder='little', signed=False )
 	// 					for i in range(0,loadSize,2)	]
 	if  ( m_CallbackClientFunc != NULL )
+	{
+		if ( DEBUG_PGP_ROGUE_DEV >= 5 )
+			printf( "%s:%s: Calling callback\n", getName().c_str(), functionName );
 		(*m_CallbackClientFunc)( m_pCallbackClient, pDataInfo );
+	}
+
+	for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
+	{
+		IOSCANPVT	pscanIoPvt	= m_scanIoSignal[iSig];
+#if 0
+		scanIoImmediate( pscanIoPvt, priorityHigh );
+#else
+		scanIoRequest( pscanIoPvt );
+#endif
+	}
 
 	return;
 }
