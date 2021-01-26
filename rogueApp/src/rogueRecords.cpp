@@ -25,8 +25,8 @@
 #include "pgpRogueDev.h"
 
 
-int	DEBUG_ROGUE_DEV = 2;
-epicsExportAddress( int,  DEBUG_ROGUE_DEV );
+int	DEBUG_ROGUE_RECORDS = 2;
+epicsExportAddress( int,  DEBUG_ROGUE_RECORDS );
 
 
 static int
@@ -76,7 +76,7 @@ int rogue_init_record(
 		return rogue_bad_field( record, "cannot find rogue device for INP or OUT field!\n%s\n", sinp );
 	}
 
-	if ( DEBUG_ROGUE_DEV >= 4 )
+	if ( DEBUG_ROGUE_RECORDS >= 4 )
 		printf( "%s Parse succeeded: Board %u, Lane %u, VarPath %s\n", functionName, board, lane, varPath );
 
 	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
@@ -272,7 +272,7 @@ static long read_li( void	*	record )
 		int64_t		rogueValue	= -1L;
 		status = rogue_read_record( pRecord, rogueValue );
 		pRecord->val = static_cast<epicsInt32>( rogueValue );
-		if ( DEBUG_ROGUE_DEV >= 4 )
+		if ( DEBUG_ROGUE_RECORDS >= 4 )
 			printf( "%s: status %ld, intValue %d\n", functionName, status, pRecord->val );
 	}
 	else
@@ -280,7 +280,7 @@ static long read_li( void	*	record )
 		uint64_t	rogueValue	= 0L;
 		status = rogue_read_record( pRecord, rogueValue );
 		pRecord->val = static_cast<epicsInt32>( rogueValue );
-		if ( DEBUG_ROGUE_DEV >= 4 )
+		if ( DEBUG_ROGUE_RECORDS >= 4 )
 			printf( "%s: status %ld, uintValue %u\n", functionName, status, pRecord->val );
 	}
 	return status;
@@ -349,14 +349,14 @@ static long write_lo( void	*	record )
 	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
 	if ( pRogueInfo->m_fSignedValue )
 	{
-		if ( DEBUG_ROGUE_DEV >= 3 )
+		if ( DEBUG_ROGUE_RECORDS >= 3 )
 			printf( "%s: status %ld, intValue %d\n", functionName, status, pRecord->val );
 		int64_t		rogueValue	= static_cast<int64_t>( pRecord->val );
 		status = rogue_write_record( pRecord, rogueValue );
 	}
 	else
 	{
-		if ( DEBUG_ROGUE_DEV >= 3 )
+		if ( DEBUG_ROGUE_RECORDS >= 3 )
 			printf( "%s: status %ld, uintValue %u\n", functionName, status, pRecord->val );
 		uint64_t	rogueValue	= static_cast<uint64_t>( pRecord->val );
 		status = rogue_write_record( pRecord, rogueValue );
@@ -434,7 +434,7 @@ static long read_ai( void	*	record )
 	long				status = 0;
 	aiRecord		*	pRecord	= reinterpret_cast <aiRecord *>( record );
 	rogue_read_record( pRecord, pRecord->val );
-	if ( DEBUG_ROGUE_DEV >= 4 )
+	if ( DEBUG_ROGUE_RECORDS >= 4 )
 		printf( "%s: status %ld, aiValue %f\n", functionName, status, pRecord->val );
 	return status;
 }
@@ -488,7 +488,7 @@ static long write_ao( void	*	record )
 	int				status		=  rogue_write_record( pRecord, pRecord->val );
 
 	const char 	*	functionName = "write_ao";
-	if ( DEBUG_ROGUE_DEV >= 3 )
+	if ( DEBUG_ROGUE_RECORDS >= 3 )
 		printf( "%s: status %d, value %f\n", functionName, status, pRecord->val );
 	return status;
 }
@@ -557,7 +557,7 @@ static long read_bi( void	*	record )
 	bool				rogueValue;
 	rogue_read_record( pRecord, rogueValue );
 	pRecord->rval = static_cast<epicsEnum16>( rogueValue );
-	if ( DEBUG_ROGUE_DEV >= 4 )
+	if ( DEBUG_ROGUE_RECORDS >= 4 )
 		printf( "%s: status %ld, biValue %d\n", functionName, status, pRecord->val );
 	return status;
 }
@@ -612,7 +612,7 @@ static long write_bo( void	*	record )
 	int				status		=  rogue_write_record( pRecord, rogueValue );
 
 	const char 	*	functionName = "write_bo";
-	if ( DEBUG_ROGUE_DEV >= 3 )
+	if ( DEBUG_ROGUE_RECORDS >= 3 )
 		printf( "%s: status %d, value %u\n", functionName, status, pRecord->val );
 	return status;
 }
@@ -678,7 +678,7 @@ static long read_mbbi( void	*	record )
 	uint64_t			rogueValue;
 	rogue_read_record( pRecord, rogueValue );
 	pRecord->rval = static_cast<epicsEnum16>( rogueValue );
-	if ( DEBUG_ROGUE_DEV >= 4 )
+	if ( DEBUG_ROGUE_RECORDS >= 4 )
 		printf( "%s: status %ld, mbbiValue %d\n", functionName, status, pRecord->val );
 	return status;
 }
@@ -733,7 +733,7 @@ static long write_mbbo( void	*	record )
 	int				status		= rogue_write_record( pRecord, rogueValue );
 
 	const char 	*	functionName = "write_mbbo";
-	if ( DEBUG_ROGUE_DEV >= 3 )
+	if ( DEBUG_ROGUE_RECORDS >= 3 )
 		printf( "%s: status %d, value %u\n", functionName, status, pRecord->val );
 	return status;
 }
@@ -805,7 +805,7 @@ static long init_waveform( void * pCommon )
 		return rogue_bad_field( pRecord, "cannot find rogue device for INP or OUT field!\n%s\n", sinp );
 	}
 
-	if ( DEBUG_ROGUE_DEV >= 4 )
+	if ( DEBUG_ROGUE_RECORDS >= 4 )
 		printf( "%s Parse succeeded: Board %u, Lane %u, Signal %u\n", functionName, board, lane, signal );
 
 	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
@@ -866,7 +866,7 @@ static long ioinfo_waveform( void * pCommon )
 		return rogue_bad_field( pRecord, "cannot find rogue device for INP or OUT field!\n%s\n", sinp );
 	}
 
-	if ( DEBUG_ROGUE_DEV >= 4 )
+	if ( DEBUG_ROGUE_RECORDS >= 4 )
 		printf( "%s Parse succeeded: Board %u, Lane %u, Signal %u\n", functionName, board, lane, signal );
 
 	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
@@ -905,7 +905,7 @@ static long read_waveform( void	*	record )
 //	uint64_t			rogueValue;
 //	rogue_read_record( pRecord, rogueValue );
 //	pRecord->rval = static_cast<epicsEnum16>( rogueValue );
-	if ( DEBUG_ROGUE_DEV >= 4 )
+	if ( DEBUG_ROGUE_RECORDS >= 4 )
 		printf( "%s: status %ld, waveform nElements=%d\n", functionName, status, pRecord->nelm );
 	return status;
 }
