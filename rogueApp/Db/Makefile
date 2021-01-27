@@ -16,6 +16,7 @@ include $(TOP)/configure/CONFIG
 DB += AxiVersion.db
 DB += ClinkLane.db
 DB += ClinkPcie.template
+DB += wave8Data.db
 DB += roguePcie.db
 DB += TriggerEventManager.template
 DB += putMonitor.template

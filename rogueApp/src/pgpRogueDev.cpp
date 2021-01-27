@@ -219,7 +219,7 @@ void pgpRogueDev::ProcessData(
 	if  ( m_CallbackClientFunc != NULL )
 	{
 		if ( DEBUG_PGP_ROGUE_DEV >= 5 )
-			printf( "%s:%s: Calling callback\n", getName().c_str(), functionName );
+			printf( "%s: Calling callback\n", functionName );
 		(*m_CallbackClientFunc)( m_pCallbackClient, pDataInfo );
 	}
 
@@ -290,12 +290,12 @@ pgpRogueDevConfig(
 	int				lane,
 	bool			)
 {
-	if ( gPgpRogueDev[lane] )
+	if ( gPgpRogueDev[board] )
 	{
-		gPgpRogueDev[lane]->disconnect();
-		gPgpRogueDev[lane].reset();
+		gPgpRogueDev[board]->disconnect();
+		gPgpRogueDev[board].reset();
 	}
-	gPgpRogueDev[lane] = pgpRogueDev::create( board, lane );
+	gPgpRogueDev[board] = pgpRogueDev::create( board, lane );
     return 0;
 }
 

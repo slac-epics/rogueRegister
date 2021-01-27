@@ -1,0 +1,13 @@
+# wfDevRogue.template
+record( waveform, "$(P)$(R)CH$(S):$(NAME)" )
+{
+	field( DESC, "$(DESC=?)" )
+	field( DTYP, "RogueWF" )
+	field( INP,  "@B$(B) L$(L) S$(S)" )
+	field( PINI, "YES" )
+	field( SCAN, "$(SCAN=I/O Intr)" )
+	field( DISV, "$(DISV=1)" )
+	field( SDIS, "$(SDIS=)" )
+	field( NELM, "$(NELM=128)" )
+	info( autosaveFields, "" )
+}

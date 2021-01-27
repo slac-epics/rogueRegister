@@ -793,11 +793,13 @@ static long init_waveform( void * pCommon )
 	status = sscanf( sinp, "B%u L%u S%u", &board, &lane, &signal );
 	if ( status != 3 )
 	{
-		return rogue_bad_field( pRecord, "cannot parse INP field!\n"
+		fprintf( stderr, "%s Error: Cannot parse INP field!\n"
 				"Expected 3 numbers for board, lane, and signal.\n"
 				"Example: B0 L3 S12\n"
-				"Got: %s\n", sinp );
+				"Got: %s\n", functionName, sinp );
 	}
+	if ( DEBUG_ROGUE_RECORDS >= 2 )
+		printf( "%s Parse succeeded: Board %u, Lane %u, Signal %u\n", functionName, board, lane, signal );
 
 	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( board );
 	if ( pRogue == NULL )
@@ -866,7 +868,7 @@ static long ioinfo_waveform( void * pCommon )
 		return rogue_bad_field( pRecord, "cannot find rogue device for INP or OUT field!\n%s\n", sinp );
 	}
 
-	if ( DEBUG_ROGUE_RECORDS >= 4 )
+	if ( DEBUG_ROGUE_RECORDS >= 2 )
 		printf( "%s Parse succeeded: Board %u, Lane %u, Signal %u\n", functionName, board, lane, signal );
 
 	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
@@ -893,6 +895,8 @@ static long read_waveform( waveformRecord	*	pRecord )
 //	uint64_t	rogueValue;
 //	rogue_read_record( pRecord, rogueValue );
 //	pRecord->rval = static_cast<epicsEnum16>( rogueValue );
+	if ( DEBUG_ROGUE_RECORDS >= 4 )
+		printf( "%s: status %ld, waveform nElements=%d\n", functionName, status, pRecord->nelm );
 	return status;
 }
 #else
@@ -925,14 +929,14 @@ struct
 	dset				common;
 	long (*read_waveform)(	struct waveformRecord	*	pRec );
 #endif
-}	dsetRogueWAVEFORM =
+}	dsetRogueWF =
 #ifdef USE_TYPED_DSET
 { { 5, NULL, NULL, init_waveform, ioinfo_waveform }, read_waveform };
 #else
 { 5, NULL, NULL, init_waveform, ioinfo_waveform, read_waveform };
 #endif
 
-epicsExportAddress( dset, dsetRogueWAVEFORM );
+epicsExportAddress( dset, dsetRogueWF );
 
 #ifdef __cplusplus
 }

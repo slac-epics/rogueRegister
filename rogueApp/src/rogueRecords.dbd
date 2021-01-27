@@ -8,7 +8,7 @@ device( longout,	INST_IO,	dsetRogueLO,	"RogueLO"	)
 device( mbbi,		INST_IO,	dsetRogueMBBI,	"RogueMBBI"	)
 device( mbbo,		INST_IO,	dsetRogueMBBO,	"RogueMBBO"	)
 #device( stringin,	INST_IO,	dsetRogueSI,	"RogueSI"	)
-#device( waveform,	INST_IO,	dsetRogueWF,	"RogueWF"	)
+device( waveform,	INST_IO,	dsetRogueWF,	"RogueWF"	)
 
 variable(	DEBUG_ROGUE_RECORDS,	int	)
 variable(	DEBUG_PGP_ROGUE,	int	)
