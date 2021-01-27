@@ -218,7 +218,7 @@ void pgpRogueDev::ProcessData(
 	// 					for i in range(0,loadSize,2)	]
 	if  ( m_CallbackClientFunc != NULL )
 	{
-		if ( DEBUG_PGP_ROGUE_DEV >= 5 )
+		if ( DEBUG_PGP_ROGUE_DEV >= 2 )
 			printf( "%s: Calling callback\n", functionName );
 		(*m_CallbackClientFunc)( m_pCallbackClient, pDataInfo );
 	}
