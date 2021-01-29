@@ -1,0 +1,64 @@
+# wave8Data.substitutions
+
+file wfDevRogue.template
+{
+	{
+		NAME	= "ArrayData",
+		S		= "0",
+		FTVL	= "\$(FTVL=USHORT)",
+		NELM	= "\$(NELM=256)",
+		SAVE	= ""
+	}
+	{
+		NAME	= "ArrayData",
+		S		= "1",
+		FTVL	= "\$(FTVL=USHORT)",
+		NELM	= "\$(NELM=256)",
+		SAVE	= ""
+	}
+	{
+		NAME	= "ArrayData",
+		S		= "2",
+		FTVL	= "\$(FTVL=USHORT)",
+		NELM	= "\$(NELM=256)",
+		SAVE	= ""
+	}
+	{
+		NAME	= "ArrayData",
+		S		= "3",
+		FTVL	= "\$(FTVL=USHORT)",
+		NELM	= "\$(NELM=256)",
+		SAVE	= ""
+	}
+	{
+		NAME	= "ArrayData",
+		S		= "4",
+		FTVL	= "\$(FTVL=USHORT)",
+		NELM	= "\$(NELM=256)",
+		SAVE	= ""
+	}
+	{
+		NAME	= "ArrayData",
+		S		= "5",
+		FTVL	= "\$(FTVL=USHORT)",
+		NELM	= "\$(NELM=256)",
+		SAVE	= ""
+	}
+	{
+		NAME	= "ArrayData",
+		S		= "6",
+		FTVL	= "\$(FTVL=USHORT)",
+		NELM	= "\$(NELM=256)",
+		SAVE	= ""
+	}
+	{
+		NAME	= "ArrayData",
+		S		= "7",
+		FTVL	= "\$(FTVL=USHORT)",
+		NELM	= "\$(NELM=256)",
+		SAVE	= ""
+	}
+}
+
+#       DESC    = "0         1         2         3         "
+#       DESC    = "01234567890123 Max 40 char 7890123456789"
