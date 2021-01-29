@@ -43,7 +43,7 @@ using namespace	std;
 namespace ris = rogue::interfaces::stream;
 
 int		DEBUG_PGP_ROGUE	= 0;
-int		DEBUG_PGP_ROGUE_DEV	= 2;
+int		DEBUG_PGP_ROGUE_DEV	= 3;
 
 #define	N_PGP_ROGUE_DEV	4
 
@@ -203,8 +203,64 @@ void pgpRogueDev::ProcessData(
 	DataCbInfo		* pDataInfo )
 {
 	const char		*	functionName	= "pgpRogueDev::ProcessData";
-	if ( DEBUG_PGP_ROGUE_DEV >= 6 ) printf( "%s\n", functionName );
 	//epicsTimeStamp		tsData	= pDataInfo->m_tsData;
+	rogue::interfaces::stream::FramePtr 	pDataFrame	= pDataInfo->m_DataPtr;
+	rogue::interfaces::stream::FrameIterator	it		= pDataFrame->begin();
+	unsigned int			channel = pDataFrame->getChannel();
+	if ( DEBUG_PGP_ROGUE_DEV >= 6 ) printf( "%s: Dataframe chan %u\n", functionName, channel );
+
+	// Notes from wave8-git/software/python/wave8Viewer/_wave8Viewer.py
+	// Channel	Content
+	// 0		timestamp
+	// 1		timestamp (either?)
+	// 2-9		raw waveforms signals 0-7
+	// 10		8 Integrals and baselines, see python for unpacking code
+	// 11		8 Floats for position and intensity, see python for unpacking code
+
+	if ( DEBUG_PGP_ROGUE_DEV >= 3 )
+	{
+    	// Acquire lock on frame. Will be released when lock class goes out of scope
+		//rogue::interfaces::stream::FrameLockPtr		lock	= pDataFrame->lock();
+		it		= pDataFrame->begin();
+		// Let's see how big it is
+		size_t	nValues	= 0;
+#if 1
+		for ( ; it != pDataFrame->end(); it++ )
+		{
+			nValues++;
+		}
+#endif
+		printf( "%s: Frame channel=%u, getPayload=%u, getSize()=%u, nValues=%zu\n", functionName,
+				channel, pDataFrame->getPayload(), pDataFrame->getSize(), nValues );
+		std::cout << std::flush;
+	}
+	epicsTimeStamp	tsCur;
+	epicsTimeGetCurrent( &tsCur );
+
+	switch ( channel )
+	{
+	default:
+		break;
+	case 0:		// Timestamp
+		if ( pDataFrame->getPayload() != 32 )
+			break;
+		if ( DEBUG_PGP_ROGUE_DEV >= 3 )
+			{
+			//uint32_t	w0, w1, w2, w3, w4, w5, w6, w7;
+			it		= pDataFrame->begin();
+			it += 8;    // Skipping ?
+			fromFrame( it, 4, &m_tsFrame.nsec );
+			fromFrame( it, 4, &m_tsFrame.secPastEpoch );
+			char	acBuff[40];
+			epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &m_tsFrame );
+			printf( "%s: Channel %u, tsFrame %s, pulseId 0x%X\n", functionName, channel,
+					acBuff, m_tsFrame.nsec & 0x1FFFF );
+			epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &tsCur );
+			printf( "%s: Channel %u, tsCur %s, pulseId 0x%X\n", functionName, channel,
+					acBuff, tsCur.nsec & 0x1FFFF );
+			}
+		break;
+	}
 
 	// From wave8-git/firmware/python/wave8/RawDataReceiver.py
 	// # Get data from frame
@@ -223,6 +279,7 @@ void pgpRogueDev::ProcessData(
 		(*m_CallbackClientFunc)( m_pCallbackClient, pDataInfo );
 	}
 
+#if 0
 	for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
 	{
 		IOSCANPVT	pscanIoPvt	= m_scanIoSignal[iSig];
@@ -232,6 +289,7 @@ void pgpRogueDev::ProcessData(
 		scanIoRequest( pscanIoPvt );
 #endif
 	}
+#endif
 
 	return;
 }

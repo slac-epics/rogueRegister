@@ -70,8 +70,8 @@ int rogue_init_record(
 		return rogue_bad_field( record, "cannot parse INP or OUT field!\n%s\n", sinp );
 	}
 
-	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( board );
-	if ( pRogue == NULL )
+	pgpRogueDevPtr	pRogueDev = pgpRogueDev::RogueFindByBoard( board );
+	if ( pRogueDev == NULL )
 	{
 		return rogue_bad_field( record, "cannot find rogue device for INP or OUT field!\n%s\n", sinp );
 	}
@@ -81,8 +81,8 @@ int rogue_init_record(
 
 	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
 	pRogueInfo->m_varPath		= varPath;
-	pRogueInfo->m_pRogueLib		= pRogue->GetRogueLib();
-	pRogueInfo->m_pRogueDev		= pRogue;
+	pRogueInfo->m_pRogueLib		= pRogueDev->GetRogueLib();
+	pRogueInfo->m_pRogueDev		= pRogueDev;
 	pRogueInfo->m_pRecCommon	= (struct dbCommon *) record,
 	pRogueInfo->m_fSignedValue	= false;
 	rogue::interfaces::memory::VariablePtr	pVar;
@@ -181,7 +181,6 @@ long rogue_ioinfo( int detach, struct dbCommon * pCommon, IOSCANPVT * pScanPvt )
 #include <boRecord.h>
 #include <mbbiRecord.h>
 #include <mbboRecord.h>
-#include <waveformRecord.h>
 template int        rogue_init_record(	longoutRecord	*, DBLINK );
 template int        rogue_init_record(	aiRecord		*, DBLINK );
 template int        rogue_init_record(	aoRecord		*, DBLINK );
@@ -189,7 +188,6 @@ template int        rogue_init_record(	biRecord		*, DBLINK );
 template int        rogue_init_record(	boRecord		*, DBLINK );
 template int        rogue_init_record(	mbbiRecord		*, DBLINK );
 template int        rogue_init_record(	mbboRecord		*, DBLINK );
-template int        rogue_init_record(	waveformRecord	*, DBLINK );
 #endif
 
 #if 0
@@ -197,7 +195,6 @@ template int        rogue_read_record(	aiRecord * );
 template int        rogue_read_record(	aoRecord * );
 template int        rogue_read_record(	mbbiRecord * );
 template int        rogue_read_record(	mbboRecord * );
-template int        rogue_read_record(	waveformRecord * );
 
 template int        rogue_write_record(	aoRecord	*, const double		& value );
 template int        rogue_write_record(	mbbiRecord	*, const uint64_t	& value );
@@ -801,8 +798,8 @@ static long init_waveform( void * pCommon )
 	if ( DEBUG_ROGUE_RECORDS >= 2 )
 		printf( "%s Parse succeeded: Board %u, Lane %u, Signal %u\n", functionName, board, lane, signal );
 
-	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( board );
-	if ( pRogue == NULL )
+	pgpRogueDevPtr	pRogueDev = pgpRogueDev::RogueFindByBoard( board );
+	if ( pRogueDev == NULL )
 	{
 		return rogue_bad_field( pRecord, "cannot find rogue device for INP or OUT field!\n%s\n", sinp );
 	}
@@ -813,8 +810,8 @@ static long init_waveform( void * pCommon )
 	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
 	pRogueInfo->m_signal		= signal;
 	pRogueInfo->m_varPath		= "unused";
-	pRogueInfo->m_pRogueLib		= pRogue->GetRogueLib();
-	pRogueInfo->m_pRogueDev		= pRogue;
+	pRogueInfo->m_pRogueLib		= pRogueDev->GetRogueLib();
+	pRogueInfo->m_pRogueDev		= pRogueDev;
 	pRogueInfo->m_fSignedValue	= false;
 //	if ( !pVar )
 //	{
@@ -836,24 +833,12 @@ static long ioinfo_waveform( int detach, void * pCommon, IOSCANPVT * pioScanRet 
 	waveformRecord	*	pRecord	= reinterpret_cast < waveformRecord * >( pCommon );
 	//int            	 	status	= 0;
 	rogue_info_t	*	pRogueInfo	= (rogue_info_t *) pRecord->dpvt;
-	if ( pRogueInfo && pioScanRet )
+	if ( pRogueInfo->m_pRogueDev )
 	{
-		if ( pRogueInfo->m_pRogueDev )
-		{
-			*pioScanRet = pRogueInfo->m_pRogueDev->GetScanIO( pRogueInfo->m_signal );
-			if ( DEBUG_ROGUE_RECORDS >= 2 )
-				printf( "%s succeeded for signal %zu.\n", functionName, pRogueInfo->m_signal );
-
-		}
+		*pioScanRet = pRogueInfo->m_pRogueDev->GetScanIO( pRogueInfo->m_signal );
+		if ( DEBUG_ROGUE_RECORDS >= 2 )
+			printf( "%s succeeded for signal %zu.\n", functionName, pRogueInfo->m_signal );
 	}
-#if 0
-	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
-	pRogueInfo->m_signal		= signal;
-	pRogueInfo->m_varPath		= "unused";
-	pRogueInfo->m_pRogueLib		= pRogue->GetRogueLib();
-	pRogueInfo->m_pRogueDev		= pRogue;
-	pRogueInfo->m_fSignedValue	= false;
-#endif
 	return 0;
 }
 
@@ -862,10 +847,8 @@ static long ioinfo_waveform( int detach, void * pCommon, IOSCANPVT * pioScanRet 
 static long read_waveform( waveformRecord	*	pRecord )
 {
 	long		status = 0;
-//	uint64_t	rogueValue;
-//	rogue_read_record( pRecord, rogueValue );
-//	pRecord->rval = static_cast<epicsEnum16>( rogueValue );
-	if ( DEBUG_ROGUE_RECORDS >= 4 )
+	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	if ( DEBUG_ROGUE_RECORDS >= 6 )
 		printf( "%s: status %ld, waveform nElements=%d\n", functionName, status, pRecord->nelm );
 	return status;
 }
@@ -876,11 +859,10 @@ static long read_waveform( void	*	record )
 	const char 		*	functionName = "read_waveform";
 	long				status = 0;
 	waveformRecord	*	pRecord	= reinterpret_cast <waveformRecord *>( record );
-//	uint64_t			rogueValue;
-//	rogue_read_record( pRecord, rogueValue );
-//	pRecord->rval = static_cast<epicsEnum16>( rogueValue );
-	if ( DEBUG_ROGUE_RECORDS >= 4 )
+	if ( DEBUG_ROGUE_RECORDS >= 6 )
 		printf( "%s: status %ld, waveform nElements=%d\n", functionName, status, pRecord->nelm );
+	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+
 	return status;
 }
 #endif

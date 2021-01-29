@@ -27,6 +27,7 @@
 #include <dbScan.h>
 #include <devSup.h>
 #include "pgpRogueLib.h"
+#include "memoryBuffer.h"
 
 // rogue headers 
 #include <rogue/hardware/axi/AxiMemMap.h>
@@ -104,6 +105,10 @@ public:		//	Public member functions
 
 	void ProcessData(	DataCbInfo				*	pCbInfo );
 
+	/// Fetch data for the specified signal
+	/// Returns number of bytes added to buffer.  -1 on error
+	int	GetData( size_t iSignal, void * pBuffer, size_t sBuffer );
+
 	void ResetCounters();
 
 	///	Dump Rogue PGP variables
@@ -158,6 +163,7 @@ private:
 	epicsMutexId		m_devLock;
 	IOSCANPVT			m_scanIoSignal[PGP_NUM_SIGNALS];
 	bool				m_fLcls2Timing;	// true to initialize w/ LCLS2 timing, false for LCLS1
+	epicsTimeStamp		m_tsFrame;		// Timestamp from latest frame
 
 	///
 	// Firmware Lane assignments:
