@@ -38,6 +38,7 @@
 //#include <DmaDriver.h>
 
 #include "pgpRogueDev.h"
+#include "rogueRecords.h"
 
 using namespace	std;
 namespace ris = rogue::interfaces::stream;
@@ -79,12 +80,10 @@ pgpRogueDev::pgpRogueDev(
 	// Create mutexes
     m_devLock	= epicsMutexMustCreate();
 
-    // Initialize I/O Intr processing
+    // Initialize arrays
 	for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
 	{
-		scanIoInit( &m_scanIoSignal[iSig] );
-		if ( m_scanIoSignal[iSig] == NULL )
-			errlogPrintf( "%s: ERROR, scanIoInit failed!\n", functionName );
+		m_pRawDataRogueInfo[iSig] = NULL;
 	}
 
     // Install exit hook for clean shutdown
@@ -234,7 +233,10 @@ void pgpRogueDev::ProcessData(
 				channel, pDataFrame->getPayload(), pDataFrame->getSize(), nValues );
 		std::cout << std::flush;
 	}
-	epicsTimeStamp	tsCur;
+
+	//IOSCANPVT			pscanIoPvt;
+	rogue_info_t	*	pRogueInfo;
+	epicsTimeStamp		tsCur;
 	epicsTimeGetCurrent( &tsCur );
 
 	switch ( channel )
@@ -259,6 +261,14 @@ void pgpRogueDev::ProcessData(
 			printf( "%s: Channel %u, tsCur %s, pulseId 0x%X\n", functionName, channel,
 					acBuff, tsCur.nsec & 0x1FFFF );
 			}
+		break;
+	case 2:	case 3:	case 4:	case 5:
+	case 6:	case 7:	case 8:	case 9:
+		pRogueInfo = m_pRawDataRogueInfo[channel-2];
+		if ( pRogueInfo )
+		{
+			update_waveform( (waveformRecord *) pRogueInfo->m_pRecCommon, m_tsFrame, pDataFrame );
+		}
 		break;
 	}
 

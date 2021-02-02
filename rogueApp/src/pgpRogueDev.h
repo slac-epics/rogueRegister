@@ -9,9 +9,7 @@
 //////////////////////////////////////////////////////////////////////////////
 //
 //	pgpRogueDev.h
-//	pgpRogueDev.h
 //
-//	Header file for pgpRogueDev class.
 //	Header file for pgpRogueDev class.
 //	It provides a device class to encapsulate
 //	register I/O via the SLAC Rogue API
@@ -26,6 +24,7 @@
 #include <epicsTime.h>
 #include <dbScan.h>
 #include <devSup.h>
+#include <waveformRecord.h>
 #include "pgpRogueLib.h"
 #include "memoryBuffer.h"
 
@@ -48,6 +47,9 @@
 #define PGP_NUM_SIGNALS				8
 
 typedef int (* DataCallback)( void * pClientContext, DataCbInfo * pCbInfo );
+
+struct _rogue_info;
+typedef struct _rogue_info		rogue_info_t;
 
 
 ///	pgpRogueDev class
@@ -107,7 +109,7 @@ public:		//	Public member functions
 
 	/// Fetch data for the specified signal
 	/// Returns number of bytes added to buffer.  -1 on error
-	int	GetData( size_t iSignal, void * pBuffer, size_t sBuffer );
+	//int	GetData( size_t iSignal, void * pBuffer, size_t sBuffer );
 
 	void ResetCounters();
 
@@ -131,9 +133,18 @@ public:		//	Public member functions
 
 	int		setTriggerEnable( unsigned int triggerNum, bool fEnable );
 
-	IOSCANPVT		GetScanIO( size_t iSig ) const
+	rogue_info_t *	GetRawDataRogueInfo( size_t iSig ) const
 	{
-		return m_scanIoSignal[iSig];
+		if ( iSig < PGP_NUM_SIGNALS )
+			return m_pRawDataRogueInfo[iSig];
+		return NULL;
+	}
+
+	void SetRawDataRogueInfo( size_t iSig, rogue_info_t * pRogueInfo )
+	{
+		if ( iSig < PGP_NUM_SIGNALS )
+			m_pRawDataRogueInfo[iSig] = pRogueInfo;
+		return;
 	}
 
 	/// Return shared_ptr to pgpRogueLib device
@@ -161,7 +172,8 @@ private:
 	std::string			m_DrvVersion;	// Driver Version
 	std::string			m_LibVersion;	// Library Version
 	epicsMutexId		m_devLock;
-	IOSCANPVT			m_scanIoSignal[PGP_NUM_SIGNALS];
+	//IOSCANPVT			m_scanIoSignal[PGP_NUM_SIGNALS];
+	rogue_info_t	 *	m_pRawDataRogueInfo[PGP_NUM_SIGNALS];
 	bool				m_fLcls2Timing;	// true to initialize w/ LCLS2 timing, false for LCLS1
 	epicsTimeStamp		m_tsFrame;		// Timestamp from latest frame
 
@@ -196,5 +208,22 @@ extern int				DEBUG_PGP_ROGUE;
 
 // Shared pointer alias
 typedef std::shared_ptr<pgpRogueDev> pgpRogueDevPtr;
+
+
+struct _rogue_info
+{
+	std::string			m_varPath;
+	pgpRogueLibPtr		m_pRogueLib;
+	pgpRogueDevPtr		m_pRogueDev;
+	struct dbCommon	*	m_pRecCommon;
+	bool				m_fSignedValue;
+	size_t				m_signal;
+	IOSCANPVT			m_scanIo;
+};
+
+
+extern "C" long	update_waveform(	waveformRecord	*	pRecord,
+									epicsTimeStamp		tcUpdate,
+									rogue::interfaces::stream::FramePtr	pDataFrame	);
 
 #endif	//	pgpRogueDev_H

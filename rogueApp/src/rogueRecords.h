@@ -21,16 +21,6 @@
 #include "pgpRogueDev.h"
 #include "pgpRogueLib.h"
 
-typedef struct _rogue_info_t
-{
-	std::string			m_varPath;
-	pgpRogueLibPtr		m_pRogueLib;
-	pgpRogueDevPtr		m_pRogueDev;
-	struct dbCommon	*	m_pRecCommon;
-	bool				m_fSignedValue;
-	size_t				m_signal;
-}	rogue_info_t;
-
 template<class R>		   int		 rogue_init_record(	R * record, DBLINK link	);
 //template<class R, class EV, class RV> int rogue_read_record( R * record, EV & epicsVal, RV &rogueVal );
 template<class R, class V> int		 rogue_read_record(  R * record, V & valueRet );

@@ -23,11 +23,13 @@
 //#include "drvRogue.h"
 #include "rogueRecords.h"
 #include "pgpRogueDev.h"
+#include "DataStream.h"
 
 
 int	DEBUG_ROGUE_RECORDS = 2;
 epicsExportAddress( int,  DEBUG_ROGUE_RECORDS );
 
+namespace ris = rogue::interfaces::stream;
 
 static int
 rogue_bad_field(
@@ -79,12 +81,13 @@ int rogue_init_record(
 	if ( DEBUG_ROGUE_RECORDS >= 4 )
 		printf( "%s Parse succeeded: Board %u, Lane %u, VarPath %s\n", functionName, board, lane, varPath );
 
-	rogue_info_t	*	pRogueInfo		= new rogue_info_t;
+	rogue_info_t *	pRogueInfo	= new rogue_info_t;
 	pRogueInfo->m_varPath		= varPath;
 	pRogueInfo->m_pRogueLib		= pRogueDev->GetRogueLib();
 	pRogueInfo->m_pRogueDev		= pRogueDev;
-	pRogueInfo->m_pRecCommon	= (struct dbCommon *) record,
 	pRogueInfo->m_fSignedValue	= false;
+	pRogueInfo->m_pRecCommon	= (struct dbCommon *) record,
+	scanIoInit( &pRogueInfo->m_scanIo );
 	rogue::interfaces::memory::VariablePtr	pVar;
 	pVar = pRogueInfo->m_pRogueLib->getVariable( pRogueInfo->m_varPath );
 	if ( !pVar )
@@ -165,7 +168,7 @@ long rogue_ioinfo( int detach, struct dbCommon * pCommon, IOSCANPVT * pScanPvt )
 	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRec->dpvt );
 	if ( pRogueInfo->m_pRogueDev )
 	{
-		*pScanPvt = pRogueInfo->m_pRogueDev->GetScanIO( pRogueInfo->m_signal );
+		*pScanPvt = pRogueInfo->m_scanIo;
 	}
 	else
 	{
@@ -813,11 +816,15 @@ static long init_waveform( void * pCommon )
 	pRogueInfo->m_pRogueLib		= pRogueDev->GetRogueLib();
 	pRogueInfo->m_pRogueDev		= pRogueDev;
 	pRogueInfo->m_fSignedValue	= false;
+	pRogueInfo->m_pRecCommon	= (struct dbCommon *) pCommon;
+	scanIoInit( &pRogueInfo->m_scanIo );
 //	if ( !pVar )
 //	{
 //		printf( "%s error: %s not found!\n", functionName, pRogueInfo->m_varPath.c_str() );
 //	}
 	pRecord->dpvt				= pRogueInfo;
+
+	pRogueDev->SetRawDataRogueInfo( signal, pRogueInfo );
 
 	// Do not convert
 	return 2;
@@ -835,7 +842,7 @@ static long ioinfo_waveform( int detach, void * pCommon, IOSCANPVT * pioScanRet 
 	rogue_info_t	*	pRogueInfo	= (rogue_info_t *) pRecord->dpvt;
 	if ( pRogueInfo->m_pRogueDev )
 	{
-		*pioScanRet = pRogueInfo->m_pRogueDev->GetScanIO( pRogueInfo->m_signal );
+		*pioScanRet = pRogueInfo->m_scanIo;
 		if ( DEBUG_ROGUE_RECORDS >= 2 )
 			printf( "%s succeeded for signal %zu.\n", functionName, pRogueInfo->m_signal );
 	}
@@ -861,11 +868,48 @@ static long read_waveform( void	*	record )
 	waveformRecord	*	pRecord	= reinterpret_cast <waveformRecord *>( record );
 	if ( DEBUG_ROGUE_RECORDS >= 6 )
 		printf( "%s: status %ld, waveform nElements=%d\n", functionName, status, pRecord->nelm );
-	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	//rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
 
+	// data loaded by pgpRogueDev
 	return status;
 }
 #endif
+
+long update_waveform( waveformRecord	*	pRecord, epicsTimeStamp tcUpdate, ris::FramePtr	pDataFrame )
+{
+	const char		*	functionName	= "update_waveform";
+	long		status = 0;
+	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	if ( DEBUG_ROGUE_RECORDS >= 6 )
+		printf( "%s: status %ld, waveform nElements=%d\n", functionName, status, pRecord->nelm );
+	pRecord->time = tcUpdate;
+	// Load data into buffer
+	{	// TODO: Templatize this
+	rogue::interfaces::stream::FrameIterator	it;
+	pRecord->nord	= 0;
+	uint16_t	*	pData = (uint16_t *) pRecord->bptr;
+	for ( it = pDataFrame->begin(); it != pDataFrame->end(); it++ )
+	{
+		if ( pRecord->nord >= pRecord->nelm )
+			break;
+		*pData++ = *it;
+		pRecord->nord++;
+	}
+	scanIoImmediate( pRogueInfo->m_scanIo, priorityHigh );
+	}
+	if ( status )
+	{
+		pRecord->nsta = UDF_ALARM;
+		pRecord->nsev = INVALID_ALARM;
+		return -1;
+	}
+	else
+	{
+		pRecord->udf = FALSE;
+	}
+	return 0;
+}
+
 
 struct
 {
