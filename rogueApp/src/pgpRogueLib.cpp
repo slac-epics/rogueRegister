@@ -43,8 +43,8 @@ namespace rim = rogue::interfaces::memory;
 
 typedef	std::map< std::string, rim::VariablePtr >	mapVarPtr_t;
 
-extern	int		DEBUG_PGP_ROGUE;
-bool	bUseMiniTpg		= 0;
+int		DEBUG_PGP_ROGUE_LIB	= 0;
+bool	bUseMiniTpg			= 0;
 #ifdef SUPPORT_CLINK
 //int		doFebConfig		= 0;
 //int		doFebFpgaReload	= 1;
@@ -670,7 +670,7 @@ template<class R> int pgpRogueLib::readVarPath( const char * pszVarPath, R & val
 	}
 	//pVar->setLogLevel( rogue::Logging::Warning );
 
-	if ( DEBUG_PGP_ROGUE >= 6 )
+	if ( DEBUG_PGP_ROGUE_LIB >= 6 )
 	{
 		std::cout	<< functionName	<< ": " << varPath
 					<< ", typeid = "	<< typeid(R).name()
@@ -696,7 +696,7 @@ template<class R> int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const R 
 		return -1;
 	}
 
-	if ( DEBUG_PGP_ROGUE >= 6 )
+	if ( DEBUG_PGP_ROGUE_LIB >= 6 )
 	{
 		//if ( pVar->modelId() == rim::Bool )
 		//	pVar->setLogLevel( rogue::Logging::Debug );
@@ -720,7 +720,7 @@ template<class R> int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const R 
 		{
 			R	valueRet;
 			pVar->getValue( valueRet );
-			if ( DEBUG_PGP_ROGUE >= 3 || value != valueRet )
+			if ( DEBUG_PGP_ROGUE_LIB >= 3 || value != valueRet )
 			{
 				std::cout	<< functionName	<< ": " << pVar->path()
 							<< ", setValue="	<< value;

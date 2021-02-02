@@ -40,6 +40,9 @@
 #define PGP_DATACHAN_REG_ACCESS		0
 #define PGP_DATACHAN_FRAME_ACCESS	1
 
+/*	Diagnostic variables	*/
+extern int				DEBUG_PGP_ROGUE_LIB;
+
 class rogueAddrMap;
 typedef std::shared_ptr<rogueAddrMap> rogueAddrMapPtr;
 

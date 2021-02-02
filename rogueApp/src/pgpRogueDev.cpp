@@ -43,7 +43,6 @@
 using namespace	std;
 namespace ris = rogue::interfaces::stream;
 
-int		DEBUG_PGP_ROGUE	= 0;
 int		DEBUG_PGP_ROGUE_DEV	= 3;
 
 #define	N_PGP_ROGUE_DEV	4
@@ -580,6 +579,6 @@ extern "C"
 	epicsExportRegistrar( ShowAllRogueRegister );
 	epicsExportRegistrar( ShowPgpVarRegister );
 	epicsExportAddress( int, DEBUG_PGP_ROGUE_DEV );
-	epicsExportAddress( int, DEBUG_PGP_ROGUE );
+	epicsExportAddress( int, DEBUG_PGP_ROGUE_LIB );
 }
 

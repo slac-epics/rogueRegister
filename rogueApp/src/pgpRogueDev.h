@@ -203,9 +203,6 @@ private:
 	DataCallback								m_CallbackClientFunc;
 };
 
-/*	Diagnostic variables	*/
-extern int				DEBUG_PGP_ROGUE;
-
 // Shared pointer alias
 typedef std::shared_ptr<pgpRogueDev> pgpRogueDevPtr;
 
