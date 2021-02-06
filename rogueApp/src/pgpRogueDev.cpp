@@ -215,7 +215,7 @@ void pgpRogueDev::ProcessData(
 	// 10		8 Integrals and baselines, see python for unpacking code
 	// 11		8 Floats for position and intensity, see python for unpacking code
 
-	if ( DEBUG_PGP_ROGUE_DEV >= 3 )
+	if ( DEBUG_PGP_ROGUE_DEV >= 4 )
 	{
     	// Acquire lock on frame. Will be released when lock class goes out of scope
 		//rogue::interfaces::stream::FrameLockPtr		lock	= pDataFrame->lock();
@@ -246,7 +246,7 @@ void pgpRogueDev::ProcessData(
 		if ( pDataFrame->getPayload() != 32 )
 			break;
 		if ( DEBUG_PGP_ROGUE_DEV >= 3 )
-			{
+		{
 			//uint32_t	w0, w1, w2, w3, w4, w5, w6, w7;
 			it		= pDataFrame->begin();
 			it += 8;    // Skipping ?
@@ -256,10 +256,13 @@ void pgpRogueDev::ProcessData(
 			epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &m_tsFrame );
 			printf( "%s: Channel %u, tsFrame %s, pulseId 0x%X\n", functionName, channel,
 					acBuff, m_tsFrame.nsec & 0x1FFFF );
-			epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &tsCur );
-			printf( "%s: Channel %u, tsCur %s, pulseId 0x%X\n", functionName, channel,
-					acBuff, tsCur.nsec & 0x1FFFF );
+			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
+			{
+				epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &tsCur );
+				printf( "%s: Channel %u, tsCur %s, pulseId 0x%X\n", functionName, channel,
+						acBuff, tsCur.nsec & 0x1FFFF );
 			}
+		}
 		break;
 	case 2:	case 3:	case 4:	case 5:
 	case 6:	case 7:	case 8:	case 9:

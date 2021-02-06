@@ -14,11 +14,15 @@
 #include <longinRecord.h>
 #include <longoutRecord.h>
 #include <waveformRecord.h>
-//#include <dbAccess.h>
+#include <caeventmask.h>
+#include <dbEvent.h>
 //#include <dbAccessDefs.h>
+#include <dbLock.h>
 #include <dbScan.h>
 #include <recGbl.h>
+#include <recSup.h>
 #include <epicsExport.h>
+#include <epicsThread.h>
 
 //#include "drvRogue.h"
 #include "rogueRecords.h"
@@ -867,35 +871,66 @@ static long read_waveform( void	*	record )
 	long				status = 0;
 	waveformRecord	*	pRecord	= reinterpret_cast <waveformRecord *>( record );
 	if ( DEBUG_ROGUE_RECORDS >= 6 )
-		printf( "%s: status %ld, waveform nElements=%d\n", functionName, status, pRecord->nelm );
-	//rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+		printf( "%s: status %ld, waveform nord=%d in thread %s ...\n",
+				functionName, status, pRecord->nord, epicsThreadGetNameSelf() );
+	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
 
 	// data loaded by pgpRogueDev
-	return status;
+	if ( pRogueInfo->m_newDataCount	!= 0 )
+	{
+		if( pRogueInfo->m_newDataCount > pRecord->nelm )
+			pRogueInfo->m_newDataCount = pRecord->nelm;
+		if( pRecord->nord != pRogueInfo->m_newDataCount )
+		{
+			pRecord->nord =  pRogueInfo->m_newDataCount;
+			db_post_events( pRecord, &pRecord->nord, (DBE_VALUE|DBE_LOG) );
+		}
+	}
+	pRogueInfo->m_newDataCount	= 0;
+	if ( status )
+	{
+		pRecord->nsta = UDF_ALARM;
+		pRecord->nsev = INVALID_ALARM;
+		return -1;
+	}
+	else
+	{
+		pRecord->udf = FALSE;
+	}
+	return 0;
 }
 #endif
 
 long update_waveform( waveformRecord	*	pRecord, epicsTimeStamp tcUpdate, ris::FramePtr	pDataFrame )
 {
 	const char		*	functionName	= "update_waveform";
-	long		status = 0;
+	long				status = 0;
 	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
 	if ( DEBUG_ROGUE_RECORDS >= 6 )
-		printf( "%s: status %ld, waveform nElements=%d\n", functionName, status, pRecord->nelm );
+		printf( "%s: status %ld, waveform nord=%d in thread %s ...\n",
+				functionName, status, pRecord->nord, epicsThreadGetNameSelf() );
 	pRecord->time = tcUpdate;
 	// Load data into buffer
 	{	// TODO: Templatize this
 	rogue::interfaces::stream::FrameIterator	it;
-	pRecord->nord	= 0;
+	pRogueInfo->m_newDataCount	= 0;
 	uint16_t	*	pData = (uint16_t *) pRecord->bptr;
 	for ( it = pDataFrame->begin(); it != pDataFrame->end(); it++ )
 	{
-		if ( pRecord->nord >= pRecord->nelm )
+		if ( pRogueInfo->m_newDataCount >= pRecord->nelm )
 			break;
-		*pData++ = *it;
-		pRecord->nord++;
+		fromFrame( it, sizeof(uint16_t), pData++ );
+		pRogueInfo->m_newDataCount++;
 	}
-	scanIoImmediate( pRogueInfo->m_scanIo, priorityHigh );
+#if 0
+	struct dbCommon * pCommon = (struct dbCommon *) pRecord;
+	dbScanLock( pCommon );
+	(*pRecord->rset->process)( pCommon );
+	dbScanUnlock( pCommon );
+#else
+	scanIoRequest( pRogueInfo->m_scanIo );
+	//scanIoImmediate( pRogueInfo->m_scanIo, priorityHigh );
+#endif
 	}
 	if ( status )
 	{

@@ -172,7 +172,6 @@ private:
 	std::string			m_DrvVersion;	// Driver Version
 	std::string			m_LibVersion;	// Library Version
 	epicsMutexId		m_devLock;
-	//IOSCANPVT			m_scanIoSignal[PGP_NUM_SIGNALS];
 	rogue_info_t	 *	m_pRawDataRogueInfo[PGP_NUM_SIGNALS];
 	bool				m_fLcls2Timing;	// true to initialize w/ LCLS2 timing, false for LCLS1
 	epicsTimeStamp		m_tsFrame;		// Timestamp from latest frame
@@ -215,6 +214,7 @@ struct _rogue_info
 	struct dbCommon	*	m_pRecCommon;
 	bool				m_fSignedValue;
 	size_t				m_signal;
+	size_t				m_newDataCount;
 	IOSCANPVT			m_scanIo;
 };
 
