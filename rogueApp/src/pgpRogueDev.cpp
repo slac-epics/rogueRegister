@@ -201,8 +201,10 @@ void pgpRogueDev::ProcessData(
 	DataCbInfo		* pDataInfo )
 {
 	const char		*	functionName	= "pgpRogueDev::ProcessData";
-	//epicsTimeStamp		tsData	= pDataInfo->m_tsData;
+
+	// Frame is locked in DataStream::acceptFrame()
 	rogue::interfaces::stream::FramePtr 	pDataFrame	= pDataInfo->m_DataPtr;
+
 	rogue::interfaces::stream::FrameIterator	it		= pDataFrame->begin();
 	unsigned int			channel = pDataFrame->getChannel();
 	if ( DEBUG_PGP_ROGUE_DEV >= 6 ) printf( "%s: Dataframe chan %u\n", functionName, channel );
@@ -230,7 +232,6 @@ void pgpRogueDev::ProcessData(
 #endif
 		printf( "%s: Frame channel=%u, getPayload=%u, getSize()=%u, nBytes=%zu\n", functionName,
 				channel, pDataFrame->getPayload(), pDataFrame->getSize(), nBytes );
-		std::cout << std::flush;
 	}
 
 	//IOSCANPVT			pscanIoPvt;
@@ -274,8 +275,8 @@ void pgpRogueDev::ProcessData(
 		break;
 	}
 
-	// From wave8-git/firmware/python/wave8/RawDataReceiver.py
-	// # Get data from frame
+	pDataFrame.reset();
+#if 0
 	// loadSize = frame.getPayload()
 	// dat = bytearray(loadSize)
 	// frame.read(dat,0)
@@ -289,17 +290,6 @@ void pgpRogueDev::ProcessData(
 		if ( DEBUG_PGP_ROGUE_DEV >= 2 )
 			printf( "%s: Calling callback\n", functionName );
 		(*m_CallbackClientFunc)( m_pCallbackClient, pDataInfo );
-	}
-
-#if 0
-	for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
-	{
-		IOSCANPVT	pscanIoPvt	= m_scanIoSignal[iSig];
-#if 0
-		scanIoImmediate( pscanIoPvt, priorityHigh );
-#else
-		scanIoRequest( pscanIoPvt );
-#endif
 	}
 #endif
 

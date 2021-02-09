@@ -916,24 +916,21 @@ long update_waveform( waveformRecord	*	pRecord, epicsTimeStamp tcUpdate, ris::Fr
 	pRogueInfo->m_newDataCount	= 0;
 	uint16_t	*	pData = (uint16_t *) pRecord->bptr;
 	memset( pData, 0, sizeof(uint16_t) * pRecord->nelm );
-	for ( it = pDataFrame->begin(); it != pDataFrame->end(); )
+	if ( pDataFrame )
 	{
-		if ( pRogueInfo->m_newDataCount >= pRecord->nelm )
-			break;
-		// Note: bufferLen should be set to a multiple of data type
-		// For uint16_t, an odd bufferLen results in a corrupted final value.
-		fromFrame( it, sizeof(uint16_t), pData++ );
-		pRogueInfo->m_newDataCount++;
+		for ( it = pDataFrame->begin(); it != pDataFrame->end(); )
+		{
+			if ( pRogueInfo->m_newDataCount >= pRecord->nelm )
+				break;
+			// Note: bufferLen should be set to a multiple of data type
+			// For uint16_t, an odd bufferLen results in a corrupted final value.
+			fromFrame( it, sizeof(uint16_t), pData++ );
+			pRogueInfo->m_newDataCount++;
+		}
+		pDataFrame.reset();
 	}
-#if 0
-	struct dbCommon * pCommon = (struct dbCommon *) pRecord;
-	dbScanLock( pCommon );
-	(*pRecord->rset->process)( pCommon );
-	dbScanUnlock( pCommon );
-#else
-	//scanIoRequest( pRogueInfo->m_scanIo );
+	// Process waveform record via read_waveform() using high priority scanIo Q
 	scanIoImmediate( pRogueInfo->m_scanIo, priorityHigh );
-#endif
 	}
 	if ( status )
 	{

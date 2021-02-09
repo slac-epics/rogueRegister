@@ -56,7 +56,7 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	m_ByteCount += payload;
 
 	if ( DEBUG_PGP_ROGUE_DEV >= 5 )
-		printf( "%s:%s: Rcvd frame w/ %u payload\n", getName().c_str(), functionName, payload );
+		printf( "%s::%s: Rcvd frame w/ %u payload\n", getName().c_str(), functionName, payload );
 
 	// Here we get an iterator to the frame data
 	rogue::interfaces::stream::FrameIterator it;
@@ -135,4 +135,5 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 		m_pRogueDev->ProcessData( &m_DataInfo );
 		m_DataInfo.m_DataPtr.reset();
 	}
+	frame.reset();
 }
