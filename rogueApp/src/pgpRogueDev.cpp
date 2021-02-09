@@ -221,15 +221,15 @@ void pgpRogueDev::ProcessData(
 		//rogue::interfaces::stream::FrameLockPtr		lock	= pDataFrame->lock();
 		it		= pDataFrame->begin();
 		// Let's see how big it is
-		size_t	nValues	= 0;
+		size_t	nBytes	= 0;
 #if 1
 		for ( ; it != pDataFrame->end(); it++ )
 		{
-			nValues++;
+			nBytes++;
 		}
 #endif
-		printf( "%s: Frame channel=%u, getPayload=%u, getSize()=%u, nValues=%zu\n", functionName,
-				channel, pDataFrame->getPayload(), pDataFrame->getSize(), nValues );
+		printf( "%s: Frame channel=%u, getPayload=%u, getSize()=%u, nBytes=%zu\n", functionName,
+				channel, pDataFrame->getPayload(), pDataFrame->getSize(), nBytes );
 		std::cout << std::flush;
 	}
 
