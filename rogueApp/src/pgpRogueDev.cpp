@@ -149,7 +149,12 @@ pgpRogueDev::pgpRogueDev(
 	m_pDataChan->addSlave( m_pDataStream );
 	// or
 	// m_pUnbatcher->addSlave( m_pDataStream );
+	
+	// 	ris::FifoPtr create(uint32_t maxDepth, uint32_t trimSize, bool noCopy)
+	m_pDataFifo	= ris::Fifo::create( 0, 0, false );
 
+#if 0
+	// TODO: Should I drop the rogue rateDrop?
 	double	rateDropPeriod		= 1.0;	// seconds?
 	bool	rateDropUsePeriod	= true;
 	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
@@ -159,9 +164,12 @@ pgpRogueDev::pgpRogueDev(
 
 	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
 		printf( "%s: Connecting RateDrop to Fifo ...\n", functionName );
-	// 	ris::FifoPtr create(uint32_t maxDepth, uint32_t trimSize, bool noCopy)
-	m_pDataFifo	= ris::Fifo::create( 0, 0, false );
 	m_pRateDrop->addSlave( m_pDataFifo );
+#else
+	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+		printf( "%s: Connecting DataChan to Fifo ...\n", functionName );
+	m_pDataChan->addSlave( m_pDataFifo );
+#endif
 	
 	// EPICS unbatcher
 	m_pEpicsUnbatcher	= rogue::protocols::batcher::SplitterV1::create();
