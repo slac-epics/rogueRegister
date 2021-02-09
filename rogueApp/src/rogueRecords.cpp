@@ -918,6 +918,13 @@ long update_waveform( waveformRecord	*	pRecord, epicsTimeStamp tcUpdate, ris::Fr
 	memset( pData, 0, sizeof(uint16_t) * pRecord->nelm );
 	if ( pDataFrame )
 	{
+#if 1
+		it = pDataFrame->begin();
+		pRogueInfo->m_newDataCount = pDataFrame->getSize() / sizeof(uint16_t);
+		if( pRogueInfo->m_newDataCount > pRecord->nelm )
+			pRogueInfo->m_newDataCount = pRecord->nelm;
+		fromFrame( it, pRogueInfo->m_newDataCount * sizeof(uint16_t), pData );
+#else
 		for ( it = pDataFrame->begin(); it != pDataFrame->end(); )
 		{
 			if ( pRogueInfo->m_newDataCount >= pRecord->nelm )
@@ -927,6 +934,7 @@ long update_waveform( waveformRecord	*	pRecord, epicsTimeStamp tcUpdate, ris::Fr
 			fromFrame( it, sizeof(uint16_t), pData++ );
 			pRogueInfo->m_newDataCount++;
 		}
+#endif
 		pDataFrame.reset();
 	}
 	// Process waveform record via read_waveform() using high priority scanIo Q
