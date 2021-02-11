@@ -27,7 +27,6 @@ extern int	DEBUG_PGP_ROGUE_DEV;
 
 void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 {
-	char        	acBuff[40];
 	const char	*	functionName	= "acceptFrame";
 	if ( !frame ) {
 		if ( DEBUG_PGP_ROGUE_DEV >= 2 )
@@ -63,8 +62,8 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	it = frame->begin();
 
 	// Timestamp should default to TOD
-	epicsTimeStamp		ts;
-	epicsTimeGetCurrent( &ts );
+	epicsTimeStamp		tsCur;
+	epicsTimeGetCurrent( &tsCur );
 
 	// From wave8-git/firmware/python/wave8/RawDataReceiver.py
 	// # Get data from frame
@@ -96,6 +95,7 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 			it += 8;	// Skipping ?
 			fromFrame( it, 4, &ts.nsec );
 			fromFrame( it, 4, &ts.secPastEpoch );
+			char  acBuff[40];
 			epicsTimeToStrftime( acBuff, 40, "%H:%M:%S.%04f", &ts );
 			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
 			{
@@ -125,12 +125,15 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 	if ( m_pRogueDev && frame )
 	{
 		//m_DataInfo.m_DataPtr	= frame;
-		m_DataInfo.m_tsData		= ts;
+#if 0
+		m_DataInfo.m_tsData		= tsCur;
 		if ( !frame && ( DEBUG_PGP_ROGUE_DEV >= 4 ) )
 		{
-			epicsTimeToStrftime( acBuff, 40, "%H:%M:%S.%04f", &ts );
-			printf( "ts %s, pulseId 0x%X, no image!\n", acBuff, ts.nsec & 0x1FFFF );
+			char  acBuff[40];
+			epicsTimeToStrftime( acBuff, 40, "%H:%M:%S.%04f", &tsCur );
+			printf( "tsCur %s, pulseId 0x%X, no image!\n", acBuff, tsCur.nsec & 0x1FFFF );
 		}
+#endif
 		m_pRogueDev->ProcessData( &m_DataInfo, frame );
 		//m_DataInfo.m_DataPtr.reset();
 	}

@@ -870,16 +870,14 @@ static long read_waveform( void	*	record )
 	const char 		*	functionName = "read_waveform";
 	long				status = 0;
 	waveformRecord	*	pRecord	= reinterpret_cast <waveformRecord *>( record );
-	if ( DEBUG_ROGUE_RECORDS >= 6 )
-		printf( "%s: status %ld, waveform nord=%d in thread %s ...\n",
-				functionName, status, pRecord->nord, epicsThreadGetNameSelf() );
+	if ( DEBUG_ROGUE_RECORDS >= 7 )
+		printf( "%s: status %ld, thread %s ...\n",
+				functionName, status, epicsThreadGetNameSelf() );
 	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
 
 	// data loaded by pgpRogueDev
 	if ( pRogueInfo->m_newDataCount	!= 0 )
 	{
-		if( pRogueInfo->m_newDataCount > pRecord->nelm )
-			pRogueInfo->m_newDataCount = pRecord->nelm;
 		if( pRecord->nord != pRogueInfo->m_newDataCount )
 		{
 			pRecord->nord =  pRogueInfo->m_newDataCount;
@@ -906,10 +904,14 @@ long update_waveform( waveformRecord	*	pRecord, epicsTimeStamp tcUpdate, ris::Fr
 	const char		*	functionName	= "update_waveform";
 	long				status = 0;
 	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
-	if ( DEBUG_ROGUE_RECORDS >= 6 )
-		printf( "%s: status %ld, waveform nord=%d in thread %s ...\n",
-				functionName, status, pRecord->nord, epicsThreadGetNameSelf() );
 	pRecord->time = tcUpdate;
+	if ( DEBUG_ROGUE_RECORDS >= 5 )
+	{
+		char	acBuff[40];
+		epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &pRecord->time );
+		printf( "%s: Signal %zu, tsFrame %s, pulseId 0x%X\n", functionName, pRogueInfo->m_signal,
+				acBuff, pRecord->time.nsec & 0x1FFFF );
+	}
 	// Load data into buffer
 	{	// TODO: Templatize this
 	rogue::interfaces::stream::FrameIterator	it;
@@ -918,7 +920,6 @@ long update_waveform( waveformRecord	*	pRecord, epicsTimeStamp tcUpdate, ris::Fr
 	memset( pData, 0, sizeof(uint16_t) * pRecord->nelm );
 	if ( pDataFrame )
 	{
-#if 1
 		it = pDataFrame->begin();
 		pRogueInfo->m_newDataCount = pDataFrame->getSize() / sizeof(uint16_t);
 		if( pRogueInfo->m_newDataCount > pRecord->nelm )
@@ -936,17 +937,6 @@ long update_waveform( waveformRecord	*	pRecord, epicsTimeStamp tcUpdate, ris::Fr
 			pRogueInfo->m_newDataCount = pRecord->nelm;
 			}
 		}
-#else
-		for ( it = pDataFrame->begin(); it != pDataFrame->end(); )
-		{
-			if ( pRogueInfo->m_newDataCount >= pRecord->nelm )
-				break;
-			// Note: bufferLen should be set to a multiple of data type
-			// For uint16_t, an odd bufferLen results in a corrupted final value.
-			fromFrame( it, sizeof(uint16_t), pData++ );
-			pRogueInfo->m_newDataCount++;
-		}
-#endif
 		pDataFrame.reset();
 	}
 	// Process waveform record via read_waveform() using high priority scanIo Q
@@ -960,6 +950,8 @@ long update_waveform( waveformRecord	*	pRecord, epicsTimeStamp tcUpdate, ris::Fr
 	}
 	else
 	{
+		pRecord->nsta = NO_ALARM;
+		pRecord->nsev = NO_ALARM;
 		pRecord->udf = FALSE;
 	}
 	return 0;
