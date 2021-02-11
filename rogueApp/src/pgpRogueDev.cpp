@@ -262,18 +262,17 @@ void pgpRogueDev::ProcessData(
 	case 0:		// Timestamp
 		if ( pDataFrame->getPayload() != 32 )
 			break;
+		it  = pDataFrame->begin();
+		it += 8;    // Skipping ?
+		fromFrame( it, 4, &m_tsFrame.nsec );
+		fromFrame( it, 4, &m_tsFrame.secPastEpoch );
 		if ( DEBUG_PGP_ROGUE_DEV >= 3 )
 		{
-			//uint32_t	w0, w1, w2, w3, w4, w5, w6, w7;
-			it		= pDataFrame->begin();
-			it += 8;    // Skipping ?
-			fromFrame( it, 4, &m_tsFrame.nsec );
-			fromFrame( it, 4, &m_tsFrame.secPastEpoch );
 			char	acBuff[40];
 			epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &m_tsFrame );
 			printf( "%s: Channel %u, tsFrame %s, pulseId 0x%X\n", functionName, channel,
 					acBuff, m_tsFrame.nsec & 0x1FFFF );
-			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
+			if ( DEBUG_PGP_ROGUE_DEV >= 5 )
 			{
 				epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &tsCur );
 				printf( "%s: Channel %u, tsCur %s, pulseId 0x%X\n", functionName, channel,
