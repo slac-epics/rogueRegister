@@ -11,5 +11,6 @@ record( waveform, "$(P)$(R)CH$(S):$(NAME)" )
 	field( DISV, "$(DISV=1)" )
 	field( SDIS, "$(SDIS=)" )
 	field( NELM, "$(NELM=256)" )
+	field( TSE,  "$(TSE=-2)" )
 	info( autosaveFields, "" )
 }
