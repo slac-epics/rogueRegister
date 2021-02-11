@@ -923,7 +923,19 @@ long update_waveform( waveformRecord	*	pRecord, epicsTimeStamp tcUpdate, ris::Fr
 		pRogueInfo->m_newDataCount = pDataFrame->getSize() / sizeof(uint16_t);
 		if( pRogueInfo->m_newDataCount > pRecord->nelm )
 			pRogueInfo->m_newDataCount = pRecord->nelm;
-		fromFrame( it, pRogueInfo->m_newDataCount * sizeof(uint16_t), pData );
+		if ( pRogueInfo->m_newDataCount > 0 )
+		{
+			fromFrame( it, pRogueInfo->m_newDataCount * sizeof(uint16_t), pData );
+
+			if ( 1 ) {
+			// Fill remainder of record buffer w/ final value
+			pData = (uint16_t *) pRecord->bptr + pRogueInfo->m_newDataCount - 1;
+			uint16_t	finalValue	= *pData++;
+			for ( size_t i = pRogueInfo->m_newDataCount; i < pRecord->nelm; i++ )
+				*pData++ = finalValue;
+			pRogueInfo->m_newDataCount = pRecord->nelm;
+			}
+		}
 #else
 		for ( it = pDataFrame->begin(); it != pDataFrame->end(); )
 		{

@@ -105,7 +105,8 @@ public:		//	Public member functions
 #endif
 	}
 
-	void ProcessData(	DataCbInfo				*	pCbInfo );
+	void ProcessData(	DataCbInfo				*	pCbInfo,
+						rogue::interfaces::stream::FramePtr pDataFrame );
 
 	/// Fetch data for the specified signal
 	/// Returns number of bytes added to buffer.  -1 on error

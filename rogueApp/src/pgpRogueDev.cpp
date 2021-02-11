@@ -206,12 +206,20 @@ void pgpRogueDev::disconnect( )
 }
 
 void pgpRogueDev::ProcessData(
-	DataCbInfo		* pDataInfo )
+	DataCbInfo		* pDataInfo,
+	rogue::interfaces::stream::FramePtr pDataFrame )
 {
 	const char		*	functionName	= "pgpRogueDev::ProcessData";
 
 	// Frame is locked in DataStream::acceptFrame()
-	rogue::interfaces::stream::FramePtr 	pDataFrame	= pDataInfo->m_DataPtr;
+	//rogue::interfaces::stream::FramePtr 	pDataFrame	= pDataInfo->m_DataPtr;
+
+	if ( ! pDataFrame )
+	{
+		if ( DEBUG_PGP_ROGUE_DEV >= 3 )
+			printf( "%s: NULL Dataframe!\n", functionName );
+		return;
+	}
 
 	rogue::interfaces::stream::FrameIterator	it		= pDataFrame->begin();
 	unsigned int			channel = pDataFrame->getChannel();

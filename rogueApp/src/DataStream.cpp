@@ -112,7 +112,7 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 		}
 		else if ( data->dest() == 2 )
 		{	// TDEST 2 is framegrabber image data
-			m_DataInfo.m_DataPtr = frame;
+			//m_DataInfo.m_DataPtr = frame;
 			uint32_t	size	= data->end() - data->begin();
 			//uint8_t	*	dataPtr	= data->begin().ptr();
 			if ( DEBUG_PGP_ROGUE_DEV >= 4 )
@@ -122,18 +122,17 @@ void DataStream::acceptFrame ( rogue::interfaces::stream::FramePtr frame )
 #endif
 
 	// Process image
-	if ( m_pRogueDev )
+	if ( m_pRogueDev && frame )
 	{
-		m_DataInfo.m_DataPtr	= frame;
+		//m_DataInfo.m_DataPtr	= frame;
 		m_DataInfo.m_tsData		= ts;
-		if ( !m_DataInfo.m_DataPtr )
-		if ( ( DEBUG_PGP_ROGUE_DEV >= 4 ) )
+		if ( !frame && ( DEBUG_PGP_ROGUE_DEV >= 4 ) )
 		{
 			epicsTimeToStrftime( acBuff, 40, "%H:%M:%S.%04f", &ts );
 			printf( "ts %s, pulseId 0x%X, no image!\n", acBuff, ts.nsec & 0x1FFFF );
 		}
-		m_pRogueDev->ProcessData( &m_DataInfo );
-		m_DataInfo.m_DataPtr.reset();
+		m_pRogueDev->ProcessData( &m_DataInfo, frame );
+		//m_DataInfo.m_DataPtr.reset();
 	}
 	frame.reset();
 }
