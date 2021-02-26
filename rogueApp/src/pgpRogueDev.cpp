@@ -38,6 +38,7 @@
 //#include <DmaDriver.h>
 
 #include "pgpRogueDev.h"
+#include "pgpRogueLib.h"
 #include "rogueRecords.h"
 
 using namespace	std;
@@ -124,9 +125,26 @@ pgpRogueDev::pgpRogueDev(
 
 			// TODO: Need a better mapping of these version strings to EPICS PVs
 			m_DrvVersion = vsn.firmwareVersion;
-			//m_LibVersion = vsn.buildString;
 		}
 	}
+	close( m_fd );
+	m_fd = 0;
+
+	//
+	// Connect Rogue Library
+	//
+	std::cout << std::flush;
+	sleep(5);
+	printf( "%s: Creating pgpRogueLib for board %u, lane %u\n", functionName, m_board, m_lane );
+	m_pRogueLib = pgpRogueLib::create( m_board, m_lane );
+	if ( !m_pRogueLib )
+	{
+		printf( "%s: ERROR creating pgpRogueLib for board %u\n", functionName, m_board );
+	}
+	else
+		printf( "%s: Created pgpRogueLib for board %u\n", functionName, m_board );
+	std::cout << std::flush;
+	sleep(5);
 
 	//
 	// Create Data Channels

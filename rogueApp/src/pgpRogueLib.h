@@ -52,14 +52,14 @@ class pgpRogueLib :	public rogue::LibraryBase
 {
 public:		//	Public member functions
 	// Create a static class creator to return our custom class wrapped with a shared pointer
-	static std::shared_ptr<pgpRogueLib> create( unsigned int board ) {
-		static std::shared_ptr<pgpRogueLib> ret = std::make_shared<pgpRogueLib>( board );
+	static std::shared_ptr<pgpRogueLib> create( unsigned int board, unsigned int lane ) {
+		static std::shared_ptr<pgpRogueLib> ret = std::make_shared<pgpRogueLib>( board, lane );
 
 		return(ret);
 	}
 
 	///	Constructor
-	pgpRogueLib(	unsigned int				board	);
+	pgpRogueLib( unsigned int board, unsigned int lane );
 
 	/// Destructor
 	virtual ~pgpRogueLib();
@@ -120,28 +120,31 @@ private:
 	//	Private member variables
 	int					m_fd;
 	unsigned int		m_board;
+	unsigned int		m_lane;
 	bool				m_fConnected;
 	std::string			m_devName;
 	std::string			m_DrvVersion;	// Driver Version
 	std::string			m_LibVersion;	// Library Version
 
 	//rogue::LibraryBasePtr				m_pRogueLib;
-	rogueAddrMapPtr						m_pRogueLib;
+	//rogueAddrMapPtr					m_pRogueLib;
+
+	/// PCIe register access
 	rogue::hardware::axi::AxiMemMapPtr 	m_pAxiMemMap;
-	ClMemoryMasterPtr		 			m_pClMemMaster;	// not needed?
-	//rim::MasterPtr		 			m_pAxiMemMaster;	// not needed?
+	ClMemoryMasterPtr		 			m_pAxiMemMaster;
+	//rim::MasterPtr		 			m_pAxiMemMaster;
 
 	///
 	// Firmware Lane assignments:
-	// Lane 0: First camera
-	// Lane 1: 2nd camera,
-	// Lane 2: 3rd camera
-	// Lane 3: 4th camera
+	// Lane 0: First wave8
+	// Lane 1: 2nd wave8,
+	// Lane 2: 3rd wave8
+	// Lane 3: 4th wave8
 	//
 	// PGP channel mapping
 	// PGP[lane].VC[0] = SRPv3 (register access)
-	// PGP[lane].VC[1] = Camera Image (streaming data)
-	// PGP[lane].VC[2] = Camera UART (serial I/O)
+	// PGP[lane].VC[1] = wave8 data (streaming data)
+	// PGP[lane].VC[2] = PRBS stream (?)
 	// PGP[lane].VC[3] = Unused
 	//
 	// DMA channel mapping
@@ -149,15 +152,15 @@ private:
 	// DMA[lane].DEST[1] = Event Builder Batcher (super-frame)
 	// DMA[lane].DEST[1].DEST[0] = XPM Trigger Message (sub-frame)
 	// DMA[lane].DEST[1].DEST[1] = XPM Transition Message (sub-frame)
-	// DMA[lane].DEST[1].DEST[2] = Camera Image (sub-frame)
-	// DMA[lane].DEST[2] = Camera UART
+	// DMA[lane].DEST[1].DEST[2] = Data? (sub-frame)
+	// DMA[lane].DEST[2] = Data?
 	// DMA[lane].DEST[255:3] = Unused
 	///
 
-	//TODO: Move these to new axiFebDataLane class
-//	rogue::hardware::axi::AxiStreamDmaPtr		m_pFebRegChan[N_AXI_LANES];
-//	FebMemoryMasterPtr				 			m_pFebMemMaster[N_AXI_LANES];
-//	rogue::protocols::srp::SrpV3Ptr				m_pSrpFeb[N_AXI_LANES];
+	//TODO: Move these to new axiW8DataLane class
+	rogue::hardware::axi::AxiStreamDmaPtr		m_pW8RegChan[N_AXI_LANES];
+	rogue::interfaces::memory::MasterPtr		m_pW8MemMaster[N_AXI_LANES];
+	rogue::protocols::srp::SrpV3Ptr				m_pSrpW8[N_AXI_LANES];
 };
 
 // Shared pointer alias

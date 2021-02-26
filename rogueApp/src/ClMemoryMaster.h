@@ -9,6 +9,7 @@
 //#include <rogue/interfaces/stream/FrameIterator.h>
 
 // Custom stream master class
+// TODO: Rename ClMemoryMaster	EpicsMemoryMaster?
 class ClMemoryMaster : public rogue::interfaces::memory::Master
 /// Not clear if I need much if any of this
 {

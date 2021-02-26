@@ -33,7 +33,7 @@
 #include <rogue/hardware/axi/AxiStreamDma.h>
 #include <rogue/interfaces/memory/Constants.h>
 #include <rogue/interfaces/stream/Fifo.h>
-#include <rogue/interfaces/stream/RateDrop.h>
+//#include <rogue/interfaces/stream/RateDrop.h>
 #include <rogue/interfaces/stream/Slave.h>
 #include <rogue/interfaces/stream/Master.h>
 //#include <rogue/protocols/batcher/Data.h>
@@ -84,25 +84,17 @@ public:		//	Public member functions
 	///	Get Driver Version
 	const std::string	&	GetDrvVersion( ) const
 	{
-#if 0
-		if ( ! m_pRogueLib )
-			return std::string( "Unknown Driver Version" );
-		return m_pRogueLib->GetDrvVersion();
-#else
+		if ( m_pRogueLib )
+			return m_pRogueLib->GetDrvVersion();
 		return m_DrvVersion;
-#endif
 	}
 
 	///	Get Library Version
 	const std::string	&	GetLibVersion( ) const
 	{
-#if 0
-		if ( ! m_pRogueLib )
-			return std::string( "Unknown Lib Version" );
-		return m_pRogueLib->GetLibVersion();
-#else
+		if ( m_pRogueLib )
+			return m_pRogueLib->GetLibVersion();
 		return m_LibVersion;
-#endif
 	}
 
 	void ProcessData(	DataCbInfo				*	pCbInfo,
@@ -165,7 +157,7 @@ private:
 	pgpRogueLibPtr 	m_pRogueLib;			// shared_ptr to pgpRogueLib device
 
 	//	Private member variables
-	unsigned int		m_fd;
+	int					m_fd;
 	unsigned int		m_board;
 	unsigned int		m_lane;
 	bool				m_fConnected;
@@ -194,7 +186,7 @@ private:
 	rogue::hardware::axi::AxiStreamDmaPtr		m_pDataChan;
 	DataStreamPtr								m_pDataStream;
 	rogue::interfaces::stream::FifoPtr			m_pDataFifo;
-	rogue::interfaces::stream::RateDropPtr		m_pRateDrop;
+//	rogue::interfaces::stream::RateDropPtr		m_pRateDrop;
 	rogue::protocols::batcher::SplitterV1Ptr	m_pUnbatcher;
 	DataStreamPtr								m_pEpicsDataStream;
 	rogue::protocols::batcher::SplitterV1Ptr	m_pEpicsUnbatcher;

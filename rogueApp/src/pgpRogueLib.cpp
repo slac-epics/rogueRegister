@@ -167,7 +167,10 @@ bool	pgpRogueLib::getTriggerEnable( unsigned int triggerNum )
 }
 
 
-#include "rogueAddrMap.h" 
+#include "rogueAddrMap.h"
+std::string		strRogueAddrMap( ROGUE_ADDR_MAP );
+
+#if 0
 class rogueAddrMap : public rogue::LibraryBase
 {
 public:
@@ -186,23 +189,29 @@ rogueAddrMap::rogueAddrMap()
 	:	rogue::LibraryBase()
 {
 #if 1
-	//printf( "NOT Parsing ROGUE_ADDR_MAP!\n" );
+	printf( "NOT Parsing ROGUE_ADDR_MAP!\n" );
 #else
 	printf( "rogueAddrMap: Parsing ROGUE_ADDR_MAP\n" );
 	parseMemMap( ROGUE_ADDR_MAP ); // From generated rogueAddrMap.h
 	printf( "rogueAddrMap: ROGUE_ADDR_MAP parsed successfully\n" );
 #endif
 }
+#endif
 
 
 ///	Constructor
 pgpRogueLib::pgpRogueLib(
-	unsigned int				board	)
+	unsigned int				board,
+	unsigned int				lane	)
 :	rogue::LibraryBase(),
 	m_board(		board	),
+	m_lane(			lane	),
 	m_fConnected(	0		),
 	m_devName(				),
-	m_pAxiMemMap(			)
+	m_DrvVersion(			),
+	m_LibVersion(			),
+	m_pAxiMemMap(			),
+	m_pAxiMemMaster(		)
 {
 	const char		*	functionName	= "pgpRogueLib::pgpRogueLib";
 
@@ -237,29 +246,62 @@ pgpRogueLib::pgpRogueLib(
 			//m_LibVersion = vsn.buildString;
 		}
 	}
+	close( m_fd );
+	m_fd = 0;
 
 	//
 	// Connect Rogue Library
 	//
 	//m_pRogueLib = rogue::LibraryBase::create();
-	m_pRogueLib = rogueAddrMap::create();
+	//m_pRogueLib = rogueAddrMap::create();
 
 	//
 	// Connect DATACHAN 0 KCU1500 Register Access
 	//
 	m_pAxiMemMap		= rogue::hardware::axi::AxiMemMap::create( m_devName );
-	m_pClMemMaster		= ClMemoryMaster::create( );
-	m_pClMemMaster->setSlave( m_pAxiMemMap );
+	m_pAxiMemMaster		= ClMemoryMaster::create( );
+	m_pAxiMemMaster->setSlave( m_pAxiMemMap );
 	const char	*	szMemName = "PCIe_Bar0";
 	addMemory( szMemName, m_pAxiMemMap );
-	m_pRogueLib->addMemory( szMemName, m_pAxiMemMap );
+	//m_pRogueLib->addMemory( szMemName, m_pAxiMemMap );
 	printf("pgpRogueLib: addMemory AxiMemMap interface %s\n", szMemName );
 
-	printf( "Parsing ROGUE_ADDR_MAP\n" );
-	parseMemMap( ROGUE_ADDR_MAP ); // From generated rogueAddrMap.h
+	{
+		uint32_t dest = (0x100 * m_lane) + PGP_DATACHAN_REG_ACCESS;
+		m_pW8RegChan[m_lane]	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
+
+		//
+		// Connect DATACHAN 0 WAVE8 Register Access
+		//
+		m_pSrpW8[m_lane] = rogue::protocols::srp::SrpV3::create();	// Serial Rouge Protocol handler
+		// Create bidirectional links between SRP and W8RegChan 
+		m_pW8RegChan[m_lane]->addSlave( m_pSrpW8[m_lane] );
+		m_pSrpW8[m_lane]->addSlave( m_pW8RegChan[m_lane] );
+
+		const char	*	szMemName = "Unnamed_5";
+		addMemory( szMemName, m_pSrpW8[m_lane] );
+		//m_pRogueLib->addMemory( szMemName, m_pSrpW8[m_lane] );
+		printf("pgpRogueLib: addMemory srpW8 interface %s\n", szMemName );
+
+		// Create W8MemMaster and link it to SRP
+		m_pW8MemMaster[m_lane] = rim::Master::create( );
+		m_pW8MemMaster[m_lane]->setSlave( m_pSrpW8[m_lane] );
+	}
+	{
+	const mapVarPtr_t &	mapVars		= getVariableList();
+	printf( "%s: %zu variables\n", functionName, mapVars.size() );
+	sleep(5);
+	}
+	printf( "Parsing %zu length ROGUE_ADDR_MAP\n", strlen( ROGUE_ADDR_MAP ) );
+#if 1
+	parseMemMap( strRogueAddrMap ); // From generated rogueAddrMap.h
 	printf( "ROGUE_ADDR_MAP parsed successfully\n" );
+#else
 	m_pRogueLib->parseMemMap( ROGUE_ADDR_MAP );
 	printf( "m_pRogueLib: ROGUE_ADDR_MAP parsed successfully\n" );
+#endif
+	std::cout << std::flush;
+	sleep(5);
 
 #ifdef SUPPORT_CLINK
 //	if ( doFebFpgaReload )
@@ -270,12 +312,21 @@ pgpRogueLib::pgpRogueLib(
 	//printf( "%s: %zu variables\n", functionName, mapVars.size() );
 	//printf( "m_pRogueLib: %zu variables\n", (m_pRogueLib->getVariableList()).size() );
 
+#if 1
+	// Force an initial read of all variables
+	printf( "%s: Reading %zu variables\n", functionName, getVariableList().size() );
+	try
+	{
+		readAll();
+	}
+#else
 	// Force an initial read of all variables
 	printf( "%s: Reading %zu variables\n", functionName, (m_pRogueLib->getVariableList()).size() );
 	try
 	{
 		m_pRogueLib->readAll();
 	}
+#endif
 	catch ( rogue::GeneralError & e )
 	{
 		printf( "%s error: %s!\n", functionName, e.what() );
@@ -288,7 +339,11 @@ pgpRogueLib::pgpRogueLib(
 	{
 		printf( "%s unknown error!\n", functionName );
 	}
+#if 1
+	printf( "%s: Read %zu variables\n", functionName, getVariableList().size() );
+#else
 	printf( "%s: Read %zu variables\n", functionName, (m_pRogueLib->getVariableList()).size() );
+#endif
 
 #ifdef SUPPORT_CLINK
 	// Hack: Configure for LCLS-I timing
@@ -435,7 +490,7 @@ void pgpRogueLib::FebFpgaReload()
 			laneReady[lane] = LaneReady(lane);
 			if ( !febFound[lane] )
 			{
-				laneReady[lane] = true;	// Not really, but FEB not found so don't care
+				laneReady[lane] = true;	// Not really, but WAVE8 not found so don't care
 				continue;
 			}
 			if ( ! febWasReady )
@@ -1025,9 +1080,9 @@ void pgpRogueLib::disconnect( )
 	if ( m_fd > 0 )
 	{
 		close( m_fd );
-		m_fd = -1;
+		m_fd = 0;
 	}
-	m_pClMemMaster.reset();
+	m_pAxiMemMaster.reset();
 	//rmMemory( m_pAxiMemMap );
 	//m_pRogueLib->rmMemory( m_pAxiMemMap );
 	m_pAxiMemMap.reset();
