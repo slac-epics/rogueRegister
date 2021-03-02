@@ -430,6 +430,7 @@ int ShowAllRogueDev( int level )
 	{
 		if ( !gPgpRogueDev[i] )
 			continue;
+		cout << "\tPGP Board " << i	<< ":" << endl;
 		gPgpRogueDev[i]->ShowReport( level );
 	}
 
@@ -474,21 +475,20 @@ void pgpRogueDevConfigRegister(void)
 }
 
 extern "C"
-int DumpPgpVars( const char * pszCamName, const char * pszFilePath, int fWriteOnly, int fForceRead )
+int DumpPgpVars( uint32_t iBoard, const char * pszFilePath, int fWriteOnly, int fForceRead )
 {
 	const char	*	functionName = "DumpPgpVars";
-	if ( pszCamName == NULL || pszFilePath == NULL )
+	if ( pszFilePath == NULL )
 	{
-		printf( "Usage: %s camPortName dumpPath fWriteOnly fForceRead\n", functionName );
-		printf( "Example: %s CAM dumpConfig.yml 1 1\n", functionName );
+		printf( "%s Usage: boardNum camPortName dumpPath fWriteOnly fForceRead\n", functionName );
+		printf( "%s Example: 0 CAM dumpConfig.yml 1 1\n", functionName );
 		return -1;
 	}
 
-	//pgpRogueDev	*	pRogue = pgpRogueDev::RogueFindByName( std::string(pszCamName) );
-	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( 0 );
+	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( iBoard );
 	if ( pRogue == NULL )
 	{
-		printf( "%s error: Rogue %s not found!\n", functionName, pszCamName );
+		printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
 		return -1;
 	}
 
@@ -497,7 +497,7 @@ int DumpPgpVars( const char * pszCamName, const char * pszFilePath, int fWriteOn
 
 // Register function:
 //		int DumpPgpVars( camName, dumpFile, fWriteOnly, fForceRead )
-static const iocshArg		DumpPgpVarsArg0		= { "camName",		iocshArgString };
+static const iocshArg		DumpPgpVarsArg0		= { "boardNumber",	iocshArgInt };
 static const iocshArg		DumpPgpVarsArg1		= { "dumpFile",		iocshArgString };
 static const iocshArg		DumpPgpVarsArg2		= { "fWriteOnly",	iocshArgInt };
 static const iocshArg		DumpPgpVarsArg3		= { "fForceRead",	iocshArgInt };
@@ -508,7 +508,7 @@ static const iocshArg	*	DumpPgpVarsArgs[4]	=
 static const iocshFuncDef   DumpPgpVarsFuncDef	= { "DumpPgpVars", 4, DumpPgpVarsArgs };
 static int  DumpPgpVarsCallFunc( const iocshArgBuf * args )
 {
-	return static_cast<int>( DumpPgpVars( args[0].sval, args[1].sval, args[2].ival, args[3].ival ) );
+	return static_cast<int>( DumpPgpVars( args[0].ival, args[1].sval, args[2].ival, args[3].ival ) );
 }
 void DumpPgpVarsRegister(void)
 {
@@ -516,13 +516,13 @@ void DumpPgpVarsRegister(void)
 }
 
 extern "C"
-int SetPgpVariable( const char * pszCamName, const char * pszVarPath, double value )
+int SetPgpVariable( uint32_t iBoard, const char * pszVarPath, double value )
 {
 	const char	*	functionName = "SetPgpVariable";
-	if ( pszCamName == NULL || pszVarPath == NULL )
+	if ( pszVarPath == NULL )
 	{
-		printf( "Usage: %s camPortName varPath\n", functionName );
-		printf( "Example: %s CAM ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.BuildStamp\n", functionName );
+		printf( "Usage: %s boardNum varPath\n", functionName );
+		printf( "Example: %s 0 ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.BuildStamp\n", functionName );
 		return -1;
 	}
 
@@ -530,7 +530,7 @@ int SetPgpVariable( const char * pszCamName, const char * pszVarPath, double val
 	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( 0 );
 	if ( pRogue == NULL )
 	{
-		printf( "%s error: Rogue %s not found!\n", functionName, pszCamName );
+		printf( "%s error: Rogue %u not found!\n", functionName, iBoard);
 		return -1;
 	}
 
@@ -539,7 +539,7 @@ int SetPgpVariable( const char * pszCamName, const char * pszVarPath, double val
 
 // Register function:
 //		int SetPgpVar( camName, varName, value )
-static const iocshArg		SetPgpVarArg0		= { "camName",		iocshArgString };
+static const iocshArg		SetPgpVarArg0		= { "boardNum",		iocshArgInt };
 static const iocshArg		SetPgpVarArg1		= { "varName",		iocshArgString };
 static const iocshArg		SetPgpVarArg2		= { "value",		iocshArgDouble };
 static const iocshArg	*	SetPgpVarArgs[3]	=
@@ -549,7 +549,7 @@ static const iocshArg	*	SetPgpVarArgs[3]	=
 static const iocshFuncDef   SetPgpVarFuncDef	= { "SetPgpVar", 3, SetPgpVarArgs };
 static int  SetPgpVarCallFunc( const iocshArgBuf * args )
 {
-	return static_cast<int>( SetPgpVariable( args[0].sval, args[1].sval, args[2].dval ) );
+	return static_cast<int>( SetPgpVariable( args[0].ival, args[1].sval, args[2].dval ) );
 }
 void SetPgpVarRegister(void)
 {
@@ -557,21 +557,20 @@ void SetPgpVarRegister(void)
 }
 
 extern "C"
-int ShowPgpVariable( const char * pszCamName, const char * pszVarPath, int level )
+int ShowPgpVariable( uint32_t iBoard, const char * pszVarPath, int level )
 {
 	const char	*	functionName = "ShowPgpVariable";
-	if ( pszCamName == NULL || pszVarPath == NULL )
+	if ( pszVarPath == NULL )
 	{
-		printf( "Usage: %s camPortName varPath\n", functionName );
-		printf( "Example: %s CAM ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.BuildStamp\n", functionName );
+		printf( "Usage: %s boardNum varPath\n", functionName );
+		printf( "Example: %s 0 Top.AxiPcieCore.AxiVersion.BuildStamp\n", functionName );
 		return -1;
 	}
 
-	//pgpRogueDev	*	pRogue = pgpRogueDev::RogueFindByName( std::string(pszCamName) );
-	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( 0 );
+	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( iBoard );
 	if ( pRogue == NULL )
 	{
-		printf( "%s error: Rogue %s not found!\n", functionName, pszCamName );
+		printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
 		return -1;
 	}
 
@@ -580,7 +579,7 @@ int ShowPgpVariable( const char * pszCamName, const char * pszVarPath, int level
 
 // Register function:
 //		int ShowPgpVar( camName, varName, level )
-static const iocshArg		ShowPgpVarArg0		= { "camName",		iocshArgString };
+static const iocshArg		ShowPgpVarArg0		= { "boardNum",		iocshArgInt };
 static const iocshArg		ShowPgpVarArg1		= { "varName",		iocshArgString };
 static const iocshArg		ShowPgpVarArg2		= { "level",		iocshArgInt };
 static const iocshArg	*	ShowPgpVarArgs[3]	=
@@ -590,7 +589,7 @@ static const iocshArg	*	ShowPgpVarArgs[3]	=
 static const iocshFuncDef   ShowPgpVarFuncDef	= { "ShowPgpVar", 3, ShowPgpVarArgs };
 static int  ShowPgpVarCallFunc( const iocshArgBuf * args )
 {
-	return static_cast<int>( ShowPgpVariable( args[0].sval, args[1].sval, args[2].ival ) );
+	return static_cast<int>( ShowPgpVariable( args[0].ival, args[1].sval, args[2].ival ) );
 }
 void ShowPgpVarRegister(void)
 {
