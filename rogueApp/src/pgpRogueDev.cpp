@@ -61,8 +61,10 @@ int		pgpRogueDev::setTriggerEnable( unsigned int triggerNum, bool fEnable )
 
 ///	Constructor
 pgpRogueDev::pgpRogueDev(
-	unsigned int				board,
-	unsigned int				lane )
+	unsigned int	board,
+	unsigned int	lane,
+	bool			fLcls2Timing,
+	const char *	pszPgpReg )
 :
 	m_fExitApp(		false	),
 	m_pRogueLib(	NULL	),
@@ -129,7 +131,8 @@ pgpRogueDev::pgpRogueDev(
 	}
 	close( m_fd );
 	m_fd = 0;
-
+	if ( pszPgpReg && strlen(pszPgpReg) > 0 )
+	{
 	//
 	// Connect Rogue Library
 	//
@@ -145,6 +148,7 @@ pgpRogueDev::pgpRogueDev(
 		printf( "%s: Created pgpRogueLib for board %u\n", functionName, m_board );
 	std::cout << std::flush;
 	sleep(5);
+	}
 
 	//
 	// Create Data Channels
@@ -381,14 +385,15 @@ extern "C" int
 pgpRogueDevConfig(
 	int				board,
 	int				lane,
-	bool			)
+	bool			lcls2Timing,
+	const char *	pszPgpReg )
 {
 	if ( gPgpRogueDev[board] )
 	{
 		gPgpRogueDev[board]->disconnect();
 		gPgpRogueDev[board].reset();
 	}
-	gPgpRogueDev[board] = pgpRogueDev::create( board, lane );
+	gPgpRogueDev[board] = pgpRogueDev::create( board, lane, lcls2Timing, pszPgpReg );
     return 0;
 }
 
@@ -460,14 +465,15 @@ void ShowAllRogueRegister(void)
 static const iocshArg		pgpRogueDevConfigArg0	= { "board",		iocshArgInt };
 static const iocshArg		pgpRogueDevConfigArg1	= { "lane",			iocshArgInt };
 static const iocshArg		pgpRogueDevConfigArg2	= { "fLcls2Timing",	iocshArgInt };
-static const iocshArg	*	pgpRogueDevConfigArgs[3]	=
+static const iocshArg		pgpRogueDevConfigArg3	= { "szPgpRegPrefix",iocshArgString };
+static const iocshArg	*	pgpRogueDevConfigArgs[4]	=
 {
-	&pgpRogueDevConfigArg0, &pgpRogueDevConfigArg1, &pgpRogueDevConfigArg2
+	&pgpRogueDevConfigArg0, &pgpRogueDevConfigArg1, &pgpRogueDevConfigArg2, &pgpRogueDevConfigArg3
 };
-static const iocshFuncDef   pgpRogueDevConfigFuncDef	= { "pgpRogueDevConfig", 3, pgpRogueDevConfigArgs };
+static const iocshFuncDef   pgpRogueDevConfigFuncDef	= { "pgpRogueDevConfig", 4, pgpRogueDevConfigArgs };
 static int  pgpRogueDevConfigCallFunc( const iocshArgBuf * args )
 {
-    return pgpRogueDevConfig( args[0].ival, args[1].ival, args[2].ival );
+    return pgpRogueDevConfig( args[0].ival, args[1].ival, args[2].ival, args[3].sval );
 }
 void pgpRogueDevConfigRegister(void)
 {

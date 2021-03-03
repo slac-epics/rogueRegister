@@ -57,15 +57,17 @@ class pgpRogueDev
 {
 public:		//	Public member functions
 	// Create a static class creator to return our custom class wrapped with a shared pointer
-	static std::shared_ptr<pgpRogueDev> create( unsigned int board, unsigned int lane ) {
-		static std::shared_ptr<pgpRogueDev> ret = std::make_shared<pgpRogueDev>( board, lane );
+	static std::shared_ptr<pgpRogueDev> create( unsigned int board, unsigned int lane, bool lcls2Timing, const char * pszPgpReg ) {
+		static std::shared_ptr<pgpRogueDev> ret = std::make_shared<pgpRogueDev>( board, lane, lcls2Timing, pszPgpReg );
 
 		return(ret);
 	}
 
 	///	Constructor
 	pgpRogueDev(	unsigned int				board,
-					unsigned int				channel	);
+					unsigned int				channel,
+					bool 						lcls2Timing,
+					const char	*				pszPgpReg );
 
 	/// Destructor
 	virtual ~pgpRogueDev();
