@@ -131,23 +131,25 @@ pgpRogueDev::pgpRogueDev(
 	}
 	close( m_fd );
 	m_fd = 0;
+	// Only create pgpRogueLib if the PGP_REG prefix is defined
+	// Allows IOC to read data from a python configured wave8.
 	if ( pszPgpReg && strlen(pszPgpReg) > 0 )
 	{
-	//
-	// Connect Rogue Library
-	//
-	std::cout << std::flush;
-	sleep(5);
-	printf( "%s: Creating pgpRogueLib for board %u, lane %u\n", functionName, m_board, m_lane );
-	m_pRogueLib = pgpRogueLib::create( m_board, m_lane );
-	if ( !m_pRogueLib )
-	{
-		printf( "%s: ERROR creating pgpRogueLib for board %u\n", functionName, m_board );
-	}
-	else
-		printf( "%s: Created pgpRogueLib for board %u\n", functionName, m_board );
-	std::cout << std::flush;
-	sleep(5);
+		//
+		// Connect Rogue Library
+		//
+		std::cout << std::flush;
+		sleep(5);
+		printf( "%s: Creating pgpRogueLib for board %u, lane %u\n", functionName, m_board, m_lane );
+		m_pRogueLib = pgpRogueLib::create( m_board, m_lane );
+		if ( !m_pRogueLib )
+		{
+			printf( "%s: ERROR creating pgpRogueLib for board %u\n", functionName, m_board );
+		}
+		else
+			printf( "%s: Created pgpRogueLib for board %u\n", functionName, m_board );
+		std::cout << std::flush;
+		sleep(5);
 	}
 
 	//
