@@ -522,7 +522,7 @@ int SetPgpVariable( uint32_t iBoard, const char * pszVarPath, double value )
 	if ( pszVarPath == NULL )
 	{
 		printf( "Usage: %s boardNum varPath\n", functionName );
-		printf( "Example: %s 0 ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.BuildStamp\n", functionName );
+		printf( "Example: %s 0 Top.AxiVersion.BuildStamp\n", functionName );
 		return -1;
 	}
 

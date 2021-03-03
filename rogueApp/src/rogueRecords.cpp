@@ -5,10 +5,13 @@
 
 #include <devSup.h>
 #include <dbCommon.h>
+#include <dbFldTypes.h>
 #include <aiRecord.h>
 #include <aoRecord.h>
 #include <biRecord.h>
 #include <boRecord.h>
+#include <int64inRecord.h>
+#include <int64outRecord.h>
 #include <mbbiRecord.h>
 #include <mbboRecord.h>
 #include <longinRecord.h>
@@ -397,7 +400,194 @@ epicsExportAddress( dset, dsetRogueLO );
 #endif
 
 #ifdef DBR_INT64
-// TODO: Add support for int64inRecord and int64outRecord
+// int64in record support
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+template int        rogue_init_record(	int64inRecord	*, DBLINK );
+template int        rogue_read_record(	int64inRecord *, int64_t  & rogueVal );
+template int        rogue_read_record(	int64inRecord *, uint64_t & rogueVal );
+
+#ifdef USE_TYPED_DSET
+static long init_li64( struct dbCommon * pCommon )
+#else
+static long init_li64( void * pCommon )
+#endif
+{
+	int64inRecord	*	pRecord		= reinterpret_cast < int64inRecord * >( pCommon );
+	int             	status		= rogue_init_record( pRecord, pRecord->inp );
+	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	if ( status == 0 )
+	{
+		if ( pRogueInfo->m_fSignedValue )
+		{
+			int64_t		rogueValue;
+			rogue_read_record( pRecord, rogueValue );
+			pRecord->val = static_cast<epicsInt64>( rogueValue );
+		}
+		else
+		{
+			uint64_t	rogueValue;
+			rogue_read_record( pRecord, rogueValue );
+			pRecord->val = static_cast<epicsInt64>( rogueValue );
+		}
+		//pRecord->linr = 0;		// prevent conversions
+	}
+	return status;
+}
+
+#ifdef USE_TYPED_DSET
+static long read_li64( int64inRecord	*	pRecord )
+{
+	long				status		= 0;
+	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	if ( pRogueInfo->m_fSignedValue )
+	{
+		int64_t		rogueValue;
+		status = rogue_read_record( pRecord, rogueValue );
+		pRecord->val = static_cast<epicsInt64>( rogueValue );
+	}
+	else
+	{
+		uint64_t	rogueValue;
+		status = rogue_read_record( pRecord, rogueValue );
+		pRecord->val = static_cast<epicsInt64>( rogueValue );
+	}
+	//pRecord->linr = 0;		// prevent conversions
+	return status;
+}
+#else
+static long read_li64( void	*	record )
+{
+	const char 		*	functionName = "read_li64";
+	long				status		= 0;
+	int64inRecord	*	pRecord		= reinterpret_cast <int64inRecord *>( record );
+	rogue_info_t	*	pRogueInfo	= reinterpret_cast <rogue_info_t  *>( pRecord->dpvt );
+	if ( pRogueInfo->m_fSignedValue )
+	{
+		int64_t		rogueValue	= -1L;
+		status = rogue_read_record( pRecord, rogueValue );
+		pRecord->val = static_cast<epicsInt64>( rogueValue );
+		if ( DEBUG_ROGUE_RECORDS >= 4 )
+			printf( "%s: status %ld, intValue %lld\n", functionName, status, pRecord->val );
+	}
+	else
+	{
+		uint64_t	rogueValue	= 0L;
+		status = rogue_read_record( pRecord, rogueValue );
+		pRecord->val = static_cast<epicsInt64>( rogueValue );
+		if ( DEBUG_ROGUE_RECORDS >= 4 )
+			printf( "%s: status %ld, uintValue %llu\n", functionName, status, pRecord->val );
+	}
+	return status;
+}
+#endif
+
+struct
+{
+#ifndef USE_TYPED_DSET
+	long                number;
+	DEVSUPFUN           report;
+	DEVSUPFUN           init;
+	DEVSUPFUN           init_li64;
+	DEVSUPFUN           get_ioint_info;
+	DEVSUPFUN           read_li64;
+	DEVSUPFUN           special_linconv;
+#else
+	dset				common;
+	long (*read_li64)(	struct int64inRecord	*	pRec );
+#endif
+}	dsetRogueLI64 =
+#ifdef USE_TYPED_DSET
+{ { 5, NULL, NULL, init_li64, NULL }, read_li64 };
+#else
+{ 5, NULL, NULL, init_li64, NULL, read_li64 };
+#endif
+
+
+epicsExportAddress( dset, dsetRogueLI64 );
+
+#ifdef __cplusplus
+}
+#endif
+
+// int64out record support
+template int        rogue_init_record(	int64outRecord	*, DBLINK );
+template int        rogue_write_record(	int64outRecord *, const uint64_t & rogueVal );
+
+#ifdef __cplusplus
+extern "C"
+{
+#endif
+
+#ifdef USE_TYPED_DSET
+static long init_lo64( struct dbCommon * pCommon )
+#else
+static long init_lo64( void * pCommon )
+#endif
+{
+	int64outRecord	*	pRecord	= reinterpret_cast < int64outRecord * >( pCommon );
+	int             	status	= rogue_init_record( pRecord, pRecord->out );
+	return status;
+}
+
+#ifdef USE_TYPED_DSET
+static long write_lo64( int64outRecord	*	pRecord )
+#else
+static long write_lo64( void	*	record )
+#endif
+{
+#ifndef USE_TYPED_DSET
+	int64outRecord	*	pRecord	= reinterpret_cast <int64outRecord *>( record );
+#endif
+	const char 		*	functionName = "write_lo64";
+	long				status = 0;
+	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	if ( pRogueInfo->m_fSignedValue )
+	{
+		if ( DEBUG_ROGUE_RECORDS >= 3 )
+			printf( "%s: status %ld, intValue %lld\n", functionName, status, pRecord->val );
+		int64_t		rogueValue	= static_cast<int64_t>( pRecord->val );
+		status = rogue_write_record( pRecord, rogueValue );
+	}
+	else
+	{
+		if ( DEBUG_ROGUE_RECORDS >= 3 )
+			printf( "%s: status %ld, uintValue %llu\n", functionName, status, pRecord->val );
+		uint64_t	rogueValue	= static_cast<uint64_t>( pRecord->val );
+		status = rogue_write_record( pRecord, rogueValue );
+	}
+	//pRecord->linr = 0;		// prevent conversions
+	return status;
+}
+
+struct
+{
+#ifndef USE_TYPED_DSET
+	long                number;
+	DEVSUPFUN           report;
+	DEVSUPFUN           init;
+	DEVSUPFUN           init_lo64;
+	DEVSUPFUN           get_ioint_info;
+	DEVSUPFUN           write_lo64;
+#else
+	dset				common;
+	long (*write_lo64)(	struct int64outRecord	*	pRec );
+#endif
+}	dsetRogueLO64 =
+#ifdef USE_TYPED_DSET
+{ { 5, NULL, NULL, init_lo64, NULL }, write_lo64 };
+#else
+{ 5, NULL, NULL, init_lo64, NULL, write_lo64 };
+#endif
+
+
+epicsExportAddress( dset, dsetRogueLO64 );
+
+#ifdef __cplusplus
+}
+#endif
 #endif
 
 // ai record support

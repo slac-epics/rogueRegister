@@ -78,22 +78,22 @@ const char * modelId2String( uint32_t modelId )
 void pgpRogueLib::ResetCounters( )
 {
 	// TODO: Add toggle option to setVariable
-//	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[0].CountReset", 1 );
-//	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[0].CountReset", 0 );
+//	setVariable( "Top.PgpMon[0].CountReset", 1 );
+//	setVariable( "Top.PgpMon[0].CountReset", 0 );
 
-	// This resets   ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.DataCnt[0]
-//	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.CntRst", 1 );
-//	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.CntRst", 0 );
+	// This resets   Top.BatcherEventBuilder.DataCnt[0]
+//	setVariable( "Top.BatcherEventBuilder.CntRst", 1 );
+//	setVariable( "Top.BatcherEventBuilder.CntRst", 0 );
 
-//	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClearRxCounters", 1 );
-//	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClearRxCounters", 0 );
+//	setVariable( "Top.TimingFrameRx.ClearRxCounters", 1 );
+//	setVariable( "Top.TimingFrameRx.ClearRxCounters", 0 );
 }
 
 void pgpRogueLib::GetEventBuilderBlowoffPath( unsigned int triggerNum, std::string & retPath )
 {
 #ifdef SUPPORT_CLINK
 	char		varPath[256];
-	const char * pszBlowoff		 = "ClinkDevRoot.ClinkPcie.Application.AppLane[%u].EventBuilder.Blowoff";
+	const char * pszBlowoff		 = "Top.BatcherEventBuilder.Blowoff";
 	snprintf( varPath, 256, pszBlowoff, triggerNum );
 	retPath	= varPath;
 #else  /* not SUPPORT_CLINK */
@@ -106,7 +106,7 @@ void pgpRogueLib::GetTriggerMasterEnablePath( unsigned int triggerNum, std::stri
 {
 	char		varPath[256];
 #ifdef SUPPORT_CLINK
-	const char * pszMasterEnable = "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[%u].MasterEnable";
+	const char * pszMasterEnable = "Top.TriggerEventManager.TriggerEventBuffer[%u].MasterEnable";
 #else  /* not SUPPORT_CLINK */
 	const char * pszMasterEnable = "Top.TriggerEventManager.TriggerEventBuffer[%u].MasterEnable";
 #endif  /* SUPPORT_CLINK */
@@ -120,7 +120,7 @@ void pgpRogueLib::GetEventBuilderSoftRstPath( unsigned int triggerNum, std::stri
 {
 #ifdef SUPPORT_CLINK
 	char		varPath[256];
-	const char * pszSoftRst		 = "ClinkDevRoot.ClinkPcie.Application.AppLane[%u].EventBuilder.SoftRst";
+	const char * pszSoftRst		 = "Top.BatcherEventBuilder.SoftRst";
 	snprintf( varPath, 256, pszSoftRst, triggerNum );
 	retPath	= varPath;
 #else  /* not SUPPORT_CLINK */
@@ -382,19 +382,19 @@ pgpRogueLib::pgpRogueLib(
 #endif  /* SUPPORT_CLINK */
 
 	setTriggerEnable( 0, false );
-	setTriggerEnable( 1, false );
-	setTriggerEnable( 2, false );
-	setTriggerEnable( 3, false );
+	//setTriggerEnable( 1, false );
+	//setTriggerEnable( 2, false );
+	//setTriggerEnable( 3, false );
 
 	//showVariableList( true );
 
-	std::string sFpgaVersionPath( "ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.BuildStamp" );
+	std::string sFpgaVersionPath( "Top.AxiVersion.BuildStamp" );
 	showVariable( sFpgaVersionPath.c_str(), true );
 
-	std::string sDataCnt( "ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.DataCnt[0]" );
+	std::string sDataCnt( "Top.BatcherEventBuilder.DataCnt[0]" );
 	showVariable( sDataCnt.c_str(), true );
-	showVariable( "ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.FpgaVersion", true );
-	showVariable( "ClinkDevRoot.ClinkPcie.AxiPcieCore.AxiVersion.UpTimeCnt", true );
+	showVariable( "Top.AxiVersion.FpgaVersion", true );
+	showVariable( "Top.AxiVersion.UpTimeCnt", true );
 	m_fConnected = 1;	// Do we need this?
 }
 
@@ -417,30 +417,30 @@ void pgpRogueLib::ConfigureLclsTimingV1()
 	const struct timespec oneSec	= { 1, 0L };
 	const struct timespec twoMs		= { 0, 2000000L };
 
-	writeVarPath( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingPhyMonitor.UseMiniTpg",	bZero );
+	writeVarPath( "Top.SystemRegs.timingUseMiniTpg",	bZero );
 	printf( "Configuring for LCLS-I timing ...\n" );
-	writeVarPath( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ModeSelEn",		lZero	);
-	writeVarPath( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxPllReset",		lOne	);
+	writeVarPath( "Top.TimingFrameRx.ModeSelEn",		lZero	);
+	writeVarPath( "Top.TimingFrameRx.RxPllReset",		lOne	);
 	nanosleep( &oneSec, NULL );
 
-	writeVarPath( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxPllReset",		lZero	);
+	writeVarPath( "Top.TimingFrameRx.RxPllReset",		lZero	);
 	nanosleep( &twoMs, NULL );
-	writeVarPath( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.ClkSel",			lZero	);
+	writeVarPath( "Top.TimingFrameRx.ClkSel",			lZero	);
 	nanosleep( &twoMs, NULL );
-	writeVarPath( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.C_RxReset",		lOne	);
+	writeVarPath( "Top.TimingFrameRx.C_RxReset",		lOne	);
 	nanosleep( &twoMs, NULL );
-	writeVarPath( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.C_RxReset",		lZero	);
+	writeVarPath( "Top.TimingFrameRx.C_RxReset",		lZero	);
 	nanosleep( &oneSec, NULL );
 
 	WaitForRxLinkUp( "ConfigureLclsTimingV1: Wait 1" );
 
 	// Reset latching RxDown flag
-	writeVarPath( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxDown",		lZero	);
+	writeVarPath( "Top.TimingFrameRx.RxDown",		lZero	);
 
 	if ( bUseMiniTpg )
 	{
 		// TODO: Export bUseMiniTpg as iocsh variable
-		writeVarPath( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingPhyMonitor.UseMiniTpg",	bUseMiniTpg );
+		writeVarPath( "Top.SystemRegs.timingUseMiniTpg",	bUseMiniTpg );
 	}
 
 	WaitForRxLinkUp( "ConfigureLclsTimingV1: Wait 2" );
@@ -461,155 +461,6 @@ bool pgpRogueLib::LaneReady( size_t iLane )
 	return laneReady;
 }
 
-#ifdef SUPPORT_CLINK
-void pgpRogueLib::FebFpgaReload()
-{
-	const uint64_t	lOne	= 1L;
-	const char * pszVarPathFpgaReload		= "ClinkDevRoot.ClinkFeb[%1u].AxiVersion.FpgaReload";
-
-	bool	febFound[N_AXI_LANES] = { false, false, false, false };
-	for ( size_t lane = 0; lane < N_AXI_LANES; lane++ )
-	{
-		char		febVarPath[256];
-		if ( LaneReady(lane) )
-		{
-			febFound[lane] = true;
-			printf( "Initiating Feb[%zu] FpgaReload\n", lane );
-			snprintf( febVarPath, 256, pszVarPathFpgaReload, lane );
-			writeVarPath( febVarPath, lOne );
-		}
-	}
-
-	bool	laneReady[N_AXI_LANES] = { false, false, false, false };
-	for ( size_t i = 0; i < 5; i++ )
-	{
-		sleep(1);
-		for ( size_t lane = 0; lane < N_AXI_LANES; lane++ )
-		{
-			bool		febWasReady = laneReady[lane];
-			laneReady[lane] = LaneReady(lane);
-			if ( !febFound[lane] )
-			{
-				laneReady[lane] = true;	// Not really, but WAVE8 not found so don't care
-				continue;
-			}
-			if ( ! febWasReady )
-			{
-				if ( laneReady[lane] )
-					printf( "Feb[%zu] Ready.\n", lane );
-				else
-					printf( "Feb[%zu] not ready.\n", lane );
-			}
-		}
-		if ( laneReady[0] && laneReady[1] && laneReady[2] && laneReady[3] )
-			break;
-	}
-	for ( size_t lane = 0; lane < N_AXI_LANES; lane++ )
-	{
-		if ( febFound[lane] && !laneReady[lane] )
-			printf( "Timeout waiting for Feb[%zu]!\n", lane );
-	}
-	sleep(5);
-}
-#endif  /* SUPPORT_CLINK */
-
-#ifdef SUPPORT_CLINK
-void pgpRogueLib::FebPllConfig()
-{
-#if 0
-	{	TODO: Need to provide C++ equivalent to select Pll rate for each camera type
-		# PllConfig is internal python variable
-		# TODO: Will need to select clock via st.cmd or Opal config file
-		if (self.PllConfig[i].get() == '85MHz'):
-			self.Pll[i].Config85MHz()            # Check for 80 MHz configuration
-		if (self.PllConfig[i].get() == '80MHz'):
-			# Same config as 85 MHz
-			self.Pll[i].Config85MHz()            # Check for 25 MHz configuration
-		if (self.PllConfig[i].get() == '25MHz'):
-			self.Pll[i].Config25MHz()        # Release the reset after configuration
-	}
-#endif
-	if ( LaneReady(0) )
-	{
-		printf( "Configuring Feb[0] Pll...\n" );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Ch[0].CntRst",	1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Ch[0].CntRst",	0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Ch[1].CntRst",	1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.Ch[1].CntRst",	0 );
-		// Hold Pll in reset
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.RstPll",		1 );
-
-		sleep(1);
-		LoadConfigFile( "db/cfgFeb0Pll85MHz.txt", 0.0025 );
-		sleep(1);
-
-		// Enable Pll
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.RstPll",		0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.CntRst",		1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].ClinkTop.CntRst",		0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].TrigCtrl[0].CntRst",		1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[0].TrigCtrl[1].CntRst",		1 );
-	}
-
-	if ( LaneReady(1) )
-	{
-		// Feb1 Pll Config:
-		printf( "Configuring Feb[1] Pll...\n" );
-		setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.Ch[0].CntRst",	1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.Ch[0].CntRst",	0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.Ch[1].CntRst",	1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.Ch[1].CntRst",	0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.RstPll",		1 );
-		sleep(1);
-		LoadConfigFile( "db/cfgFeb1Pll85MHz.txt", 0.0025 );
-		sleep(1);
-		setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.RstPll",		0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.CntRst",		1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[1].ClinkTop.CntRst",		0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[1].TrigCtrl[0].CntRst",		1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[1].TrigCtrl[1].CntRst",		1 );
-	}
-
-	if ( LaneReady(2) )
-	{
-		// Feb2 Pll Config:
-		printf( "Configuring Feb[2] Pll...\n" );
-		setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.Ch[0].CntRst",	1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.Ch[0].CntRst",	0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.Ch[1].CntRst",	1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.Ch[1].CntRst",	0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.RstPll",		1 );
-		sleep(1);
-		LoadConfigFile( "db/cfgFeb2Pll85MHz.txt", 0.0025 );
-		sleep(1);
-		setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.RstPll",		0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.CntRst",		1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[2].ClinkTop.CntRst",		0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[2].TrigCtrl[0].CntRst",		1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[2].TrigCtrl[1].CntRst",		1 );
-	}
-
-	if ( LaneReady(3) )
-	{
-		// Feb3 Pll Config:
-		printf( "Configuring Feb[3] Pll...\n" );
-		setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.Ch[0].CntRst",	1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.Ch[0].CntRst",	0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.Ch[1].CntRst",	1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.Ch[1].CntRst",	0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.RstPll",		1 );
-		sleep(1);
-		LoadConfigFile( "db/cfgFeb3Pll85MHz.txt", 0.0025 );
-		sleep(1);
-		setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.RstPll",		0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.CntRst",		1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[3].ClinkTop.CntRst",		0 );
-		setVariable( "ClinkDevRoot.ClinkFeb[3].TrigCtrl[0].CntRst",		1 );
-		setVariable( "ClinkDevRoot.ClinkFeb[3].TrigCtrl[1].CntRst",		1 );
-	}
-}
-#endif  /* SUPPORT_CLINK */
-
 
 /// Wait for RxLinkUp
 void pgpRogueLib::WaitForRxLinkUp( const char * pszDiagLabel )
@@ -619,7 +470,7 @@ void pgpRogueLib::WaitForRxLinkUp( const char * pszDiagLabel )
 	size_t		nTries		= 0;
 	while ( rxLinkUp == 0 )
 	{
-		readVarPath( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxLinkUp", rxLinkUp );
+		readVarPath( "Top.TimingFrameRx.RxLinkUp", rxLinkUp );
 		if ( rxLinkUp )
 			break;
 		if ( nTries > 200 )
@@ -863,21 +714,6 @@ void pgpRogueLib::dumpVariables( const char * pszFilePath, bool fWritableOnly, b
 	for ( mapVarPtr_t::const_iterator vit = mapVars.begin(); vit != mapVars.end(); ++vit )
 	{
 		rim::VariablePtr	pVar	= vit->second;
-		if ( pVar->path().find( "ClinkFeb" ) != std::string::npos )
-		{
-			if ( pVar->path().find( "ClinkFeb[0]" ) != std::string::npos )
-				if ( !LaneReady( 0 ) )
-					continue;
-			if ( pVar->path().find( "ClinkFeb[1]" ) != std::string::npos )
-				if ( !LaneReady( 1 ) )
-					continue;
-			if ( pVar->path().find( "ClinkFeb[2]" ) != std::string::npos )
-				if ( !LaneReady( 2 ) )
-					continue;
-			if ( pVar->path().find( "ClinkFeb[3]" ) != std::string::npos )
-				if ( !LaneReady( 3 ) )
-					continue;
-		}
 		try
 		{
 			if ( not fWritableOnly or pVar->mode() != std::string("RO") )
@@ -1044,23 +880,6 @@ void pgpRogueLib::showVariableList( bool verbose )
 			printf( "%s Error: Variable %s not found!\n", functionName, vit->first.c_str() );
 			continue;
 		}
-#ifdef SUPPORT_CLINK
-		if ( pVar->path().find( "ClinkFeb" ) != std::string::npos )
-		{
-			if ( pVar->path().find( "ClinkFeb[0]" ) != std::string::npos )
-				if ( !LaneReady( 0 ) )
-					continue;
-			if ( pVar->path().find( "ClinkFeb[1]" ) != std::string::npos )
-				if ( !LaneReady( 1 ) )
-					continue;
-			if ( pVar->path().find( "ClinkFeb[2]" ) != std::string::npos )
-				if ( !LaneReady( 2 ) )
-					continue;
-			if ( pVar->path().find( "ClinkFeb[3]" ) != std::string::npos )
-				if ( !LaneReady( 3 ) )
-					continue;
-		}
-#endif  /* SUPPORT_CLINK */
 
 #if 0
 		showVariable( vit->first, verbose );
