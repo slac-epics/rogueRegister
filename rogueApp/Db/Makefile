@@ -14,11 +14,11 @@ include $(TOP)/configure/CONFIG
 # db templates
 #DB += pgpCamlinkBase.template
 DB += AxiVersion.db
-DB += ClinkLane.db
-DB += ClinkPcie.template
 DB += wave8Data.db
+DB += wave8Reg.db
 DB += w8-aliases.db
 DB += roguePcie.db
+DB += TimingRx.template
 DB += TriggerEventManager.template
 DB += putMonitor.template
 DB += rbvMonitor.template

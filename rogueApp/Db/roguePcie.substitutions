@@ -1,14 +1,47 @@
 # roguePcie.substitutions
 
 
-#file biDevRogue.template
-#{
-#}
+file biDevRogue.template
+{
+	{
+		NAME	= "TrEvent:FifoOverflow"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].FifoOverflow"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:FifoOverflow"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].FifoOverflow"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:FifoPause"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].FifoPause"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:XpmOverflow"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].XpmOverflow"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:XpmPause"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].XpmPause"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+}
 file boolDevRogue.template
 {
 	{
 		NAME	= "Timing:UseMiniTpg",
 		PATH	= "Top.SystemRegs.timingUseMiniTpg"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "TrEvent:MasterEnable"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].MasterEnable"
+		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
 		SCAN	= ""
@@ -52,7 +85,7 @@ file boolDevRogue.template
 	{
 		NAME	= "Integrators:CntRst",
 		PATH	= "Top.Integrators.CntRst"
-		PINI	= "YES"
+		PINI	= ""
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
@@ -126,21 +159,18 @@ file boolDevRogue.template
 		SCAN	= ""
 	}
 	{
-		NAME	= "Trigger:MasterEnable",
-		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[$(L)].MasterEnable"
-		DOL 	= "1"
-		PINI	= "YES"
-		SAVE	= "VAL"
-		SCAN	= ""
-	}
-	{
-		NAME	= "XpmMini:Config_L0Select_Enabled",
-		PATH	= "Top.XpmMiniWrapper.XpmMini.Config_L0Select_Enabled"
-		PINI	= "YES"
+		NAME	= "RawBuffers:CntRst",
+		PATH	= "Top.RawBuffers.CntRst"
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "XpmMini:HwEnable",
 		PATH	= "Top.XpmMiniWrapper.XpmMini.HwEnable"
+		PINI	= "YES"
+	}
+	{
+		NAME	= "XpmMini:Config_L0Select_Enabled",
+		PATH	= "Top.XpmMiniWrapper.XpmMini.Config_L0Select_Enabled"
 		PINI	= "YES"
 	}
 }
@@ -325,6 +355,51 @@ file liDevRogue.template
 		DESC	= "Timing fiber link status"
 		SCAN	= "\$(SCAN=1 second)"
 	}
+	{
+		NAME	= "TrEvent:TriggerCount"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].TriggerCount"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:FifoWrCnt"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].FifoWrCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:L0Count"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].L0Count"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:L1AcceptCount"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].L1AcceptCount"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:L1RejectCount"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].L1RejectCount"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:NotPauseToTrig"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].NotPauseToTrig"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:PauseToTrig"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].PauseToTrig"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:TransitionCount"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].TransitionCount"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:XpmMessageCount"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].XpmMessageCount"
+		SCAN	= "\$(SCAN=1 second)"
+	}
 }
 
 file loDevRogue.template
@@ -338,8 +413,24 @@ file loDevRogue.template
 		PINI	= "YES"
 	}
 	{
+		NAME	= "RawBuffers:FifoPauseCnt",
+		PATH	= "Top.RawBuffers.FifoPauseCnt"
+		SAVE	= ""
+		SCAN	= ""
+	}
+	{
 		NAME	= "Timing:C_RxReset",
 		PATH	= "Top.TimingFrameRx.C_RxReset"
+		SAVE	= ""
+	}
+	{
+		NAME	= "TrEvent:FifoReset"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].FifoReset"
+		SAVE	= ""
+	}
+	{
+		NAME	= "TrEvent:ResetCounters"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].ResetCounters"
 		SAVE	= ""
 	}
 }
@@ -458,6 +549,12 @@ file longDevRogue.template
 		SCAN	= ""
 	}
 	{
+		NAME	= "RawBuffers:FifoPauseThreshold",
+		PATH	= "Top.RawBuffers.FifoPauseThreshold"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
 		NAME	= "RawBuffers:TrigPrescale",
 		PATH	= "Top.RawBuffers.TrigPrescale"
 		SAVE	= "VAL"
@@ -472,15 +569,34 @@ file longDevRogue.template
 	}
 	{
 		NAME	= "Timing:RxDown",
-		PATH	= "Top.TimingFrameRx.RxDown"
+		PATH	= "$(PTOP).TimingFrameRx.RxDown"
 		DESC	= "Timing fiber link status"
 		SCAN	= "\$(SCAN=1 second)"
 		SAVE	= ""
 	}
 	{
-		NAME	= "XpmMini:Config_L0Select_RateSel",
-		DOL		= "40"
-		PATH	= "Top.XpmMiniWrapper.XpmMini.Config_L0Select_RateSel"
+		NAME	= "Timing:RxPllReset",
+		PATH	= "$(PTOP).TimingFrameRx.RxPllReset"
+		SCAN	= "\$(SCAN=1 second)"
+		SAVE	= ""
+	}
+	{
+		NAME	= "TrEvent:Partition"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].Partition"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "TrEvent:PauseThreshold"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].PauseThreshold"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "TrEvent:TriggerDelay"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].TriggerDelay"
+		SAVE	= "VAL"
+		SCAN	= ""
 	}
 	{
 		NAME	= "XpmMini:Config_L0Select_DestSel",
