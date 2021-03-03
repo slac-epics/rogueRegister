@@ -17,6 +17,7 @@ DB += AxiVersion.db
 DB += ClinkLane.db
 DB += ClinkPcie.template
 DB += wave8Data.db
+DB += w8-aliases.db
 DB += roguePcie.db
 DB += TriggerEventManager.template
 DB += putMonitor.template

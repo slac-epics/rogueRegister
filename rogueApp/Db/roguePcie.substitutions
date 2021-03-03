@@ -8,18 +8,139 @@ file boolDevRogue.template
 {
 	{
 		NAME	= "Timing:UseMiniTpg",
-		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingPhyMonitor.UseMiniTpg"
+		PATH	= "Top.SystemRegs.timingUseMiniTpg"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "SystemRegs:TrigEn",
+		PATH	= "Top.SystemRegs.TrigEn"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "EventBuilder:Blowoff",
+		PATH	= "Top.BatcherEventBuilder.Blowoff"
+		SAVE	= ""
+		DESC	= "Blow off data in EventBuilder pipeline"
+		ZNAM	= "Disabled"
+		ONAM	= "Blowoff"
+		DOL		= "1"
 		PINI	= "YES"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
+		NAME	= "EvrV2:EnableReg",
+		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[$(L)].EnableReg"
+		DESC	= "Enables the Lane $(L) EvrV2 Channel Logic"
+		DOL		= "1"
+		PINI	= "YES"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EvrV2:EnableFebTrig",
+		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[$(L)].EnableTrig"
+		DESC	= "Enables the EvrV2 Trigger Output"
+		DOL		= "1"
+		PINI	= "YES"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:CntRst",
+		PATH	= "Top.Integrators.CntRst"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:QuadrantSel",
+		PATH	= "Top.Integrators.QuadrantSel"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:BuffEn0",
+		PATH	= "Top.RawBuffers.BuffEn[0]"
+		DOL 	= "1"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "RawBuffers:BuffEn1",
+		PATH	= "Top.RawBuffers.BuffEn[1]"
+		DOL 	= "1"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "RawBuffers:BuffEn2",
+		PATH	= "Top.RawBuffers.BuffEn[2]"
+		DOL 	= "1"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "RawBuffers:BuffEn3",
+		PATH	= "Top.RawBuffers.BuffEn[3]"
+		DOL 	= "1"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "RawBuffers:BuffEn4",
+		PATH	= "Top.RawBuffers.BuffEn[4]"
+		DOL 	= "1"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "RawBuffers:BuffEn5",
+		PATH	= "Top.RawBuffers.BuffEn[5]"
+		DOL 	= "1"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "RawBuffers:BuffEn6",
+		PATH	= "Top.RawBuffers.BuffEn[6]"
+		DOL 	= "1"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "RawBuffers:BuffEn7",
+		PATH	= "Top.RawBuffers.BuffEn[7]"
+		DOL 	= "1"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "Trigger:MasterEnable",
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[$(L)].MasterEnable"
+		DOL 	= "1"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
 		NAME	= "XpmMini:Config_L0Select_Enabled",
-		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_Enabled"
+		PATH	= "Top.XpmMiniWrapper.XpmMini.Config_L0Select_Enabled"
 		PINI	= "YES"
 	}
 	{
 		NAME	= "XpmMini:HwEnable",
-		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.HwEnable"
+		PATH	= "Top.XpmMiniWrapper.XpmMini.HwEnable"
 		PINI	= "YES"
 	}
 }
@@ -28,38 +149,179 @@ file boolDevRogue.template
 file liDevRogue.template
 {
 	{
-		NAME	= "AxiPcieCore:FpgaVersion",
+		NAME	= "AxiVersion:FpgaVersion",
 		PATH	= "Top.AxiVersion.FpgaVersion",
 		DESC	= "AxiPcieCore FPGA Version (show as hex)"
 		PINI	= "YES"
 	}
 	{
-		NAME	= "AxiPcieCore:UpTime",
+		NAME	= "AxiVersion:UpTime",
 		PATH	= "Top.AxiVersion.UpTimeCnt",
 		EGU		= "sec"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
+		NAME	= "EventBuilder:DataCnt0",
+		PATH	= "Top.BatcherEventBuilder.DataCnt[0]",
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt1",
+		PATH	= "Top.BatcherEventBuilder.DataCnt[1]"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral0",
+		PATH	= "Top.Integrators.AdcIntegral[0]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral1",
+		PATH	= "Top.Integrators.AdcIntegral[1]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral2",
+		PATH	= "Top.Integrators.AdcIntegral[2]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral3",
+		PATH	= "Top.Integrators.AdcIntegral[3]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral4",
+		PATH	= "Top.Integrators.AdcIntegral[4]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral5",
+		PATH	= "Top.Integrators.AdcIntegral[5]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral6",
+		PATH	= "Top.Integrators.AdcIntegral[6]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral7",
+		PATH	= "Top.Integrators.AdcIntegral[7]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:Baseline0",
+		PATH	= "Top.Integrators.Baseline[0]"
+		DESC	= "Baseline for integration"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:Baseline1",
+		PATH	= "Top.Integrators.Baseline[1]"
+		DESC	= "Baseline for integration"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:Baseline2",
+		PATH	= "Top.Integrators.Baseline[2]"
+		DESC	= "Baseline for integration"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:Baseline3",
+		PATH	= "Top.Integrators.Baseline[3]"
+		DESC	= "Baseline for integration"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:Baseline4",
+		PATH	= "Top.Integrators.Baseline[4]"
+		DESC	= "Baseline for integration"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:Baseline5",
+		PATH	= "Top.Integrators.Baseline[5]"
+		DESC	= "Baseline for integration"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:Baseline6",
+		PATH	= "Top.Integrators.Baseline[6]"
+		DESC	= "Baseline for integration"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:Baseline7",
+		PATH	= "Top.Integrators.Baseline[7]"
+		DESC	= "Baseline for integration"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:IntFifoPauseCnt",
+		PATH	= "Top.Integrators.IntFifoPauseCnt"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:ProcFifoPauseCnt",
+		PATH	= "Top.Integrators.ProcFifoPauseCnt"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:ProcFifoPauseThreshold",
+		PATH	= "Top.Integrators.ProcFifoPauseThreshold"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:TrigCnt",
+		PATH	= "Top.Integrators.TrigCnt"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:TrigCnt",
+		PATH	= "Top.RawBuffers.TrigCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EvrV2:Count",
+		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].Count"
+		DESC	= "Count for Start of Timing Frame"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
 		NAME	= "Timing:sofCount",
-		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.sofCount"
+		PATH	= "Top.TimingFrameRx.sofCount"
 		DESC	= "Count for Start of Timing Frame"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Timing:eofCount",
-		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.eofCount"
+		PATH	= "Top.TimingFrameRx.eofCount"
 		DESC	= "Count for End of Timing Frame"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Timing:FidCount",
-		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.FidCount"
+		PATH	= "Top.TimingFrameRx.FidCount"
 		DESC	= "Fiducial Count"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Timing:RxLinkUp",
-		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.RxLinkUp"
+		PATH	= "Top.TimingFrameRx.RxLinkUp"
 		DESC	= "Timing fiber link status"
 		SCAN	= "\$(SCAN=1 second)"
 	}
@@ -68,8 +330,16 @@ file liDevRogue.template
 file loDevRogue.template
 {
 	{
+		NAME	= "EventBuilder:SoftRst",
+		PATH	= "Top.BatcherEventBuilder.SoftRst"
+		SAVE	= ""
+		DESC	= "Reset EventBuilder pipeline"
+		DOL		= "0"
+		PINI	= "YES"
+	}
+	{
 		NAME	= "Timing:C_RxReset",
-		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingFrameRx.C_RxReset"
+		PATH	= "Top.TimingFrameRx.C_RxReset"
 		SAVE	= ""
 	}
 }
@@ -77,19 +347,171 @@ file loDevRogue.template
 file longDevRogue.template
 {
 	{
-		NAME	= "AxiPcieCore:ScratchPad",
+		NAME	= "AxiVersion:ScratchPad",
 		PATH	= "Top.AxiVersion.ScratchPad"
 		PINI	= "YES"
 		SAVE	= ""
 	}
 	{
+		NAME	= "EvrV2:Delay",
+		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Delay"
+		DESC	= "Trigger Delay"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "EvrV2:Polarity",
+		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Polarity"
+		DESC	= "Trigger Polarity"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "EvrV2:Source",
+		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Source"
+		DESC	= "Trigger Source"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "Integrators:BaselineSize",
+		PATH	= "Top.Integrators.BaselineSize"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:CorrCoefficientRaw0",
+		PATH	= "Top.Integrators.CorrCoefficientRaw[0]"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:IntFifoPauseThreshold",
+		PATH	= "Top.Integrators.IntFifoPauseThreshold"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:IntegralSize",
+		PATH	= "Top.Integrators.IntegralSize"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:TrigDelay",
+		PATH	= "Top.Integrators.TrigDelay"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:OvflCntBuff0",
+		PATH	= "Top.RawBuffers.OvflCntBuff[0]"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:OvflCntBuff1",
+		PATH	= "Top.RawBuffers.OvflCntBuff[1]"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:OvflCntBuff2",
+		PATH	= "Top.RawBuffers.OvflCntBuff[2]"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:OvflCntBuff3",
+		PATH	= "Top.RawBuffers.OvflCntBuff[3]"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:OvflCntBuff4",
+		PATH	= "Top.RawBuffers.OvflCntBuff[4]"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:OvflCntBuff5",
+		PATH	= "Top.RawBuffers.OvflCntBuff[5]"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:OvflCntBuff6",
+		PATH	= "Top.RawBuffers.OvflCntBuff[6]"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:OvflCntBuff7",
+		PATH	= "Top.RawBuffers.OvflCntBuff[7]"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:BuffLen",
+		PATH	= "Top.RawBuffers.BuffLen"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "RawBuffers:TrigPrescale",
+		PATH	= "Top.RawBuffers.TrigPrescale"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "SystemRegs:TrigDelay",
+		PATH	= "Top.SystemRegs.TrigDelay"
+		PINI	= "YES"
+		SAVE	= "VAL"
+		SCAN	= ""
+	}
+	{
+		NAME	= "Timing:RxDown",
+		PATH	= "Top.TimingFrameRx.RxDown"
+		DESC	= "Timing fiber link status"
+		SCAN	= "\$(SCAN=1 second)"
+		SAVE	= ""
+	}
+	{
+		NAME	= "XpmMini:Config_L0Select_RateSel",
+		DOL		= "40"
+		PATH	= "Top.XpmMiniWrapper.XpmMini.Config_L0Select_RateSel"
+	}
+	{
 		NAME	= "XpmMini:Config_L0Select_DestSel",
 		DOL		= "32768"
-		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Config_L0Select_DestSel"
+		PATH	= "Top.XpmMiniWrapper.XpmMini.Config_L0Select_DestSel"
 	}
 	{
 		NAME	= "XpmMini:Link",
-		PATH	= "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.XpmMiniWrapper.XpmMini.Link"
+		PATH	= "Top.XpmMiniWrapper.XpmMini.Link"
+	}
+}
+
+file int64InDevRogue.template
+{
+	{
+		NAME	= "Integrators:IntensityRaw",
+		PATH	= "Top.Integrators.IntensityRaw"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:PositionXRaw",
+		PATH	= "Top.Integrators.PositionXRaw"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Integrators:PositionYRaw",
+		PATH	= "Top.Integrators.PositionYRaw"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
 	}
 }
 

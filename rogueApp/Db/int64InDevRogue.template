@@ -1,0 +1,12 @@
+# int64InDevRogue.template
+record( int64in, "$(P)$(R)$(NAME)_RBV" )
+{
+	field( DESC, "$(DESC=?)" )
+	field( DTYP, "RogueLI64" )
+	field( INP,  "@B$(B) L$(L) $(PATH)" )
+	field( PINI, "YES" )
+	field( SCAN, "$(SCAN=)" )
+	field( DISV, "$(DISV=1)" )
+	field( SDIS, "$(SDIS=)" )
+	info( autosaveFields, "" )
+}

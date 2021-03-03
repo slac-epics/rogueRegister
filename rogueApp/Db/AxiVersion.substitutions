@@ -1,4 +1,4 @@
-# roguePcie.substitutions
+# AxiVersion.substitutions
 
 
 #file biDevRogue.template
@@ -7,7 +7,7 @@
 file boDevRogue.template
 {
 	{
-		NAME	= "AxiPcieCore:FpgaReload",
+		NAME	= "AxiVersion:FpgaReload",
 		PATH	= "Top.AxiVersion.FpgaReload",
 		DESC	= "AxiPcieCore FPGA Reload"
 		ZNAM	= "Normal" )
@@ -22,13 +22,13 @@ file boDevRogue.template
 file liDevRogue.template
 {
 	{
-		NAME	= "AxiPcieCore:FpgaVersion",
+		NAME	= "AxiVersion:FpgaVersion",
 		PATH	= "Top.AxiVersion.FpgaVersion",
 		DESC	= "AxiPcieCore FPGA Version (show as hex)"
 		PINI	= "YES"
 	}
 	{
-		NAME	= "AxiPcieCore:UpTime",
+		NAME	= "AxiVersion:UpTime",
 		PATH	= "Top.AxiVersion.UpTimeCnt",
 		EGU		= "sec"
 		SCAN	= "\$(SCAN=1 second)"
@@ -42,9 +42,14 @@ file liDevRogue.template
 file longDevRogue.template
 {
 	{
-		NAME	= "AxiPcieCore:ScratchPad",
+		NAME	= "AxiVersion:ScratchPad",
 		PATH	= "Top.AxiVersion.ScratchPad"
 		PINI	= "YES"
+		SAVE	= ""
+	}
+	{
+		NAME	= "AxiVersion:UserReset",
+		PATH	= "Top.AxiVersion.UserReset"
 		SAVE	= ""
 	}
 }

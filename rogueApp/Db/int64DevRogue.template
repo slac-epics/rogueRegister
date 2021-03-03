@@ -1,0 +1,7 @@
+# int64DevRogue.template
+include "int64InDevRogue.template"
+include "int64OutDevRogue.template"
+record( int64out, "$(P)$(R)$(NAME)" )
+{
+	field( FLNK, "$(P)$(R)$(NAME)_RBV" )
+}
