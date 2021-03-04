@@ -22,9 +22,8 @@ DB += TimingRx.template
 DB += TriggerEventManager.template
 DB += putMonitor.template
 DB += rbvMonitor.template
-#DB += PgpCannedSequences.db
-#DB += PgpChCannedSequences.db
-#DB += CamCannedSequences.db
+DB += PgpCannedSequences.db
+DB += PgpChCannedSequences.db
 
 # Install archive files
 #ARCHIVE += foo.tpl-arch

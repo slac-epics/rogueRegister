@@ -74,7 +74,7 @@ file boolDevRogue.template
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
-		NAME	= "EvrV2:EnableFebTrig",
+		NAME	= "EvrV2:EnableTrig",
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[$(L)].EnableTrig"
 		DESC	= "Enables the EvrV2 Trigger Output"
 		DOL		= "1"

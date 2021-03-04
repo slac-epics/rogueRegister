@@ -5,6 +5,22 @@
 #	
 # Required macros:
 #	PGP				- Prefix for pgpRogue IOC
+#	B				- datadev board
+#	L				- datadev lane
+
+record( longin, "$(PGP):PgpBoard" )
+{
+	field( DESC, "PGP Board number /dev/datadev_N" )
+	field( INP,  "$(B)" )
+	field( PINI, "YES" )
+}
+
+record( longin, "$(PGP):PgpLane" )
+{
+	field( DESC, "PGP Lane (fiber) number 0-3" )
+	field( INP,  "$(L)" )
+	field( PINI, "YES" )
+}
 
 # Select LCLS-I Timing
 record( seq, "$(PGP):SeqLcls1Timing" )
