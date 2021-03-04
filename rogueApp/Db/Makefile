@@ -14,8 +14,6 @@ include $(TOP)/configure/CONFIG
 # db templates
 #DB += pgpCamlinkBase.template
 DB += AxiVersion.db
-DB += wave8Data.db
-DB += wave8Reg.db
 DB += w8-aliases.db
 DB += roguePcie.db
 DB += TimingRx.template
@@ -24,6 +22,8 @@ DB += putMonitor.template
 DB += rbvMonitor.template
 DB += PgpCannedSequences.db
 DB += PgpChCannedSequences.db
+DB += wave8Data.db
+DB += wave8Reg.db
 
 # Install archive files
 #ARCHIVE += foo.tpl-arch
