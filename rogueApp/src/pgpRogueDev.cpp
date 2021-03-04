@@ -55,6 +55,8 @@ static	pgpRogueDevPtr	gPgpRogueDev[N_PGP_ROGUE_DEV];
 int		pgpRogueDev::setTriggerEnable( unsigned int triggerNum, bool fEnable )
 {
 	int		status	= 0;
+	if (m_pRogueLib)
+		m_pRogueLib->setTriggerEnable( triggerNum, fEnable );
 	return status;
 }
 
