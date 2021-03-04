@@ -29,7 +29,7 @@
 
 // rogue headers
 //#include "rogue/GeneralError.h"
-//#include "rogue/Logging.h"
+#include "rogue/Logging.h"
 #include "rogue/Version.h"
 
 // aes-stream-drivers headers 
@@ -109,6 +109,9 @@ pgpRogueDev::pgpRogueDev(
 	}
 #endif
 
+	//rogue::Logging::setLevel( rogue::Logging::Info );
+	//rogue::Logging::setLevel( rogue::Logging::Warning );
+	rogue::Logging::setLevel( rogue::Logging::Error );
 	m_LibVersion = rogue::Version::current();
 	// See if we can connect to the device
 	m_fd = open(m_devName.c_str(), O_RDWR);
