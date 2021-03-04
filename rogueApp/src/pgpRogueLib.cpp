@@ -648,8 +648,8 @@ template<class R> int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const R 
 	{
 		printf( "%s error: %s!\n", functionName, e.what() );
 	}
-	if ( pVar->modelId() == rim::Bool )
-		pVar->setLogLevel( rogue::Logging::Info );
+	//if ( pVar->modelId() == rim::Bool )
+	//	pVar->setLogLevel( rogue::Logging::Info );
 
 	return status;
 }
