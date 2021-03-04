@@ -172,9 +172,9 @@ pgpRogueDev::pgpRogueDev(
 	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
 		printf( "%s: Connecting DataChan to DataStream ...\n", functionName );
 	m_pDataStream	= DataStream::create(this, "DataStream");
-	m_pDataChan->addSlave( m_pDataStream );
+	//m_pDataChan->addSlave( m_pDataStream );
 	// or
-	// m_pUnbatcher->addSlave( m_pDataStream );
+	m_pUnbatcher->addSlave( m_pDataStream );
 	
 	// 	ris::FifoPtr create(uint32_t maxDepth, uint32_t trimSize, bool noCopy)
 	m_pDataFifo	= ris::Fifo::create( 0, 0, false );
@@ -198,11 +198,11 @@ pgpRogueDev::pgpRogueDev(
 #endif
 	
 	// EPICS unbatcher
-	m_pEpicsUnbatcher	= rogue::protocols::batcher::SplitterV1::create();
-	m_pDataFifo->addSlave( m_pEpicsUnbatcher );
+	//m_pEpicsUnbatcher	= rogue::protocols::batcher::SplitterV1::create();
+	//m_pDataFifo->addSlave( m_pEpicsUnbatcher );
 
-	m_pEpicsDataStream	= DataStream::create(this, "EpicsStream");
-	m_pEpicsUnbatcher->addSlave( m_pEpicsDataStream );
+	//m_pEpicsDataStream	= DataStream::create(this, "EpicsStream");
+	//m_pEpicsUnbatcher->addSlave( m_pEpicsDataStream );
 
 	m_fConnected = 1;	// Do we need this?
 	//StartRun( m_fd );
