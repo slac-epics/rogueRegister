@@ -78,15 +78,15 @@ const char * modelId2String( uint32_t modelId )
 void pgpRogueLib::ResetCounters( )
 {
 	// TODO: Add toggle option to setVariable
-//	setVariable( "Top.PgpMon[0].CountReset", 1 );
-//	setVariable( "Top.PgpMon[0].CountReset", 0 );
+	setVariable( "Top.PgpMon[0].Ctrl.CountReset", 1 );
+	setVariable( "Top.PgpMon[0].Ctrl.CountReset", 0 );
 
 	// This resets   Top.BatcherEventBuilder.DataCnt[0]
-//	setVariable( "Top.BatcherEventBuilder.CntRst", 1 );
-//	setVariable( "Top.BatcherEventBuilder.CntRst", 0 );
+	setVariable( "Top.BatcherEventBuilder.CntRst", 1 );
+	setVariable( "Top.BatcherEventBuilder.CntRst", 0 );
 
-//	setVariable( "Top.TimingFrameRx.ClearRxCounters", 1 );
-//	setVariable( "Top.TimingFrameRx.ClearRxCounters", 0 );
+	setVariable( "Top.TimingFrameRx.ClearRxCounters", 1 );
+	setVariable( "Top.TimingFrameRx.ClearRxCounters", 0 );
 }
 
 void pgpRogueLib::GetEventBuilderBlowoffPath( unsigned int triggerNum, std::string & retPath )
