@@ -1,5 +1,5 @@
 # int64InDevRogue.template
-record( int64in, "$(P)$(R)$(NAME)_RBV" )
+record( int64in, "$(P)$(R)$(NAME)" )
 {
 	field( DESC, "$(DESC=?)" )
 	field( DTYP, "RogueLI64" )

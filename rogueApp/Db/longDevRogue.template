@@ -1,5 +1,15 @@
 # longDevRogue.template
-include "liDevRogue.template"
+record( longin, "$(P)$(R)$(NAME)_RBV" )
+{
+	field( DESC, "$(DESC=?)" )
+	field( DTYP, "RogueLI" )
+	field( INP,  "@B$(B) L$(L) $(PATH)" )
+	field( PINI, "YES" )
+	field( SCAN, "$(SCAN=)" )
+	field( DISV, "$(DISV=1)" )
+	field( SDIS, "$(SDIS=)" )
+	info( autosaveFields, "" )
+}
 include "loDevRogue.template"
 record( longout, "$(P)$(R)$(NAME)" )
 {

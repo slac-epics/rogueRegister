@@ -1,5 +1,16 @@
 # boolDevRogue.template
-include "biDevRogue.template"
+record( bi, "$(P)$(R)$(NAME)_RBV" )
+{
+	field( DESC, "$(DESC=?)" )
+	field( DTYP, "RogueBI" )
+	field( INP,  "@B$(B) L$(L) $(PATH)" )
+	field( SCAN, "$(SCAN=)" )
+	field( ZNAM, "$(ZNAM=Disabled)" )
+	field( ONAM, "$(ONAM=Enabled)" )
+	field( DISV, "$(DISV=1)" )
+	field( SDIS, "$(SDIS=)" )
+	info( autosaveFields, "" )
+}
 include "boDevRogue.template"
 record( bo, "$(P)$(R)$(NAME)" )
 {

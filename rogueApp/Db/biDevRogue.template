@@ -1,5 +1,5 @@
 # biDevRogue.template
-record( bi, "$(P)$(R)$(NAME)_RBV" )
+record( bi, "$(P)$(R)$(NAME)" )
 {
 	field( DESC, "$(DESC=?)" )
 	field( DTYP, "RogueBI" )

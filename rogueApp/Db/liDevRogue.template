@@ -1,5 +1,5 @@
 # liDevRogue.template
-record( longin, "$(P)$(R)$(NAME)_RBV" )
+record( longin, "$(P)$(R)$(NAME)" )
 {
 	field( DESC, "$(DESC=?)" )
 	field( DTYP, "RogueLI" )
