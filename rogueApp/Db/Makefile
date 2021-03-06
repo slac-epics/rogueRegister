@@ -15,6 +15,7 @@ include $(TOP)/configure/CONFIG
 #DB += pgpCamlinkBase.template
 DB += AxiVersion.db
 DB += w8-aliases.db
+DB += Ads42Lbx9.db
 DB += roguePcie.db
 DB += TimingRx.template
 DB += TriggerEventManager.template

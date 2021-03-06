@@ -1,0 +1,47 @@
+#
+# Wave8Base rogue PVs
+#
+# Required macros:
+#	P				- Prefix
+#	R				- Region, common camera PV prefix is $(P)$(R)
+#	B				- Board number
+#	L				- Lane number
+#
+# Optional macros
+#	TIMEOUT			- Defaults to 1 sec
+#
+
+# SystemReg Trigger Source Select
+record( mbbi, "$(P)$(R)SystemRegs:TrigSrcSel_RBV" )
+{
+	field( DESC, "Trigger Source Select" )
+	field( INP,  "@B$(B) L$(L) $(PTOP).SystemRegs.TrigSrcSel" )
+	field( DTYP, "RogueMBBI" )
+	field( ZRVL, "0" ) field( ZRST, "ExtTTL" )
+	field( ONVL, "1" ) field( ONST, "SWTrig" )
+	field( TWVL, "2" ) field( TWST, "Rsrvd2" )
+	field( THVL, "3" ) field( THST, "Rsrvd3" )
+	field( FRVL, "4" ) field( FRST, "Rsrvd4" )
+	field( FVVL, "5" ) field( FVST, "Rsrvd5" )
+	field( SXVL, "6" ) field( SXST, "Rsrvd6" )
+	field( SVVL, "7" ) field( SVST, "IntAuto" )
+	info( autosaveFields, "" )
+}
+
+record( mbbo, "$(P)$(R)SystemRegs:TrigSrcSel" )
+{
+	field( DESC, "Trigger Source Select" )
+	field( OUT,  "@B$(B) L$(L) $(PTOP).SystemRegs.TrigSrcSel" )
+	field( DTYP, "RogueMBBO" )
+	field( ZRVL, "0" ) field( ZRST, "ExtTTL" )
+	field( ONVL, "1" ) field( ONST, "SWTrig" )
+	field( TWVL, "2" ) field( TWST, "Rsrvd2" )
+	field( THVL, "3" ) field( THST, "Rsrvd3" )
+	field( FRVL, "4" ) field( FRST, "Rsrvd4" )
+	field( FVVL, "5" ) field( FVST, "Rsrvd5" )
+	field( SXVL, "6" ) field( SXST, "Rsrvd6" )
+	field( SVVL, "7" ) field( SVST, "IntAuto" )
+	field( PINI, "YES" )
+	field( FLNK, "$(P)$(R)SystemRegs:TrigSrcSel_RBV" )
+	info( autosaveFields, "VAL" )
+}

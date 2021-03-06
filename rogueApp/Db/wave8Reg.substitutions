@@ -1,5 +1,15 @@
 # wave8Reg.substitutions
 
+file AxiVersion.db
+{
+	{ PTOP	= "Top" }
+}
+
+file wave8Base.template
+{
+	{ PTOP	= "Top" }
+}
+
 file TimingRx.template
 {
 	{ PTOP	= "Top" }
@@ -13,6 +23,14 @@ file TriggerEventManager.template
 file roguePcie.db
 {
 	{ PTOP	= "Top" }
+}
+
+file Ads42Lbx9.db
+{
+	{ PTOP	= "Top", ADC = "0" }
+	{ PTOP	= "Top", ADC = "1" }
+	{ PTOP	= "Top", ADC = "2" }
+	{ PTOP	= "Top", ADC = "3" }
 }
 
 file w8-aliases.db
