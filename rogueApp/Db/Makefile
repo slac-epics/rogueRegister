@@ -16,6 +16,7 @@ include $(TOP)/configure/CONFIG
 DB += AxiVersion.db
 DB += w8-aliases.db
 DB += Ads42Lbx9.db
+DB += BatcherEventBuilder.db
 DB += roguePcie.db
 DB += TimingRx.template
 DB += TriggerEventManager.template

@@ -10,6 +10,7 @@ record( int64in, "$(P)$(R)$(NAME)_RBV" )
 	field( SDIS, "$(SDIS=)" )
 	info( autosaveFields, "" )
 }
+alias( "$(P)$(R)$(NAME)", "$(P)$(R)$(PYPV)" )
 include "int64OutDevRogue.template"
 record( int64out, "$(P)$(R)$(NAME)" )
 {

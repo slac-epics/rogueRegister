@@ -10,3 +10,4 @@ record( int64in, "$(P)$(R)$(NAME)" )
 	field( SDIS, "$(SDIS=)" )
 	info( autosaveFields, "" )
 }
+alias( "$(P)$(R)$(NAME)", "$(P)$(R)$(PYPV)" )

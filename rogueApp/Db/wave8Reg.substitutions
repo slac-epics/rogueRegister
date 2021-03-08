@@ -20,6 +20,11 @@ file TriggerEventManager.template
 	{ PTOP	= "Top" }
 }
 
+file BatcherEventBuilder.db
+{
+	{ PTOP	= "Top" }
+}
+
 file roguePcie.db
 {
 	{ PTOP	= "Top" }
@@ -33,10 +38,10 @@ file Ads42Lbx9.db
 	{ PTOP	= "Top", ADC = "3" }
 }
 
-file w8-aliases.db
-{
-	{ PTOP	= "Top" }
-}
+#file w8-aliases.db
+#{
+#	{ PTOP	= "Top" }
+#}
 
 #       DESC    = "0         1         2         3         "
 #       DESC    = "01234567890123 Max 40 char 7890123456789"

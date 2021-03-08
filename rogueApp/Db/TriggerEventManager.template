@@ -37,6 +37,8 @@ record( mbbo, "$(P)$(R)EvrV2:DestSel" )
 	field( FLNK, "$(P)$(R)EvrV2:DestSel_RBV" )
 	info( autosaveFields, "VAL" )
 }
+alias( "$(P)$(R)EvrV2:DestSel",     "$(P)$(R)Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:DestSel" )
+alias( "$(P)$(R)EvrV2:DestSel_RBV", "$(P)$(R)Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:DestSel_RBV" )
 
 # LCLS-I Dest Type
 record( mbbi, "$(P)$(R)EvrV2:DestType_RBV" )
@@ -65,6 +67,8 @@ record( mbbo, "$(P)$(R)EvrV2:DestType" )
 	field( FLNK, "$(P)$(R)EvrV2:DestType_RBV" )
 	info( autosaveFields, "VAL" )
 }
+alias( "$(P)$(R)EvrV2:DestType",     "$(P)$(R)Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:DestType" )
+alias( "$(P)$(R)EvrV2:DestType_RBV", "$(P)$(R)Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:DestType_RBV" )
 
 # LCLS-I Rate Type
 record( mbbi, "$(P)$(R)EvrV2:RateType_RBV" )
@@ -93,27 +97,29 @@ record( mbbo, "$(P)$(R)EvrV2:RateType" )
 	field( FLNK, "$(P)$(R)EvrV2:RateType_RBV" )
 	info( autosaveFields, "" )
 }
+alias( "$(P)$(R)EvrV2:RateType",     "$(P)$(R)Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:RateType" )
+alias( "$(P)$(R)EvrV2:RateType_RBV", "$(P)$(R)Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:RateType_RBV" )
 
 # LCLS-I Rate Select
-record( longin, "$(P)$(R)EvrV2:RateSel_RBV" )
+record( longin, "$(P)$(R)EvrV2:EventCode_RBV" )
 {
 	field( DESC, "LCLS-I Event Code" )
 	field( INP,  "@B$(B) L$(L) Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[$(L)].RateSel" )
 	field( DTYP, "RogueLI" )
 	info( autosaveFields, "" )
 }
-alias( "$(P)$(R)EvrV2:RateSel_RBV", "$(P)$(R)EvrV2:EventCode_RBV" )
 
-record( longout, "$(P)$(R)EvrV2:RateSel" )
+record( longout, "$(P)$(R)EvrV2:EventCode" )
 {
 	field( DESC, "Ch$(L) LCLS-I EventCode" )
 	field( OUT,  "@B$(B) L$(L) Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[$(L)].RateSel" )
 	field( DTYP, "RogueLO" )
 	field( PINI, "YES" )
-	field( FLNK, "$(P)$(R)EvrV2:RateSel_RBV" )
+	field( FLNK, "$(P)$(R)EvrV2:EventCode_RBV" )
 	info( autosaveFields, "VAL" )
 }
-alias( "$(P)$(R)EvrV2:RateSel", "$(P)$(R)EvrV2:EventCode" )
+alias( "$(P)$(R)EvrV2:EventCode",     "$(P)$(R)Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:RateSel" )
+alias( "$(P)$(R)EvrV2:EventCode_RBV", "$(P)$(R)Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:RateSel_RBV" )
 
 record( waveform, "$(P)$(R)AxiVersion:BuildStamp" )
 {
@@ -125,4 +131,5 @@ record( waveform, "$(P)$(R)AxiVersion:BuildStamp" )
 	field( PINI, "YES" )
 	info( archiveFields,  "VAL" )
 }
+alias( "$(P)$(R)AxiVersion:BuildStamp", "$(P)$(R):Top:AxiVersion:BuildStamp" )
 

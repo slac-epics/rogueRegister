@@ -6,36 +6,37 @@ file biDevRogue.template
 	{
     	NAME	= "TimingFrameRx:RxClkCount"
     	PATH	= "Top.TimingFrameRx.RxClkCount"
+    	PYPV	= "Top:TimingFrameRx:RxClkCount"
 		DESC	= "Recovered clock count div 16"
 	}
 	{
     	NAME	= "TimingFrameRx:RxRstCount"
     	PATH	= "Top.TimingFrameRx.RxRstCount"
+    	PYPV	= "Top:TimingFrameRx:RxRstCount"
 		DESC	= "Receive link reset count"
 	}
 	{
 		NAME	= "TrEvent:FifoOverflow"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].FifoOverflow"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "TrEvent:FifoOverflow"
-		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].FifoOverflow"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:FifoOverflow"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:FifoPause"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].FifoPause"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:FifoPause"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmOverflow"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].XpmOverflow"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:XpmOverflow"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmPause"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].XpmPause"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:XpmPause"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 }
@@ -44,12 +45,14 @@ file boDevRogue.template
 	{
 		NAME	= "Timing:timingRxUserRst",
     	PATH	= "Top.SystemRegs.timingRxUserRst"
+    	PYPV	= "Top:SystemRegs:timingRxUserRst"
 		DESC 	= "Timing RX reset"
 		SAVE	= ""
 	}
 	{
 		NAME	= "Timing:timingTxUserRst",
     	PATH	= "Top.SystemRegs.timingTxUserRst"
+    	PYPV	= "Top:SystemRegs:timingTxUserRst"
 		DESC 	= "Timing TX reset"
 		SAVE	= ""
 	}
@@ -59,62 +62,70 @@ file boolDevRogue.template
 	{
 		NAME	= "SystemRegs:AdcCtrl1"
 		PATH	= "Top.SystemRegs.AdcCtrl1"
+		PYPV	= "Top:SystemRegs:AdcCtrl1"
 	}
 	{
 		NAME	= "SystemRegs:AdcCtrl2"
 		PATH	= "Top.SystemRegs.AdcCtrl2"
+		PYPV	= "Top:SystemRegs:AdcCtrl2"
 	}
 	{
 		NAME	= "SystemRegs:AdcReset"
 		PATH	= "Top.SystemRegs.AdcReset"
+		PYPV	= "Top:SystemRegs:AdcReset"
 	}
 	{
 		NAME	= "SystemRegs:AvccEn0"
 		PATH	= "Top.SystemRegs.AvccEn0"
+		PYPV	= "Top:SystemRegs:AvccEn0"
 		DESC	= "Enable AVCC0 DCDC"
 	}
 	{
 		NAME	= "SystemRegs:AvccEn1"
 		PATH	= "Top.SystemRegs.AvccEn1"
+		PYPV	= "Top:SystemRegs:AvccEn1"
 		DESC	= "Enable AVCC1 DCDC"
 	}
 	{
 		NAME	= "SystemRegs:Ap5V5En"
 		PATH	= "Top.SystemRegs.Ap5V5En"
+		PYPV	= "Top:SystemRegs:Ap5V5En"
 		DESC	= "Enable analog buffers 5.5V DCDC"
 	}
 	{
 		NAME	= "SystemRegs:Ap5V0En"
 		PATH	= "Top.SystemRegs.Ap5V0En"
+		PYPV	= "Top:SystemRegs:Ap5V0En"
 		DESC	= "Enable analog buffers 5.0V LDO"
 	}
 	{
 		NAME	= "SystemRegs:A0p3V3En"
 		PATH	= "Top.SystemRegs.A0p3V3En"
+		PYPV	= "Top:SystemRegs:A0p3V3En"
 		DESC	= "Enable ADCs analog 3.3V LDO"
 	}
 	{
 		NAME	= "SystemRegs:A1p3V3En"
 		PATH	= "Top.SystemRegs.A1p3V3En"
+		PYPV	= "Top:SystemRegs:A1p3V3En"
 		DESC	= "Enable ADCs analog 3.3V LDO"
 	}
 	{
 		NAME	= "SystemRegs:Ap1V8En"
 		PATH	= "Top.SystemRegs.Ap1V8En"
+		PYPV	= "Top:SystemRegs:Ap1V8En"
 		DESC	= "Enable ADCs analog 1.8V LDO"
 	}
 	{
 		NAME	= "SystemRegs:FpgaTmpCritLatch"
 		PATH	= "Top.SystemRegs.FpgaTmpCritLatch"
+		PYPV	= "Top:SystemRegs:FpgaTmpCritLatch"
 		DESC	= "FPGA Critical Temperature Triggered"
-	}
-	{
-		NAME	= "SystemRegs:TrigEn"
-		PATH	= "Top.SystemRegs.TrigEn"
 	}
 	{
 		NAME	= "Timing:UseMiniTpg",
 		PATH	= "Top.SystemRegs.timingUseMiniTpg"
+		PYPV	= "Top:SystemRegs:timingUseMiniTpg"
 		PINI	= "YES"
 		SAVE	= "VAL"
 		SCAN	= ""
@@ -122,6 +133,7 @@ file boolDevRogue.template
 	{
 		NAME	= "TrEvent:MasterEnable"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].MasterEnable"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:MasterEnable"
 		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
@@ -130,24 +142,15 @@ file boolDevRogue.template
 	{
 		NAME	= "SystemRegs:TrigEn",
 		PATH	= "Top.SystemRegs.TrigEn"
+		PYPV	= "Top:SystemRegs:TrigEn"
 		PINI	= "YES"
 		SAVE	= "VAL"
 		SCAN	= ""
 	}
 	{
-		NAME	= "EventBuilder:Blowoff",
-		PATH	= "Top.BatcherEventBuilder.Blowoff"
-		SAVE	= ""
-		DESC	= "Blow off data in EventBuilder pipeline"
-		ZNAM	= "Disabled"
-		ONAM	= "Blowoff"
-		DOL		= "1"
-		PINI	= "YES"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
 		NAME	= "EvrV2:EnableReg",
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].EnableReg"
+		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:EnableReg"
 		DESC	= "Enables trigger 0 EvrV2 Channel Logic"
 		DOL		= "1"
 		PINI	= "YES"
@@ -157,6 +160,7 @@ file boolDevRogue.template
 	{
 		NAME	= "EvrV2:EnableTrig",
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].EnableTrig"
+		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:EnableTrig"
 		DESC	= "Enables the EvrV2 Trigger Output"
 		DOL		= "1"
 		PINI	= "YES"
@@ -166,12 +170,14 @@ file boolDevRogue.template
 	{
 		NAME	= "Integrators:CntRst",
 		PATH	= "Top.Integrators.CntRst"
+		PYPV	= "Top:Integrators:CntRst"
 		PINI	= ""
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:QuadrantSel",
 		PATH	= "Top.Integrators.QuadrantSel"
+		PYPV	= "Top:Integrators:QuadrantSel"
 		DESC	= "Odd/even Ch for float equations"
 		PINI	= "YES"
 		SCAN	= ""
@@ -181,6 +187,7 @@ file boolDevRogue.template
 	{
 		NAME	= "RawBuffers:BuffEn0",
 		PATH	= "Top.RawBuffers.BuffEn[0]"
+		PYPV	= "Top:RawBuffers:BuffEn[0]"
 		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
@@ -189,6 +196,7 @@ file boolDevRogue.template
 	{
 		NAME	= "RawBuffers:BuffEn1",
 		PATH	= "Top.RawBuffers.BuffEn[1]"
+		PYPV	= "Top:RawBuffers:BuffEn[1]"
 		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
@@ -197,6 +205,7 @@ file boolDevRogue.template
 	{
 		NAME	= "RawBuffers:BuffEn2",
 		PATH	= "Top.RawBuffers.BuffEn[2]"
+		PYPV	= "Top:RawBuffers:BuffEn[2]"
 		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
@@ -205,6 +214,7 @@ file boolDevRogue.template
 	{
 		NAME	= "RawBuffers:BuffEn3",
 		PATH	= "Top.RawBuffers.BuffEn[3]"
+		PYPV	= "Top:RawBuffers:BuffEn[3]"
 		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
@@ -213,6 +223,7 @@ file boolDevRogue.template
 	{
 		NAME	= "RawBuffers:BuffEn4",
 		PATH	= "Top.RawBuffers.BuffEn[4]"
+		PYPV	= "Top:RawBuffers:BuffEn[4]"
 		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
@@ -221,6 +232,7 @@ file boolDevRogue.template
 	{
 		NAME	= "RawBuffers:BuffEn5",
 		PATH	= "Top.RawBuffers.BuffEn[5]"
+		PYPV	= "Top:RawBuffers:BuffEn[5]"
 		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
@@ -229,6 +241,7 @@ file boolDevRogue.template
 	{
 		NAME	= "RawBuffers:BuffEn6",
 		PATH	= "Top.RawBuffers.BuffEn[6]"
+		PYPV	= "Top:RawBuffers:BuffEn[6]"
 		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
@@ -237,6 +250,7 @@ file boolDevRogue.template
 	{
 		NAME	= "RawBuffers:BuffEn7",
 		PATH	= "Top.RawBuffers.BuffEn[7]"
+		PYPV	= "Top:RawBuffers:BuffEn[7]"
 		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
@@ -245,16 +259,19 @@ file boolDevRogue.template
 	{
 		NAME	= "RawBuffers:CntRst",
 		PATH	= "Top.RawBuffers.CntRst"
+		PYPV	= "Top:RawBuffers:CntRst"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "XpmMini:HwEnable",
 		PATH	= "Top.XpmMiniWrapper.XpmMini.HwEnable"
+		PYPV	= "Top:XpmMiniWrapper:XpmMini:HwEnable"
 		PINI	= "YES"
 	}
 	{
 		NAME	= "XpmMini:Config_L0Select_Enabled",
 		PATH	= "Top.XpmMiniWrapper.XpmMini.Config_L0Select_Enabled"
+		PYPV	= "Top:XpmMiniWrapper:XpmMini:Config_L0Select_Enabled"
 		PINI	= "YES"
 	}
 }
@@ -263,270 +280,292 @@ file boolDevRogue.template
 file liDevRogue.template
 {
 	{
-		NAME	= "AxiVersion:FpgaVersion",
-		PATH	= "Top.AxiVersion.FpgaVersion",
-		DESC	= "AxiPcieCore FPGA Version (show as hex)"
-		PINI	= "YES"
-	}
-	{
-		NAME	= "AxiVersion:UpTime",
-		PATH	= "Top.AxiVersion.UpTimeCnt",
-		EGU		= "sec"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "EventBuilder:DataCnt0",
-		PATH	= "Top.BatcherEventBuilder.DataCnt[0]",
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "EventBuilder:DataCnt1",
-		PATH	= "Top.BatcherEventBuilder.DataCnt[1]"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
 		NAME	= "Integrators:AdcIntegral0",
 		PATH	= "Top.Integrators.AdcIntegral[0]"
+		PYPV	= "Top:Integrators:AdcIntegral[0]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral1",
 		PATH	= "Top.Integrators.AdcIntegral[1]"
+		PYPV	= "Top:Integrators:AdcIntegral[1]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral2",
 		PATH	= "Top.Integrators.AdcIntegral[2]"
+		PYPV	= "Top:Integrators:AdcIntegral[2]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral3",
 		PATH	= "Top.Integrators.AdcIntegral[3]"
+		PYPV	= "Top:Integrators:AdcIntegral[3]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral4",
 		PATH	= "Top.Integrators.AdcIntegral[4]"
+		PYPV	= "Top:Integrators:AdcIntegral[4]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral5",
 		PATH	= "Top.Integrators.AdcIntegral[5]"
+		PYPV	= "Top:Integrators:AdcIntegral[5]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral6",
 		PATH	= "Top.Integrators.AdcIntegral[6]"
+		PYPV	= "Top:Integrators:AdcIntegral[6]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral7",
 		PATH	= "Top.Integrators.AdcIntegral[7]"
+		PYPV	= "Top:Integrators:AdcIntegral[7]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:Baseline0",
 		PATH	= "Top.Integrators.Baseline[0]"
+		PYPV	= "Top:Integrators:Baseline[0]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:Baseline1",
 		PATH	= "Top.Integrators.Baseline[1]"
+		PYPV	= "Top:Integrators:Baseline[1]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:Baseline2",
 		PATH	= "Top.Integrators.Baseline[2]"
+		PYPV	= "Top:Integrators:Baseline[2]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:Baseline3",
 		PATH	= "Top.Integrators.Baseline[3]"
+		PYPV	= "Top:Integrators:Baseline[3]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:Baseline4",
 		PATH	= "Top.Integrators.Baseline[4]"
+		PYPV	= "Top:Integrators:Baseline[4]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:Baseline5",
 		PATH	= "Top.Integrators.Baseline[5]"
+		PYPV	= "Top:Integrators:Baseline[5]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:Baseline6",
 		PATH	= "Top.Integrators.Baseline[6]"
+		PYPV	= "Top:Integrators:Baseline[6]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:Baseline7",
 		PATH	= "Top.Integrators.Baseline[7]"
+		PYPV	= "Top:Integrators:Baseline[7]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:IntFifoPauseCnt",
 		PATH	= "Top.Integrators.IntFifoPauseCnt"
+		PYPV	= "Top:Integrators:IntFifoPauseCnt"
 		PINI	= "YES"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:ProcFifoPauseCnt",
 		PATH	= "Top.Integrators.ProcFifoPauseCnt"
+		PYPV	= "Top:Integrators:ProcFifoPauseCnt"
 		PINI	= "YES"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:ProcFifoPauseThreshold",
 		PATH	= "Top.Integrators.ProcFifoPauseThreshold"
+		PYPV	= "Top:Integrators:ProcFifoPauseThreshold"
 		PINI	= "YES"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:TrigCnt",
 		PATH	= "Top.Integrators.TrigCnt"
+		PYPV	= "Top:Integrators:TrigCnt"
 		PINI	= "YES"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:TrigCnt",
 		PATH	= "Top.RawBuffers.TrigCnt"
+		PYPV	= "Top:RawBuffers:TrigCnt"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "EvrV2:Count",
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].Count"
+		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:Count"
 		DESC	= "Count for Start of Timing Frame"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Timing:sofCount",
 		PATH	= "Top.TimingFrameRx.sofCount"
+		PYPV	= "Top:TimingFrameRx:sofCount"
 		DESC	= "Count for Start of Timing Frame"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Timing:eofCount",
 		PATH	= "Top.TimingFrameRx.eofCount"
+		PYPV	= "Top:TimingFrameRx:eofCount"
 		DESC	= "Count for End of Timing Frame"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Timing:FidCount",
 		PATH	= "Top.TimingFrameRx.FidCount"
+		PYPV	= "Top:TimingFrameRx:FidCount"
 		DESC	= "Fiducial Count"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Timing:RxLinkUp",
 		PATH	= "Top.TimingFrameRx.RxLinkUp"
+		PYPV	= "Top:TimingFrameRx:RxLinkUp"
 		DESC	= "Timing fiber link status"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmMsg:RxId"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.RxId"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:RxId"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:TriggerCount"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].TriggerCount"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:TriggerCount"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:FifoWrCnt"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].FifoWrCnt"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:FifoWrCnt"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:L0Count"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].L0Count"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:L0Count"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:L1AcceptCount"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].L1AcceptCount"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:L1AcceptCount"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:L1RejectCount"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].L1RejectCount"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:L1RejectCount"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:NotPauseToTrig"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].NotPauseToTrig"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:NotPauseToTrig"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:PauseToTrig"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].PauseToTrig"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:PauseToTrig"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:TransitionCount"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].TransitionCount"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:TransitionCount"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmMessageCount"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].XpmMessageCount"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:XpmMessageCount"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmMsg:PartitionDelay0"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[0]"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:PartitionDelay[0]"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmMsg:PartitionDelay1"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[1]"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:PartitionDelay[1]"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmMsg:PartitionDelay2"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[2]"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:PartitionDelay[2]"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmMsg:PartitionDelay3"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[3]"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:PartitionDelay[3]"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmMsg:PartitionDelay4"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[4]"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:PartitionDelay[4]"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmMsg:PartitionDelay5"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[5]"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:PartitionDelay[5]"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmMsg:PartitionDelay6"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[6]"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:PartitionDelay[6]"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "TrEvent:XpmMsg:PartitionDelay7"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.PartitionDelay[7]"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:PartitionDelay[7]"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 }
@@ -534,32 +573,28 @@ file liDevRogue.template
 file loDevRogue.template
 {
 	{
-		NAME	= "EventBuilder:SoftRst",
-		PATH	= "Top.BatcherEventBuilder.SoftRst"
-		SAVE	= ""
-		DESC	= "Reset EventBuilder pipeline"
-		DOL		= "0"
-		PINI	= "YES"
-	}
-	{
 		NAME	= "RawBuffers:FifoPauseCnt",
 		PATH	= "Top.RawBuffers.FifoPauseCnt"
+		PYPV	= "Top:RawBuffers:FifoPauseCnt"
 		SAVE	= ""
 		SCAN	= ""
 	}
 	{
 		NAME	= "Timing:C_RxReset",
 		PATH	= "Top.TimingFrameRx.C_RxReset"
+		PYPV	= "Top:TimingFrameRx:C_RxReset"
 		SAVE	= ""
 	}
 	{
 		NAME	= "TrEvent:FifoReset"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].FifoReset"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:FifoReset"
 		SAVE	= ""
 	}
 	{
 		NAME	= "TrEvent:ResetCounters"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].ResetCounters"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:ResetCounters"
 		SAVE	= ""
 	}
 }
@@ -567,14 +602,9 @@ file loDevRogue.template
 file longDevRogue.template
 {
 	{
-		NAME	= "AxiVersion:ScratchPad",
-		PATH	= "Top.AxiVersion.ScratchPad"
-		PINI	= "YES"
-		SAVE	= ""
-	}
-	{
 		NAME	= "EvrV2:Delay",
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Delay"
+		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:Delay"
 		DESC	= "Trigger Delay"
 		SAVE	= "VAL"
 		SCAN	= ""
@@ -582,6 +612,7 @@ file longDevRogue.template
 	{
 		NAME	= "EvrV2:Polarity",
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Polarity"
+		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:Polarity"
 		DESC	= "Trigger Polarity"
 		SAVE	= "VAL"
 		SCAN	= ""
@@ -589,6 +620,7 @@ file longDevRogue.template
 	{
 		NAME	= "EvrV2:Source",
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Source"
+		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:Source"
 		DESC	= "Trigger Source"
 		SAVE	= "VAL"
 		SCAN	= ""
@@ -596,6 +628,7 @@ file longDevRogue.template
 	{
 		NAME	= "Integrators:BaselineSize",
 		PATH	= "Top.Integrators.BaselineSize"
+		PYPV	= "Top:Integrators:BaselineSize"
 		DESC	= "Baseline sample size as power of 2"
 		PINI	= "YES"
 		EGU		= "2^X"
@@ -604,6 +637,7 @@ file longDevRogue.template
 	{
 		NAME	= "Integrators:CorrCoefficientRaw0",
 		PATH	= "Top.Integrators.CorrCoefficientRaw[0]"
+		PYPV	= "Top:Integrators:CorrCoefficientRaw[0]"
 		DESC	= "Gain correction coefficient 0 in Float64"
 		PINI	= "YES"
 		SCAN	= ""
@@ -611,6 +645,7 @@ file longDevRogue.template
 	{
 		NAME	= "Integrators:CorrCoefficientRaw1",
 		PATH	= "Top.Integrators.CorrCoefficientRaw[1]"
+		PYPV	= "Top:Integrators:CorrCoefficientRaw[1]"
 		DESC	= "Gain correction coefficient 1 in Float64"
 		PINI	= "YES"
 		SCAN	= ""
@@ -618,6 +653,7 @@ file longDevRogue.template
 	{
 		NAME	= "Integrators:CorrCoefficientRaw2",
 		PATH	= "Top.Integrators.CorrCoefficientRaw[2]"
+		PYPV	= "Top:Integrators:CorrCoefficientRaw[2]"
 		DESC	= "Gain correction coefficient 2 in Float64"
 		PINI	= "YES"
 		SCAN	= ""
@@ -625,6 +661,7 @@ file longDevRogue.template
 	{
 		NAME	= "Integrators:CorrCoefficientRaw3",
 		PATH	= "Top.Integrators.CorrCoefficientRaw[3]"
+		PYPV	= "Top:Integrators:CorrCoefficientRaw[3]"
 		DESC	= "Gain correction coefficient 3 in Float64"
 		PINI	= "YES"
 		SCAN	= ""
@@ -632,12 +669,14 @@ file longDevRogue.template
 	{
 		NAME	= "Integrators:IntFifoPauseThreshold",
 		PATH	= "Top.Integrators.IntFifoPauseThreshold"
+		PYPV	= "Top:Integrators:IntFifoPauseThreshold"
 		PINI	= "YES"
 		SCAN	= ""
 	}
 	{
 		NAME	= "Integrators:IntegralSize",
 		PATH	= "Top.Integrators.IntegralSize"
+		PYPV	= "Top:Integrators:IntegralSize"
 		DESC	= "Integral sample size as # samples"
 		PINI	= "YES"
 		EGU		= "Samples"
@@ -646,6 +685,7 @@ file longDevRogue.template
 	{
 		NAME	= "Integrators:TrigDelay",
 		PATH	= "Top.Integrators.TrigDelay"
+		PYPV	= "Top:Integrators:TrigDelay"
 		DESC	= "Integrator start offset in samples"
 		EGU		= "Samples"
 		PINI	= "YES"
@@ -654,72 +694,84 @@ file longDevRogue.template
 	{
 		NAME	= "RawBuffers:OvflCntBuff0",
 		PATH	= "Top.RawBuffers.OvflCntBuff[0]"
+		PYPV	= "Top:RawBuffers:OvflCntBuff[0]"
 		SAVE	= ""
 		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff1",
 		PATH	= "Top.RawBuffers.OvflCntBuff[1]"
+		PYPV	= "Top:RawBuffers:OvflCntBuff[1]"
 		SAVE	= ""
 		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff2",
 		PATH	= "Top.RawBuffers.OvflCntBuff[2]"
+		PYPV	= "Top:RawBuffers:OvflCntBuff[2]"
 		SAVE	= ""
 		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff3",
 		PATH	= "Top.RawBuffers.OvflCntBuff[3]"
+		PYPV	= "Top:RawBuffers:OvflCntBuff[3]"
 		SAVE	= ""
 		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff4",
 		PATH	= "Top.RawBuffers.OvflCntBuff[4]"
+		PYPV	= "Top:RawBuffers:OvflCntBuff[4]"
 		SAVE	= ""
 		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff5",
 		PATH	= "Top.RawBuffers.OvflCntBuff[5]"
+		PYPV	= "Top:RawBuffers:OvflCntBuff[5]"
 		SAVE	= ""
 		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff6",
 		PATH	= "Top.RawBuffers.OvflCntBuff[6]"
+		PYPV	= "Top:RawBuffers:OvflCntBuff[6]"
 		SAVE	= ""
 		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff7",
 		PATH	= "Top.RawBuffers.OvflCntBuff[7]"
+		PYPV	= "Top:RawBuffers:OvflCntBuff[7]"
 		SAVE	= ""
 		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:BuffLen",
 		PATH	= "Top.RawBuffers.BuffLen"
+		PYPV	= "Top:RawBuffers:BuffLen"
 		SAVE	= "VAL"
 		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:FifoPauseThreshold",
 		PATH	= "Top.RawBuffers.FifoPauseThreshold"
+		PYPV	= "Top:RawBuffers:FifoPauseThreshold"
 		SAVE	= "VAL"
 		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:TrigPrescale",
 		PATH	= "Top.RawBuffers.TrigPrescale"
+		PYPV	= "Top:RawBuffers:TrigPrescale"
 		SAVE	= "VAL"
 		SCAN	= ""
 	}
 	{
 		NAME	= "SystemRegs:TrigDelay",
 		PATH	= "Top.SystemRegs.TrigDelay"
+		PYPV	= "Top:SystemRegs:TrigDelay"
 		PINI	= "YES"
 		SAVE	= "VAL"
 		SCAN	= ""
@@ -727,6 +779,7 @@ file longDevRogue.template
 	{
 		NAME	= "Timing:RxDown",
 		PATH	= "$(PTOP).TimingFrameRx.RxDown"
+		PYPV	= "$(PTOP):TimingFrameRx:RxDown"
 		DESC	= "Timing fiber link status"
 		SCAN	= "\$(SCAN=1 second)"
 		SAVE	= ""
@@ -734,40 +787,47 @@ file longDevRogue.template
 	{
 		NAME	= "Timing:RxPllReset",
 		PATH	= "$(PTOP).TimingFrameRx.RxPllReset"
+		PYPV	= "$(PTOP):TimingFrameRx:RxPllReset"
 		SCAN	= "\$(SCAN=1 second)"
 		SAVE	= ""
 	}
 	{
 		NAME	= "TrEvent:Partition"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].Partition"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:Partition"
 		SAVE	= "VAL"
 		SCAN	= ""
 	}
 	{
 		NAME	= "TrEvent:PauseThreshold"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].PauseThreshold"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:PauseThreshold"
 		SAVE	= "VAL"
 		SCAN	= ""
 	}
 	{
 		NAME	= "TrEvent:TriggerDelay"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].TriggerDelay"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:TriggerDelay"
 		SAVE	= "VAL"
 		SCAN	= ""
 	}
 	{
 		NAME	= "TrEvent:XpmMsg:TxId"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.TxId"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:TxId"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "XpmMini:Config_L0Select_DestSel",
 		DOL		= "32768"
 		PATH	= "Top.XpmMiniWrapper.XpmMini.Config_L0Select_DestSel"
+		PYPV	= "Top:XpmMiniWrapper:XpmMini:Config_L0Select_DestSel"
 	}
 	{
 		NAME	= "XpmMini:Link",
 		PATH	= "Top.XpmMiniWrapper.XpmMini.Link"
+		PYPV	= "Top:XpmMiniWrapper:XpmMini:Link"
 	}
 }
 
@@ -776,18 +836,21 @@ file int64InDevRogue.template
 	{
 		NAME	= "Integrators:IntensityRaw",
 		PATH	= "Top.Integrators.IntensityRaw"
+		PYPV	= "Top:Integrators:IntensityRaw"
 		PINI	= "YES"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:PositionXRaw",
 		PATH	= "Top.Integrators.PositionXRaw"
+		PYPV	= "Top:Integrators:PositionXRaw"
 		PINI	= "YES"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:PositionYRaw",
 		PATH	= "Top.Integrators.PositionYRaw"
+		PYPV	= "Top:Integrators:PositionYRaw"
 		PINI	= "YES"
 		SCAN	= "\$(SCAN=1 second)"
 	}

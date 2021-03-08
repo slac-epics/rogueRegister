@@ -1,0 +1,342 @@
+# BatcherEventModule rogue registers
+
+file biDevRogue.template
+{
+	{
+		NAME	= "EventBuilder:BlowoffExt"
+		PATH	= "$(PTOP).BatcherEventBuilder.BlowoffExt"
+		PYPV	= "$(PTOP):BatcherEventBuilder:BlowoffExt"
+		DESC	= "Status of external blowoff input"
+	}
+}
+
+file boolDevRogue.template
+{
+	{
+		NAME	= "EventBuilder:Blowoff",
+		PATH	= "$(PTOP).BatcherEventBuilder.Blowoff"
+		PYPV	= "$(PTOP):BatcherEventBuilder:Blowoff"
+		DESC	= "Blow off data in inbound AXIS stream"
+		ZNAM	= "Disabled"
+		ONAM	= "Blowoff"
+		DOL		= "1"
+		PINI	= "YES"
+		SAVE	= ""
+		SCAN	= "\$(SCAN=1 second)"
+	}
+}
+
+file liDevRogue.template
+{
+	{
+		NAME	= "EventBuilder:DataCnt0"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[0]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[0]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt10"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[10]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[10]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt1"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[1]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[1]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt2"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[2]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[2]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt3"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[3]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[3]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt4"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[4]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[4]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt5"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[5]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[5]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt6"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[6]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[6]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt7"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[7]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[7]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt8"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[8]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[8]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:DataCnt9"
+		PATH	= "$(PTOP).BatcherEventBuilder.DataCnt[9]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:DataCnt[9]"
+		DESC	= "Increments when data frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt0"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[0]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[0]"
+		DESC	= "Increments when null frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt10"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[10]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[10]"
+		DESC	= "Increments when null frame is received"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt1"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[1]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[1]"
+		DESC	= "Increments when null frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt2"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[2]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[2]"
+		DESC	= "Increments when null frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt3"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[3]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[3]"
+		DESC	= "Increments when null frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt4"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[4]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[4]"
+		DESC	= "Increments when null frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt5"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[5]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[5]"
+		DESC	= "Increments when null frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt6"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[6]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[6]"
+		DESC	= "Increments when null frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt7"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[7]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[7]"
+		DESC	= "Increments when null frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt8"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[8]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[8]"
+		DESC	= "Increments when null frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NullCnt9"
+		PATH	= "$(PTOP).BatcherEventBuilder.NullCnt[9]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NullCnt[9]"
+		DESC	= "Increments when null frame is received"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt0"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[0]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[0]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt10"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[10]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[10]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt1"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[1]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[1]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt2"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[2]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[2]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt3"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[3]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[3]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt4"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[4]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[4]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt5"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[5]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[5]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt6"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[6]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[6]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt7"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[7]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[7]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt8"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[8]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[8]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TimeoutDropCnt9"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimeoutDropCnt[9]"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimeoutDropCnt[9]"
+		DESC	= "Incr on timeout slave channel drop event"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TransactionCnt"
+		PATH	= "$(PTOP).BatcherEventBuilder.TransactionCnt"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TransactionCnt"
+		DESC	= "Incr when a transition frame is rcvd"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:NUM_SLAVES_G"
+		PATH	= "$(PTOP).BatcherEventBuilder.NUM_SLAVES_G"
+		PYPV	= "$(PTOP):BatcherEventBuilder:NUM_SLAVES_G"
+		DESC	= "NUM_SLAVES_G generic value"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:TRANS_TDEST_G"
+		PATH	= "$(PTOP).BatcherEventBuilder.TRANS_TDEST_G"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TRANS_TDEST_G"
+		DESC	= "TRANS_TDEST_G generic value"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EventBuilder:State"
+		PATH	= "$(PTOP).BatcherEventBuilder.State"
+		PYPV	= "$(PTOP):BatcherEventBuilder:State"
+		DESC	= "current state of FSM (for debugging)"
+		SCAN	= "\$(SCAN=1 second)"
+}
+
+file longDevRogue.template
+{
+	{
+		NAME	= "EventBuilder:Bypass"
+		PATH	= "$(PTOP).BatcherEventBuilder.Bypass"
+		PYPV	= "$(PTOP):BatcherEventBuilder:Bypass"
+		DESC	= "Mask to bypass a channel"
+	}
+	{
+		NAME	= "EventBuilder:Timeout"
+		PATH	= "$(PTOP).BatcherEventBuilder.Timeout"
+		PYPV	= "$(PTOP):BatcherEventBuilder:Timeout"
+		DESC	= "Timer timeout. 0 for no timeout."
+		SCAN	= "\$(SCAN=1 second)"
+	}
+}
+
+file loDevRogue.template
+{
+	{
+		NAME	= "EventBuilder:TimerRst"
+		PATH	= "$(PTOP).BatcherEventBuilder.TimerRst"
+		PYPV	= "$(PTOP):BatcherEventBuilder:TimerRst"
+		DESC	= ""
+		SAVE	= ""
+	}
+	{
+		NAME	= "EventBuilder:CntRst"
+		PATH	= "$(PTOP).BatcherEventBuilder.CntRst"
+		PYPV	= "$(PTOP):BatcherEventBuilder:CntRst"
+		DESC	= ""
+		SAVE	= ""
+	}
+	{
+		NAME	= "EventBuilder:HardRst"
+		PATH	= "$(PTOP).BatcherEventBuilder.HardRst"
+		PYPV	= "$(PTOP):BatcherEventBuilder:HardRst"
+		DESC	= ""
+		SAVE	= ""
+	}
+	{
+		NAME	= "EventBuilder:SoftRst",
+		PATH	= "$(PTOP).BatcherEventBuilder.SoftRst"
+		PYPV	= "$(PTOP):BatcherEventBuilder:SoftRst"
+		DESC	= "Reset EventBuilder pipeline"
+		DOL		= "0"
+		PINI	= "YES"
+		SAVE	= ""
+	}
+}
+
+#       DESC    = "0         1         2         3         "
+#       DESC    = "01234567890123 Max 40 char 7890123456789"

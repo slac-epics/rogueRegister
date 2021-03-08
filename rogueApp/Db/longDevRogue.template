@@ -10,6 +10,7 @@ record( longin, "$(P)$(R)$(NAME)_RBV" )
 	field( SDIS, "$(SDIS=)" )
 	info( autosaveFields, "" )
 }
+alias( "$(P)$(R)$(NAME)_RBV", "$(P)$(R)$(PYPV)_RBV" )
 include "loDevRogue.template"
 record( longout, "$(P)$(R)$(NAME)" )
 {

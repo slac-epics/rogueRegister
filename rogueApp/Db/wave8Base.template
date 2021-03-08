@@ -45,3 +45,5 @@ record( mbbo, "$(P)$(R)SystemRegs:TrigSrcSel" )
 	field( FLNK, "$(P)$(R)SystemRegs:TrigSrcSel_RBV" )
 	info( autosaveFields, "VAL" )
 }
+alias( "$(P)$(R)SystemRegs:TrigSrcSel",     "$(P)$(R)Top:SystemRegs:TrigSrcSel" )
+alias( "$(P)$(R)SystemRegs:TrigSrcSel_RBV", "$(P)$(R)Top:SystemRegs:TrigSrcSel_RBV" )

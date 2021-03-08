@@ -32,6 +32,8 @@ record( mbbo, "$(P)$(R)Timing:ClkSel" )
 	field( FLNK, "$(P)$(R)Timing:ClkSel_RBV" )
 	info( autosaveFields, "VAL" )
 }
+alias( "$(P)$(R)Timing:ClkSel",     "$(P)$(R)$(PTOP).TimingFrameRx.ClkSel" )
+alias( "$(P)$(R)Timing:ClkSel_RBV", "$(P)$(R)$(PTOP).TimingFrameRx.ClkSel_RBV" )
 
 # Mode Select
 # only one per board
@@ -55,6 +57,8 @@ record( mbbo, "$(P)$(R)Timing:ModeSel" )
 	field( FLNK, "$(P)$(R)Timing:ModeSel_RBV" )
 	info( autosaveFields, "VAL" )
 }
+alias( "$(P)$(R)Timing:ModeSel",     "$(P)$(R)$(PTOP).TimingFrameRx.ModeSel" )
+alias( "$(P)$(R)Timing:ModeSel_RBV", "$(P)$(R)$(PTOP).TimingFrameRx.ModeSel_RBV" )
 
 # Mode Select Enable
 # only one per board
@@ -77,6 +81,8 @@ record( mbbo, "$(P)$(R)Timing:ModeSelEn" )
 	field( FLNK, "$(P)$(R)Timing:ModeSelEn_RBV" )
 	info( autosaveFields, "VAL" )
 }
+alias( "$(P)$(R)Timing:ModeSelEn",     "$(P)$(R)$(PTOP).TimingFrameRx.ModeSelEn" )
+alias( "$(P)$(R)Timing:ModeSelEn_RBV", "$(P)$(R)$(PTOP).TimingFrameRx.ModeSelEn_RBV" )
 
 # XpmMini LCLS-II Rate Select
 record( mbbi, "$(P)$(R)XpmMini:Config_L0Select_RateSel_RBV" )
@@ -112,4 +118,5 @@ record( mbbo, "$(P)$(R)XpmMini:Config_L0Select_RateSel" )
 	field( FLNK, "$(P)$(R)XpmMini:Config_L0Select_RateSel_RBV" )
 	info( autosaveFields, "VAL" )
 }
-
+alias( "$(P)$(R)XpmMini:Config_L0Select_RateSel",     "$(P)$(R)$(PTOP).XpmMiniWrapper.XpmMini.Config_L0Select_RateSel" )
+alias( "$(P)$(R)XpmMini:Config_L0Select_RateSel_RBV", "$(P)$(R)$(PTOP).XpmMiniWrapper.XpmMini.Config_L0Select_RateSel_RBV" )

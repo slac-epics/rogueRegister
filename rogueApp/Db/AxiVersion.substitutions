@@ -9,6 +9,7 @@ file boDevRogue.template
 	{
 		NAME	= "AxiVersion:FpgaReload",
 		PATH	= "Top.AxiVersion.FpgaReload",
+		PYPV	= "Top:AxiVersion:FpgaReload",
 		DESC	= "AxiPcieCore FPGA Reload"
 		ZNAM	= "Normal" )
 		ONAM	= "Reload" )
@@ -24,12 +25,14 @@ file liDevRogue.template
 	{
 		NAME	= "AxiVersion:FpgaVersion",
 		PATH	= "Top.AxiVersion.FpgaVersion",
+		PYPV	= "Top:AxiVersion:FpgaVersion",
 		DESC	= "AxiPcieCore FPGA Version (show as hex)"
 		PINI	= "YES"
 	}
 	{
 		NAME	= "AxiVersion:UpTime",
 		PATH	= "Top.AxiVersion.UpTimeCnt",
+		PYPV	= "Top:AxiVersion:UpTimeCnt",
 		EGU		= "sec"
 		SCAN	= "\$(SCAN=1 second)"
 	}
@@ -44,12 +47,14 @@ file longDevRogue.template
 	{
 		NAME	= "AxiVersion:ScratchPad",
 		PATH	= "Top.AxiVersion.ScratchPad"
+		PYPV	= "Top:AxiVersion:ScratchPad"
 		PINI	= "YES"
 		SAVE	= ""
 	}
 	{
 		NAME	= "AxiVersion:UserReset",
 		PATH	= "Top.AxiVersion.UserReset"
+		PYPV	= "Top:AxiVersion:UserReset"
 		SAVE	= ""
 	}
 }
