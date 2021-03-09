@@ -1,0 +1,18 @@
+# aInOutDevRogue.template
+record( ai, "$(P)$(R)$(NAME)_RBV" )
+{
+	field( DESC, "$(DESC=?)" )
+	field( DTYP, "RogueAI" )
+	field( INP,  "@B$(B) L$(L) $(PATH)" )
+	field( PINI, "YES" )
+	field( SCAN, "$(SCAN=)" )
+	field( DISV, "$(DISV=1)" )
+	field( SDIS, "$(SDIS=)" )
+	info( autosaveFields, "" )
+}
+alias( "$(P)$(R)$(NAME)_RBV", "$(P)$(R)$(PYPV)_RBV" )
+include "aoDevRogue.template"
+record( ao, "$(P)$(R)$(NAME)" )
+{
+	field( FLNK, "$(P)$(R)$(NAME)_RBV" )
+}

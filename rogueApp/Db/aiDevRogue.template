@@ -1,0 +1,13 @@
+# aiDevRogue.template
+record( ai, "$(P)$(R)$(NAME)" )
+{
+	field( DESC, "$(DESC=?)" )
+	field( DTYP, "RogueAI" )
+	field( INP,  "@B$(B) L$(L) $(PATH)" )
+	field( PINI, "YES" )
+	field( SCAN, "$(SCAN=)" )
+	field( DISV, "$(DISV=1)" )
+	field( SDIS, "$(SDIS=)" )
+	info( autosaveFields, "" )
+}
+alias( "$(P)$(R)$(NAME)", "$(P)$(R)$(PYPV)" )
