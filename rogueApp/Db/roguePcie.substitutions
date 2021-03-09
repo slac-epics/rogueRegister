@@ -178,11 +178,11 @@ file boolDevRogue.template
 		NAME	= "Integrators:QuadrantSel",
 		PATH	= "Top.Integrators.QuadrantSel"
 		PYPV	= "Top:Integrators:QuadrantSel"
-		DESC	= "Odd/even Ch for float equations"
+		DESC	= "Ch0-3 vs Ch4-7 for float equations"
 		PINI	= "YES"
 		SCAN	= ""
-		ZNAM	= "OddCh"
-		ONAM	= "EvenCh"
+		ZNAM	= "Ch0-3"
+		ONAM	= "Ch4-7"
 	}
 	{
 		NAME	= "RawBuffers:BuffEn0",
