@@ -1,0 +1,11 @@
+
+
+R0.2.0: 2021-03-11 Bruce Hill
+	Reorder LCLS1 timing seq to match Matt's DAQ method
+	Add ai and ao templates for DevRogue
+	Move alias generation to *DevRogue.template files.
+	Rework the bi, li, and int64in templates to not add _RBV.
+	Add new Ads42Lbx9.substititions file for ADC chip registers
+
+R0.1.0:	2021-03-04 Bruce Hill
+	Build w/ rogue-no-python/v5.3.0-1.0.0
