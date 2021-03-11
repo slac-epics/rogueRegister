@@ -31,12 +31,12 @@ record( seq, "$(PGP):SeqLcls1Timing" )
 	field( DLY0, "0" ) field( DOL0, "0" ) field( LNK0, "$(PGP):Timing:UseMiniTpg    PP NMS" )
 	field( DLY2, "0" ) field( DOL2, "0" ) field( LNK2, "$(PGP):Timing:ModeSelEn     PP NMS" )
 
-	# Assert RxPllReset for 1 sec 
-	field( DLY3, "0" ) field( DOL3, "1" ) field( LNK3, "$(PGP):Timing:RxPllReset    PP NMS" )
-	field( DLY4, "1" ) field( DOL4, "0" ) field( LNK4, "$(PGP):Timing:RxPllReset    PP NMS" )
-
 	# Select LCLS-I Clock
-	field( DLY5, "0" ) field( DOL5, "0" ) field( LNK5, "$(PGP):Timing:ClkSel        PP NMS" )
+	field( DLY3, "0" ) field( DOL3, "0" ) field( LNK3, "$(PGP):Timing:ClkSel        PP NMS" )
+
+	# Assert RxPllReset for 1 sec 
+	field( DLY4, "0" ) field( DOL4, "1" ) field( LNK4, "$(PGP):Timing:RxPllReset    PP NMS" )
+	field( DLY5, "1" ) field( DOL5, "0" ) field( LNK5, "$(PGP):Timing:RxPllReset    PP NMS" )
 
 	# Assert C_RxReset for 1 sec 
 	field( DLY6, "0" ) field( DOL6, "1" ) field( LNK6, "$(PGP):Timing:C_RxReset     PP NMS" )
@@ -86,12 +86,12 @@ record( seq, "$(PGP):SeqLcls2Timing" )
 	field( DLY1, "0" ) field( DOL1, "0" ) field( LNK1, "$(PGP):Timing:UseMiniTpg    PP NMS" )
 	field( DLY2, "0" ) field( DOL2, "0" ) field( LNK2, "$(PGP):Timing:ModeSelEn     PP NMS" )
 
-	# Assert RxPllReset for 1 sec 
-	field( DLY3, "0" ) field( DOL3, "1" ) field( LNK3, "$(PGP):Timing:RxPllReset    PP NMS" )
-	field( DLY4, "1" ) field( DOL4, "0" ) field( LNK4, "$(PGP):Timing:RxPllReset    PP NMS" )
-
 	# Select LCLS-II Clock
-	field( DLY5, "1" ) field( DOL5, "1" ) field( LNK5, "$(PGP):Timing:ClkSel        PP NMS" )
+	field( DLY3, "1" ) field( DOL3, "1" ) field( LNK3, "$(PGP):Timing:ClkSel        PP NMS" )
+
+	# Assert RxPllReset for 1 sec 
+	field( DLY4, "0" ) field( DOL4, "1" ) field( LNK4, "$(PGP):Timing:RxPllReset    PP NMS" )
+	field( DLY5, "1" ) field( DOL5, "0" ) field( LNK5, "$(PGP):Timing:RxPllReset    PP NMS" )
 
 	# Assert C_RxReset for 1 sec 
 	field( DLY6, "0" ) field( DOL6, "1" ) field( LNK6, "$(PGP):Timing:C_RxReset     PP NMS" )
