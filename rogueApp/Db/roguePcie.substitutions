@@ -752,7 +752,6 @@ file longDevRogue.template
 		PATH	= "Top.RawBuffers.BuffLen"
 		PYPV	= "Top:RawBuffers:BuffLen"
 		SAVE	= "VAL"
-		SCAN	= ""
 	}
 	{
 		NAME	= "RawBuffers:FifoPauseThreshold",
