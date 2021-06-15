@@ -148,21 +148,6 @@ int rogue_write_record( R * record, const V & value )
 	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( record->dpvt );
 	status = pRogueInfo->m_pRogueLib->writeVarPath( pRogueInfo->m_varPath.c_str(), value );
 
-#if 0
-	// TODO: Can pVar lookup be moved into rogue_init_record?
-	rogue::interfaces::memory::VariablePtr	pVar;
-	pVar = pRogueInfo->m_pRogueLib->getVariable( pRogueInfo->m_varPath );
-	if ( !pVar )
-	{
-		printf( "%s error: %s not found!\n", functionName, pRogueInfo->m_varPath.c_str() );
-	}
-	if ( status )
-	{
-		record->nsta = UDF_ALARM;
-		record->nsev = INVALID_ALARM;
-		return -1;
-	}
-#endif
 	return status;
 }
 
@@ -248,7 +233,7 @@ static long init_li( void * pCommon )
 }
 
 #ifdef USE_TYPED_DSET
-static long read_li( longinRecord	*	pRecord )
+static long read_li( longinRecord	*	pRecord )	// TODO: Remove ifdef USE_TYPED_DSET
 {
 	long				status		= 0;
 	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
@@ -368,7 +353,6 @@ static long write_lo( void	*	record )
 		uint64_t	rogueValue	= static_cast<uint64_t>( pRecord->val );
 		status = rogue_write_record( pRecord, rogueValue );
 	}
-	//pRecord->linr = 0;		// prevent conversions
 	return status;
 }
 
@@ -432,7 +416,6 @@ static long init_li64( void * pCommon )
 			rogue_read_record( pRecord, rogueValue );
 			pRecord->val = static_cast<epicsInt64>( rogueValue );
 		}
-		//pRecord->linr = 0;		// prevent conversions
 	}
 	return status;
 }
@@ -725,7 +708,7 @@ static long init_bi( void * pCommon )
 	{
 		bool	rogueValue;
 		rogue_read_record( pRecord, rogueValue );
-		pRecord->rval = static_cast<epicsEnum16>( rogueValue );
+		pRecord->val = static_cast<epicsEnum16>( rogueValue );
 
 		//pRecord->linr = 0;		// prevent conversions
 	}
