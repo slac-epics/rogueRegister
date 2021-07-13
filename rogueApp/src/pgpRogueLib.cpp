@@ -605,7 +605,7 @@ template<class R> int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const R 
 	if ( DEBUG_PGP_ROGUE_LIB >= 6 )
 	{
 		//if ( pVar->modelId() == rim::Bool )
-		//	pVar->setLogLevel( rogue::Logging::Debug );
+		pVar->setLogLevel( rogue::Logging::Debug );
 		if ( typeid(value) == typeid(uint64_t) )
 			std::cout << functionName << ": " << pVar->path() << " is uint64_t" << std::endl;
 		std::cout	<< functionName	<< ": " << pVar->path()
@@ -648,8 +648,10 @@ template<class R> int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const R 
 	{
 		printf( "%s error: %s!\n", functionName, e.what() );
 	}
-	//if ( pVar->modelId() == rim::Bool )
-	//	pVar->setLogLevel( rogue::Logging::Info );
+	if ( DEBUG_PGP_ROGUE_LIB >= 6 )
+	{
+		pVar->setLogLevel( rogue::Logging::Warning );
+	}
 
 	return status;
 }
