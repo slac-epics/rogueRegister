@@ -33,8 +33,6 @@ PROD_SYS_LIBS += util pthread rt
 rogue_core_DIR		= $(ROGUE_LIB)
 SHRLIB_SEARCH_DIRS	+=$(ROGUE_LIB)
 
-#include $(ADCORE)/ADApp/commonLibraryMakefile
-
 #=============================
 
 include $(TOP)/configure/RULES
