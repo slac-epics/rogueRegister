@@ -120,6 +120,8 @@ public:		//	Public member functions
 	///	Show Rogue PGP variable on stdout
 	int	ShowPgpVariable( const char * pszVarPath, int level );
 
+	///	Load PGP config file
+	int	pgpLoadConfig( const char * pszFilename, double stepDelay );
 
 	void cancelDataCallbacks( );
 

@@ -388,6 +388,18 @@ int pgpRogueDev::ShowPgpVariable( const char * pszVarPath, int level )
 	return 0;
 }
 
+int pgpRogueDev::pgpLoadConfig( const char * pszFilename, double stepDelay )
+{
+	const char	*	functionName = "pgpRogueDev::pgpLoadConfig";
+	if ( m_pRogueLib == NULL )
+	{
+		printf( "%s error: %s PGP Dev not configured!\n", functionName, m_devName.c_str() );
+		return -1;
+	}
+	m_pRogueLib->LoadConfigFile( pszFilename, stepDelay );
+	return 0;
+}
+
 extern "C" int
 pgpRogueDevConfig(
 	int				board,
@@ -590,6 +602,27 @@ int ShowPgpVariable( uint32_t iBoard, const char * pszVarPath, int level )
 	return pRogue->ShowPgpVariable( pszVarPath, level );
 }
 
+extern "C"
+int pgpLoadConfig( uint32_t iBoard, const char * pszFilename, double stepDelay )
+{
+	const char	*	functionName = "pgpLoadConfig";
+	if ( pszFilename == NULL )
+	{
+		printf( "Usage: %s boardNum Filename\n", functionName );
+		printf( "Example: %s 0 db/adcDelay.cfg\n", functionName );
+		return -1;
+	}
+
+	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( iBoard );
+	if ( pRogue == NULL )
+	{
+		printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
+		return -1;
+	}
+
+	return pRogue->pgpLoadConfig( pszFilename, stepDelay );
+}
+
 // Register function:
 //		int ShowPgpVar( camName, varName, level )
 static const iocshArg		ShowPgpVarArg0		= { "boardNum",		iocshArgInt };
@@ -609,6 +642,25 @@ void ShowPgpVarRegister(void)
 	iocshRegister( &ShowPgpVarFuncDef, reinterpret_cast<iocshCallFunc>(ShowPgpVarCallFunc) );
 }
 
+// Register function:
+//		int pgpLoadConfig( camName, fileName, stepDelay )
+static const iocshArg		pgpLoadConfigArg0		= { "boardNum",		iocshArgInt };
+static const iocshArg		pgpLoadConfigArg1		= { "fileName",		iocshArgString };
+static const iocshArg		pgpLoadConfigArg2		= { "stepDelay",	iocshArgDouble };
+static const iocshArg	*	pgpLoadConfigArgs[3]	=
+{
+	&pgpLoadConfigArg0, &pgpLoadConfigArg1, &pgpLoadConfigArg2
+};
+static const iocshFuncDef   pgpLoadConfigFuncDef	= { "pgpLoadConfig", 3, pgpLoadConfigArgs };
+static int  pgpLoadConfigCallFunc( const iocshArgBuf * args )
+{
+	return static_cast<int>( pgpLoadConfig( args[0].ival, args[1].sval, args[2].dval ) );
+}
+void pgpLoadConfigRegister(void)
+{
+	iocshRegister( &pgpLoadConfigFuncDef, reinterpret_cast<iocshCallFunc>(pgpLoadConfigCallFunc) );
+}
+
 extern "C"
 {
 	epicsExportRegistrar( pgpRogueDevConfigRegister );
@@ -616,6 +668,7 @@ extern "C"
 	epicsExportRegistrar( SetPgpVarRegister );
 	epicsExportRegistrar( ShowAllRogueRegister );
 	epicsExportRegistrar( ShowPgpVarRegister );
+	epicsExportRegistrar( pgpLoadConfigRegister );
 	epicsExportAddress( int, DEBUG_PGP_ROGUE_DEV );
 	epicsExportAddress( int, DEBUG_PGP_ROGUE_LIB );
 }
