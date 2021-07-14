@@ -1,4 +1,11 @@
+Release Notes for rogueRegister EPICS module
 
+R0.3.0: 2021-07-13 Bruce Hill
+	Update to aes-stream-drivers/v5.15.1
+	Update to asyn/R4.39-1.0.0 and remove dep on ADCore
+	When DEBUG_PGP_ROGUE_LIB >= 6 enable rogue logging in writeVarPath
+	Enable default SCAN for Top.RawBuffers.BuffLen
+	init_bi needs to set val instead of rval.
 
 R0.2.0: 2021-03-11 Bruce Hill
 	Reorder LCLS1 timing seq to match Matt's DAQ method
