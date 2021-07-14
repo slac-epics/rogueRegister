@@ -1,6 +1,7 @@
 archive/
 autosave/
 bin/
+cfg/
 db/
 dbd/
 lib/

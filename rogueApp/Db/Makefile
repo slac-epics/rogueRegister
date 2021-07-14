@@ -33,9 +33,10 @@ DB += wave8Reg.db
 # Install autosave files
 #REQ     += foo.req
 
+# Install tpl-cfg files
+CFG += defaults_LCLS-I.tpl-cfg
+
 #----------------------------------------------------
-# If <anyname>.db template is not named <anyname>*.template add
-# <anyname>_template = <templatename>
 
 include $(TOP)/configure/RULES
 #----------------------------------------
