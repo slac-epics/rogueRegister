@@ -51,8 +51,8 @@ ifdef T_A
 endif
 
 #ROGUE_DIR=/reg/neh/home/bhill/git-wa-neh/slaclab/rogue-git
-ROGUE_DIR=/reg/neh/home/bhill/git-wa-neh/slaclab/rogue-no-python-git/$(T_A)
-#ROGUE_DIR=/cds/group/pcds/package/slaclab/rogue-no-python/v5.3.0-1.0.0
+#ROGUE_DIR=/reg/neh/home/bhill/git-wa-neh/slaclab/rogue-no-python-git/$(T_A)
+ROGUE_DIR=/cds/group/pcds/package/slaclab/rogue-no-python/v5.8.0-0.1.0/$(T_A)
 
 #PGP_DRIVER_DIR=/reg/neh/home/bhill/git-wa-neh/slaclab/aes-stream-drivers-git
 PGP_DRIVER_DIR=/cds/group/pcds/package/slaclab/aes-stream-drivers/v5.15.1
