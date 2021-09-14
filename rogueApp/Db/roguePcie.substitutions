@@ -73,6 +73,8 @@ file boolDevRogue.template
 		NAME	= "SystemRegs:AdcReset"
 		PATH	= "Top.SystemRegs.AdcReset"
 		PYPV	= "Top:SystemRegs:AdcReset"
+		ZNAM	= "Normal"
+		ONAM	= "Reset"
 	}
 	{
 		NAME	= "SystemRegs:AvccEn0"
@@ -631,6 +633,7 @@ file longDevRogue.template
 		PYPV	= "Top:Integrators:BaselineSize"
 		DESC	= "Baseline sample size as power of 2"
 		PINI	= "YES"
+		SAVE	= "VAL"
 		EGU		= "2^X"
 		SCAN	= "\$(SCAN=1 second)"
 	}
@@ -678,6 +681,7 @@ file longDevRogue.template
 		PATH	= "Top.Integrators.IntegralSize"
 		PYPV	= "Top:Integrators:IntegralSize"
 		DESC	= "Integral sample size as # samples"
+		SAVE	= "VAL"
 		PINI	= "YES"
 		EGU		= "Samples"
 		SCAN	= ""
@@ -687,8 +691,9 @@ file longDevRogue.template
 		PATH	= "Top.Integrators.TrigDelay"
 		PYPV	= "Top:Integrators:TrigDelay"
 		DESC	= "Integrator start offset in samples"
-		EGU		= "Samples"
+		SAVE	= "VAL"
 		PINI	= "YES"
+		EGU		= "Samples"
 		SCAN	= ""
 	}
 	{
