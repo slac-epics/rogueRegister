@@ -22,6 +22,7 @@ DB += TimingRx.template
 DB += TriggerEventManager.template
 DB += putMonitor.template
 DB += rbvMonitor.template
+DB += PgpStrmMon.db
 DB += PgpCannedSequences.db
 DB += PgpChCannedSequences.db
 DB += wave8Data.db

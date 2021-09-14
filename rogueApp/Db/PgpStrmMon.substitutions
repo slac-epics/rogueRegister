@@ -1,0 +1,76 @@
+# PgpStrmMon.substitutions
+
+# Required macros
+#	PGP:	EPICS Prefix for PgpStrmMon PVs
+#	CH:		PGP Stream Channel Number (0..N)
+
+file liDevRogue.template
+{
+	{
+		NAME	= "$(PGP):PgpStrmMon:Ch$(CH):FrameRateMax",
+		PATH	= "Top.PgpDataStreamMonitoring.Ch[$(CH)].FrameRateMax"
+		PYPV	= "Top:PgpDataStreamMonitoring:Ch[$(CH)]:FrameRateMax"
+	}
+	{
+		NAME	= "$(PGP):PgpStrmMon:Ch$(CH):FrameRateMin",
+		PATH	= "Top.PgpDataStreamMonitoring.Ch[$(CH)].FrameRateMin"
+		PYPV	= "Top:PgpDataStreamMonitoring:Ch[$(CH)]:FrameRateMax"
+	}
+	{
+		NAME	= "$(PGP):PgpStrmMon:Ch$(CH):FrameSize",
+		PATH	= "Top.PgpDataStreamMonitoring.Ch[$(CH)].FrameSize"
+		PYPV	= "Top:PgpDataStreamMonitoring:Ch[$(CH)]:FrameSize"
+	}
+	{
+		NAME	= "$(PGP):PgpStrmMon:Ch$(CH):FrameSizeMax",
+		PATH	= "Top.PgpDataStreamMonitoring.Ch[$(CH)].FrameSizeMax"
+		PYPV	= "Top:PgpDataStreamMonitoring:Ch[$(CH)]:FrameSizeMax"
+	}
+	{
+		NAME	= "$(PGP):PgpStrmMon:Ch$(CH):FrameSizeMin",
+		PATH	= "Top.PgpDataStreamMonitoring.Ch[$(CH)].FrameSizeMin"
+		PYPV	= "Top:PgpDataStreamMonitoring:Ch[$(CH)]:FrameSizeMin"
+	}
+	{
+		NAME	= "$(PGP):PgpStrmMon:Ch$(CH):enable",
+		PATH	= "Top.PgpDataStreamMonitoring.Ch[$(CH)].enable"
+		PYPV	= "Top:PgpDataStreamMonitoring:Ch[$(CH)]:enable"
+	}
+	{
+		NAME	= "$(PGP):PgpStrmMon:enable",
+		PATH	= "Top.PgpDataStreamMonitoring.enable"
+		PYPV	= "Top:PgpDataStreamMonitoring:enable"
+	}
+}
+
+file int64InDevRogue.template
+{
+	{
+		NAME	= "$(PGP):PgpStrmMon:Ch$(CH):FrameCnt",
+		PATH	= "Top.PgpDataStreamMonitoring.Ch[$(CH)].FrameCnt"
+		PYPV	= "Top:PgpDataStreamMonitoring:Ch[$(CH)]:FrameCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "$(PGP):PgpStrmMon:Ch$(CH):RawBandwidth",
+		PATH	= "Top.PgpDataStreamMonitoring.Ch[$(CH)].RawBandwidth"
+		PYPV	= "Top:PgpDataStreamMonitoring:Ch[$(CH)]:RawBandwidth"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "$(PGP):PgpStrmMon:Ch$(CH):RawBandwidthMax",
+		PATH	= "Top.PgpDataStreamMonitoring.Ch[$(CH)].RawBandwidthMax"
+		PYPV	= "Top:PgpDataStreamMonitoring:Ch[$(CH)]:RawBandwidthMax"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "$(PGP):PgpStrmMon:Ch$(CH):RawBandwidthMin",
+		PATH	= "Top.PgpDataStreamMonitoring.Ch[$(CH)].RawBandwidthMin"
+		PYPV	= "Top:PgpDataStreamMonitoring:Ch[$(CH)]:RawBandwidthMin"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+}
+
+
+#       DESC    = "0         1         2         3         "
+#       DESC    = "01234567890123 Max 40 char 7890123456789"
