@@ -15,6 +15,14 @@ file TimingRx.template
 	{ PTOP	= "Top" }
 }
 
+file SfpTransceiver.db
+{
+	{ PTOP	= "Top", N = "0" }
+	{ PTOP	= "Top", N = "1" }
+	{ PTOP	= "Top", N = "2" }
+	{ PTOP	= "Top", N = "3" }
+}
+
 file TriggerEventManager.template
 {
 	{ PTOP	= "Top" }
