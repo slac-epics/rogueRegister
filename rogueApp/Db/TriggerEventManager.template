@@ -127,9 +127,8 @@ record( waveform, "$(P)$(R)AxiVersion:BuildStamp" )
 	field( NELM, "2048" )
 	field( FTVL, "CHAR" )
 	field( INP,  "@B$(B) L$(L) Top.AxiVersion.BuildStamp" )
-	field( SCAN, "I/O Intr" )
 	field( PINI, "YES" )
 	info( archiveFields,  "VAL" )
 }
-alias( "$(P)$(R)AxiVersion:BuildStamp", "$(P)$(R):Top:AxiVersion:BuildStamp" )
+alias( "$(P)$(R)AxiVersion:BuildStamp", "$(P)$(R)Top:AxiVersion:BuildStamp" )
 
