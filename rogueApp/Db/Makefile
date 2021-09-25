@@ -24,6 +24,7 @@ DB += TimingRx.template
 DB += TriggerEventManager.template
 DB += putMonitor.template
 DB += rbvMonitor.template
+DB += PgpMon.db
 DB += PgpStrmMon.db
 DB += PgpCannedSequences.db
 DB += PgpChCannedSequences.db

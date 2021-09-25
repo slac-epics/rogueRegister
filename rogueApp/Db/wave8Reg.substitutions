@@ -15,6 +15,12 @@ file TimingRx.template
 	{ PTOP	= "Top" }
 }
 
+file PgpMon.db
+{
+	{ PTOP	= "Top", N = "0" }
+	{ PTOP	= "Top", N = "1" }
+}
+
 file SfpTransceiver.db
 {
 	{ PTOP	= "Top", N = "0" }

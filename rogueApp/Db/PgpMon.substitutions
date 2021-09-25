@@ -1,0 +1,66 @@
+# PgpMon.substitutions
+#
+
+# Required macros
+#	P		EPICS Prefix1
+#	R		EPICS Prefix2
+#	PTOP	Pyrogue path top
+#	N		PgpMon number
+
+file biDevRogue.template
+{
+	{
+		NAME	= "PgpMon$(N):RxRemLinkReady"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.RemRxLinkReady"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:RemRxLinkReady"
+		ZNAM	= "Not Ready"
+		ONAM	= "Ready"
+		SCAN	= "\$(SCAN=1 second)"
+		ZSV     = "MAJOR"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:LinkReady"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.LinkReady"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:LinkReady"
+		ZNAM	= "Not Ready"
+		ONAM	= "Ready"
+		ZSV     = "MAJOR"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:PhyRxActive"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.PhyRxActive"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:PhyRxActive"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):TxStatus:LinkReady"
+		PATH	= "$(PTOP).PgpMon[$(N)].TxStatus.LinkReady"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:TxStatus:LinkReady"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):TxStatus:PhyTxActive"
+		PATH	= "$(PTOP).PgpMon[$(N)].TxStatus.phyTxActive"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:TxStatus:phyTxActive"
+		SCAN	= "\$(SCAN=1 second)"
+		ZNAM    = "Down"
+		ZSV     = "MAJOR"
+		ONAM    = "Ready"
+		OSV     = "NO_ALARM"
+	}
+}
+
+file loDevRogue.template
+{
+	{
+		NAME	= "PgpMon$(N):CountReset"
+		PATH	= "$(PTOP).PgpMon[$(N)].Ctrl.CountReset"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:Ctrl:CountReset"
+		SAVE	= ""
+		DESC	= "Reset PgpMon counts"
+	}
+}
+
+#       DESC    = "0         1         2         3         "
+#       DESC    = "01234567890123 Max 40 char 7890123456789"
