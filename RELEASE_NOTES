@@ -1,4 +1,10 @@
 Release Notes for rogueRegister EPICS module
+
+R0.5.0:	2021-09-25 Bruce Hill
+	Add SfpTransceiver and PgpMon registers and screens
+	New rogueAddrMap.h for v2.1.1, adds Sfp registers.
+	Update to rogue/v5.10.0 and aes-stream-drivers/v5.15.2
+
 R0.4.0: 2021-09-14 Bruce Hill
 	Add support for building PgpStrmMon.db
 	DB tweaks: enum names, autosave, EGU
