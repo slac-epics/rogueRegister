@@ -1,5 +1,8 @@
 Release Notes for rogueRegister EPICS module
 
+R0.6.0:	2021-09-28 Bruce Hill
+	Finish adding PgpMon registers and screens
+
 R0.5.0:	2021-09-25 Bruce Hill
 	Add SfpTransceiver and PgpMon registers and screens
 	New rogueAddrMap.h for v2.1.1, adds Sfp registers.
