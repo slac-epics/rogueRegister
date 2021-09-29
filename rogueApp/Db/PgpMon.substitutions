@@ -10,7 +10,7 @@
 file biDevRogue.template
 {
 	{
-		NAME	= "PgpMon$(N):RxRemLinkReady"
+		NAME	= "PgpMon$(N):RxStatus:RemRxLinkReady"
 		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.RemRxLinkReady"
 		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:RemRxLinkReady"
 		ZNAM	= "Not Ready"
@@ -28,7 +28,7 @@ file biDevRogue.template
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
-		NAME	= "PgpMon$(N):RxStatus:PhyRxActive"
+		NAME	= "PgpMon$(N):RxStatus:PhyActive"
 		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.PhyRxActive"
 		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:PhyRxActive"
 		SCAN	= "\$(SCAN=1 second)"
@@ -40,7 +40,7 @@ file biDevRogue.template
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
-		NAME	= "PgpMon$(N):TxStatus:PhyTxActive"
+		NAME	= "PgpMon$(N):TxStatus:PhyActive"
 		PATH	= "$(PTOP).PgpMon[$(N)].TxStatus.phyTxActive"
 		PYPV	= "$(PTOP):PgpMon[$(N)]:TxStatus:phyTxActive"
 		SCAN	= "\$(SCAN=1 second)"
@@ -48,6 +48,124 @@ file biDevRogue.template
 		ZSV     = "MAJOR"
 		ONAM    = "Ready"
 		OSV     = "NO_ALARM"
+	}
+}
+
+# PgpMon RxStatus
+file liDevRogue.template
+{
+	{
+		NAME	= "PgpMon$(N):RxStatus:EbOverflowCnt"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.EbOverflowCnt"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:EbOverflowCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:FrameCnt"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.FrameCnt"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:FrameCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:LinkDownCnt"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.LinkDownCnt"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:LinkDownCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:LinkErrorCnt"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.LinkErrorCnt"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:LinkErrorCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:LinkReadyCnt"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.LinkReadyCnt"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:LinkReadyCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:PhyActiveCnt"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.PhyRxActiveCnt"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:PhyRxActiveCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:RemRxLinkReadyCnt"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.RemRxLinkReadyCnt"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:RemRxLinkReadyCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:RemOverflowCnt0"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.RemOverflowCnt[0]"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:RemOverflowCnt[0]"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:RemOverflowCnt1"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.RemOverflowCnt[1]"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:RemOverflowCnt[1]"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:RemOverflowCnt2"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.RemOverflowCnt[2]"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:RemOverflowCnt[2]"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):RxStatus:RemOverflowCnt3"
+		PATH	= "$(PTOP).PgpMon[$(N)].RxStatus.RemOverflowCnt[3]"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:RxStatus:RemOverflowCnt[3]"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+}
+
+# PgpMon TxStatus
+file liDevRogue.template
+{
+	{
+		NAME	= "PgpMon$(N):TxStatus:FrameCnt"
+		PATH	= "$(PTOP).PgpMon[$(N)].TxStatus.FrameCnt"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:TxStatus:FrameCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):TxStatus:LinkReadyCnt"
+		PATH	= "$(PTOP).PgpMon[$(N)].TxStatus.LinkReadyCnt"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:TxStatus:LinkReadyCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):TxStatus:LocOverflowCnt0"
+		PATH	= "$(PTOP).PgpMon[$(N)].TxStatus.LocOverflowCnt[0]"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:TxStatus:LocOverflowCnt[0]"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):TxStatus:LocOverflowCnt1"
+		PATH	= "$(PTOP).PgpMon[$(N)].TxStatus.LocOverflowCnt[1]"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:TxStatus:LocOverflowCnt[1]"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):TxStatus:LocOverflowCnt2"
+		PATH	= "$(PTOP).PgpMon[$(N)].TxStatus.LocOverflowCnt[2]"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:TxStatus:LocOverflowCnt[2]"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):TxStatus:LocOverflowCnt3"
+		PATH	= "$(PTOP).PgpMon[$(N)].TxStatus.LocOverflowCnt[3]"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:TxStatus:LocOverflowCnt[3]"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "PgpMon$(N):TxStatus:PhyActiveCnt"
+		PATH	= "$(PTOP).PgpMon[$(N)].TxStatus.phyTxActiveCnt"
+		PYPV	= "$(PTOP):PgpMon[$(N)]:TxStatus:phyTxActiveCnt"
+		SCAN	= "\$(SCAN=1 second)"
 	}
 }
 

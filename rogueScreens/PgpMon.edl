@@ -3,10 +3,10 @@ beginScreenProperties
 major 4
 minor 0
 release 1
-x 1191
-y 68
+x 938
+y 45
 w 340
-h 400
+h 618
 font "helvetica-bold-r-8.0"
 ctlFont "helvetica-bold-r-8.0"
 btnFont "helvetica-bold-r-8.0"
@@ -49,11 +49,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
-y 44
+x 212
+y 92
 w 80
 h 20
-controlPv "$(PGP):Top:PgpDataStreamMonitoring:Ch[0]:enable"
+controlPv "$(PGP):PgpMon$(N):RxStatus:LinkDownCnt"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -73,53 +73,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 48
-y 44
-w 68
-h 20
-font "helvetica-bold-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "PGP$(N)"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 192
-y 68
-w 80
-h 20
-controlPv "$(PGP):Top:PgpMon[$(N)]:RxStatus:LinkDownCnt"
-font "helvetica-bold-r-12.0"
-fontAlign "center"
-fgColor index 15
-fgAlarm
-bgColor index 12
-limitsFromDb
-nullColor index 40
-smartRefresh
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 16
-y 68
-w 168
+x 4
+y 92
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -131,117 +87,17 @@ value {
 }
 endObjectProperties
 
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 124
-y 44
-w 64
-h 20
-controlPv "$(PGP):Top:PgpDataStreamMonitoring:Ch[0]:enable"
-format "decimal"
-font "helvetica-bold-r-12.0"
-fontAlign "center"
-fgColor index 25
-fgAlarm
-bgColor index 5
-editable
-limitsFromDb
-nullColor index 40
-smartRefresh
-fastUpdate
-useHexPrefix
-newPos
-objType "controls"
-noExecuteClipMask
-endObjectProperties
-
 # (Text Monitor)
 object activeXTextDspClass:noedit
 beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
-y 20
+x 212
+y 116
 w 80
 h 20
-controlPv "$(PGP):Top:PgpDataStreamMonitoring:enable"
-font "helvetica-bold-r-12.0"
-fontAlign "center"
-fgColor index 15
-fgAlarm
-bgColor index 12
-limitsFromDb
-nullColor index 40
-smartRefresh
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Text Control)
-object activeXTextDspClass
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 124
-y 20
-w 64
-h 20
-controlPv "$(PGP):Top:PgpDataStreamMonitoring:enable"
-format "decimal"
-font "helvetica-bold-r-12.0"
-fontAlign "center"
-fgColor index 25
-fgAlarm
-bgColor index 5
-editable
-limitsFromDb
-nullColor index 40
-smartRefresh
-fastUpdate
-useHexPrefix
-newPos
-objType "controls"
-noExecuteClipMask
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
-x 64
-y 20
-w 52
-h 20
-font "helvetica-bold-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "Enable"
-}
-endObjectProperties
-
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 192
-y 92
-w 80
-h 20
-controlPv "$(PGP):Top:PgpMon[0]:RxStatus:LinkErrorCnt"
+controlPv "$(PGP):PgpMon$(N):RxStatus:LinkErrorCnt"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -261,9 +117,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
-y 92
-w 168
+x 4
+y 116
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -281,11 +137,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
-y 116
+x 212
+y 212
 w 80
 h 20
-controlPv "$(PGP):Top:PgpMon[0]:RxStatus:LinkDownCnt"
+controlPv "$(PGP):PgpMon$(N):RxStatus:PhyActiveCnt"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -305,9 +161,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
-y 116
-w 168
+x 4
+y 212
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -315,7 +171,7 @@ fgColor index 14
 bgColor index 0
 useDisplayBg
 value {
-  "RxStatus:LinkDownCnt"
+  "RxStatus:PhyRxActiveCnt"
 }
 endObjectProperties
 
@@ -325,11 +181,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
-y 140
+x 212
+y 68
 w 80
 h 20
-controlPv "$(PGP):Top:PgpMon[0]:RxStatus:LinkReady"
+controlPv "$(PGP):PgpMon$(N):RxStatus:LinkReadyCnt"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -349,9 +205,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
-y 140
-w 168
+x 4
+y 68
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -359,7 +215,7 @@ fgColor index 14
 bgColor index 0
 useDisplayBg
 value {
-  "RxStatus:LinkReady"
+  "RxStatus:LinkReadyCnt"
 }
 endObjectProperties
 
@@ -369,11 +225,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
+x 212
 y 164
 w 80
 h 20
-controlPv "$(PGP):Top:PgpMon[0]:RxStatus:RemRxLinkReady"
+controlPv "$(PGP):PgpMon$(N):RxStatus:RemRxLinkReadyCnt"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -393,9 +249,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
+x 4
 y 164
-w 168
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -403,7 +259,7 @@ fgColor index 14
 bgColor index 0
 useDisplayBg
 value {
-  "RxStatus:RemRxLinkReady"
+  "RxStatus:RemRxLinkReadyCnt"
 }
 endObjectProperties
 
@@ -413,11 +269,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
-y 188
+x 212
+y 396
 w 80
 h 20
-controlPv "$(PGP):Top:PgpMon[0]:TxStatus:LinkReady"
+controlPv "$(PGP):PgpMon$(N):TxStatus:LinkReady"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -437,9 +293,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
-y 188
-w 168
+x 4
+y 396
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -457,11 +313,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
-y 212
+x 212
+y 372
 w 80
 h 20
-controlPv "$(PGP):Top:PgpMon[0]:TxStatus:FrameCnt"
+controlPv "$(PGP):PgpMon$(N):TxStatus:FrameCnt"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -481,9 +337,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
-y 212
-w 168
+x 4
+y 372
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -501,11 +357,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
+x 212
 y 236
 w 80
 h 20
-controlPv "$(PGP):Top:PgpMon[0]:RxStatus:EbOverflowCnt"
+controlPv "$(PGP):PgpMon$(N):RxStatus:EbOverflowCnt"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -525,9 +381,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
+x 4
 y 236
-w 168
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -545,11 +401,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
+x 212
 y 260
 w 80
 h 20
-controlPv "$(PGP):Top:PgpMon[0]:RxStatus:RemOverflowCnt[0]"
+controlPv "$(PGP):PgpMon$(N):RxStatus:RemOverflowCnt0"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -569,9 +425,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
+x 4
 y 260
-w 168
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -589,9 +445,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
+x 4
 y 284
-w 168
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -609,11 +465,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
+x 212
 y 284
 w 80
 h 20
-controlPv "$(PGP):Top:PgpMon[0]:RxStatus:RemOverflowCnt[1]"
+controlPv "$(PGP):PgpMon$(N):RxStatus:RemOverflowCnt1"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -633,9 +489,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
+x 4
 y 308
-w 168
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -653,11 +509,11 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
+x 212
 y 308
 w 80
 h 20
-controlPv "$(PGP):Top:PgpMon[0]:RxStatus:RemOverflowCnt[2]"
+controlPv "$(PGP):PgpMon$(N):RxStatus:RemOverflowCnt2"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -677,9 +533,9 @@ beginObjectProperties
 major 4
 minor 1
 release 1
-x 16
+x 4
 y 332
-w 168
+w 200
 h 20
 font "helvetica-bold-r-12.0"
 fontAlign "right"
@@ -697,11 +553,495 @@ beginObjectProperties
 major 4
 minor 7
 release 0
-x 192
+x 212
 y 332
 w 80
 h 20
-controlPv "$(PGP):Top:PgpMon[0]:RxStatus:RemOverflowCnt[3]"
+controlPv "$(PGP):PgpMon$(N):RxStatus:RemOverflowCnt3"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 188
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):RxStatus:PhyActive"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 188
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "RxStatus:PhyRxActive"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 444
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):TxStatus:PhyActive"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 444
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "TxStatus:PhyActive"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 44
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):RxStatus:LinkReady"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 44
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "RxStatus:LinkReady"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 140
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):RxStatus:RemRxLinkReady"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 140
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "RxStatus:RemRxLinkReady"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 420
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):TxStatus:LinkReadyCnt"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 420
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "TxStatus:LinkReadyCnt"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 20
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):RxStatus:FrameCnt"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 20
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "RxStatus:FrameCnt"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 468
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):TxStatus:PhyActiveCnt"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 468
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "TxStatus:PhyActiveCnt"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 492
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):TxStatus:LocOverflowCnt0"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 492
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "TxStatus:LocOverflowCnt[0]"
+}
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 516
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "TxStatus:LocOverflowCnt[1]"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 516
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):TxStatus:LocOverflowCnt1"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 540
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "TxStatus:LocOverflowCnt[2]"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 540
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):TxStatus:LocOverflowCnt2"
+font "helvetica-bold-r-12.0"
+fontAlign "center"
+fgColor index 15
+fgAlarm
+bgColor index 12
+limitsFromDb
+nullColor index 40
+smartRefresh
+newPos
+objType "monitors"
+noExecuteClipMask
+endObjectProperties
+
+# (Static Text)
+object activeXTextClass
+beginObjectProperties
+major 4
+minor 1
+release 1
+x 4
+y 564
+w 200
+h 20
+font "helvetica-bold-r-12.0"
+fontAlign "right"
+fgColor index 14
+bgColor index 0
+useDisplayBg
+value {
+  "TxStatus:LocOverflowCnt[3]"
+}
+endObjectProperties
+
+# (Text Monitor)
+object activeXTextDspClass:noedit
+beginObjectProperties
+major 4
+minor 7
+release 0
+x 212
+y 564
+w 80
+h 20
+controlPv "$(PGP):PgpMon$(N):TxStatus:LocOverflowCnt3"
 font "helvetica-bold-r-12.0"
 fontAlign "center"
 fgColor index 15
