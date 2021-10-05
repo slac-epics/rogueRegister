@@ -167,8 +167,9 @@ bool	pgpRogueLib::getTriggerEnable( unsigned int triggerNum )
 }
 
 
-#include "rogueAddrMap.h"
-std::string		strRogueAddrMap( ROGUE_ADDR_MAP );
+// TODO: Make different devices be subclasses of pgpRogueLib
+#include "wave8AddrMap.h"
+std::string		strWave8AddrMap( ROGUE_ADDR_MAP );
 
 #if 0
 class rogueAddrMap : public rogue::LibraryBase
@@ -294,8 +295,8 @@ pgpRogueLib::pgpRogueLib(
 	}
 	printf( "Parsing %zu length ROGUE_ADDR_MAP\n", strlen( ROGUE_ADDR_MAP ) );
 #if 1
-	parseMemMap( strRogueAddrMap ); // From generated rogueAddrMap.h
-	printf( "ROGUE_ADDR_MAP parsed successfully\n" );
+	parseMemMap( strWave8AddrMap ); // From generated wave8AddrMap.h
+	printf( "Wave8 ROGUE_ADDR_MAP parsed successfully\n" );
 #else
 	m_pRogueLib->parseMemMap( ROGUE_ADDR_MAP );
 	printf( "m_pRogueLib: ROGUE_ADDR_MAP parsed successfully\n" );
