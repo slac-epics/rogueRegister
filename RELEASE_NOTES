@@ -1,5 +1,8 @@
 Release Notes for rogueRegister EPICS module
 
+R0.7.0:	2021-10-05 Bruce Hill
+	Fix CALC field for Sfp Watts registers.
+
 R0.6.0:	2021-09-28 Bruce Hill
 	Finish adding PgpMon registers and screens
 
