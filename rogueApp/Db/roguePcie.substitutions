@@ -63,11 +63,19 @@ file boolDevRogue.template
 		NAME	= "SystemRegs:AdcCtrl1"
 		PATH	= "Top.SystemRegs.AdcCtrl1"
 		PYPV	= "Top:SystemRegs:AdcCtrl1"
+		ZNAM	= "False"
+		ONAM	= "True"
+		DOL		= "0"
+		PINI	= "YES"
 	}
 	{
 		NAME	= "SystemRegs:AdcCtrl2"
 		PATH	= "Top.SystemRegs.AdcCtrl2"
 		PYPV	= "Top:SystemRegs:AdcCtrl2"
+		ZNAM	= "False"
+		ONAM	= "True"
+		DOL		= "0"
+		PINI	= "YES"
 	}
 	{
 		NAME	= "SystemRegs:AdcReset"
@@ -81,42 +89,56 @@ file boolDevRogue.template
 		PATH	= "Top.SystemRegs.AvccEn0"
 		PYPV	= "Top:SystemRegs:AvccEn0"
 		DESC	= "Enable AVCC0 DCDC"
+		DOL		= "1"
+		PINI	= "YES"
 	}
 	{
 		NAME	= "SystemRegs:AvccEn1"
 		PATH	= "Top.SystemRegs.AvccEn1"
 		PYPV	= "Top:SystemRegs:AvccEn1"
 		DESC	= "Enable AVCC1 DCDC"
+		DOL		= "1"
+		PINI	= "YES"
 	}
 	{
 		NAME	= "SystemRegs:Ap5V5En"
 		PATH	= "Top.SystemRegs.Ap5V5En"
 		PYPV	= "Top:SystemRegs:Ap5V5En"
 		DESC	= "Enable analog buffers 5.5V DCDC"
+		DOL		= "1"
+		PINI	= "YES"
 	}
 	{
 		NAME	= "SystemRegs:Ap5V0En"
 		PATH	= "Top.SystemRegs.Ap5V0En"
 		PYPV	= "Top:SystemRegs:Ap5V0En"
 		DESC	= "Enable analog buffers 5.0V LDO"
+		DOL		= "1"
+		PINI	= "YES"
 	}
 	{
 		NAME	= "SystemRegs:A0p3V3En"
 		PATH	= "Top.SystemRegs.A0p3V3En"
 		PYPV	= "Top:SystemRegs:A0p3V3En"
 		DESC	= "Enable ADCs analog 3.3V LDO"
+		DOL		= "1"
+		PINI	= "YES"
 	}
 	{
 		NAME	= "SystemRegs:A1p3V3En"
 		PATH	= "Top.SystemRegs.A1p3V3En"
 		PYPV	= "Top:SystemRegs:A1p3V3En"
 		DESC	= "Enable ADCs analog 3.3V LDO"
+		DOL		= "1"
+		PINI	= "YES"
 	}
 	{
 		NAME	= "SystemRegs:Ap1V8En"
 		PATH	= "Top.SystemRegs.Ap1V8En"
 		PYPV	= "Top:SystemRegs:Ap1V8En"
 		DESC	= "Enable ADCs analog 1.8V LDO"
+		DOL		= "1"
+		PINI	= "YES"
 	}
 	{
 		NAME	= "SystemRegs:FpgaTmpCritLatch"
