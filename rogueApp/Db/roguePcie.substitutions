@@ -343,6 +343,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:Baseline[0]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
+		EGU		= "Pwr2"
 	}
 	{
 		NAME	= "Integrators:Baseline1",
@@ -350,6 +351,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:Baseline[1]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
+		EGU		= "Pwr2"
 	}
 	{
 		NAME	= "Integrators:Baseline2",
@@ -357,6 +359,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:Baseline[2]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
+		EGU		= "Pwr2"
 	}
 	{
 		NAME	= "Integrators:Baseline3",
@@ -364,6 +367,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:Baseline[3]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
+		EGU		= "Pwr2"
 	}
 	{
 		NAME	= "Integrators:Baseline4",
@@ -371,6 +375,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:Baseline[4]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
+		EGU		= "Pwr2"
 	}
 	{
 		NAME	= "Integrators:Baseline5",
@@ -378,6 +383,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:Baseline[5]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
+		EGU		= "Pwr2"
 	}
 	{
 		NAME	= "Integrators:Baseline6",
@@ -385,6 +391,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:Baseline[6]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
+		EGU		= "Pwr2"
 	}
 	{
 		NAME	= "Integrators:Baseline7",
@@ -392,6 +399,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:Baseline[7]"
 		DESC	= "Baseline for integration"
 		SCAN	= "\$(SCAN=1 second)"
+		EGU		= "Pwr2"
 	}
 	{
 		NAME	= "Integrators:IntFifoPauseCnt",
