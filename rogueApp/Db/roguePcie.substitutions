@@ -465,6 +465,34 @@ file liDevRogue.template
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
+		NAME	= "SystemRegs:TempAnaRaw0",
+		PATH	= "Top.SystemRegs.TempAnaRaw[0]"
+		PYPV	= "Top:SystemRegs:TempAnaRaw[0]"
+		DESC	= "Analog board temperature sensor 0"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "SystemRegs:TempAnaRaw1",
+		PATH	= "Top.SystemRegs.TempAnaRaw[1]"
+		PYPV	= "Top:SystemRegs:TempAnaRaw[1]"
+		DESC	= "Analog board temperature sensor 1"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "SystemRegs:TempDigRaw0",
+		PATH	= "Top.SystemRegs.TempDigRaw[0]"
+		PYPV	= "Top:SystemRegs:TempDigRaw[0]"
+		DESC	= "Digital board temperature sensor 0"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "SystemRegs:TempDigRaw1",
+		PATH	= "Top.SystemRegs.TempDigRaw[1]"
+		PYPV	= "Top:SystemRegs:TempDigRaw[1]"
+		DESC	= "Digital board temperature sensor 1"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
 		NAME	= "Timing:sofCount",
 		PATH	= "Top.TimingFrameRx.sofCount"
 		PYPV	= "Top:TimingFrameRx:sofCount"
