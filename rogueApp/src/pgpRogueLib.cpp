@@ -262,7 +262,7 @@ pgpRogueLib::pgpRogueLib(
 	m_pAxiMemMap		= rogue::hardware::axi::AxiMemMap::create( m_devName );
 	m_pAxiMemMaster		= ClMemoryMaster::create( );
 	m_pAxiMemMaster->setSlave( m_pAxiMemMap );
-	const char	*	szMemName = "PCIe_Bar0";
+	const char	*	szMemName = "PCIe_Bar0";	// TODO: Can we remove this?  Doesn't seem to be used.
 	addMemory( szMemName, m_pAxiMemMap );
 	//m_pRogueLib->addMemory( szMemName, m_pAxiMemMap );
 	printf("pgpRogueLib: addMemory AxiMemMap interface %s\n", szMemName );
@@ -279,7 +279,7 @@ pgpRogueLib::pgpRogueLib(
 		m_pW8RegChan[m_lane]->addSlave( m_pSrpW8[m_lane] );
 		m_pSrpW8[m_lane]->addSlave( m_pW8RegChan[m_lane] );
 
-		const char	*	szMemName = "Unnamed_5";
+		const char	*	szMemName = "Unnamed_5";	// From interface name in wave8AddrMap.h
 		addMemory( szMemName, m_pSrpW8[m_lane] );
 		//m_pRogueLib->addMemory( szMemName, m_pSrpW8[m_lane] );
 		printf("pgpRogueLib: addMemory srpW8 interface %s\n", szMemName );
