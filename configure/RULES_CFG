@@ -5,24 +5,8 @@
 #$(info RULES_CFG: '$(MAKECMDGOALS)')
 
 ####################################################
-# Where to find cfg files
-#vpath %.cfg       $(USR_VPATH) $(GENERIC_SRC_DIRS) $(dir $(CFG))
-#vpath %.tpl-cfg   $(USR_VPATH) $(GENERIC_SRC_DIRS) $(dir $(CFG)) $(COMMON_DIR)
-#vpath %.sub-cfg	  $(USR_VPATH) $(GENERIC_SRC_DIRS) $(dir $(CFG)) $(COMMON_DIR)
-
 # Install cfg files here
 INSTALL_CFG = $(INSTALL_LOCATION)/cfg
-
-####################################################
-# cfg include Flags (msi -I path)
-#define  CFG_DIRS_template
-#  RELEASE_CFG_DIRS += $$(wildcard $$(strip $$($(1)))/cfg)
-#endef
-#$(foreach top, $(RELEASE_TOPS), \
-#	$(eval $(call CFG_DIRS_template,$(top)) ))
-#CFG_SEARCH_DIRS = . .. $(COMMON_DIR) $(SRC_DIRS) $(INSTALL_CFG) $(TOP)/cfg $(RELEASE_CFG_DIRS)
-#CFG_INCLUDES = $(addprefix -I, $(CFG_SEARCH_DIRS))
-#CFGFLAGS  = $($*_CFGFLAGS) $(USR_CFGFLAGS) $(CFG_INCLUDES)
 
 ####################################################
 # Build and install Rules
@@ -37,10 +21,4 @@ $(COMMON_DIR)/%.cfg: %.sub-cfg
 $(INSTALL_CFG)/%: $(COMMON_DIR)/%
 	@$(ECHO) "Installing inflated cfg file $@"
 	@$(INSTALL) -d -m 644 $< $(@D)
-
-#####################################################
-# Include dependency files
-#ifneq (,$(strip $(CFG_DEPENDS_FILES)))
-#-include $(CFG_DEPENDS_FILES)
-#endif
 
