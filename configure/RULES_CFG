@@ -1,8 +1,8 @@
-# RULES.cfg
+# RULES_CFG
 # RULES for building and installing cfg files
 
 # Display how this makefile was called
-#$(info RULES.cfg: '$(MAKECMDGOALS)')
+#$(info RULES_CFG: '$(MAKECMDGOALS)')
 
 ####################################################
 # Where to find cfg files
