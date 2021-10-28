@@ -1,4 +1,7 @@
 Release Notes for rogueRegister EPICS module
+R0.8.0:	2021-10-28 Bruce Hill
+	Add raw analog and digital temp registers.
+	Add initial values for Adc voltage enables
 
 R0.7.0:	2021-10-05 Bruce Hill
 	Fix CALC field for Sfp Watts registers.
