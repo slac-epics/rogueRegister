@@ -44,10 +44,8 @@ namespace rim = rogue::interfaces::memory;
 typedef	std::map< std::string, rim::VariablePtr >	mapVarPtr_t;
 
 int		DEBUG_PGP_ROGUE_LIB	= 0;
-bool	bUseMiniTpg			= 0;
 #ifdef SUPPORT_CLINK
-//int		doFebConfig		= 0;
-//int		doFebFpgaReload	= 1;
+int		doFebFpgaReload	= 0;
 #endif  /* SUPPORT_CLINK */
 
 // TODO Move to new file: src/rogue/memory/interfaces/memory/Constants.cpp
@@ -93,7 +91,7 @@ void pgpRogueLib::GetEventBuilderBlowoffPath( unsigned int triggerNum, std::stri
 {
 #ifdef SUPPORT_CLINK
 	char		varPath[256];
-	const char * pszBlowoff		 = "Top.BatcherEventBuilder.Blowoff";
+	const char * pszBlowoff		 = "ClinkDevRoot.ClinkPcie.Application.AppLane[%u].EventBuilder.Blowoff";
 	snprintf( varPath, 256, pszBlowoff, triggerNum );
 	retPath	= varPath;
 #else  /* not SUPPORT_CLINK */
@@ -106,7 +104,7 @@ void pgpRogueLib::GetTriggerMasterEnablePath( unsigned int triggerNum, std::stri
 {
 	char		varPath[256];
 #ifdef SUPPORT_CLINK
-	const char * pszMasterEnable = "Top.TriggerEventManager.TriggerEventBuffer[%u].MasterEnable";
+	const char * pszMasterEnable = "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TriggerEventManager.TriggerEventBuffer[%u].MasterEnable";
 #else  /* not SUPPORT_CLINK */
 	const char * pszMasterEnable = "Top.TriggerEventManager.TriggerEventBuffer[%u].MasterEnable";
 #endif  /* SUPPORT_CLINK */
@@ -248,7 +246,7 @@ pgpRogueLib::pgpRogueLib(
 		}
 	}
 	close( m_fd );
-	m_fd = 0;
+	m_fd = -1;
 
 	//
 	// Connect Rogue Library
@@ -305,23 +303,22 @@ pgpRogueLib::pgpRogueLib(
 	sleep(5);
 
 #ifdef SUPPORT_CLINK
-//	if ( doFebFpgaReload )
-//		FebFpgaReload();
+	if ( doFebFpgaReload )
+		FebFpgaReload();
 #endif  /* SUPPORT_CLINK */
 
 	//const mapVarPtr_t &	mapVars		= getVariableList();
 	//printf( "%s: %zu variables\n", functionName, mapVars.size() );
 	//printf( "m_pRogueLib: %zu variables\n", (m_pRogueLib->getVariableList()).size() );
 
-#if 1
 	// Force an initial read of all variables
+#if 1
 	printf( "%s: Reading %zu variables\n", functionName, getVariableList().size() );
 	try
 	{
 		readAll();
 	}
 #else
-	// Force an initial read of all variables
 	printf( "%s: Reading %zu variables\n", functionName, (m_pRogueLib->getVariableList()).size() );
 	try
 	{
@@ -402,7 +399,11 @@ pgpRogueLib::pgpRogueLib(
 /// virtual Destructor
 pgpRogueLib::~pgpRogueLib()
 {
-	close( m_fd );
+	if ( m_fd > 0 )
+	{
+		close( m_fd );
+		m_fd = -1;
+	}
 }
 
 
@@ -437,12 +438,6 @@ void pgpRogueLib::ConfigureLclsTimingV1()
 
 	// Reset latching RxDown flag
 	writeVarPath( "Top.TimingFrameRx.RxDown",		lZero	);
-
-	if ( bUseMiniTpg )
-	{
-		// TODO: Export bUseMiniTpg as iocsh variable
-		writeVarPath( "Top.SystemRegs.timingUseMiniTpg",	bUseMiniTpg );
-	}
 
 	WaitForRxLinkUp( "ConfigureLclsTimingV1: Wait 2" );
 	//ResetCounters();
@@ -569,11 +564,11 @@ template<class R> int pgpRogueLib::readVarPath( const char * pszVarPath, R & val
 	}
 	catch ( rogue::GeneralError & e )
 	{
-		printf( "%s error: %s!\n", functionName, e.what() );
+		printf( "%s %s error: %s!\n", functionName, varPath.c_str(), e.what() );
 	}
 	catch ( std::exception & e )
 	{
-		printf( "%s error: %s!\n", functionName, e.what() );
+		printf( "%s %s error: %s!\n", functionName, varPath.c_str(), e.what() );
 	}
 	//pVar->setLogLevel( rogue::Logging::Warning );
 
@@ -717,6 +712,11 @@ void pgpRogueLib::dumpVariables( const char * pszFilePath, bool fWritableOnly, b
 	for ( mapVarPtr_t::const_iterator vit = mapVars.begin(); vit != mapVars.end(); ++vit )
 	{
 		rim::VariablePtr	pVar	= vit->second;
+		if ( !pVar )
+		{
+			printf( "%s: NULL pVar!\n", functionName );
+			continue;
+		}
 		try
 		{
 			if ( not fWritableOnly or pVar->mode() != std::string("RO") )
@@ -902,7 +902,7 @@ void pgpRogueLib::disconnect( )
 	if ( m_fd > 0 )
 	{
 		close( m_fd );
-		m_fd = 0;
+		m_fd = -1;
 	}
 	m_pAxiMemMaster.reset();
 	//rmMemory( m_pAxiMemMap );
