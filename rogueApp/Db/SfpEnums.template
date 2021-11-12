@@ -14,10 +14,19 @@
 #
 # Optional macros
 #
-record( calc, "$(P)$(R)Sfp$(N):Empty" )
+record( calcout, "$(P)$(R)Sfp$(N):CalcEmpty" )
 {
-	field( INPA, "$(P)$(R)Sfp$(N):Type_RBV.SEVR CPP NMS" )
-	field( CALC, "A!=0" )
+	field( INPA, "$(P)$(R)Sfp$(N):Type_RBV      CPP NMS" )
+	field( INPB, "$(P)$(R)Sfp$(N):Type_RBV.SEVR CPP NMS" )
+	field( CALC, "A==0||B!=0" )
+	field( PINI, "YES" )
+	field( OUT,  "$(P)$(R)Sfp$(N):Empty CA NMS" )
+}
+record( bo, "$(P)$(R)Sfp$(N):Empty" )
+{
+	field( DOL,  "1" )
+	field( ZNAM, "Full" )
+	field( ONAM, "Empty" )
 }
 
 record( mbbi, "$(P)$(R)Sfp$(N):Type_RBV" )
@@ -26,7 +35,8 @@ record( mbbi, "$(P)$(R)Sfp$(N):Type_RBV" )
 	field( DTYP, "RogueMBBI" )
 	field( INP,  "@B$(B) L$(L) $(PTOP).Sfp[$(N)].Identifier" )
 	field( SCAN, "10 second" )
-	field( SDIS, "$(P)$(R)Sfp$(N):Empty" )
+	field( UNSV, "INVALID" )
+	field( ZRSV, "MINOR" )
 #{
 	field( ZRVL, "0" ) field( ZRST, "Unspecified" )
 	field( ONVL, "3" ) field( ONST, "SFP" )
@@ -82,8 +92,8 @@ record( mbbi, "$(P)$(R)Sfp$(N):Connector_RBV" )
 	field( DESC, "Type of Connector" )
 	field( DTYP, "RogueMBBI" )
 	field( INP,  "@B$(B) L$(L) $(PTOP).Sfp[$(N)].Connector" )
-	field( SDIS, "$(P)$(R)Sfp$(N):Empty" )
-	field( PINI, "YES" )
+	field( DISV, "1" )
+	field( SDIS, "$(P)$(R)Sfp$(N):Empty CP" )
 #{
 	field( ZRVL, "0" ) field( ZRST, "Unspecified" )
 	field( ONVL, "1" ) field( ONST, "SC" )

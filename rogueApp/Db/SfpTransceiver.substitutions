@@ -23,7 +23,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[0]"
 		DESC	= "Temperature MSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[1]"
@@ -31,7 +33,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[1]"
 		DESC	= "Temperature LSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[2]"
@@ -39,7 +43,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[2]"
 		DESC	= "Vcc Supply Voltage MSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[3]"
@@ -47,7 +53,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[3]"
 		DESC	= "Vcc Supply Voltage LSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[4]"
@@ -55,7 +63,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[4]"
 		DESC	= "TX Bias Current MSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[5]"
@@ -63,7 +73,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[5]"
 		DESC	= "TX Bias Current LSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[6]"
@@ -71,7 +83,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[6]"
 		DESC	= "TX Power MSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[7]"
@@ -79,7 +93,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[7]"
 		DESC	= "TX Power LSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[8]"
@@ -87,7 +103,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[8]"
 		DESC	= "RX Power MSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[9]"
@@ -95,7 +113,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[9]"
 		DESC	= "RX Power LSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[10]"
@@ -103,7 +123,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[10]"
 		DESC	= "Laser Temp MSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[11]"
@@ -111,7 +133,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[11]"
 		DESC	= "Laser Temp LSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[12]"
@@ -119,7 +143,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[12]"
 		DESC	= "TEC Current MSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 	{
 		PATH	= "$(PTOP).Sfp[$(N)].Diagnostics[13]"
@@ -127,7 +153,9 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):Sfp[$(N)]:Diagnostics[13]"
 		DESC	= "TEC Current LSB"
 		SCAN	= "1 second"
-		SDIS	= "$(P)$(R)Sfp$(N):Empty"
+		PINI	= "NO"
+		DISV	= "1"
+		SDIS	= "$(P)$(R)Sfp$(N):Empty CP"
 	}
 }
 
