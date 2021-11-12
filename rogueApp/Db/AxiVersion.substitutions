@@ -11,9 +11,9 @@ file boDevRogue.template
 		PATH	= "Top.AxiVersion.FpgaReload",
 		PYPV	= "Top:AxiVersion:FpgaReload",
 		DESC	= "AxiPcieCore FPGA Reload"
-		ZNAM	= "Normal" )
-		ONAM	= "Reload" )
-		SAVE	= "" )
+		ZNAM	= "Normal"
+		ONAM	= "Reload"
+		SAVE	= ""
 	}
 }
 #file boolDevRogue.template
