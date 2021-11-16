@@ -202,6 +202,7 @@ rogueAddrMap::rogueAddrMap()
 pgpRogueLib::pgpRogueLib(
 	unsigned int				board,
 	unsigned int				lane	)
+//	const char	*		pszAddrMapFileName 
 :	rogue::LibraryBase(),
 	m_board(		board	),
 	m_lane(			lane	),
@@ -293,6 +294,7 @@ pgpRogueLib::pgpRogueLib(
 	}
 	printf( "Parsing %zu length ROGUE_ADDR_MAP\n", strlen( ROGUE_ADDR_MAP ) );
 #if 1
+//	parseAddrMapFile( pszAddrMapFileName );
 	parseMemMap( strWave8AddrMap ); // From generated wave8AddrMap.h
 	printf( "Wave8 ROGUE_ADDR_MAP parsed successfully\n" );
 #else
@@ -564,7 +566,19 @@ template<class R> int pgpRogueLib::readVarPath( const char * pszVarPath, R & val
 	}
 	catch ( rogue::GeneralError & e )
 	{
-		printf( "%s %s error: %s!\n", functionName, varPath.c_str(), e.what() );
+		// Suppress errors for SFP Identifier as it's used to enable other SFP registers
+		// TODO: print the first error for each varPath and suppress duplicate errors after that.
+		std::string	idStr( ".Identifier" );
+		size_t		idPos = pVar->name().rfind( idStr );
+		if ( idPos == std::string::npos )
+			// Variable name doesn't contain ".Identifier"
+			printf( "%s %s rogue error: %s!\n", functionName, varPath.c_str(), e.what() );
+		else if ( pVar->name().find( ".Sfp" ) == std::string::npos )
+			// Variable name doesn't contain ".Sfp"
+			printf( "%s %s rogue error from %s: %s!\n", functionName, pVar->name().c_str(), varPath.c_str(), e.what() );
+		else if ( pVar->name().compare( idPos, pVar->name().length(), idStr ) == std::string::npos )
+			// Sfp Variable name doesn't end with ".Identifier"
+			printf( "%s %s rogue error from SFP %s: %s!\n", functionName, pVar->name().c_str(), varPath.c_str(), e.what() );
 	}
 	catch ( std::exception & e )
 	{
