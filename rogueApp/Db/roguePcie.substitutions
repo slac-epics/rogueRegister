@@ -308,56 +308,56 @@ file liDevRogue.template
 		PATH	= "Top.Integrators.AdcIntegral[0]"
 		PYPV	= "Top:Integrators:AdcIntegral[0]"
 		DESC	= "Integration of A/D value"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral1",
 		PATH	= "Top.Integrators.AdcIntegral[1]"
 		PYPV	= "Top:Integrators:AdcIntegral[1]"
 		DESC	= "Integration of A/D value"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral2",
 		PATH	= "Top.Integrators.AdcIntegral[2]"
 		PYPV	= "Top:Integrators:AdcIntegral[2]"
 		DESC	= "Integration of A/D value"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral3",
 		PATH	= "Top.Integrators.AdcIntegral[3]"
 		PYPV	= "Top:Integrators:AdcIntegral[3]"
 		DESC	= "Integration of A/D value"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral4",
 		PATH	= "Top.Integrators.AdcIntegral[4]"
 		PYPV	= "Top:Integrators:AdcIntegral[4]"
 		DESC	= "Integration of A/D value"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral5",
 		PATH	= "Top.Integrators.AdcIntegral[5]"
 		PYPV	= "Top:Integrators:AdcIntegral[5]"
 		DESC	= "Integration of A/D value"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral6",
 		PATH	= "Top.Integrators.AdcIntegral[6]"
 		PYPV	= "Top:Integrators:AdcIntegral[6]"
 		DESC	= "Integration of A/D value"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
 		NAME	= "Integrators:AdcIntegral7",
 		PATH	= "Top.Integrators.AdcIntegral[7]"
 		PYPV	= "Top:Integrators:AdcIntegral[7]"
 		DESC	= "Integration of A/D value"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
 		NAME	= "Integrators:Baseline0",
@@ -900,21 +900,21 @@ file int64InDevRogue.template
 		PATH	= "Top.Integrators.IntensityRaw"
 		PYPV	= "Top:Integrators:IntensityRaw"
 		PINI	= "YES"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
 		NAME	= "Integrators:PositionXRaw",
 		PATH	= "Top.Integrators.PositionXRaw"
 		PYPV	= "Top:Integrators:PositionXRaw"
 		PINI	= "YES"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
 		NAME	= "Integrators:PositionYRaw",
 		PATH	= "Top.Integrators.PositionYRaw"
 		PYPV	= "Top:Integrators:PositionYRaw"
 		PINI	= "YES"
-		SCAN	= "\$(SCAN=1 second)"
+		SCAN	= "\$(SCAN=.1 second)"
 	}
 }
 
