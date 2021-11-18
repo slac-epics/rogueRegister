@@ -294,6 +294,8 @@ file longDevRogue.template
 		PATH	= "$(PTOP).BatcherEventBuilder.Bypass"
 		PYPV	= "$(PTOP):BatcherEventBuilder:Bypass"
 		DESC	= "Mask to bypass a channel"
+		HIGH	= "1"
+		HSV		= "MINOR"
 	}
 	{
 		NAME	= "EventBuilder:Timeout"
