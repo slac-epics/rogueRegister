@@ -1,0 +1,72 @@
+# AdcIntegrals.substitutions
+
+file liDevRogue.template
+{
+	{
+		NAME	= "Integrators:AdcIntegral0",
+		PATH	= "Top.Integrators.AdcIntegral[0]"
+		PYPV	= "Top:Integrators:AdcIntegral[0]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "I/O Intr"
+		TSE		= "-2"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral1",
+		PATH	= "Top.Integrators.AdcIntegral[1]"
+		PYPV	= "Top:Integrators:AdcIntegral[1]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "I/O Intr"
+		TSE		= "-2"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral2",
+		PATH	= "Top.Integrators.AdcIntegral[2]"
+		PYPV	= "Top:Integrators:AdcIntegral[2]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "I/O Intr"
+		TSE		= "-2"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral3",
+		PATH	= "Top.Integrators.AdcIntegral[3]"
+		PYPV	= "Top:Integrators:AdcIntegral[3]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "I/O Intr"
+		TSE		= "-2"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral4",
+		PATH	= "Top.Integrators.AdcIntegral[4]"
+		PYPV	= "Top:Integrators:AdcIntegral[4]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "I/O Intr"
+		TSE		= "-2"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral5",
+		PATH	= "Top.Integrators.AdcIntegral[5]"
+		PYPV	= "Top:Integrators:AdcIntegral[5]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "I/O Intr"
+		TSE		= "-2"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral6",
+		PATH	= "Top.Integrators.AdcIntegral[6]"
+		PYPV	= "Top:Integrators:AdcIntegral[6]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "I/O Intr"
+		TSE		= "-2"
+	}
+	{
+		NAME	= "Integrators:AdcIntegral7",
+		PATH	= "Top.Integrators.AdcIntegral[7]"
+		PYPV	= "Top:Integrators:AdcIntegral[7]"
+		DESC	= "Integration of A/D value"
+		SCAN	= "I/O Intr"
+		TSE		= "-2"
+	}
+}
+
+#       DESC    = "0         1         2         3         "
+#       DESC    = "01234567890123 Max 40 char 7890123456789"

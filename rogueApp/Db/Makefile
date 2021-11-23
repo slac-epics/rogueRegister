@@ -13,6 +13,7 @@ include $(TOP)/configure/CONFIG
 
 # db templates
 #DB += pgpCamlinkBase.template
+DB += AdcIntegrals.db
 DB += AxiVersion.db
 DB += w8-aliases.db
 DB += Ads42Lbx9.db
