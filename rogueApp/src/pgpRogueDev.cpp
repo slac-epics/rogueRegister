@@ -22,10 +22,12 @@
 #include <typeinfo>
 
 // EPICS headers
+#include <alarm.h>
 #include <iocsh.h>
 #include <errlog.h>
 #include <epicsExport.h>
 #include <epicsThread.h>
+#include <longinRecord.h>
 
 // rogue headers
 //#include "rogue/GeneralError.h"
@@ -40,6 +42,14 @@
 #include "pgpRogueDev.h"
 #include "pgpRogueLib.h"
 #include "rogueRecords.h"
+
+extern "C" long	update_longin(		longinRecord	*	pRecord,
+									epicsTimeStamp		tcUpdate,
+									epicsInt32			newValue	);
+
+extern "C" long	update_waveform(	waveformRecord	*	pRecord,
+									epicsTimeStamp		tcUpdate,
+									rogue::interfaces::stream::FramePtr	pDataFrame	);
 
 using namespace	std;
 namespace ris = rogue::interfaces::stream;
@@ -317,6 +327,12 @@ void pgpRogueDev::ProcessData(
 			update_waveform( (waveformRecord *) pRogueInfo->m_pRecCommon, m_tsFrame, pDataFrame );
 		}
 		break;
+	case 10:	// 8 Integrals and baselines, see python for unpacking code
+		update_integrals( m_tsFrame, pDataFrame );
+		break;
+	case 11:	//8 Floats for position and intensity, see python for unpacking code
+		// update_positions( m_tsFrame, pDataFrame );
+		break;
 	}
 
 	pDataFrame.reset();
@@ -397,6 +413,65 @@ int pgpRogueDev::pgpLoadConfig( const char * pszFilename, double stepDelay )
 		return -1;
 	}
 	m_pRogueLib->LoadConfigFile( pszFilename, stepDelay );
+	return 0;
+}
+
+long pgpRogueDev::update_integrals( epicsTimeStamp tcUpdate, ris::FramePtr	pDataFrame )
+{
+//	const char		*	functionName	= "update_integrals";
+	long				status = 0;
+	rogue::interfaces::stream::FrameIterator	it;
+	if ( pDataFrame )
+	{
+		it = pDataFrame->begin();
+		//pRogueInfo->m_newDataCount = pDataFrame->getSize() / sizeof(uint16_t);
+		for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
+		{
+			epicsInt32			rawIntegral	= 0;
+			fromFrame( it, sizeof(rawIntegral), &rawIntegral );
+			rogue_info_t	*	pRogueInfo = m_pIntegralRogueInfo[iSig];
+			if ( pRogueInfo )
+			{
+				longinRecord	*	pliRecord	= (longinRecord *) pRogueInfo->m_pRecCommon;
+				update_longin( pliRecord, m_tsFrame, rawIntegral );
+				pRogueInfo->m_newDataCount = 1;
+			}
+		}
+		pDataFrame.reset();
+	}
+	return status;
+}
+
+extern "C" long update_longin( longinRecord * pRecord, epicsTimeStamp tcUpdate, epicsInt32 newValue )
+{
+	if ( ! pRecord )
+		return -1;
+	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	int		status	= 0;
+	pRecord->time	= tcUpdate;
+	pRecord->val	= newValue;
+	if ( DEBUG_PGP_ROGUE_DEV >= 5 )
+	{
+		char	acBuff[40];
+		epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &pRecord->time );
+		printf( "%s: tsFrame %s, pulseId 0x%X\n", pRecord->name, acBuff, pRecord->time.nsec & 0x1FFFF );
+	}
+
+	// Process longin record via read_longin() using high priority scanIo Q
+	scanIoImmediate( pRogueInfo->m_scanIo, priorityHigh );
+
+	if ( status )
+	{
+		pRecord->nsta = UDF_ALARM;
+		pRecord->nsev = INVALID_ALARM;
+		return -1;
+	}
+	else
+	{
+		pRecord->nsta = NO_ALARM;
+		pRecord->nsev = NO_ALARM;
+		pRecord->udf = FALSE;
+	}
 	return 0;
 }
 

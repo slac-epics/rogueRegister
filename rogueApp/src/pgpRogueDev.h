@@ -106,6 +106,8 @@ public:		//	Public member functions
 	/// Returns number of bytes added to buffer.  -1 on error
 	//int	GetData( size_t iSignal, void * pBuffer, size_t sBuffer );
 
+	long update_integrals( epicsTimeStamp tcUpdate, rogue::interfaces::stream::FramePtr	pDataFrame );
+
 	void ResetCounters();
 
 	///	Dump Rogue PGP variables
@@ -170,6 +172,7 @@ private:
 	std::string			m_LibVersion;	// Library Version
 	epicsMutexId		m_devLock;
 	rogue_info_t	 *	m_pRawDataRogueInfo[PGP_NUM_SIGNALS];
+	rogue_info_t	 *	m_pIntegralRogueInfo[PGP_NUM_SIGNALS];
 	bool				m_fLcls2Timing;	// true to initialize w/ LCLS2 timing, false for LCLS1
 	epicsTimeStamp		m_tsFrame;		// Timestamp from latest frame
 
@@ -215,9 +218,5 @@ struct _rogue_info
 	IOSCANPVT			m_scanIo;
 };
 
-
-extern "C" long	update_waveform(	waveformRecord	*	pRecord,
-									epicsTimeStamp		tcUpdate,
-									rogue::interfaces::stream::FramePtr	pDataFrame	);
 
 #endif	//	pgpRogueDev_H
