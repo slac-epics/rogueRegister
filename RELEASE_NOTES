@@ -1,4 +1,12 @@
 Release Notes for rogueRegister EPICS module
+R0.9.0:	2021-11-18 Bruce Hill
+	Suppress error msg from Sfp Identifier so we can use it to quietly test for inserted Sfp
+	Bump up SCAN of AdcIntegral and raw positions to .1 second
+	Improve Sfp PV disable logic to reduce error msgs.
+	Fix typos in rogueApp/Db/AxiVersion.substitutions
+	Cleanup obs lines and reduce diff vs ADPgpCamlink pgpRogueLib class
+	Simplify RULES_CFG
+
 R0.8.0:	2021-10-28 Bruce Hill
 	Add raw analog and digital temp registers.
 	Add initial values for Adc voltage enables
