@@ -14,7 +14,7 @@ DBD += rogueSupport.dbd
 LIB_SRCS   		+= pgpRogueLib.cpp
 LIB_SRCS		+= rogueRecords.cpp
 LIB_SRCS		+= wfRogueRecord.cpp
-#LIB_SRCS		+= liRogueRecord.cpp
+LIB_SRCS		+= liRogueRecord.cpp
 
 LIB_SRCS		+= DataStream.cpp
 LIB_SRCS		+= pgpRogueDev.cpp
