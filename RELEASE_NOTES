@@ -1,4 +1,7 @@
 Release Notes for rogueRegister EPICS module
+R1.0.0:	2021-11-23 Bruce Hill
+	Got 360hz updates working for AdcIntegrals from datastream callbacks
+
 R0.9.0:	2021-11-18 Bruce Hill
 	Suppress error msg from Sfp Identifier so we can use it to quietly test for inserted Sfp
 	Bump up SCAN of AdcIntegral and raw positions to .1 second
