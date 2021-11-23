@@ -8,6 +8,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:AdcIntegral[0]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "I/O Intr"
+		PRIO	= "HIGH"
 		TSE		= "-2"
 	}
 	{
@@ -16,6 +17,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:AdcIntegral[1]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "I/O Intr"
+		PRIO	= "HIGH"
 		TSE		= "-2"
 	}
 	{
@@ -24,6 +26,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:AdcIntegral[2]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "I/O Intr"
+		PRIO	= "HIGH"
 		TSE		= "-2"
 	}
 	{
@@ -32,6 +35,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:AdcIntegral[3]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "I/O Intr"
+		PRIO	= "HIGH"
 		TSE		= "-2"
 	}
 	{
@@ -40,6 +44,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:AdcIntegral[4]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "I/O Intr"
+		PRIO	= "HIGH"
 		TSE		= "-2"
 	}
 	{
@@ -48,6 +53,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:AdcIntegral[5]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "I/O Intr"
+		PRIO	= "HIGH"
 		TSE		= "-2"
 	}
 	{
@@ -56,6 +62,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:AdcIntegral[6]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "I/O Intr"
+		PRIO	= "HIGH"
 		TSE		= "-2"
 	}
 	{
@@ -64,6 +71,7 @@ file liDevRogue.template
 		PYPV	= "Top:Integrators:AdcIntegral[7]"
 		DESC	= "Integration of A/D value"
 		SCAN	= "I/O Intr"
+		PRIO	= "HIGH"
 		TSE		= "-2"
 	}
 }

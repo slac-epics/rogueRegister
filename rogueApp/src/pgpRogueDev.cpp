@@ -97,7 +97,8 @@ pgpRogueDev::pgpRogueDev(
     // Initialize arrays
 	for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
 	{
-		m_pRawDataRogueInfo[iSig] = NULL;
+		m_pRawDataRogueInfo[iSig]	= NULL;
+		m_pIntegralRogueInfo[iSig]	= NULL;
 	}
 
     // Install exit hook for clean shutdown
@@ -299,18 +300,26 @@ void pgpRogueDev::ProcessData(
 	default:
 		break;
 	case 0:		// Timestamp
+	case 1:		// Timestamp
 		if ( pDataFrame->getPayload() != 32 )
 			break;
 		it  = pDataFrame->begin();
+#if 0
 		it += 8;    // Skipping ?
+#else
+		epicsInt32		i1;
+		epicsInt32		i2;
+		fromFrame( it, 4, &i1 );
+		fromFrame( it, 4, &i2 );
+#endif
 		fromFrame( it, 4, &m_tsFrame.nsec );
 		fromFrame( it, 4, &m_tsFrame.secPastEpoch );
-		if ( DEBUG_PGP_ROGUE_DEV >= 3 )
+		if ( DEBUG_PGP_ROGUE_DEV >= 5 )
 		{
 			char	acBuff[40];
 			epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &m_tsFrame );
-			printf( "%s: Channel %u, tsFrame %s, pulseId 0x%X\n", functionName, channel,
-					acBuff, m_tsFrame.nsec & 0x1FFFF );
+			printf( "%s: Channel %u, tsFrame %s, pulseId 0x%X, i1 %d, i2 %d\n", functionName, channel,
+					acBuff, m_tsFrame.nsec & 0x1FFFF, i1, i2 );
 			if ( DEBUG_PGP_ROGUE_DEV >= 5 )
 			{
 				epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &tsCur );
@@ -324,11 +333,11 @@ void pgpRogueDev::ProcessData(
 		pRogueInfo = m_pRawDataRogueInfo[channel-2];
 		if ( pRogueInfo )
 		{
-			update_waveform( (waveformRecord *) pRogueInfo->m_pRecCommon, m_tsFrame, pDataFrame );
+			(void) update_waveform( (waveformRecord *) pRogueInfo->m_pRecCommon, m_tsFrame, pDataFrame );
 		}
 		break;
 	case 10:	// 8 Integrals and baselines, see python for unpacking code
-		update_integrals( m_tsFrame, pDataFrame );
+		(void) update_integrals( m_tsFrame, pDataFrame );
 		break;
 	case 11:	//8 Floats for position and intensity, see python for unpacking code
 		// update_positions( m_tsFrame, pDataFrame );
@@ -418,12 +427,15 @@ int pgpRogueDev::pgpLoadConfig( const char * pszFilename, double stepDelay )
 
 long pgpRogueDev::update_integrals( epicsTimeStamp tcUpdate, ris::FramePtr	pDataFrame )
 {
-//	const char		*	functionName	= "update_integrals";
+	const char		*	functionName	= "update_integrals";
 	long				status = 0;
 	rogue::interfaces::stream::FrameIterator	it;
 	if ( pDataFrame )
 	{
+		if ( DEBUG_PGP_ROGUE_DEV >= 4 )
+			printf( "%s: Updating integrals\n", functionName );
 		it = pDataFrame->begin();
+		it += 8;
 		//pRogueInfo->m_newDataCount = pDataFrame->getSize() / sizeof(uint16_t);
 		for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
 		{
@@ -433,46 +445,13 @@ long pgpRogueDev::update_integrals( epicsTimeStamp tcUpdate, ris::FramePtr	pData
 			if ( pRogueInfo )
 			{
 				longinRecord	*	pliRecord	= (longinRecord *) pRogueInfo->m_pRecCommon;
-				update_longin( pliRecord, m_tsFrame, rawIntegral );
 				pRogueInfo->m_newDataCount = 1;
+				update_longin( pliRecord, m_tsFrame, rawIntegral );
 			}
 		}
 		pDataFrame.reset();
 	}
 	return status;
-}
-
-extern "C" long update_longin( longinRecord * pRecord, epicsTimeStamp tcUpdate, epicsInt32 newValue )
-{
-	if ( ! pRecord )
-		return -1;
-	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
-	int		status	= 0;
-	pRecord->time	= tcUpdate;
-	pRecord->val	= newValue;
-	if ( DEBUG_PGP_ROGUE_DEV >= 5 )
-	{
-		char	acBuff[40];
-		epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &pRecord->time );
-		printf( "%s: tsFrame %s, pulseId 0x%X\n", pRecord->name, acBuff, pRecord->time.nsec & 0x1FFFF );
-	}
-
-	// Process longin record via read_longin() using high priority scanIo Q
-	scanIoImmediate( pRogueInfo->m_scanIo, priorityHigh );
-
-	if ( status )
-	{
-		pRecord->nsta = UDF_ALARM;
-		pRecord->nsev = INVALID_ALARM;
-		return -1;
-	}
-	else
-	{
-		pRecord->nsta = NO_ALARM;
-		pRecord->nsev = NO_ALARM;
-		pRecord->udf = FALSE;
-	}
-	return 0;
 }
 
 extern "C" int

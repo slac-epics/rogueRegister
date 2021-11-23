@@ -146,6 +146,13 @@ public:		//	Public member functions
 		return;
 	}
 
+	void SetIntegralRogueInfo( size_t iSig, rogue_info_t * pRogueInfo )
+	{
+		if ( iSig < PGP_NUM_SIGNALS )
+			m_pIntegralRogueInfo[iSig] = pRogueInfo;
+		return;
+	}
+
 	/// Return shared_ptr to pgpRogueLib device
 	pgpRogueLibPtr	GetRogueLib( ) const
 	{

@@ -46,6 +46,7 @@ int rogue_init_record(
 	int                 	status;
 	epicsUInt32            	board;
 	epicsUInt32            	lane;
+	epicsUInt32            	signal	= 0;
 	char                	varPath[512];
 
 	status = sscanf( sinp, "B%u L%u %511s", &board, &lane, varPath );
@@ -60,10 +61,24 @@ int rogue_init_record(
 		return rogue_bad_field( record, "cannot find rogue device for INP or OUT field!\n%s\n", sinp );
 	}
 
+	if ( varPath[strlen(varPath)-1] == ']' )
+	{
+		// This path ends in an array reference that can be used to derive a signal number
+		char	*	pArray = strrchr( varPath, '[' );
+		if ( pArray )
+		{
+			unsigned int	sigNum	 = 0;
+			status = sscanf( pArray, "[%d]", &sigNum );
+			if ( status == 1 )
+				signal = sigNum;
+		}
+	}
+
 	if ( DEBUG_ROGUE_RECORDS >= 4 )
 		printf( "%s Parse succeeded: Board %u, Lane %u, VarPath %s\n", functionName, board, lane, varPath );
 
 	rogue_info_t *	pRogueInfo	= new rogue_info_t;
+	pRogueInfo->m_signal		= signal;
 	pRogueInfo->m_varPath		= varPath;
 	pRogueInfo->m_pRogueLib		= pRogueDev->GetRogueLib();
 	pRogueInfo->m_pRogueDev		= pRogueDev;
@@ -130,18 +145,21 @@ int rogue_write_record( R * record, const V & value )
 template < class R >
 long rogue_ioinfo( int detach, struct dbCommon * pCommon, IOSCANPVT * pScanPvt )
 {
-	if ( pCommon || !pScanPvt )
+	if ( !pCommon || !pScanPvt )
 		return 0;
 	R				*	pRec 		= (R *) pCommon;
 	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRec->dpvt );
 	if ( pRogueInfo->m_pRogueDev )
 	{
 		*pScanPvt = pRogueInfo->m_scanIo;
+		if ( DEBUG_ROGUE_RECORDS >= 2 )
+			printf( "rogue_ioinfo succeeded for signal %zu.\n", pRogueInfo->m_signal );
 	}
 	else
 	{
 		*pScanPvt = NULL;
 	}
+	return 0;
 }
 
 //template<class R, class EV, class RV> int rogue_read_record( R * record, EV & epicsVal, RV &rogueVal );
