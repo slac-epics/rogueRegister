@@ -45,7 +45,7 @@
 #define PGP_DATACHAN_REG_ACCESS		0
 #define PGP_DATACHAN_FRAME_ACCESS	1
 #define PGP_NUM_SIGNALS				8
-#define N_PGP_LANES					4
+#define N_PGP_LANES					8
 
 
 typedef int (* DataCallback)( void * pClientContext, DataCbInfo * pCbInfo );
@@ -184,22 +184,6 @@ private:
 	rogue_info_t	 *	m_pIntegralRogueInfo[PGP_NUM_SIGNALS];
 	bool				m_fLcls2Timing;	// true to initialize w/ LCLS2 timing, false for LCLS1
 	epicsTimeStamp		m_tsFrame;		// Timestamp from latest frame
-
-	///
-	// Firmware Lane assignments:
-	// Lane 0: Wave8 0
-	// Lane 1: Wave8 1
-	// Lane 2: Wave8 2
-	// Lane 3: Wave8 3
-	//
-	// DMA channel mapping
-	// DMA[lane].DEST[0] = SRPv3
-	// DMA[lane].DEST[1] = Event Builder Batcher (super-frame)
-	// DMA[lane].DEST[1].DEST[0] = XPM Trigger Message (sub-frame)
-	// DMA[lane].DEST[1].DEST[1] = XPM Transition Message (sub-frame)
-	// DMA[lane].DEST[1].DEST[2] = Camera Image (sub-frame)
-	// DMA[lane].DEST[2] = Camera UART
-	// DMA[lane].DEST[255:3] = Unused
 
 	///	Wave8 Data Stream
 	rogue::hardware::axi::AxiStreamDmaPtr		m_pDataChan;
