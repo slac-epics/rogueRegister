@@ -45,6 +45,8 @@
 #define PGP_DATACHAN_REG_ACCESS		0
 #define PGP_DATACHAN_FRAME_ACCESS	1
 #define PGP_NUM_SIGNALS				8
+#define N_PGP_LANES					4
+
 
 typedef int (* DataCallback)( void * pClientContext, DataCbInfo * pCbInfo );
 
@@ -185,7 +187,10 @@ private:
 
 	///
 	// Firmware Lane assignments:
-	// Lane 0: Wave8
+	// Lane 0: Wave8 0
+	// Lane 1: Wave8 1
+	// Lane 2: Wave8 2
+	// Lane 3: Wave8 3
 	//
 	// DMA channel mapping
 	// DMA[lane].DEST[0] = SRPv3

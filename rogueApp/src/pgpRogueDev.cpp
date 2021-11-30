@@ -147,6 +147,13 @@ pgpRogueDev::pgpRogueDev(
 	}
 	close( m_fd );
 	m_fd = 0;
+
+	if ( m_lane >= N_PGP_LANES )
+	{
+		printf( "%s: ERROR Invalid PGP lane number %u\n", functionName, m_lane );
+		return;
+	}
+
 	// Only create pgpRogueLib if the PGP_REG prefix is defined
 	// Allows IOC to read data from a python configured wave8.
 	if ( pszPgpReg && strlen(pszPgpReg) > 0 )
