@@ -1,4 +1,8 @@
 Release Notes for rogueRegister EPICS module
+R1.1.0:	2021-11-30 Bruce Hill
+	Restore support for CFG vpath and CFG_INCLUDES
+	Add check for invalid PGP lane number
+
 R1.0.0:	2021-11-23 Bruce Hill
 	Got 360hz updates working for AdcIntegrals from datastream callbacks
 
