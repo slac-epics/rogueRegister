@@ -261,37 +261,36 @@ pgpRogueLib::pgpRogueLib(
 	m_pAxiMemMap		= rogue::hardware::axi::AxiMemMap::create( m_devName );
 	m_pAxiMemMaster		= ClMemoryMaster::create( );
 	m_pAxiMemMaster->setSlave( m_pAxiMemMap );
-	const char	*	szMemName = "PCIe_Bar0";	// TODO: Can we remove this?  Doesn't seem to be used.
-	addMemory( szMemName, m_pAxiMemMap );
-	//m_pRogueLib->addMemory( szMemName, m_pAxiMemMap );
-	printf("pgpRogueLib: addMemory AxiMemMap interface %s\n", szMemName );
+	const char	*	szPcieMemName = "PCIe_Bar0";	// From interface name in wave8AddrMap.h
+	addMemory( szPcieMemName, m_pAxiMemMap );		// TODO: Can we remove this?  Doesn't seem to be used. Unless for kcu SFPs
+	//m_pRogueLib->addMemory( szPcieMemName, m_pAxiMemMap );
+	printf("pgpRogueLib: addMemory AxiMemMap interface %s\n", szPcieMemName );
 
-	{
-		uint32_t dest = (0x100 * m_lane) + PGP_DATACHAN_REG_ACCESS;
-		m_pW8RegChan[m_lane]	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
+	uint32_t dest = (0x100 * m_lane) + PGP_DATACHAN_REG_ACCESS;
+	m_pW8RegChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
 
-		//
-		// Connect DATACHAN 0 WAVE8 Register Access
-		//
-		m_pSrpW8[m_lane] = rogue::protocols::srp::SrpV3::create();	// Serial Rouge Protocol handler
-		// Create bidirectional links between SRP and W8RegChan 
-		m_pW8RegChan[m_lane]->addSlave( m_pSrpW8[m_lane] );
-		m_pSrpW8[m_lane]->addSlave( m_pW8RegChan[m_lane] );
+	//
+	// Connect DATACHAN 0 WAVE8 Register Access
+	//
+	m_pSrpW8 = rogue::protocols::srp::SrpV3::create();	// Serial Rouge Protocol handler
+	// Create bidirectional links between SRP and W8RegChan 
+	m_pW8RegChan->addSlave( m_pSrpW8 );
+	m_pSrpW8->addSlave( m_pW8RegChan );
 
-		const char	*	szMemName = "Unnamed_5";	// From interface name in wave8AddrMap.h
-		addMemory( szMemName, m_pSrpW8[m_lane] );
-		//m_pRogueLib->addMemory( szMemName, m_pSrpW8[m_lane] );
-		printf("pgpRogueLib: addMemory srpW8 interface %s\n", szMemName );
+//	const char	*	szMemName = "Wave8_Mem0";	// From interface name in wave8AddrMap.h
+	const char	*	szMemName = "Unnamed_5";	// From interface name in wave8AddrMap.h
+	addMemory( szMemName, m_pSrpW8 );
+	//m_pRogueLib->addMemory( szMemName, m_pSrpW8 );
+	printf("pgpRogueLib: addMemory srpW8 interface %s\n", szMemName );
 
-		// Create W8MemMaster and link it to SRP
-		m_pW8MemMaster[m_lane] = rim::Master::create( );
-		m_pW8MemMaster[m_lane]->setSlave( m_pSrpW8[m_lane] );
-	}
-	{
+	// Create W8MemMaster and link it to SRP
+	m_pW8MemMaster = rim::Master::create( );
+	m_pW8MemMaster->setSlave( m_pSrpW8 );
+
 	const mapVarPtr_t &	mapVars		= getVariableList();
 	printf( "%s: %zu variables\n", functionName, mapVars.size() );
 	sleep(5);
-	}
+
 	printf( "Parsing %zu length ROGUE_ADDR_MAP\n", strlen( ROGUE_ADDR_MAP ) );
 #if 1
 //	parseAddrMapFile( pszAddrMapFileName );

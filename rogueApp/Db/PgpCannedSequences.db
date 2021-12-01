@@ -17,7 +17,7 @@ record( longin, "$(PGP):PgpBoard" )
 
 record( longin, "$(PGP):PgpLane" )
 {
-	field( DESC, "PGP Lane (fiber) number 0-3" )
+	field( DESC, "PGP Lane (fiber) number 0-7" )
 	field( INP,  "$(L)" )
 	field( PINI, "YES" )
 }

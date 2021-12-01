@@ -34,9 +34,6 @@
 // rogueRegister headers
 #include "ClMemoryMaster.h"
 
-#define	N_AXI_LANES	4
-#define	N_AXI_CHAN	4	// Needed?
-
 #define PGP_DATACHAN_REG_ACCESS		0
 #define PGP_DATACHAN_FRAME_ACCESS	1
 
@@ -158,9 +155,9 @@ private:
 	///
 
 	//TODO: Move these to new axiW8DataLane class
-	rogue::hardware::axi::AxiStreamDmaPtr		m_pW8RegChan[N_AXI_LANES];
-	rogue::interfaces::memory::MasterPtr		m_pW8MemMaster[N_AXI_LANES];
-	rogue::protocols::srp::SrpV3Ptr				m_pSrpW8[N_AXI_LANES];
+	rogue::hardware::axi::AxiStreamDmaPtr		m_pW8RegChan;
+	rogue::interfaces::memory::MasterPtr		m_pW8MemMaster;
+	rogue::protocols::srp::SrpV3Ptr				m_pSrpW8;
 };
 
 // Shared pointer alias
