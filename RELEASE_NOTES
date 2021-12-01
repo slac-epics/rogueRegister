@@ -1,4 +1,8 @@
 Release Notes for rogueRegister EPICS module
+R1.2.0:	2021-12-01 Bruce Hill
+	Extend wave8 support to lanes 4-7
+	Provide smaller alias for Fast:Integrators:AdcIntegral*
+
 R1.1.0:	2021-11-30 Bruce Hill
 	Restore support for CFG vpath and CFG_INCLUDES
 	Add check for invalid PGP lane number
