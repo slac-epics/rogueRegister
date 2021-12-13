@@ -44,9 +44,6 @@ namespace rim = rogue::interfaces::memory;
 typedef	std::map< std::string, rim::VariablePtr >	mapVarPtr_t;
 
 int		DEBUG_PGP_ROGUE_LIB	= 0;
-#ifdef SUPPORT_CLINK
-int		doFebFpgaReload	= 0;
-#endif  /* SUPPORT_CLINK */
 
 // TODO Move to new file: src/rogue/memory/interfaces/memory/Constants.cpp
 // TODO Rename BlockProcessingType2String()?
@@ -188,7 +185,7 @@ rogueAddrMap::rogueAddrMap()
 	:	rogue::LibraryBase()
 {
 #if 1
-	printf( "NOT Parsing ROGUE_ADDR_MAP!\n" );
+	//printf( "NOT Parsing ROGUE_ADDR_MAP!\n" );
 #else
 	printf( "rogueAddrMap: Parsing ROGUE_ADDR_MAP\n" );
 	parseMemMap( ROGUE_ADDR_MAP ); // From generated rogueAddrMap.h
@@ -200,12 +197,10 @@ rogueAddrMap::rogueAddrMap()
 
 ///	Constructor
 pgpRogueLib::pgpRogueLib(
-	unsigned int				board,
-	unsigned int				lane	)
+	unsigned int				board	)
 //	const char	*		pszAddrMapFileName 
 :	rogue::LibraryBase(),
 	m_board(		board	),
-	m_lane(			lane	),
 	m_fConnected(	0		),
 	m_devName(				),
 	m_DrvVersion(			),
@@ -266,8 +261,7 @@ pgpRogueLib::pgpRogueLib(
 	//m_pRogueLib->addMemory( szPcieMemName, m_pAxiMemMap );
 	printf("pgpRogueLib: addMemory AxiMemMap interface %s\n", szPcieMemName );
 
-	uint32_t dest = (0x100 * m_lane) + PGP_DATACHAN_REG_ACCESS;
-	m_pW8RegChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
+	m_pW8RegChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, PGP_DATACHAN_REG_ACCESS, true);
 
 	//
 	// Connect DATACHAN 0 WAVE8 Register Access
@@ -289,7 +283,6 @@ pgpRogueLib::pgpRogueLib(
 
 	const mapVarPtr_t &	mapVars		= getVariableList();
 	printf( "%s: %zu variables\n", functionName, mapVars.size() );
-	sleep(5);
 
 	printf( "Parsing %zu length ROGUE_ADDR_MAP\n", strlen( ROGUE_ADDR_MAP ) );
 #if 1
@@ -301,7 +294,6 @@ pgpRogueLib::pgpRogueLib(
 	printf( "m_pRogueLib: ROGUE_ADDR_MAP parsed successfully\n" );
 #endif
 	std::cout << std::flush;
-	sleep(5);
 
 #ifdef SUPPORT_CLINK
 	if ( doFebFpgaReload )
@@ -445,18 +437,6 @@ void pgpRogueLib::ConfigureLclsTimingV1()
 	printf( "Configured for LCLS-I timing\n" );
 }
 #endif  /* SUPPORT_CLINK */
-
-bool pgpRogueLib::LaneReady( size_t iLane )
-{
-	bool			laneReady	= true;
-#ifdef SUPPORT_CLINK
-	const char	*	pszVarPathRxRemLinkReady	= "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[%1u].RxRemLinkReady";
-	char			laneReadyVarPath[256];
-	snprintf( laneReadyVarPath, 256, pszVarPathRxRemLinkReady, iLane );
-	readVarPath( laneReadyVarPath, laneReady );
-#endif  /* SUPPORT_CLINK */
-	return laneReady;
-}
 
 
 /// Wait for RxLinkUp
@@ -614,7 +594,7 @@ template<class R> int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const R 
 	if ( DEBUG_PGP_ROGUE_LIB >= 6 )
 	{
 		//if ( pVar->modelId() == rim::Bool )
-		pVar->setLogLevel( rogue::Logging::Debug );
+		//	pVar->setLogLevel( rogue::Logging::Debug );
 		if ( typeid(value) == typeid(uint64_t) )
 			std::cout << functionName << ": " << pVar->path() << " is uint64_t" << std::endl;
 		std::cout	<< functionName	<< ": " << pVar->path()
@@ -656,10 +636,6 @@ template<class R> int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const R 
 	catch ( std::exception & e )
 	{
 		printf( "%s error: %s!\n", functionName, e.what() );
-	}
-	if ( DEBUG_PGP_ROGUE_LIB >= 6 )
-	{
-		pVar->setLogLevel( rogue::Logging::Warning );
 	}
 
 	return status;

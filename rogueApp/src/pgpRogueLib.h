@@ -49,14 +49,14 @@ class pgpRogueLib :	public rogue::LibraryBase
 {
 public:		//	Public member functions
 	// Create a static class creator to return our custom class wrapped with a shared pointer
-	static std::shared_ptr<pgpRogueLib> create( unsigned int board, unsigned int lane ) {
-		static std::shared_ptr<pgpRogueLib> ret = std::make_shared<pgpRogueLib>( board, lane );
+	static std::shared_ptr<pgpRogueLib> create( unsigned int board ) {
+		static std::shared_ptr<pgpRogueLib> ret = std::make_shared<pgpRogueLib>( board );
 
 		return(ret);
 	}
 
 	///	Constructor
-	pgpRogueLib( unsigned int board, unsigned int lane );
+	pgpRogueLib( unsigned int board );
 
 	/// Destructor
 	virtual ~pgpRogueLib();
@@ -90,17 +90,9 @@ public:		//	Public member functions
 	/// Load Config file
 	void LoadConfigFile( const char * pszFilePath, double stepDelay );
 
-# ifdef SUPPORT_CLINK
-	void FebFpgaReload();
-
-	void FebPllConfig();
-#endif  /* SUPPORT_CLINK */
-
 	void GetEventBuilderBlowoffPath( unsigned int triggerNum, std::string & retPath );
 	void GetEventBuilderSoftRstPath( unsigned int triggerNum, std::string & retPath );
 	void GetTriggerMasterEnablePath( unsigned int triggerNum, std::string & retPath );
-
-	bool LaneReady( size_t iLane );
 
 	void ResetCounters();
 
@@ -117,7 +109,6 @@ private:
 	//	Private member variables
 	int					m_fd;
 	unsigned int		m_board;
-	unsigned int		m_lane;
 	bool				m_fConnected;
 	std::string			m_devName;
 	std::string			m_DrvVersion;	// Driver Version
