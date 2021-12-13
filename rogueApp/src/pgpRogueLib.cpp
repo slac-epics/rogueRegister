@@ -19,6 +19,7 @@
 #include <exception>
 #include <fstream>
 #include <iostream>
+#include <sstream>
 #include <typeinfo>
 #include <sys/stat.h>
 #include <fcntl.h>
@@ -484,30 +485,47 @@ void pgpRogueLib::LoadConfigFile( const char * pszFilePath, double stepDelay )
 		while( 1 )
 		{
 			strcpy( varPath, "unParsed" );
-			nScan = fscanf( cfgFile, "%s = %lf", varPath, &dValue );
+			nScan = fscanf( cfgFile, "%s", varPath );
 			if ( nScan == EOF )
 				break;
-			if( nScan != 2 )
+			if ( varPath[0] == '#' )
 			{
-				nScan = fscanf( cfgFile, "%s = %ld", varPath, &lValue );
+				// Ignore comment lines
+				size_t		bufSize	= 1000;
+				char	*	commentBuf	= (char *) malloc(bufSize);
+				getline( &commentBuf, &bufSize, cfgFile );
+				if ( DEBUG_PGP_ROGUE_LIB >= 3 )
+					printf( "comment: %s\n", commentBuf );
+				free( commentBuf );
+				continue;
+			}
+			nScan = fscanf( cfgFile, " = %lf", &dValue );
+			if( nScan != 1 )
+			{
+				nScan = fscanf( cfgFile, " = %ld", &lValue );
+				if( nScan == 1 )
+					dValue = static_cast<double>(lValue);
+			}
+			if( nScan != 1 )
+			{
+				nScan = fscanf( cfgFile, " = 0x%lx", &lValue );
 				if( nScan == 2 )
 					dValue = static_cast<double>(lValue);
 			}
-			if( nScan != 2 )
+			if( nScan == 1 )
 			{
-				nScan = fscanf( cfgFile, "%s = 0x%lx", varPath, &lValue );
-				if( nScan == 2 )
-					dValue = static_cast<double>(lValue);
-			}
-			if( nScan == 2 )
-			{
-				setVariable( varPath, dValue, false );
+				setVariable( varPath, dValue );
 				nanosleep( &delay, NULL );
 				nValues++;
 			}
 			else
 			{
+				size_t		bufSize	= 1000;
+				char	*	commentBuf	= (char *) malloc(bufSize);
+				getline( &commentBuf, &bufSize, cfgFile );
 				printf( "%s: Error parsing %s\n", functionName, pszFilePath );
+				printf( "at: %s\n", commentBuf );
+				free( commentBuf );
 			}
 		}
 	}
@@ -737,21 +755,28 @@ void pgpRogueLib::dumpVariables( const char * pszFilePath, bool fWritableOnly, b
 	dumpFile.close();
 }
 
-void pgpRogueLib::setVariable( const char * pszVarPath, double value, bool verbose )
+void pgpRogueLib::setVariable( const char * pszVarPath, double value )
+{
+	std::string		rootPath( "" );
+	setVariable( rootPath, pszVarPath, value );
+}
+
+void pgpRogueLib::setVariable( const std::string & rootPath, const char * pszVarPath, double value )
 {
 	uint64_t	u64Value;
 	int64_t		i64Value;
 	bool		bValue;
 	float		fValue;
 	double		dValue;
-	std::string		varPath( pszVarPath );
+	ostringstream	varPath;
+	varPath << rootPath << string(pszVarPath);
 	rogue::interfaces::memory::VariablePtr	pVar;
 	//pVar = m_pRogueLib->getVariable( varPath );
-	pVar = getVariable( varPath );
+	pVar = getVariable( varPath.str() );
 	if ( pVar )
 	{
-		if ( verbose )
-			printf( "%s%u: ", modelId2String( pVar->modelId() ), pVar->bitTotal() );
+		// Removed verbose printf option here
+		// Use DEBUG_PGP_ROGUE=3 for writeVarPath diagnostics
 		switch ( pVar->modelId() )
 		{
 		case rim::Bytes:
@@ -764,29 +789,29 @@ void pgpRogueLib::setVariable( const char * pszVarPath, double value, bool verbo
 			break;
 		case rim::UInt:
 			u64Value	= static_cast<uint64_t>(value);
-			writeVarPath( pszVarPath, u64Value );
+			writeVarPath( varPath.str().c_str(), u64Value );
 			break;
 		case rim::Int:
 			i64Value	= static_cast<int64_t>(value);
-			writeVarPath( pszVarPath, i64Value );
+			writeVarPath( varPath.str().c_str(), i64Value );
 			break;
 		case rim::Bool:
 			bValue	= static_cast<bool>(value);
-			writeVarPath( pszVarPath, bValue );
+			writeVarPath( varPath.str().c_str(), bValue );
 			break;
 		case rim::Float:
 			fValue	= static_cast<float>(value);
-			writeVarPath( pszVarPath, fValue );
+			writeVarPath( varPath.str().c_str(), fValue );
 			break;
 		case rim::Double:
 			dValue	= static_cast<double>(value);
-			writeVarPath( pszVarPath, dValue );
+			writeVarPath( varPath.str().c_str(), dValue );
 			break;
 		}
 	}
 	else
 	{
-		printf( "pgpRogueLib error: %s not found!\n", varPath.c_str() );
+		printf( "pgpRogueLib error: %s not found!\n", varPath.str().c_str() );
 	}
 }
 
