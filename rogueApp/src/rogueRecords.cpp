@@ -16,6 +16,7 @@
 #include <mbboRecord.h>
 #include <longinRecord.h>
 #include <longoutRecord.h>
+#include <subRecord.h>
 #include <caeventmask.h>
 #include <dbEvent.h>
 //#include <dbAccessDefs.h>
@@ -701,3 +702,43 @@ epicsExportAddress( dset, dsetRogueMBBO );
 }
 #endif
 
+//	AdcCalibration
+//	Configures PLL on FEB for specified pixel clock
+//	Inputs:
+//		A:	LONG, Board number
+//		B:	LONG, Lane  number
+//
+extern "C" long AdcCalibration( subRecord	*	pSub	)
+{
+    static const char	*	functionName = "AdcCalibration";
+	int			status		= 0;
+
+	// Get input values
+	unsigned int	iBoard		= (unsigned int) pSub->a;
+//	unsigned int	iLane		= (unsigned int) pSub->b;
+
+	pgpRogueDevPtr	pRogueDev = pgpRogueDev::RogueFindByBoard( iBoard );
+	if ( pRogueDev == NULL )
+	{
+		printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
+		return 0;
+	}
+	wave8RogueLibPtr	pRogueLib = pRogueDev->GetWave8RogueLib();
+	if ( pRogueLib == NULL )
+	{
+		printf( "%s error: Rogue lib for board %u not found!\n", functionName, iBoard );
+		return 0;
+	}
+	pSub->val = 0;
+	status	= pRogueLib->AdcCalibration( );
+	if ( status != 0 )
+	{
+		printf( "%s: Error %d\n", functionName, status );
+		return status;
+	}
+
+    if ( DEBUG_ROGUE_RECORDS >= 2 )
+		printf( "%s: Successful\n", functionName );
+
+	return 0;
+}
