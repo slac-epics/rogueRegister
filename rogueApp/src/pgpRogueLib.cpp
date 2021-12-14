@@ -76,7 +76,7 @@ const char * modelId2String( uint32_t modelId )
 
 void pgpRogueLib::ResetCounters( )
 {
-	// TODO: Add toggle option to setVariable
+#if 0
 	setVariable( "Top.PgpMon[0].Ctrl.CountReset", 1 );
 	setVariable( "Top.PgpMon[0].Ctrl.CountReset", 0 );
 
@@ -86,8 +86,10 @@ void pgpRogueLib::ResetCounters( )
 
 	setVariable( "Top.TimingFrameRx.ClearRxCounters", 1 );
 	setVariable( "Top.TimingFrameRx.ClearRxCounters", 0 );
+#endif
 }
 
+#if 0
 void pgpRogueLib::GetEventBuilderBlowoffPath( unsigned int triggerNum, std::string & retPath )
 {
 #ifdef SUPPORT_CLINK
@@ -165,54 +167,28 @@ bool	pgpRogueLib::getTriggerEnable( unsigned int triggerNum )
 	return false;
 }
 
-
 // TODO: Make different devices be subclasses of pgpRogueLib
 #include "wave8AddrMap.h"
 std::string		strWave8AddrMap( ROGUE_ADDR_MAP );
-
-#if 0
-class rogueAddrMap : public rogue::LibraryBase
-{
-public:
-	// static class creator
-	static std::shared_ptr<rogueAddrMap> create()
-	{
-		static std::shared_ptr<rogueAddrMap> ret = std::make_shared<rogueAddrMap>();
-		return(ret);
-	}
-
-	rogueAddrMap();
-};
-typedef std::shared_ptr<rogueAddrMap> rogueAddrMapPtr;
-
-rogueAddrMap::rogueAddrMap()
-	:	rogue::LibraryBase()
-{
-#if 1
-	//printf( "NOT Parsing ROGUE_ADDR_MAP!\n" );
-#else
-	printf( "rogueAddrMap: Parsing ROGUE_ADDR_MAP\n" );
-	parseMemMap( ROGUE_ADDR_MAP ); // From generated rogueAddrMap.h
-	printf( "rogueAddrMap: ROGUE_ADDR_MAP parsed successfully\n" );
-#endif
-}
 #endif
 
 
 ///	Constructor
 pgpRogueLib::pgpRogueLib(
-	unsigned int				board	)
-//	const char	*		pszAddrMapFileName 
+	unsigned int		board )
+//	const char	*		pszAddrMapFileName
 :	rogue::LibraryBase(),
 	m_board(		board	),
 	m_fConnected(	0		),
 	m_devName(				),
 	m_DrvVersion(			),
-	m_LibVersion(			),
-	m_pAxiMemMap(			),
+	m_LibVersion(			)
+#if 0
+	,m_pAxiMemMap(			),
 	m_pAxiMemMaster(		)
+#endif
 {
-	const char		*	functionName	= "pgpRogueLib::pgpRogueLib";
+//	const char		*	functionName	= "pgpRogueLib::pgpRogueLib";
 
 	/*
 	 * Check arguments
@@ -247,13 +223,9 @@ pgpRogueLib::pgpRogueLib(
 	}
 	close( m_fd );
 	m_fd = -1;
+	m_fConnected = 1;	// Do we need this?
 
-	//
-	// Connect Rogue Library
-	//
-	//m_pRogueLib = rogue::LibraryBase::create();
-	//m_pRogueLib = rogueAddrMap::create();
-
+#if 0
 	//
 	// Connect DATACHAN 0 KCU1500 Register Access
 	//
@@ -289,39 +261,17 @@ pgpRogueLib::pgpRogueLib(
 	printf( "%s: %zu variables\n", functionName, mapVars.size() );
 
 	printf( "Parsing %zu length ROGUE_ADDR_MAP\n", strlen( ROGUE_ADDR_MAP ) );
-#if 1
 //	parseAddrMapFile( pszAddrMapFileName );
 	parseMemMap( strWave8AddrMap ); // From generated wave8AddrMap.h
 	printf( "Wave8 ROGUE_ADDR_MAP parsed successfully\n" );
-#else
-	m_pRogueLib->parseMemMap( ROGUE_ADDR_MAP );
-	printf( "m_pRogueLib: ROGUE_ADDR_MAP parsed successfully\n" );
-#endif
 	std::cout << std::flush;
 
-#ifdef SUPPORT_CLINK
-	if ( doFebFpgaReload )
-		FebFpgaReload();
-#endif  /* SUPPORT_CLINK */
-
-	//const mapVarPtr_t &	mapVars		= getVariableList();
-	//printf( "%s: %zu variables\n", functionName, mapVars.size() );
-	//printf( "m_pRogueLib: %zu variables\n", (m_pRogueLib->getVariableList()).size() );
-
 	// Force an initial read of all variables
-#if 1
 	printf( "%s: Reading %zu variables\n", functionName, getVariableList().size() );
 	try
 	{
 		readAll();
 	}
-#else
-	printf( "%s: Reading %zu variables\n", functionName, (m_pRogueLib->getVariableList()).size() );
-	try
-	{
-		m_pRogueLib->readAll();
-	}
-#endif
 	catch ( rogue::GeneralError & e )
 	{
 		printf( "%s error: %s!\n", functionName, e.what() );
@@ -334,47 +284,7 @@ pgpRogueLib::pgpRogueLib(
 	{
 		printf( "%s unknown error!\n", functionName );
 	}
-#if 1
 	printf( "%s: Read %zu variables\n", functionName, getVariableList().size() );
-#else
-	printf( "%s: Read %zu variables\n", functionName, (m_pRogueLib->getVariableList()).size() );
-#endif
-
-#ifdef SUPPORT_CLINK
-	// Hack: Configure for LCLS-I timing
-	ConfigureLclsTimingV1();
-
-	LoadConfigFile( "db/defaults_LCLS-I.txt", 0.003 );
-
-	// Misc python resets, etc
-	setVariable( "ClinkDevRoot.ClinkPcie.AxiPcieCore.DmaIbAxisMon.CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.AxiPcieCore.DmaObAxisMon.CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.SoftRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[0].EventBuilder.SoftRst", 0 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[1].EventBuilder.SoftRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[1].EventBuilder.SoftRst", 0 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[2].EventBuilder.SoftRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[2].EventBuilder.SoftRst", 0 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[3].EventBuilder.SoftRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Application.AppLane[3].EventBuilder.SoftRst", 0 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[0].Flush", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[0].Flush", 0 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpTxAxisMon[0].CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpRxAxisMon[0].CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[1].Flush", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[1].Flush", 0 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpTxAxisMon[1].CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpRxAxisMon[1].CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[2].Flush", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[2].Flush", 0 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpTxAxisMon[2].CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpRxAxisMon[2].CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[3].Flush", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpMon[3].Flush", 0 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpTxAxisMon[3].CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.PgpRxAxisMon[3].CntRst", 1 );
-	setVariable( "ClinkDevRoot.ClinkPcie.Hsio.TimingRx.TimingPhyMonitor.CntRst", 1 );
-#endif  /* SUPPORT_CLINK */
 
 	setTriggerEnable( 0, false );
 	//setTriggerEnable( 1, false );
@@ -390,7 +300,7 @@ pgpRogueLib::pgpRogueLib(
 	showVariable( sDataCnt.c_str(), true );
 	showVariable( "Top.AxiVersion.FpgaVersion", true );
 	showVariable( "Top.AxiVersion.UpTimeCnt", true );
-	m_fConnected = 1;	// Do we need this?
+#endif
 }
 
 /// virtual Destructor
@@ -404,43 +314,7 @@ pgpRogueLib::~pgpRogueLib()
 }
 
 
-#ifdef SUPPORT_CLINK
-/// Configure timing for LCLS-I
-void pgpRogueLib::ConfigureLclsTimingV1()
-{
-//	const char * functionName = "ConfigureLclsTimingV1";
-//	const bool		bOne	= 1;
-	const bool		bZero	= 0;
-	const uint64_t	lOne	= 1L;
-	const uint64_t	lZero	= 0L;
-	const struct timespec oneSec	= { 1, 0L };
-	const struct timespec twoMs		= { 0, 2000000L };
-
-	writeVarPath( "Top.SystemRegs.timingUseMiniTpg",	bZero );
-	printf( "Configuring for LCLS-I timing ...\n" );
-	writeVarPath( "Top.TimingFrameRx.ModeSelEn",		lZero	);
-	writeVarPath( "Top.TimingFrameRx.RxPllReset",		lOne	);
-	nanosleep( &oneSec, NULL );
-
-	writeVarPath( "Top.TimingFrameRx.RxPllReset",		lZero	);
-	nanosleep( &twoMs, NULL );
-	writeVarPath( "Top.TimingFrameRx.ClkSel",			lZero	);
-	nanosleep( &twoMs, NULL );
-	writeVarPath( "Top.TimingFrameRx.C_RxReset",		lOne	);
-	nanosleep( &twoMs, NULL );
-	writeVarPath( "Top.TimingFrameRx.C_RxReset",		lZero	);
-	nanosleep( &oneSec, NULL );
-
-	WaitForRxLinkUp( "ConfigureLclsTimingV1: Wait 1" );
-
-	// Reset latching RxDown flag
-	writeVarPath( "Top.TimingFrameRx.RxDown",		lZero	);
-
-	WaitForRxLinkUp( "ConfigureLclsTimingV1: Wait 2" );
-	//ResetCounters();
-	printf( "Configured for LCLS-I timing\n" );
-}
-#endif  /* SUPPORT_CLINK */
+#if 0
 
 
 /// Wait for RxLinkUp
@@ -463,6 +337,7 @@ void pgpRogueLib::WaitForRxLinkUp( const char * pszDiagLabel )
 		nanosleep( &tenMs, NULL );
 	}
 }
+#endif
 
 /// Load Config file
 void pgpRogueLib::LoadConfigFile( const char * pszFilePath, double stepDelay )
@@ -799,6 +674,7 @@ void pgpRogueLib::dumpVariables( const char * pszFilePath, bool fWritableOnly, b
 	dumpFile.close();
 }
 
+// TODO: Add toggleVariable function, set to 1 for N sec
 void pgpRogueLib::setVariable( const char * pszVarPath, double value )
 {
 	std::string		rootPath( "" );
@@ -962,9 +838,9 @@ void pgpRogueLib::disconnect( )
 		close( m_fd );
 		m_fd = -1;
 	}
+#if 0
 	m_pAxiMemMaster.reset();
-	//rmMemory( m_pAxiMemMap );
-	//m_pRogueLib->rmMemory( m_pAxiMemMap );
 	m_pAxiMemMap.reset();
+#endif
 }
 

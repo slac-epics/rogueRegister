@@ -6,13 +6,15 @@ include $(TOP)/configure/CONFIG
 
 LIBRARY_IOC = rogueRegister
 DBD += pgpRogueDevSupport.dbd
+DBD += wave8RogueSupport.dbd
 DBD += rogueRecords.dbd
 DBD += rogueSupport.dbd
 
 # TODO: Rethink naming scheme for C++ classes
 #LIB_SRCS   		+= rogueDev.cpp
 LIB_SRCS   		+= pgpRogueLib.cpp
-LIB_SRCS   		+= AdcCalibration.cpp
+#LIB_SRCS   		+= AdcCalibration.cpp
+LIB_SRCS   		+= wave8RogueLib.cpp
 LIB_SRCS		+= rogueRecords.cpp
 LIB_SRCS		+= wfRogueRecord.cpp
 LIB_SRCS		+= liRogueRecord.cpp

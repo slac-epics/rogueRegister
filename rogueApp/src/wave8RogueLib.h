@@ -8,14 +8,14 @@
 // the terms contained in the LICENSE.txt file.
 //////////////////////////////////////////////////////////////////////////////
 //
-//	pgpRogueLib.h
+//	wave8RogueLib.h
 //
-//	Header file for pgpRogueLib class.
+//	Header file for wave8RogueLib class.
 //	It provides a templated interface to SLAC Generic PGP Hardware registers
 //	via the Rogue LibraryBase C++ API
 //
-#ifndef	pgpRogueLib_H
-#define	pgpRogueLib_H
+#ifndef	wave8RogueLib_H
+#define	wave8RogueLib_H
 
 #include <memory>
 #include <string>
@@ -32,75 +32,31 @@
 #include <rogue/protocols/srp/SrpV3.h>
 
 // rogueRegister headers
-#include "ClMemoryMaster.h"
-
-#define PGP_DATACHAN_REG_ACCESS		0
-#define PGP_DATACHAN_FRAME_ACCESS	1
-
-/*	Diagnostic variables	*/
-extern int				DEBUG_PGP_ROGUE_LIB;
-
-class rogueAddrMap;
-typedef std::shared_ptr<rogueAddrMap> rogueAddrMapPtr;
+#include "pgpRogueLib.h"
+//#include "ClMemoryMaster.h"
 
 
-///	pgpRogueLib class
-class pgpRogueLib :	public rogue::LibraryBase
+///	wave8RogueLib class
+class wave8RogueLib :	public	pgpRogueLib
 {
 public:		//	Public member functions
 	// Create a static class creator to return our custom class wrapped with a shared pointer
-	static std::shared_ptr<pgpRogueLib> create( unsigned int board ) {
-		static std::shared_ptr<pgpRogueLib> ret = std::make_shared<pgpRogueLib>( board );
+	static std::shared_ptr<wave8RogueLib> create( unsigned int board, const char * pszAddrMapFileName )
+	{
+		static std::shared_ptr<wave8RogueLib> ret = std::make_shared<wave8RogueLib>( board, pszAddrMapFileName );
 
 		return(ret);
 	}
 
 	///	Constructor
-	pgpRogueLib( unsigned int board );
+	wave8RogueLib(	unsigned int	board,
+					const char	*	pszAddrMapFileName  );
 
 	/// Destructor
-	virtual ~pgpRogueLib();
+	virtual ~wave8RogueLib();
 
 	void connect( );
 	void disconnect( );
-
-	/// dumpVariables() allows dumping the value of rogue variables to a file
-	void dumpVariables( const char * pszFilePath, bool fWriteOnly, bool fForceRead, bool verbose );
-
-	// Functions to allow setting or showing the value of rogue variables
-	void setVariable(  const std::string & rootPath, const char * pszVarPath, double value );
-	void setVariable(  const char * pszVarPath, double value );
-	void showVariable( const char * pszVarPath, bool verbose );
-	void showVariableList( bool verbose );
-
-	rogue::interfaces::memory::VariablePtr	FindVar( const std::string & rootPath, const char * pFmt, ... ) __attribute__((format(__printf__,3,4)));
-	rogue::interfaces::memory::VariablePtr	FindVar( const char * pFmt, ... ) __attribute__((format(__printf__,2,3)));
-	rogue::interfaces::memory::VariablePtr	_VFindVar( const std::string & rootPath, const char * pFmt, va_list argList );
-
-	///	Get Device Name
-	const std::string	&	GetDevName( ) const
-	{
-		return m_devName;
-	}
-
-	///	Get Driver Version
-	const std::string	&	GetDrvVersion( ) const
-	{
-		return m_DrvVersion;
-	}
-
-	///	Get Library Version
-	const std::string	&	GetLibVersion( ) const
-	{
-		return m_LibVersion;
-	}
-
-	/// Load Config file
-	void LoadConfigFile( const char * pszFilePath, double stepDelay );
-
-	void ResetCounters();
-
-#if 0
 
 	int AdcCalibration();
 
@@ -111,33 +67,19 @@ public:		//	Public member functions
 	void GetEventBuilderSoftRstPath( unsigned int triggerNum, std::string & retPath );
 	void GetTriggerMasterEnablePath( unsigned int triggerNum, std::string & retPath );
 
+	void ResetCounters();
+
 	void WaitForRxLinkUp( const char * pszDiagLabel );
 
 	int		setTriggerEnable( unsigned int triggerNum, bool fEnable );
 	bool	getTriggerEnable( unsigned int triggerNum );
 
-#endif
-	template<class R> int readVarPath(	const char * pVarPath, R & valueRet );
-	template<class R> int writeVarPath(	const char * pVarPath, const R & value );
-	template<class R> int writeVarPath( rogue::interfaces::memory::VariablePtr pVar, const R & value );
-
 private:
 	//	Private member variables
-	int					m_fd;
-	unsigned int		m_board;
-	bool				m_fConnected;
-	std::string			m_devName;
-	std::string			m_DrvVersion;	// Driver Version
-	std::string			m_LibVersion;	// Library Version
-
-	//rogue::LibraryBasePtr				m_pRogueLib;
-	//rogueAddrMapPtr					m_pRogueLib;
-
 #if 0
 	/// PCIe register access
 	rogue::hardware::axi::AxiMemMapPtr 	m_pAxiMemMap;
-	ClMemoryMasterPtr		 			m_pAxiMemMaster;
-	//rim::MasterPtr		 			m_pAxiMemMaster;
+//	ClMemoryMasterPtr		 			m_pAxiMemMaster;
 #endif
 
 	///
@@ -163,13 +105,12 @@ private:
 	// DMA[lane].DEST[255:3] = Unused
 	///
 
-	//TODO: Move these to new axiW8DataLane class
 	rogue::hardware::axi::AxiStreamDmaPtr		m_pW8RegChan;
 	rogue::interfaces::memory::MasterPtr		m_pW8MemMaster;
 	rogue::protocols::srp::SrpV3Ptr				m_pSrpW8;
 };
 
 // Shared pointer alias
-typedef std::shared_ptr<pgpRogueLib> pgpRogueLibPtr;
+typedef std::shared_ptr<wave8RogueLib> wave8RogueLibPtr;
 
-#endif	//	pgpRogueLib_H
+#endif	//	wave8RogueLib_H
