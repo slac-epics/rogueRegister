@@ -445,26 +445,6 @@ file liDevRogue.template
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
-		NAME	= "Integrators:TrigCnt",
-		PATH	= "Top.Integrators.TrigCnt"
-		PYPV	= "Top:Integrators:TrigCnt"
-		PINI	= "YES"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "RawBuffers:TrigCnt",
-		PATH	= "Top.RawBuffers.TrigCnt"
-		PYPV	= "Top:RawBuffers:TrigCnt"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "EvrV2:Count",
-		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].Count"
-		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:Count"
-		DESC	= "Count for Start of Timing Frame"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
 		NAME	= "SystemRegs:TempAnaRaw0",
 		PATH	= "Top.SystemRegs.TempAnaRaw[0]"
 		PYPV	= "Top:SystemRegs:TempAnaRaw[0]"
@@ -493,43 +473,10 @@ file liDevRogue.template
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
-		NAME	= "Timing:sofCount",
-		PATH	= "Top.TimingFrameRx.sofCount"
-		PYPV	= "Top:TimingFrameRx:sofCount"
-		DESC	= "Count for Start of Timing Frame"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "Timing:eofCount",
-		PATH	= "Top.TimingFrameRx.eofCount"
-		PYPV	= "Top:TimingFrameRx:eofCount"
-		DESC	= "Count for End of Timing Frame"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "Timing:FidCount",
-		PATH	= "Top.TimingFrameRx.FidCount"
-		PYPV	= "Top:TimingFrameRx:FidCount"
-		DESC	= "Fiducial Count"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
 		NAME	= "Timing:RxLinkUp",
 		PATH	= "Top.TimingFrameRx.RxLinkUp"
 		PYPV	= "Top:TimingFrameRx:RxLinkUp"
 		DESC	= "Timing fiber link status"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "TrEvent:XpmMsg:RxId"
-		PATH	= "Top.TriggerEventManager.XpmMessageAligner.RxId"
-		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:RxId"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "TrEvent:TriggerCount"
-		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].TriggerCount"
-		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:TriggerCount"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
@@ -566,18 +513,6 @@ file liDevRogue.template
 		NAME	= "TrEvent:PauseToTrig"
 		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].PauseToTrig"
 		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:PauseToTrig"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "TrEvent:TransitionCount"
-		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].TransitionCount"
-		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:TransitionCount"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "TrEvent:XpmMessageCount"
-		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].XpmMessageCount"
-		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:XpmMessageCount"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
@@ -875,12 +810,6 @@ file longDevRogue.template
 		SCAN	= ""
 	}
 	{
-		NAME	= "TrEvent:XpmMsg:TxId"
-		PATH	= "Top.TriggerEventManager.XpmMessageAligner.TxId"
-		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:TxId"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
 		NAME	= "XpmMini:Config_L0Select_DestSel",
 		DOL		= "32768"
 		PATH	= "Top.XpmMiniWrapper.XpmMini.Config_L0Select_DestSel"
@@ -915,6 +844,80 @@ file int64InDevRogue.template
 		PYPV	= "Top:Integrators:PositionYRaw"
 		PINI	= "YES"
 		SCAN	= "\$(SCAN=.1 second)"
+	}
+}
+file int64DevRogue.template
+{
+	{
+		NAME	= "Integrators:TrigCnt",
+		PATH	= "Top.Integrators.TrigCnt"
+		PYPV	= "Top:Integrators:TrigCnt"
+		PINI	= "YES"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "RawBuffers:TrigCnt",
+		PATH	= "Top.RawBuffers.TrigCnt"
+		PYPV	= "Top:RawBuffers:TrigCnt"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "EvrV2:Count",
+		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].Count"
+		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:Count"
+		DESC	= "Count for Start of Timing Frame"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Timing:sofCount",
+		PATH	= "Top.TimingFrameRx.sofCount"
+		PYPV	= "Top:TimingFrameRx:sofCount"
+		DESC	= "Count for Start of Timing Frame"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Timing:eofCount",
+		PATH	= "Top.TimingFrameRx.eofCount"
+		PYPV	= "Top:TimingFrameRx:eofCount"
+		DESC	= "Count for End of Timing Frame"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "Timing:FidCount",
+		PATH	= "Top.TimingFrameRx.FidCount"
+		PYPV	= "Top:TimingFrameRx:FidCount"
+		DESC	= "Fiducial Count"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:XpmMsg:RxId"
+		PATH	= "Top.TriggerEventManager.XpmMessageAligner.RxId"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:RxId"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:TriggerCount"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].TriggerCount"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:TriggerCount"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:TransitionCount"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].TransitionCount"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:TransitionCount"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:XpmMessageCount"
+		PATH	= "Top.TriggerEventManager.TriggerEventBuffer[0].XpmMessageCount"
+		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:XpmMessageCount"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
+		NAME	= "TrEvent:XpmMsg:TxId"
+		PATH	= "Top.TriggerEventManager.XpmMessageAligner.TxId"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:TxId"
+		SCAN	= "\$(SCAN=1 second)"
 	}
 }
 
