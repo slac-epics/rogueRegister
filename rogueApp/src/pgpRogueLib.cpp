@@ -15,15 +15,18 @@
 //	via the Rogue LibraryBase C++ API
 //
 
-#include <stdio.h>
+#include <cstdio>
 #include <exception>
+#include <fcntl.h>
 #include <fstream>
 #include <iostream>
-#include <sstream>
-#include <typeinfo>
-#include <sys/stat.h>
-#include <fcntl.h>
 #include <math.h>
+#include <sstream>
+#include <sys/stat.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <typeinfo>
+#include <unistd.h>
 
 
 // rogue headers
@@ -540,6 +543,47 @@ void pgpRogueLib::LoadConfigFile( const char * pszFilePath, double stepDelay )
 
 	fclose( cfgFile );
 	printf( "%s: Read %u values from %s\n", functionName, nValues, pszFilePath );
+}
+
+rim::VariablePtr	pgpRogueLib::FindVar(
+	const string & rootPath,
+	const char * format, ... )
+{
+	va_list		argList;
+	rim::VariablePtr	pVar;
+	va_start( argList, format );
+	pVar = _VFindVar( rootPath, format, argList );
+	va_end (argList);
+
+	return( pVar );
+}
+
+rim::VariablePtr	pgpRogueLib::FindVar(
+	const char	*	format, ... )
+{
+	string	rootPath( "" );
+	va_list		argList;
+	rim::VariablePtr	pVar;
+	va_start( argList, format );
+	pVar = _VFindVar( rootPath, format, argList );
+	va_end (argList);
+
+	return( pVar );
+}
+
+rim::VariablePtr	pgpRogueLib::_VFindVar(
+	const string	&	rootPath,
+	const char			*	format,
+	va_list					argList )
+{
+	char	varPath[256];
+	(void) vsnprintf( varPath, 256, format, argList );
+	string	fullVarPath( rootPath );
+	fullVarPath.append( varPath );
+	rim::VariablePtr pVar = getVariable( fullVarPath );
+	if ( !pVar )
+		printf( "pgpRogueLib::FindVar: Error finding %s\n", fullVarPath.c_str() );
+	return( pVar );
 }
 
 template<class R> int pgpRogueLib::readVarPath( const char * pszVarPath, R & valueRet )

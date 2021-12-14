@@ -73,6 +73,12 @@ public:		//	Public member functions
 	void showVariable( const char * pszVarPath, bool verbose );
 	void showVariableList( bool verbose );
 
+	rogue::interfaces::memory::VariablePtr	FindVar( const std::string & rootPath, const char * pFmt, ... ) __attribute__((format(__printf__,3,4)));
+	rogue::interfaces::memory::VariablePtr	FindVar( const char * pFmt, ... ) __attribute__((format(__printf__,2,3)));
+	rogue::interfaces::memory::VariablePtr	_VFindVar( const std::string & rootPath, const char * pFmt, va_list argList );
+
+	int AdcCalibration();
+
 	///	Get Driver Version
 	const std::string	&	GetDrvVersion( ) const
 	{
