@@ -60,8 +60,8 @@ class pgpRogueDev
 {
 public:		//	Public member functions
 	// Create a static class creator to return our custom class wrapped with a shared pointer
-	static std::shared_ptr<pgpRogueDev> create( unsigned int board, unsigned int lane, bool lcls2Timing, const char * pszPgpReg ) {
-		static std::shared_ptr<pgpRogueDev> ret = std::make_shared<pgpRogueDev>( board, lane, lcls2Timing, pszPgpReg );
+	static std::shared_ptr<pgpRogueDev> create( unsigned int board, unsigned int lane, const char * pszPgpReg ) {
+		static std::shared_ptr<pgpRogueDev> ret = std::make_shared<pgpRogueDev>( board, lane, pszPgpReg );
 
 		return(ret);
 	}
@@ -69,7 +69,6 @@ public:		//	Public member functions
 	///	Constructor
 	pgpRogueDev(	unsigned int				board,
 					unsigned int				channel,
-					bool 						lcls2Timing,
 					const char	*				pszPgpReg );
 
 	/// Destructor
@@ -189,7 +188,6 @@ private:
 	epicsMutexId		m_devLock;
 	rogue_info_t	 *	m_pRawDataRogueInfo[PGP_NUM_SIGNALS];
 	rogue_info_t	 *	m_pIntegralRogueInfo[PGP_NUM_SIGNALS];
-	bool				m_fLcls2Timing;	// true to initialize w/ LCLS2 timing, false for LCLS1
 	epicsTimeStamp		m_tsFrame;		// Timestamp from latest frame
 
 	///	Wave8 Data Stream
