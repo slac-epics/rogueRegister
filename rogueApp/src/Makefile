@@ -12,6 +12,7 @@ DBD += rogueSupport.dbd
 # TODO: Rethink naming scheme for C++ classes
 #LIB_SRCS   		+= rogueDev.cpp
 LIB_SRCS   		+= pgpRogueLib.cpp
+LIB_SRCS   		+= AdcCalibration.cpp
 LIB_SRCS		+= rogueRecords.cpp
 LIB_SRCS		+= wfRogueRecord.cpp
 LIB_SRCS		+= liRogueRecord.cpp
