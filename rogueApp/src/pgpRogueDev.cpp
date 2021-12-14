@@ -41,6 +41,7 @@
 
 #include "pgpRogueDev.h"
 #include "pgpRogueLib.h"
+#include "wave8RogueLib.h"
 #include "rogueRecords.h"
 
 extern "C" long	update_longin(		longinRecord	*	pRecord,
@@ -89,6 +90,7 @@ pgpRogueDev::pgpRogueDev(
 	m_pDataStream(			)
 {
 	const char		*	functionName	= "pgpRogueDev::pgpRogueDev";
+	const char		*	pszAddrMapFileName = "cfg/wave8AddrMap.csv";
 
 	// Create mutexes
     m_devLock	= epicsMutexMustCreate();
@@ -156,8 +158,13 @@ pgpRogueDev::pgpRogueDev(
 		//
 		std::cout << std::flush;
 		sleep(5);
+#if 0
 		printf( "%s: Creating pgpRogueLib for board %u\n", functionName, m_board );
 		m_pRogueLib = pgpRogueLib::create( m_board );
+#else
+		printf( "%s: Creating wave8RogueLib for board %u\n", functionName, m_board );
+		m_pRogueLib = wave8RogueLib::create( m_board, pszAddrMapFileName );
+#endif
 		if ( !m_pRogueLib )
 		{
 			printf( "%s: ERROR creating pgpRogueLib for board %u\n", functionName, m_board );

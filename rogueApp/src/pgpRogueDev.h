@@ -26,6 +26,7 @@
 #include <devSup.h>
 #include <waveformRecord.h>
 #include "pgpRogueLib.h"
+#include "wave8RogueLib.h"
 #include "memoryBuffer.h"
 
 // rogue headers 
@@ -160,6 +161,12 @@ public:		//	Public member functions
 	{
 		return m_pRogueLib;
 	}
+	
+	/// Return shared_ptr to wave8RogueLib device
+	wave8RogueLibPtr	GetWave8RogueLib( ) const
+	{
+		return m_pRogueLib;
+	}
 
 	static std::shared_ptr<pgpRogueDev>	RogueFindByBoard( unsigned int board );
 
@@ -169,7 +176,7 @@ protected:	//	Protected member variables
 	bool			m_fExitApp;			// Set true to shutdown ioc
 
 private:
-	pgpRogueLibPtr 	m_pRogueLib;			// shared_ptr to pgpRogueLib device
+	wave8RogueLibPtr 	m_pRogueLib;			// shared_ptr to pgpRogueLib device
 
 	//	Private member variables
 	int					m_fd;
