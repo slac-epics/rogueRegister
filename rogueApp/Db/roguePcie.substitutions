@@ -65,8 +65,9 @@ file boolDevRogue.template
 		PYPV	= "Top:SystemRegs:AdcCtrl1"
 		ZNAM	= "False"
 		ONAM	= "True"
-		DOL		= "0"
+		DOL		= "1"
 		PINI	= "YES"
+		SAVE	= ""
 	}
 	{
 		NAME	= "SystemRegs:AdcCtrl2"
@@ -74,8 +75,9 @@ file boolDevRogue.template
 		PYPV	= "Top:SystemRegs:AdcCtrl2"
 		ZNAM	= "False"
 		ONAM	= "True"
-		DOL		= "0"
+		DOL		= "1"
 		PINI	= "YES"
+		SAVE	= ""
 	}
 	{
 		NAME	= "SystemRegs:AdcReset"
