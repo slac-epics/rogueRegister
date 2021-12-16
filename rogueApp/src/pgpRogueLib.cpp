@@ -514,9 +514,9 @@ template<class R> int pgpRogueLib::readVarPath( const char * pszVarPath, R & val
 
 template int pgpRogueLib::readVarPath( const char * pszVarPath, bool		& valueRet );
 template int pgpRogueLib::readVarPath( const char * pszVarPath, double		& valueRet );
-template int pgpRogueLib::readVarPath( const char * pszVarPath, int64_t	& valueRet );
+template int pgpRogueLib::readVarPath( const char * pszVarPath, int64_t		& valueRet );
 template int pgpRogueLib::readVarPath( const char * pszVarPath, uint64_t	& valueRet );
-template int pgpRogueLib::readVarPath( const char * pszVarPath, std::string & valueRet );
+template int pgpRogueLib::readVarPath( const char * pszVarPath, std::string	& valueRet );
 
 template<class R> int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const R & value )
 {
@@ -594,12 +594,12 @@ template<class R> int pgpRogueLib::writeVarPath( const char * pszVarPath, const 
 }
 
 template int pgpRogueLib::writeVarPath( const char * pszVarPath, const bool		& value );
-template int pgpRogueLib::writeVarPath( const char * pszVarPath, const double		& value );
-template int pgpRogueLib::writeVarPath( const char * pszVarPath, const int64_t		& value );
+template int pgpRogueLib::writeVarPath( const char * pszVarPath, const double	& value );
+template int pgpRogueLib::writeVarPath( const char * pszVarPath, const int64_t	& value );
 template int pgpRogueLib::writeVarPath( const char * pszVarPath, const uint64_t	& value );
 
 template int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const bool		& value );
-template int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const double	& value );
+template int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const double		& value );
 template int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const int64_t	& value );
 template int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const uint64_t	& value );
 

@@ -151,8 +151,8 @@ bool	wave8RogueLib::getTriggerEnable( unsigned int triggerNum )
 
 
 // TODO: Make different devices be subclasses of wave8RogueLib
-//#include "wave8AddrMap.h"
-//std::string		strWave8AddrMap( ROGUE_ADDR_MAP );
+#include "wave8AddrMap.h"
+std::string		strWave8AddrMap( ROGUE_ADDR_MAP );
 
 
 ///	Constructor
@@ -208,8 +208,8 @@ wave8RogueLib::wave8RogueLib(
 #if 0
 	parseAddrMapFile( pszAddrMapFileName );
 #else
-	parseMemMap( pszAddrMapFileName );
-//	parseMemMap( strWave8AddrMap ); // From generated wave8AddrMap.h
+//	parseMemMap( pszAddrMapFileName );
+	parseMemMap( strWave8AddrMap ); // From generated wave8AddrMap.h
 #endif
 	printf( "Wave8 ROGUE_ADDR_MAP parsed successfully\n" );
 	std::cout << std::flush;
@@ -315,37 +315,39 @@ int wave8RogueLib::AdcCalibration()
 	//pVar = getVariable( varPath );
 	printf( "AdcCalibration()...\n" );
 	// Enable all needed devices
-	setVariable( "Top.SystemRegs.enable", 1 );
-	setVariable( "Top.AdcPatternTester.enable", 1 );
+	//setVariable( "Top.SystemRegs.enable", 1 );
+	//setVariable( "Top.AdcPatternTester.enable", 1 );
 	for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
 	{
 		unsigned int	iCh = iAdc >> 1;
-		snprintf( varPath, 256, "Top.AdcConfig[%u].enable", iAdc );
-		setVariable( varPath, 1 );
-		snprintf( varPath, 256, "Top.AdcConfig[%u].Readout", iAdc );
-		setVariable( varPath, 1 );
+		//snprintf( varPath, 256, "Top.AdcConfig[%u].enable", iAdc );
+		//setVariable( varPath, 1 );
+		//snprintf( varPath, 256, "Top.AdcConfig[%u].Readout", iAdc );
+		//setVariable( varPath, 1 );
 
-		// Set adcRoot to the root path for this ADC
+		// Set adcReadout to the root path for this ADC
+		snprintf( varPath, 256, "Top.AdcReadout[%u]", iAdc );
+		string	adcReadout( varPath );
 		snprintf( varPath, 256, "Top.AdcConfig[%u]", iAdc );
-		string	adcRoot( varPath );
+		string	adcConfig( varPath );
 
 		// Find all delay lane registers
 		for ( unsigned int l = 0; l < 8; l++ )
-			pVarDelayLane[iCh][l] = FindVar( adcRoot, ".DelayAdcALane[%u]", l );
+			pVarDelayLane[iCh][l] = FindVar( adcReadout, ".DelayAdcALane[%u]", l );
 		iCh++;
 		for ( unsigned int l = 8; l < 16; l++ )
-			pVarDelayLane[iCh][l] = FindVar( adcRoot, ".DelayAdcBLane[%u]", l );
+			pVarDelayLane[iCh][l] = FindVar( adcReadout, ".DelayAdcBLane[%u]", l - 8 );
 
-		pVarDMode[iAdc]		= FindVar( adcRoot, ".DMode" );
-		pVarInvert[iAdc]	= FindVar( adcRoot, ".Invert" );
-		pVarConvert[iAdc]	= FindVar( adcRoot, ".Convert" );
+		pVarDMode[iAdc]		= FindVar( adcReadout, ".DMode" );
+		pVarInvert[iAdc]	= FindVar( adcReadout, ".Invert" );
+		pVarConvert[iAdc]	= FindVar( adcReadout, ".Convert" );
 
 		// Find all ADC settings registers
-		pVarReg8[iAdc]  = FindVar( adcRoot, ".AdcReg_0x0008" );
-		pVarRegF[iAdc]  = FindVar( adcRoot, ".AdcReg_0x000F" );
-		pVarReg10[iAdc] = FindVar( adcRoot, ".AdcReg_0x0010" );
-		pVarReg11[iAdc] = FindVar( adcRoot, ".AdcReg_0x0011" );
-		pVarReg15[iAdc] = FindVar( adcRoot, ".AdcReg_0x0015" );
+		pVarReg8[iAdc]  = FindVar( adcConfig, ".AdcReg_0x0008" );
+		pVarRegF[iAdc]  = FindVar( adcConfig, ".AdcReg_0x000F" );
+		pVarReg10[iAdc] = FindVar( adcConfig, ".AdcReg_0x0010" );
+		pVarReg11[iAdc] = FindVar( adcConfig, ".AdcReg_0x0011" );
+		pVarReg15[iAdc] = FindVar( adcConfig, ".AdcReg_0x0015" );
 	}
 
 	// Initial configuration for the slow ADC
@@ -354,8 +356,9 @@ int wave8RogueLib::AdcCalibration()
 	setVariable( "Top.SystemRegs.A0p3V3En", true);
 	setVariable( "Top.SystemRegs.A1p3V3En", true);
 	setVariable( "Top.SystemRegs.Ap1V8En", true);
-	setVariable( "top.systemregs.adcctrl1", false);
+	setVariable( "Top.SystemRegs.AdcCtrl1", false);
 	setVariable( "Top.SystemRegs.AdcCtrl2", false);
+	sleep(1);
 	setVariable( "Top.SystemRegs.AdcReset", true);
 	sleep(1);
 	setVariable( "Top.SystemRegs.AdcReset", false);
@@ -378,7 +381,9 @@ int wave8RogueLib::AdcCalibration()
 	// Iterate all ADC channels
 	for ( unsigned int iCh = 0; iCh < N_ADC_CHAN; iCh++ )
 	{
-		unsigned int	iAdc = iCh << 1;
+		const struct timespec tenthSec	= { 0, 100000000L };
+		const struct timespec tenMs		= { 0, 10000000L };
+		unsigned int	iAdc = iCh >> 1;
 		// iterate all lanes on each ADC channel
 		for ( unsigned int lane = 0; lane < N_ADC_LANE_PER_CHAN; lane++ )
 		{
@@ -406,8 +411,10 @@ int wave8RogueLib::AdcCalibration()
 
 				// wait until test done
 				bool	fDone	= false;
+				DEBUG_PGP_ROGUE_LIB = 6;
 				while ( !fDone )
 				{
+					nanosleep( &tenMs, NULL );
 					if ( readVarPath( "Top.AdcPatternTester.Done", fDone ) != 0 )
 					{
 						printf( "%s: Error testing Ch %u, Lane %u\n", functionName, iCh, lane );
@@ -416,8 +423,9 @@ int wave8RogueLib::AdcCalibration()
 				}
 				bool	fTestFailed	= false;
 				status = readVarPath( "Top.AdcPatternTester.Failed", fTestFailed );
-				if ( status != 0 || !fTestFailed )
+				if ( status != 0 || fTestFailed )
 					fPassed = false;
+				DEBUG_PGP_ROGUE_LIB = 3;
 
 				// shift pattern for next bit test (2 bits per lane)
 				pattern = pattern << 1;
@@ -431,10 +439,12 @@ int wave8RogueLib::AdcCalibration()
 				setVariable( "Top.AdcPatternTester.Request", false);
 				setVariable( "Top.AdcPatternTester.Request", true);
 
+				DEBUG_PGP_ROGUE_LIB = 6;
 				// wait until test done
 				fDone	= false;
 				while ( !fDone )
 				{
+					nanosleep( &tenMs, NULL );
 					status = readVarPath( "Top.AdcPatternTester.Done", fDone );
 					if ( status != 0 )
 						break;
@@ -442,9 +452,11 @@ int wave8RogueLib::AdcCalibration()
 				status = readVarPath( "Top.AdcPatternTester.Failed", fTestFailed );
 				if ( status != 0 || !fTestFailed )
 					fPassed = false;
+				DEBUG_PGP_ROGUE_LIB = 3;
 
 				delayTestResults[delay] = fPassed;
 			}
+			nanosleep( &tenthSec, NULL );
 
 			// find best delay setting
 			vector<unsigned int>	lengths;
@@ -504,7 +516,7 @@ int wave8RogueLib::AdcCalibration()
 			}
 			else
 			{
-				printf( "ADC %u, Lane %u FAILED!", iCh, lane );
+				printf( "ADC %u, Lane %u FAILED!\n", iCh, lane );
 				bestDelay = 0;
 			}
 
