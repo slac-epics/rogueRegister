@@ -820,13 +820,6 @@ file longDevRogue.template
 		PATH	= "Top.XpmMiniWrapper.XpmMini.Link"
 		PYPV	= "Top:XpmMiniWrapper:XpmMini:Link"
 	}
-	{
-		NAME	= "TrEvent:XpmMsg:TxId32"
-		PATH	= "Top.TriggerEventManager.XpmMessageAligner.TxId"
-		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:TxId32"
-		SCAN	= "\$(SCAN=1 second)"
-		SAVE	= ""
-	}
 }
 
 file int64InDevRogue.template
@@ -851,6 +844,12 @@ file int64InDevRogue.template
 		PYPV	= "Top:Integrators:PositionYRaw"
 		PINI	= "YES"
 		SCAN	= "\$(SCAN=.1 second)"
+	}
+	{
+		NAME	= "TrEvent:XpmMsg:RxId"
+		PATH	= "Top.TriggerEventManager.XpmMessageAligner.RxId"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:RxId"
+		SCAN	= "\$(SCAN=1 second)"
 	}
 }
 file int64DevRogue.template
@@ -894,12 +893,6 @@ file int64DevRogue.template
 		PATH	= "Top.TimingFrameRx.FidCount"
 		PYPV	= "Top:TimingFrameRx:FidCount"
 		DESC	= "Fiducial Count"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
-		NAME	= "TrEvent:XpmMsg:RxId"
-		PATH	= "Top.TriggerEventManager.XpmMessageAligner.RxId"
-		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:RxId"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
