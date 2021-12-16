@@ -214,6 +214,8 @@ struct _rogue_info
 	pgpRogueDevPtr		m_pRogueDev;
 	struct dbCommon	*	m_pRecCommon;
 	bool				m_fSignedValue;
+	uint32_t			m_modelId;
+	uint32_t			m_numBits;
 	size_t				m_signal;
 	size_t				m_newDataCount;
 	IOSCANPVT			m_scanIo;

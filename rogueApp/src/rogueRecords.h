@@ -91,9 +91,14 @@ int rogue_init_record(
 	{
 		printf( "%s error: %s not found!\n", functionName, pRogueInfo->m_varPath.c_str() );
 	}
-	else if ( pVar->modelId() == rogue::interfaces::memory::Int )
+	else
 	{
-		pRogueInfo->m_fSignedValue	= true;
+		pRogueInfo->m_modelId	= pVar->modelId();
+		pRogueInfo->m_numBits	= pVar->bitTotal();
+		if ( pVar->modelId() == rogue::interfaces::memory::Int )
+		{
+			pRogueInfo->m_fSignedValue	= true;
+		}
 	}
 	record->dpvt				= pRogueInfo;
 
