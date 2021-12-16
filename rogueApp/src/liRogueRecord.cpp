@@ -115,7 +115,7 @@ static long read_li( void	*	record )
 		// Data already loaded via update_longin()
 		status = 0;
 		if ( DEBUG_ROGUE_RECORDS >= 4 )
-			printf( "%s %s: status %ld, I/O intValue %d\n", functionName, pRecord->name, status, pRecord->val );
+			printf( "%s: %s status %ld, I/O intValue %d\n", functionName, pRecord->name, status, pRecord->val );
 	}
 	else if ( pRogueInfo->m_fSignedValue )
 	{
@@ -123,7 +123,7 @@ static long read_li( void	*	record )
 		status = rogue_read_record( pRecord, rogueValue );
 		pRecord->val = static_cast<epicsInt32>( rogueValue );
 		if ( DEBUG_ROGUE_RECORDS >= 4 )
-			printf( "%s: status %ld, intValue %d\n", functionName, status, pRecord->val );
+			printf( "%s: %s status %ld, intValue %d\n", functionName, pRecord->name, status, pRecord->val );
 	}
 	else
 	{
@@ -131,7 +131,7 @@ static long read_li( void	*	record )
 		status = rogue_read_record( pRecord, rogueValue );
 		pRecord->val = static_cast<epicsInt32>( rogueValue );
 		if ( DEBUG_ROGUE_RECORDS >= 4 )
-			printf( "%s: status %ld, uintValue %u\n", functionName, status, pRecord->val );
+			printf( "%s: %s status %ld, uintValue %u\n", functionName, pRecord->name, status, pRecord->val );
 	}
 	pRogueInfo->m_newDataCount = 0;
 	return status;
