@@ -76,7 +76,8 @@ int		pgpRogueDev::setTriggerEnable( unsigned int triggerNum, bool fEnable )
 pgpRogueDev::pgpRogueDev(
 	unsigned int	board,
 	unsigned int	lane,
-	const char *	pszPgpReg )
+	const char *	szAddrMapPath,
+	const char *	szPgpReg )
 :
 	m_fExitApp(		false	),
 	m_pRogueLib(	NULL	),
@@ -89,7 +90,6 @@ pgpRogueDev::pgpRogueDev(
 	m_pDataStream(			)
 {
 	const char		*	functionName	= "pgpRogueDev::pgpRogueDev";
-	const char		*	pszAddrMapFileName = "cfg/wave8AddrMap.csv";
 
 	// Create mutexes
     m_devLock	= epicsMutexMustCreate();
@@ -150,7 +150,7 @@ pgpRogueDev::pgpRogueDev(
 
 	// Only create pgpRogueLib if the PGP_REG prefix is defined
 	// Allows IOC to read data from a python configured wave8.
-	if ( pszPgpReg && strlen(pszPgpReg) > 0 )
+	if ( szPgpReg && strlen(szPgpReg) > 0 )
 	{
 		//
 		// Connect Rogue Library
@@ -162,7 +162,7 @@ pgpRogueDev::pgpRogueDev(
 		m_pRogueLib = pgpRogueLib::create( m_board );
 #else
 		printf( "%s: Creating wave8RogueLib for board %u\n", functionName, m_board );
-		m_pRogueLib = wave8RogueLib::create( m_board, pszAddrMapFileName );
+		m_pRogueLib = wave8RogueLib::create( m_board, szAddrMapPath );
 #endif
 		if ( !m_pRogueLib )
 		{
@@ -464,14 +464,15 @@ extern "C" int
 pgpRogueDevConfig(
 	int				board,
 	int				lane,
-	const char *	pszPgpReg )
+	const char *	szAddrMapPath,
+	const char *	szPgpReg )
 {
 	if ( gPgpRogueDev[board] )
 	{
 		gPgpRogueDev[board]->disconnect();
 		gPgpRogueDev[board].reset();
 	}
-	gPgpRogueDev[board] = pgpRogueDev::create( board, lane, pszPgpReg );
+	gPgpRogueDev[board] = pgpRogueDev::create( board, lane, szAddrMapPath, szPgpReg );
     return 0;
 }
 
@@ -542,15 +543,16 @@ void ShowAllRogueRegister(void)
 //	int pgpRogueDevConfig( int board, int lane )
 static const iocshArg		pgpRogueDevConfigArg0	= { "board",		iocshArgInt };
 static const iocshArg		pgpRogueDevConfigArg1	= { "lane",			iocshArgInt };
-static const iocshArg		pgpRogueDevConfigArg2	= { "szPgpRegPrefix",iocshArgString };
-static const iocshArg	*	pgpRogueDevConfigArgs[3]	=
+static const iocshArg		pgpRogueDevConfigArg2	= { "szAddrMapPath",iocshArgString };
+static const iocshArg		pgpRogueDevConfigArg3	= { "szPgpRegPrefix",iocshArgString };
+static const iocshArg	*	pgpRogueDevConfigArgs[4]	=
 {
-	&pgpRogueDevConfigArg0, &pgpRogueDevConfigArg1, &pgpRogueDevConfigArg2
+	&pgpRogueDevConfigArg0, &pgpRogueDevConfigArg1, &pgpRogueDevConfigArg2, &pgpRogueDevConfigArg3
 };
-static const iocshFuncDef   pgpRogueDevConfigFuncDef	= { "pgpRogueDevConfig", 3, pgpRogueDevConfigArgs };
+static const iocshFuncDef   pgpRogueDevConfigFuncDef	= { "pgpRogueDevConfig", 4, pgpRogueDevConfigArgs };
 static int  pgpRogueDevConfigCallFunc( const iocshArgBuf * args )
 {
-    return pgpRogueDevConfig( args[0].ival, args[1].ival, args[2].sval );
+    return pgpRogueDevConfig( args[0].ival, args[1].ival, args[2].sval, args[3].sval );
 }
 void pgpRogueDevConfigRegister(void)
 {
