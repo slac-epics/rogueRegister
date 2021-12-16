@@ -504,7 +504,7 @@ template<class R> int pgpRogueLib::readVarPath( const char * pszVarPath, R & val
 
 	if ( DEBUG_PGP_ROGUE_LIB >= 6 )
 	{
-		std::cout	<< functionName	<< ": " << varPath
+		std::cout	<< functionName	<< " : " << varPath
 					<< ", typeid = "	<< typeid(R).name()
 					<< ", modelId = "	<< modelId2String(pVar->modelId()) << pVar->bitTotal()
 					<< ", valueRet = "	<< valueRet << std::endl;

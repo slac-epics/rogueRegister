@@ -54,6 +54,7 @@ typedef	std::map< std::string, rim::VariablePtr >	mapVarPtr_t;
 #define	N_ADC				4
 #define	N_ADC_CHAN			8
 #define	N_ADC_LANE_PER_CHAN	8
+#define	N_ADC_DELAYS		32
 
 
 void wave8RogueLib::ResetCounters( )
@@ -312,6 +313,7 @@ int wave8RogueLib::AdcCalibration()
 	char				varPath[256];
 	int					status;
 
+	DEBUG_PGP_ROGUE_LIB = 3;
 	//pVar = getVariable( varPath );
 	printf( "AdcCalibration()...\n" );
 	// Enable all needed devices
@@ -319,7 +321,7 @@ int wave8RogueLib::AdcCalibration()
 	//setVariable( "Top.AdcPatternTester.enable", 1 );
 	for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
 	{
-		unsigned int	iCh = iAdc >> 1;
+		unsigned int	iCh = iAdc * 2;
 		//snprintf( varPath, 256, "Top.AdcConfig[%u].enable", iAdc );
 		//setVariable( varPath, 1 );
 		//snprintf( varPath, 256, "Top.AdcConfig[%u].Readout", iAdc );
@@ -332,11 +334,11 @@ int wave8RogueLib::AdcCalibration()
 		string	adcConfig( varPath );
 
 		// Find all delay lane registers
-		for ( unsigned int l = 0; l < 8; l++ )
-			pVarDelayLane[iCh][l] = FindVar( adcReadout, ".DelayAdcALane[%u]", l );
-		iCh++;
-		for ( unsigned int l = 8; l < 16; l++ )
-			pVarDelayLane[iCh][l] = FindVar( adcReadout, ".DelayAdcBLane[%u]", l - 8 );
+		for ( unsigned int l = 0; l < N_ADC_LANE_PER_CHAN; l++ )
+		{
+			pVarDelayLane[iCh  ][l] = FindVar( adcReadout, ".DelayAdcALane[%u]", l );
+			pVarDelayLane[iCh+1][l] = FindVar( adcReadout, ".DelayAdcBLane[%u]", l );
+		}
 
 		pVarDMode[iAdc]		= FindVar( adcReadout, ".DMode" );
 		pVarInvert[iAdc]	= FindVar( adcReadout, ".Invert" );
@@ -376,7 +378,7 @@ int wave8RogueLib::AdcCalibration()
 	setVariable( "Top.AdcPatternTester.Samples", 0xffff);
 	setVariable( "Top.AdcPatternTester.Mask", 0xffff);
 
-	bool	delayTestResults[32];
+	bool	delayTestResults[N_ADC_DELAYS];
 
 	// Iterate all ADC channels
 	for ( unsigned int iCh = 0; iCh < N_ADC_CHAN; iCh++ )
@@ -384,29 +386,41 @@ int wave8RogueLib::AdcCalibration()
 		const struct timespec tenthSec	= { 0, 100000000L };
 		const struct timespec tenMs		= { 0, 10000000L };
 		unsigned int	iAdc = iCh >> 1;
+		// set pattern tester channel
+		sleep(1);
+		setVariable( "Top.AdcPatternTester.Channel", iCh );
+
 		// iterate all lanes on each ADC channel
 		for ( unsigned int lane = 0; lane < N_ADC_LANE_PER_CHAN; lane++ )
 		{
+			if ( DEBUG_PGP_ROGUE_LIB >= 3 )
+				printf( "%s: Testing ADC %u, Ch %u, Lane %u ...\n", functionName, iAdc, iCh, lane );
+			if ( !pVarDelayLane[iCh][lane] )
+			{
+				printf( "%s: Error Invalid DelayLane ptr for ADC %u, Ch %u, Lane %u!\n", functionName, iAdc, iCh, lane );
+				continue;
+			}
+			sleep(1);
+
+			// set pattern output in ADC
+			unsigned int pattern = pow(2,(lane*2));
+			pVarReg10[iAdc]->setValue((uint64_t)(pattern&0xFF00)>>8);
+			pVarReg11[iAdc]->setValue((uint64_t) pattern&0x00FF    );
+
+			// set tester pattern
+			setVariable( "Top.AdcPatternTester.Pattern", pattern);
+
 			// Test each of the 32 possible delay values
-			for ( unsigned int delay = 0; delay < 32; delay++ )
+			for ( unsigned int delay = 0; delay < N_ADC_DELAYS; delay++ )
 			{
 				bool	fPassed = true;
 
-				// set tester channel
-				setVariable( "Top.AdcPatternTester.Channel", iCh );
 				// set delay
 				pVarDelayLane[iCh][lane]->setValue((uint64_t) delay );
 
-				// set pattern output in ADC
-				unsigned int pattern = pow(2,(lane*2));
-				pVarReg10[iAdc]->setValue((uint64_t)(pattern&0xFF00)>>8);
-				pVarReg11[iAdc]->setValue((uint64_t) pattern&0x00FF    );
-
-				// set tester pattern
-				setVariable( "Top.AdcPatternTester.Pattern", pattern);
-
 				// toggle request bit
 				setVariable( "Top.AdcPatternTester.Request", false);
+				nanosleep( &tenMs, NULL );
 				setVariable( "Top.AdcPatternTester.Request", true);
 
 				// wait until test done
@@ -425,6 +439,8 @@ int wave8RogueLib::AdcCalibration()
 				status = readVarPath( "Top.AdcPatternTester.Failed", fTestFailed );
 				if ( status != 0 || fTestFailed )
 					fPassed = false;
+				if ( DEBUG_PGP_ROGUE_LIB >= 5 )
+					printf( "PatternTest: ADC %u, Ch %u, Lane %u Bit 0: %s\n", iAdc, iCh, lane, (fPassed ? "Passed" : "FAILED") );
 				DEBUG_PGP_ROGUE_LIB = 3;
 
 				// shift pattern for next bit test (2 bits per lane)
@@ -450,13 +466,18 @@ int wave8RogueLib::AdcCalibration()
 						break;
 				}
 				status = readVarPath( "Top.AdcPatternTester.Failed", fTestFailed );
-				if ( status != 0 || !fTestFailed )
+				if ( status != 0 || fTestFailed )
 					fPassed = false;
+				if ( DEBUG_PGP_ROGUE_LIB >= 5 )
+					printf( "PatternTest: ADC %u, Ch %u, Lane %u Bit 1: %s\n", iAdc, iCh, lane, (fPassed ? "Passed" : "FAILED") );
 				DEBUG_PGP_ROGUE_LIB = 3;
 
 				delayTestResults[delay] = fPassed;
 			}
 			nanosleep( &tenthSec, NULL );
+			if ( DEBUG_PGP_ROGUE_LIB >= 3 )
+				printf( "%s: Evaluating test results Lane %u ...\n", functionName, lane );
+			sleep( 2 );
 
 			// find best delay setting
 			vector<unsigned int>	lengths;
@@ -466,7 +487,7 @@ int wave8RogueLib::AdcCalibration()
 			int				start		= -1;
 			int				started		= 0;
 			uint64_t		bestDelay	= 0L;
-			for ( unsigned int i = 5; i < 32; i++ )
+			for ( unsigned int i = 5; i < N_ADC_DELAYS; i++ )
 			{
 				// find a vector of ones minimum width 5
 				if (		delayTestResults[i  ] == true
@@ -506,23 +527,26 @@ int wave8RogueLib::AdcCalibration()
 			// find the longest vector of ones
 			if ( lengths.size() > 0 )
 			{
+				if ( DEBUG_PGP_ROGUE_LIB >= 3 )
+					printf( "%s: Finding longest of %zu vectors of ones for Lane %u ...\n", functionName, lengths.size(), lane );
+				sleep( 2 );
 				vector<unsigned int>::iterator	maxElem;
 				maxElem = max_element( lengths.begin(), lengths.end() );
 				size_t			index	= maxElem - lengths.begin();
 				unsigned int	value	= *maxElem;
 				bestDelay = starts[index] + (stops[index]-starts[index])/2;
 				if ( DEBUG_PGP_ROGUE_LIB >= 3 )
-					printf( "ADC %u, Lane %u BestDelay = %lu, longest run = %u\n", iCh, lane, bestDelay, value );
+					printf( "ADC %u, Ch %u, Lane %u BestDelay = %lu, longest run = %u\n", iAdc, iCh, lane, bestDelay, value );
+
+				// set best delay
+				pVarDelayLane[iCh][lane]->setValue( bestDelay );
 			}
 			else
 			{
-				printf( "ADC %u, Lane %u FAILED!\n", iCh, lane );
-				bestDelay = 0;
+				printf( "ADC %u, Ch %u, Lane %u FAILED!\n", iAdc, iCh, lane );
 			}
-
-			// set best delay
-			pVarDelayLane[iCh][lane]->setValue( bestDelay );
 		}
 	}
+	printf( "%s: Test done.\n", functionName );
 	return 0;
 }
