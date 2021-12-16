@@ -820,6 +820,13 @@ file longDevRogue.template
 		PATH	= "Top.XpmMiniWrapper.XpmMini.Link"
 		PYPV	= "Top:XpmMiniWrapper:XpmMini:Link"
 	}
+	{
+		NAME	= "TrEvent:XpmMsg:TxId32"
+		PATH	= "Top.TriggerEventManager.XpmMessageAligner.TxId"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:TxId32"
+		SCAN	= "\$(SCAN=1 second)"
+		SAVE	= ""
+	}
 }
 
 file int64InDevRogue.template
@@ -918,6 +925,7 @@ file int64DevRogue.template
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.TxId"
 		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:TxId"
 		SCAN	= "\$(SCAN=1 second)"
+		SAVE	= ""
 	}
 }
 
