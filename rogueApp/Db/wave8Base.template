@@ -48,11 +48,12 @@ record( mbbo, "$(P)$(R)SystemRegs:TrigSrcSel" )
 alias( "$(P)$(R)SystemRegs:TrigSrcSel",     "$(P)$(R)Top:SystemRegs:TrigSrcSel" )
 alias( "$(P)$(R)SystemRegs:TrigSrcSel_RBV", "$(P)$(R)Top:SystemRegs:TrigSrcSel_RBV" )
 
-record( sub, "$(P)$(R):AdcCalibration" )
+record( sub, "$(P)$(R)AdcCalibration" )
 {
 	field( INPA, "$(B)" )
 	field( INPB, "$(L)" )
 	field( SNAM, "AdcCalibration" )
+	field( PINI, "YES" )
 #	field( DISV, "0" )
 #	field( SDIS, "$(P)$(R)PgpMon:RxRemLinkReady_RBV CP" )
 }
