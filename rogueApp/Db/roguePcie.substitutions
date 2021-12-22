@@ -605,6 +605,7 @@ file longDevRogue.template
 		DESC	= "Trigger Delay"
 		SAVE	= "VAL"
 		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "EvrV2:Polarity",
@@ -613,6 +614,7 @@ file longDevRogue.template
 		DESC	= "Trigger Polarity"
 		SAVE	= "VAL"
 		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "EvrV2:Source",
@@ -621,6 +623,7 @@ file longDevRogue.template
 		DESC	= "Trigger Source"
 		SAVE	= "VAL"
 		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:BaselineSize",
@@ -680,6 +683,7 @@ file longDevRogue.template
 		PINI	= "YES"
 		EGU		= "Samples"
 		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Integrators:TrigDelay",
@@ -690,6 +694,7 @@ file longDevRogue.template
 		PINI	= "YES"
 		EGU		= "Samples"
 		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff0",
@@ -752,6 +757,7 @@ file longDevRogue.template
 		PATH	= "Top.RawBuffers.BuffLen"
 		PYPV	= "Top:RawBuffers:BuffLen"
 		SAVE	= "VAL"
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:FifoPauseThreshold",
@@ -774,6 +780,7 @@ file longDevRogue.template
 		PINI	= "YES"
 		SAVE	= "VAL"
 		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "Timing:RxDown",
