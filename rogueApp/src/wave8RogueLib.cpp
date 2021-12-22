@@ -547,6 +547,18 @@ int wave8RogueLib::AdcCalibration()
 			}
 		}
 	}
+
+	// Restore normal ADC registers
+	for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
+	{
+	   pVarDMode[iAdc]->setValue((uint64_t)0x3);	// deserializer dmode 0x3
+	   pVarInvert[iAdc]->setValue((uint64_t)0x1);	// invert data
+	   pVarConvert[iAdc]->setValue((uint64_t)0x0);	// convert data for pattern testing
+	   pVarRegF[iAdc]->setValue((uint64_t)0x0);		// ADC single pattern
+	   pVarReg15[iAdc]->setValue((uint64_t)0x1);	// ADC DDR mode
+	}
+	setVariable( "Top.SystemRegs.AdcCtrl1", true);
+	setVariable( "Top.SystemRegs.AdcCtrl2", true);
 	printf( "%s: Test done.\n", functionName );
 	return 0;
 }
