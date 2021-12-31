@@ -855,15 +855,6 @@ file int64InDevRogue.template
 		SCAN	= "\$(SCAN=.1 second)"
 	}
 	{
-		NAME	= "TrEvent:XpmMsg:RxId"
-		PATH	= "Top.TriggerEventManager.XpmMessageAligner.RxId"
-		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:RxId"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-}
-file int64DevRogue.template
-{
-	{
 		NAME	= "Integrators:TrigCnt",
 		PATH	= "Top.Integrators.TrigCnt"
 		PYPV	= "Top:Integrators:TrigCnt"
@@ -922,6 +913,15 @@ file int64DevRogue.template
 		PYPV	= "Top:TriggerEventManager:TriggerEventBuffer[0]:XpmMessageCount"
 		SCAN	= "\$(SCAN=1 second)"
 	}
+	{
+		NAME	= "TrEvent:XpmMsg:RxId"
+		PATH	= "Top.TriggerEventManager.XpmMessageAligner.RxId"
+		PYPV	= "Top:TriggerEventManager:XpmMessageAligner:RxId"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+}
+file int64DevRogue.template
+{
 	{
 		NAME	= "TrEvent:XpmMsg:TxId"
 		PATH	= "Top.TriggerEventManager.XpmMessageAligner.TxId"
