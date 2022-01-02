@@ -152,9 +152,29 @@ bool	wave8RogueLib::getTriggerEnable( unsigned int triggerNum )
 
 
 // TODO: Make different devices be subclasses of wave8RogueLib
-#include "wave8AddrMap.h"
-std::string		strWave8AddrMap( ROGUE_ADDR_MAP );
+//#include "wave8AddrMap.h"
+//std::string		strWave8AddrMap( ROGUE_ADDR_MAP );
 
+void	wave8RogueLib::parseAddrMapFile( const char * pszAddrMapFileName )
+{
+	FILE		*	addrMapFile		= fopen( pszAddrMapFileName, "r" );
+	if ( addrMapFile == NULL )
+	{
+		fprintf( stderr, "parseAddrMapFile error: Unable to open %s\n", pszAddrMapFileName );
+		return;
+	}
+	char	lineBuff[2048];
+	std::string		strWave8AddrMap;
+	while( fgets( lineBuff, 2048, addrMapFile ) != 0 )
+	{
+		char	*	pBackslash = strstr( lineBuff, "\\\n" );
+		if ( pBackslash )
+			*pBackslash = '\0';
+		strWave8AddrMap.append( lineBuff );
+	}
+	//printf( "strWave8AddrMap:\n%s\n", strWave8AddrMap.c_str() );
+	parseMemMap( strWave8AddrMap ); // From generated wave8AddrMap.h
+}
 
 ///	Constructor
 wave8RogueLib::wave8RogueLib(
@@ -206,11 +226,10 @@ wave8RogueLib::wave8RogueLib(
 	printf( "%s: %zu variables\n", functionName, mapVars.size() );
 
 	printf( "Parsing %s ROGUE_ADDR_MAP\n", pszAddrMapFileName );
-#if 0
+#if 1
 	parseAddrMapFile( pszAddrMapFileName );
 #else
-//	parseMemMap( pszAddrMapFileName );
-	parseMemMap( strWave8AddrMap ); // From generated wave8AddrMap.h
+	parseMemMap( pszAddrMapFileName );
 #endif
 	printf( "Wave8 ROGUE_ADDR_MAP parsed successfully\n" );
 	std::cout << std::flush;

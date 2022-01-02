@@ -10,5 +10,6 @@ O.*
 RELEASE_SITE
 *.log
 *.out
+*tags
 *~
 __pycache__

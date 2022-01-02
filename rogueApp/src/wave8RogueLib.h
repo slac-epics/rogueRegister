@@ -59,6 +59,7 @@ public:		//	Public member functions
 	void disconnect( );
 
 	int AdcCalibration();
+	void parseAddrMapFile( const char * pszAddrMapFileName );
 
 	/// Configure timing for LCLS-I
 	void ConfigureLclsTimingV1();
