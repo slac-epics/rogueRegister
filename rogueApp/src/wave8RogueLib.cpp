@@ -379,7 +379,6 @@ int wave8RogueLib::AdcCalibration()
 	setVariable( "Top.SystemRegs.Ap1V8En", true);
 	setVariable( "Top.SystemRegs.AdcCtrl1", false);
 	setVariable( "Top.SystemRegs.AdcCtrl2", false);
-	sleep(1);
 	setVariable( "Top.SystemRegs.AdcReset", true);
 	sleep(1);
 	setVariable( "Top.SystemRegs.AdcReset", false);
@@ -402,12 +401,11 @@ int wave8RogueLib::AdcCalibration()
 	// Iterate all ADC channels
 	for ( unsigned int iCh = 0; iCh < N_ADC_CHAN; iCh++ )
 	{
-		const struct timespec tenthSec	= { 0, 100000000L };
+		//const struct timespec tenthSec	= { 0, 100000000L };
 		const struct timespec tenMs		= { 0, 10000000L };
 		unsigned int	iAdc = iCh >> 1;
 		// set pattern tester channel
-		sleep(1);
-		setVariable( "Top.AdcPatternTester.Channel", iCh );
+		//setVariable( "Top.AdcPatternTester.Channel", iCh );
 
 		// iterate all lanes on each ADC channel
 		for ( unsigned int lane = 0; lane < N_ADC_LANE_PER_CHAN; lane++ )
@@ -419,27 +417,28 @@ int wave8RogueLib::AdcCalibration()
 				printf( "%s: Error Invalid DelayLane ptr for ADC %u, Ch %u, Lane %u!\n", functionName, iAdc, iCh, lane );
 				continue;
 			}
-			sleep(1);
-
-			// set pattern output in ADC
-			unsigned int pattern = pow(2,(lane*2));
-			pVarReg10[iAdc]->setValue((uint64_t)(pattern&0xFF00)>>8);
-			pVarReg11[iAdc]->setValue((uint64_t) pattern&0x00FF    );
-
-			// set tester pattern
-			setVariable( "Top.AdcPatternTester.Pattern", pattern);
 
 			// Test each of the 32 possible delay values
 			for ( unsigned int delay = 0; delay < N_ADC_DELAYS; delay++ )
 			{
 				bool	fPassed = true;
+				setVariable( "Top.AdcPatternTester.Channel", iCh );
 
 				// set delay
 				pVarDelayLane[iCh][lane]->setValue((uint64_t) delay );
 
+				// Reset pattern for each delay value
+				unsigned int pattern = pow(2,(lane*2));
+
+				// set tester pattern
+				uint64_t	reg10	= (uint64_t)(pattern&0xFF00)>>8;
+				pVarReg10[iAdc]->setValue((uint64_t)(pattern&0xFF00)>>8);
+				uint64_t	reg11	= (uint64_t)(pattern&0x00FF);
+				pVarReg11[iAdc]->setValue(reg11);
+				setVariable( "Top.AdcPatternTester.Pattern", pattern);
+
 				// toggle request bit
 				setVariable( "Top.AdcPatternTester.Request", false);
-				nanosleep( &tenMs, NULL );
 				setVariable( "Top.AdcPatternTester.Request", true);
 
 				// wait until test done
@@ -454,18 +453,18 @@ int wave8RogueLib::AdcCalibration()
 						break;
 					}
 				}
-				bool	fTestFailed	= false;
-				status = readVarPath( "Top.AdcPatternTester.Failed", fTestFailed );
-				if ( status != 0 || fTestFailed )
-					fPassed = false;
+				bool	fBit0TestFailed	= false;
+				status = readVarPath( "Top.AdcPatternTester.Failed", fBit0TestFailed );
 				if ( DEBUG_PGP_ROGUE_LIB >= 5 )
-					printf( "PatternTest: ADC %u, Ch %u, Lane %u Bit 0: %s\n", iAdc, iCh, lane, (fPassed ? "Passed" : "FAILED") );
+					printf( "PatternTest: ADC %u, Ch %u, Lane %u, Delay %u Bit 0: %s\n", iAdc, iCh, lane, delay, (fBit0TestFailed ? "FAILED" : "Passed") );
 				DEBUG_PGP_ROGUE_LIB = 3;
 
 				// shift pattern for next bit test (2 bits per lane)
 				pattern = pattern << 1;
-				pVarReg10[iAdc]->setValue((uint64_t)(pattern&0xFF00)>>8);
-				pVarReg11[iAdc]->setValue((uint64_t) pattern&0x00FF    );
+				reg10	= (uint64_t)(pattern&0xFF00)>>8;
+				pVarReg10[iAdc]->setValue(reg10);
+				reg11	= (uint64_t)(pattern&0x00FF);
+				pVarReg11[iAdc]->setValue(reg11);
 
 				// set tester pattern
 				setVariable( "Top.AdcPatternTester.Pattern", pattern);
@@ -484,19 +483,18 @@ int wave8RogueLib::AdcCalibration()
 					if ( status != 0 )
 						break;
 				}
-				status = readVarPath( "Top.AdcPatternTester.Failed", fTestFailed );
-				if ( status != 0 || fTestFailed )
-					fPassed = false;
+				bool	fBit1TestFailed	= false;
+				status = readVarPath( "Top.AdcPatternTester.Failed", fBit1TestFailed );
 				if ( DEBUG_PGP_ROGUE_LIB >= 5 )
-					printf( "PatternTest: ADC %u, Ch %u, Lane %u Bit 1: %s\n", iAdc, iCh, lane, (fPassed ? "Passed" : "FAILED") );
+					printf( "PatternTest: ADC %u, Ch %u, Lane %u, Delay %u Bit 1: %s\n", iAdc, iCh, lane, delay, (fBit1TestFailed ? "FAILED" : "Passed") );
+				if ( fBit0TestFailed || fBit1TestFailed )
+					fPassed = false;
 				DEBUG_PGP_ROGUE_LIB = 3;
 
 				delayTestResults[delay] = fPassed;
 			}
-			nanosleep( &tenthSec, NULL );
 			if ( DEBUG_PGP_ROGUE_LIB >= 3 )
 				printf( "%s: Evaluating test results Lane %u ...\n", functionName, lane );
-			sleep( 2 );
 
 			// find best delay setting
 			vector<unsigned int>	lengths;
@@ -548,7 +546,6 @@ int wave8RogueLib::AdcCalibration()
 			{
 				if ( DEBUG_PGP_ROGUE_LIB >= 3 )
 					printf( "%s: Finding longest of %zu vectors of ones for Lane %u ...\n", functionName, lengths.size(), lane );
-				sleep( 2 );
 				vector<unsigned int>::iterator	maxElem;
 				maxElem = max_element( lengths.begin(), lengths.end() );
 				size_t			index	= maxElem - lengths.begin();
