@@ -169,6 +169,7 @@ file boolDevRogue.template
 		NAME	= "SystemRegs:TrigEn",
 		PATH	= "Top.SystemRegs.TrigEn"
 		PYPV	= "Top:SystemRegs:TrigEn"
+		DOL 	= "1"
 		PINI	= "YES"
 		SAVE	= "VAL"
 		SCAN	= ""
@@ -444,6 +445,8 @@ file liDevRogue.template
 		PATH	= "Top.Integrators.ProcFifoPauseThreshold"
 		PYPV	= "Top:Integrators:ProcFifoPauseThreshold"
 		PINI	= "YES"
+		DOL		= "255"
+		SAVE	= "VAL"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
@@ -621,6 +624,7 @@ file longDevRogue.template
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Source"
 		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:Source"
 		DESC	= "Trigger Source"
+		DOL		= "0"
 		SAVE	= "VAL"
 		SCAN	= ""
 		SCAN	= "\$(SCAN=1 second)"
@@ -631,6 +635,7 @@ file longDevRogue.template
 		PYPV	= "Top:Integrators:BaselineSize"
 		DESC	= "Baseline sample size as power of 2"
 		PINI	= "YES"
+		DOL		= "7"
 		SAVE	= "VAL"
 		EGU		= "2^X"
 		SCAN	= "\$(SCAN=1 second)"
@@ -672,6 +677,7 @@ file longDevRogue.template
 		PATH	= "Top.Integrators.IntFifoPauseThreshold"
 		PYPV	= "Top:Integrators:IntFifoPauseThreshold"
 		PINI	= "YES"
+		DOL		= "255"
 		SCAN	= ""
 	}
 	{
@@ -679,6 +685,7 @@ file longDevRogue.template
 		PATH	= "Top.Integrators.IntegralSize"
 		PYPV	= "Top:Integrators:IntegralSize"
 		DESC	= "Integral sample size as # samples"
+		DOL		= "1"
 		SAVE	= "VAL"
 		PINI	= "YES"
 		EGU		= "Samples"
@@ -690,6 +697,7 @@ file longDevRogue.template
 		PATH	= "Top.Integrators.TrigDelay"
 		PYPV	= "Top:Integrators:TrigDelay"
 		DESC	= "Integrator start offset in samples"
+		DOL		= "5"
 		SAVE	= "VAL"
 		PINI	= "YES"
 		EGU		= "Samples"
@@ -756,6 +764,7 @@ file longDevRogue.template
 		NAME	= "RawBuffers:BuffLen",
 		PATH	= "Top.RawBuffers.BuffLen"
 		PYPV	= "Top:RawBuffers:BuffLen"
+		DOL		= "255"
 		SAVE	= "VAL"
 		SCAN	= "\$(SCAN=1 second)"
 	}
@@ -763,6 +772,8 @@ file longDevRogue.template
 		NAME	= "RawBuffers:FifoPauseThreshold",
 		PATH	= "Top.RawBuffers.FifoPauseThreshold"
 		PYPV	= "Top:RawBuffers:FifoPauseThreshold"
+		PINI	= "YES"
+		DOL		= "255"
 		SAVE	= "VAL"
 		SCAN	= ""
 	}

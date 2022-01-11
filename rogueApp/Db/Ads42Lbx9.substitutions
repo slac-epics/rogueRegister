@@ -106,129 +106,147 @@ file longDevRogue.template
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0006"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0006"
 		DESC	= "ADC Clock Divider"
+		DOL		= "128"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0007"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0007"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0007"
 		DESC	= "ADC Syncin Delay"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0008"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0008"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0008"
 		DESC	= "ADC Power-down, data fmt, reset, etc"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x000B"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x000B"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x000B"
 		DESC	= "ADC Gain and Data Flip"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x000C"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x000C"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x000C"
 		DESC	= "ADC Gain and Overrange"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x000D"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x000D"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x000D"
 		DESC	= "ADC Fast Overrange Ctrl"
+		DOL		= "108"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x000F"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x000F"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x000F"
 		DESC	= "ADC Test Pattern"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0010"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0010"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0010"
 		DESC	= "ADC Custom Pattern"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0011"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0011"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0011"
 		DESC	= "ADC Custom Pattern"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0012"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0012"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0012"
 		DESC	= "ADC Custom Pattern"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0013"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0013"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0013"
 		DESC	= "ADC Custom Pattern"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0014"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0014"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0014"
 		DESC	= "ADC LVDS Controls"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0015"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0015"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0015"
 		DESC	= "ADC DDR/QDR LVDS output mode"
+		DOL		= "1"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0016"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0016"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0016"
 		DESC	= "ADC DDR Output Timing"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0017"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0017"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0017"
 		DESC	= "ADC LVDS, QDR Output, Inv Clk Ctrls"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0018"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0018"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0018"
 		DESC	= "ADC QDR Output Timing"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x001F"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x001F"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x001F"
 		DESC	= "ADC Fast Overrange threshold"
+		DOL		= "255"
 	}
 	{
 		NAME	= "AdcConfig$(ADC):AdcReg_0x0020"
 		PATH	= "$(PTOP).AdcConfig[$(ADC)].AdcReg_0x0020"
 		PYPV	= "$(PTOP):AdcConfig[$(ADC)]:AdcReg_0x0020"
 		DESC	= "ADC Power-down Overrange Controls"
+		DOL		= "0"
 	}
 	{
 		NAME	= "AdcReadout$(ADC):DMode"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].DMode"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:DMode"
-		DOL	= "3"
 		DESC	= "Deserializer Mode"
+		DOL		= "3"
 	}
 	{
 		NAME	= "AdcReadout$(ADC):Invert"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].Invert"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:Invert"
-		DOL	= "1"
 		DESC	= "Invert Data for pattern testing"
+		DOL		= "1"
 	}
 	{
 		NAME	= "AdcReadout$(ADC):Convert"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].Convert"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:Convert"
-		DOL	= "3"
 		DESC	= "Convert data for pattern testing"
+		DOL		= "3"
 	}
 	{
 		NAME	= "AdcReadout$(ADC):DelayAdcALane0"
