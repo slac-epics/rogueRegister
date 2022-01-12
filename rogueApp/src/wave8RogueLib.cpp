@@ -332,19 +332,10 @@ int wave8RogueLib::AdcCalibration()
 	char				varPath[256];
 	int					status;
 
-	DEBUG_PGP_ROGUE_LIB = 3;
-	//pVar = getVariable( varPath );
 	printf( "AdcCalibration()...\n" );
-	// Enable all needed devices
-	//setVariable( "Top.SystemRegs.enable", 1 );
-	//setVariable( "Top.AdcPatternTester.enable", 1 );
 	for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
 	{
 		unsigned int	iCh = iAdc * 2;
-		//snprintf( varPath, 256, "Top.AdcConfig[%u].enable", iAdc );
-		//setVariable( varPath, 1 );
-		//snprintf( varPath, 256, "Top.AdcConfig[%u].Readout", iAdc );
-		//setVariable( varPath, 1 );
 
 		// Set adcReadout to the root path for this ADC
 		snprintf( varPath, 256, "Top.AdcReadout[%u]", iAdc );
@@ -443,7 +434,7 @@ int wave8RogueLib::AdcCalibration()
 
 				// wait until test done
 				bool	fDone	= false;
-				DEBUG_PGP_ROGUE_LIB = 6;
+				//DEBUG_PGP_ROGUE_LIB = 6;
 				while ( !fDone )
 				{
 					nanosleep( &tenMs, NULL );
@@ -457,7 +448,7 @@ int wave8RogueLib::AdcCalibration()
 				status = readVarPath( "Top.AdcPatternTester.Failed", fBit0TestFailed );
 				if ( DEBUG_PGP_ROGUE_LIB >= 5 )
 					printf( "PatternTest: ADC %u, Ch %u, Lane %u, Delay %u Bit 0: %s\n", iAdc, iCh, lane, delay, (fBit0TestFailed ? "FAILED" : "Passed") );
-				DEBUG_PGP_ROGUE_LIB = 3;
+				//DEBUG_PGP_ROGUE_LIB = 3;
 
 				// shift pattern for next bit test (2 bits per lane)
 				pattern = pattern << 1;
@@ -473,7 +464,7 @@ int wave8RogueLib::AdcCalibration()
 				setVariable( "Top.AdcPatternTester.Request", false);
 				setVariable( "Top.AdcPatternTester.Request", true);
 
-				DEBUG_PGP_ROGUE_LIB = 6;
+				//DEBUG_PGP_ROGUE_LIB = 6;
 				// wait until test done
 				fDone	= false;
 				while ( !fDone )
@@ -489,7 +480,7 @@ int wave8RogueLib::AdcCalibration()
 					printf( "PatternTest: ADC %u, Ch %u, Lane %u, Delay %u Bit 1: %s\n", iAdc, iCh, lane, delay, (fBit1TestFailed ? "FAILED" : "Passed") );
 				if ( fBit0TestFailed || fBit1TestFailed )
 					fPassed = false;
-				DEBUG_PGP_ROGUE_LIB = 3;
+				//DEBUG_PGP_ROGUE_LIB = 3;
 
 				delayTestResults[delay] = fPassed;
 			}
@@ -564,17 +555,27 @@ int wave8RogueLib::AdcCalibration()
 		}
 	}
 
+	// Turn off PatternTester
+	setVariable( "Top.AdcPatternTester.Channel", 0);
+	setVariable( "Top.AdcPatternTester.Mask", 0);
+	setVariable( "Top.AdcPatternTester.Pattern", 0);
+	setVariable( "Top.AdcPatternTester.Request", false);
+	setVariable( "Top.AdcPatternTester.Samples", 0);
+
 	// Restore normal ADC registers
 	for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
 	{
-	   pVarDMode[iAdc]->setValue((uint64_t)0x3);	// deserializer dmode 0x3
-	   pVarInvert[iAdc]->setValue((uint64_t)0x1);	// invert data
-	   pVarConvert[iAdc]->setValue((uint64_t)0x0);	// convert data for pattern testing
-	   pVarRegF[iAdc]->setValue((uint64_t)0x0);		// ADC single pattern
-	   pVarReg15[iAdc]->setValue((uint64_t)0x1);	// ADC DDR mode
+	   pVarDMode[	iAdc]->setValue((uint64_t)0x3);	// deserializer dmode 0x3
+	   pVarInvert[	iAdc]->setValue((uint64_t)0x1);	// invert data
+	   pVarConvert[	iAdc]->setValue((uint64_t)0x3);	// convert data for pattern testing
+	   pVarReg8[	iAdc]->setValue((uint64_t)0x0);	// misc bits
+	   pVarRegF[	iAdc]->setValue((uint64_t)0x0);	// Clear test patterns
+	   pVarReg10[	iAdc]->setValue((uint64_t)0x0);	// Clear test patterns
+	   pVarReg11[	iAdc]->setValue((uint64_t)0x0);	// Clear test patterns
+	   pVarReg15[	iAdc]->setValue((uint64_t)0x1);	// ADC DDR mode
 	}
-	setVariable( "Top.SystemRegs.AdcCtrl1", true);
-	setVariable( "Top.SystemRegs.AdcCtrl2", true);
+	setVariable( "Top.SystemRegs.AdcCtrl1", false);
+	setVariable( "Top.SystemRegs.AdcCtrl2", false);
 	printf( "%s: Test done.\n", functionName );
 	return 0;
 }
