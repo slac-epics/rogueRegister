@@ -448,16 +448,12 @@ file liDevRogue.template
 		NAME	= "Integrators:ProcFifoPauseCnt",
 		PATH	= "Top.Integrators.ProcFifoPauseCnt"
 		PYPV	= "Top:Integrators:ProcFifoPauseCnt"
-		PINI	= "YES"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
-		NAME	= "Integrators:ProcFifoPauseThreshold",
-		PATH	= "Top.Integrators.ProcFifoPauseThreshold"
-		PYPV	= "Top:Integrators:ProcFifoPauseThreshold"
-		PINI	= "YES"
-		DOL		= "255"
-		SAVE	= "VAL"
+		NAME	= "RawBuffers:FifoPauseCnt",
+		PATH	= "Top.RawBuffers.FifoPauseCnt"
+		PYPV	= "Top:RawBuffers:FifoPauseCnt"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
@@ -584,13 +580,6 @@ file liDevRogue.template
 file loDevRogue.template
 {
 	{
-		NAME	= "RawBuffers:FifoPauseCnt",
-		PATH	= "Top.RawBuffers.FifoPauseCnt"
-		PYPV	= "Top:RawBuffers:FifoPauseCnt"
-		SAVE	= ""
-		SCAN	= ""
-	}
-	{
 		NAME	= "Timing:C_RxReset",
 		PATH	= "Top.TimingFrameRx.C_RxReset"
 		PYPV	= "Top:TimingFrameRx:C_RxReset"
@@ -704,6 +693,15 @@ file longDevRogue.template
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
+		NAME	= "Integrators:ProcFifoPauseThreshold",
+		PATH	= "Top.Integrators.ProcFifoPauseThreshold"
+		PYPV	= "Top:Integrators:ProcFifoPauseThreshold"
+		PINI	= "YES"
+		DOL		= "255"
+		SAVE	= "VAL"
+		SCAN	= "\$(SCAN=1 second)"
+	}
+	{
 		NAME	= "Integrators:TrigDelay",
 		PATH	= "Top.Integrators.TrigDelay"
 		PYPV	= "Top:Integrators:TrigDelay"
@@ -720,56 +718,56 @@ file longDevRogue.template
 		PATH	= "Top.RawBuffers.OvflCntBuff[0]"
 		PYPV	= "Top:RawBuffers:OvflCntBuff[0]"
 		SAVE	= ""
-		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff1",
 		PATH	= "Top.RawBuffers.OvflCntBuff[1]"
 		PYPV	= "Top:RawBuffers:OvflCntBuff[1]"
 		SAVE	= ""
-		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff2",
 		PATH	= "Top.RawBuffers.OvflCntBuff[2]"
 		PYPV	= "Top:RawBuffers:OvflCntBuff[2]"
 		SAVE	= ""
-		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff3",
 		PATH	= "Top.RawBuffers.OvflCntBuff[3]"
 		PYPV	= "Top:RawBuffers:OvflCntBuff[3]"
 		SAVE	= ""
-		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff4",
 		PATH	= "Top.RawBuffers.OvflCntBuff[4]"
 		PYPV	= "Top:RawBuffers:OvflCntBuff[4]"
 		SAVE	= ""
-		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff5",
 		PATH	= "Top.RawBuffers.OvflCntBuff[5]"
 		PYPV	= "Top:RawBuffers:OvflCntBuff[5]"
 		SAVE	= ""
-		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff6",
 		PATH	= "Top.RawBuffers.OvflCntBuff[6]"
 		PYPV	= "Top:RawBuffers:OvflCntBuff[6]"
 		SAVE	= ""
-		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:OvflCntBuff7",
 		PATH	= "Top.RawBuffers.OvflCntBuff[7]"
 		PYPV	= "Top:RawBuffers:OvflCntBuff[7]"
 		SAVE	= ""
-		SCAN	= ""
+		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
 		NAME	= "RawBuffers:BuffLen",
