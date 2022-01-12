@@ -1,4 +1,11 @@
 Release Notes for rogueRegister EPICS module
+R1.3.0:	2022-01-11 Bruce Hill
+	Added automatic AdcCalibration each IOC boot plus on demand.
+	Restore normal ADC register values after AdcCalibration.
+	Change pgpRogueDev to read addrMap from a filepath at runtime
+	Fixed misc int64 record issues.
+	Added pgpRogueLib::FindVar() functions w/ printf style formatting of path
+
 R1.2.0:	2021-12-01 Bruce Hill
 	Extend wave8 support to lanes 4-7
 	Provide smaller alias for Fast:Integrators:AdcIntegral*
