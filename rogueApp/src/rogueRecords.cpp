@@ -16,7 +16,7 @@
 #include <mbboRecord.h>
 #include <longinRecord.h>
 #include <longoutRecord.h>
-#include <subRecord.h>
+#include <aSubRecord.h>
 #include <caeventmask.h>
 #include <dbEvent.h>
 //#include <dbAccessDefs.h>
@@ -707,38 +707,47 @@ epicsExportAddress( dset, dsetRogueMBBO );
 //	Inputs:
 //		A:	LONG, Board number
 //		B:	LONG, Lane  number
+//	Outputs:
+//		A:	STRING, Calibration status
 //
-extern "C" long AdcCalibration( subRecord	*	pSub	)
+extern "C" long AdcCalibration( aSubRecord	*	pSub	)
 {
     static const char	*	functionName = "AdcCalibration";
 	int			status		= 0;
 
-	// Get input values
-	unsigned int	iBoard		= (unsigned int) pSub->a;
-//	unsigned int	iLane		= (unsigned int) pSub->b;
+	// Get input value pointers
+	unsigned int	*	piBoard		= static_cast<unsigned int *>( pSub->a );
+//	unsigned int	*	piLane		= static_cast<unsigned int *>( pSub->b );
 
-	pgpRogueDevPtr	pRogueDev = pgpRogueDev::RogueFindByBoard( iBoard );
+	// Get output value pointers
+	char			*	pszStatus	= static_cast<char *>( pSub->vala );
+
+	pgpRogueDevPtr	pRogueDev = pgpRogueDev::RogueFindByBoard( *piBoard );
 	if ( pRogueDev == NULL )
 	{
-		printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
+		printf( "%s error: Rogue board %u not found!\n", functionName, *piBoard );
+		strncpy( pszStatus, "Board Not Found", MAX_STRING_SIZE );
 		return 0;
 	}
 	wave8RogueLibPtr	pRogueLib = pRogueDev->GetWave8RogueLib();
 	if ( pRogueLib == NULL )
 	{
-		printf( "%s error: Rogue lib for board %u not found!\n", functionName, iBoard );
+		printf( "%s error: Rogue lib for board %u not found!\n", functionName, *piBoard );
+		strncpy( pszStatus, "Rogue Lib Not Found", MAX_STRING_SIZE );
 		return 0;
 	}
 	pSub->val = 0;
+	strncpy( pszStatus, "Calibrating ...", MAX_STRING_SIZE );
 	status	= pRogueLib->AdcCalibration( );
 	if ( status != 0 )
 	{
 		printf( "%s: Error %d\n", functionName, status );
+		strncpy( pszStatus, "Calibration Failed!", MAX_STRING_SIZE );
 		return status;
 	}
 
     if ( DEBUG_ROGUE_RECORDS >= 2 )
 		printf( "%s: Successful\n", functionName );
-
+	strncpy( pszStatus, "Calibrated", MAX_STRING_SIZE );
 	return 0;
 }

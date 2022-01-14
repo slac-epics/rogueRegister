@@ -48,12 +48,22 @@ record( mbbo, "$(P)$(R)SystemRegs:TrigSrcSel" )
 alias( "$(P)$(R)SystemRegs:TrigSrcSel",     "$(P)$(R)Top:SystemRegs:TrigSrcSel" )
 alias( "$(P)$(R)SystemRegs:TrigSrcSel_RBV", "$(P)$(R)Top:SystemRegs:TrigSrcSel_RBV" )
 
-record( sub, "$(P)$(R)AdcCalibration" )
+# Inputs:
+#	A:	Board number
+#	B:	Lane  number
+# Outputs:
+#	A:	CalibrationStatus
+record( aSub, "$(P)$(R)AdcCalibration" )
 {
-	field( INPA, "$(B)" )
-	field( INPB, "$(L)" )
+	field( FTA,	 "LONG"	) field( INPA, "$(B)" )
+	field( FTB,	 "LONG"	) field( INPB, "$(L)" )
+	field( FTVA, "STRING" ) field( OUTA, "$(P)$(R)AdcCalibStatus PP MS" )
 	field( SNAM, "AdcCalibration" )
 	field( PINI, "YES" )
 #	field( DISV, "0" )
 #	field( SDIS, "$(P)$(R)PgpMon:RxRemLinkReady_RBV CP" )
+}
+
+record( stringout, "$(P)$(R)AdcCalibStatus" )
+{
 }
