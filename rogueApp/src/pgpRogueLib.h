@@ -130,43 +130,6 @@ private:
 	std::string			m_DrvVersion;	// Driver Version
 	std::string			m_LibVersion;	// Library Version
 
-	//rogue::LibraryBasePtr				m_pRogueLib;
-	//rogueAddrMapPtr					m_pRogueLib;
-
-#if 0
-	/// PCIe register access
-	rogue::hardware::axi::AxiMemMapPtr 	m_pAxiMemMap;
-	ClMemoryMasterPtr		 			m_pAxiMemMaster;
-	//rim::MasterPtr		 			m_pAxiMemMaster;
-#endif
-
-	///
-	// Firmware Lane assignments:
-	// Lane 0: First wave8
-	// Lane 1: 2nd wave8,
-	// Lane 2: 3rd wave8
-	// Lane 3: 4th wave8
-	//
-	// PGP channel mapping
-	// PGP[lane].VC[0] = SRPv3 (register access)
-	// PGP[lane].VC[1] = wave8 data (streaming data)
-	// PGP[lane].VC[2] = PRBS stream (?)
-	// PGP[lane].VC[3] = Unused
-	//
-	// DMA channel mapping
-	// DMA[lane].DEST[0] = SRPv3
-	// DMA[lane].DEST[1] = Event Builder Batcher (super-frame)
-	// DMA[lane].DEST[1].DEST[0] = XPM Trigger Message (sub-frame)
-	// DMA[lane].DEST[1].DEST[1] = XPM Transition Message (sub-frame)
-	// DMA[lane].DEST[1].DEST[2] = Data? (sub-frame)
-	// DMA[lane].DEST[2] = Data?
-	// DMA[lane].DEST[255:3] = Unused
-	///
-
-	//TODO: Move these to new axiW8DataLane class
-	rogue::hardware::axi::AxiStreamDmaPtr		m_pW8RegChan;
-	rogue::interfaces::memory::MasterPtr		m_pW8MemMaster;
-	rogue::protocols::srp::SrpV3Ptr				m_pSrpW8;
 };
 
 // Shared pointer alias

@@ -175,18 +175,13 @@ std::string		strWave8AddrMap( ROGUE_ADDR_MAP );
 
 ///	Constructor
 pgpRogueLib::pgpRogueLib(
-	unsigned int		board )
-//	const char	*		pszAddrMapFileName
+	unsigned int				board	)
 :	rogue::LibraryBase(),
 	m_board(		board	),
 	m_fConnected(	0		),
 	m_devName(				),
 	m_DrvVersion(			),
 	m_LibVersion(			)
-#if 0
-	,m_pAxiMemMap(			),
-	m_pAxiMemMaster(		)
-#endif
 {
 //	const char		*	functionName	= "pgpRogueLib::pgpRogueLib";
 
@@ -224,83 +219,6 @@ pgpRogueLib::pgpRogueLib(
 	close( m_fd );
 	m_fd = -1;
 	m_fConnected = 1;	// Do we need this?
-
-#if 0
-	//
-	// Connect DATACHAN 0 KCU1500 Register Access
-	//
-	m_pAxiMemMap		= rogue::hardware::axi::AxiMemMap::create( m_devName );
-	m_pAxiMemMaster		= ClMemoryMaster::create( );
-	m_pAxiMemMaster->setSlave( m_pAxiMemMap );
-	const char	*	szPcieMemName = "PCIe_Bar0";	// From interface name in wave8AddrMap.h
-	addMemory( szPcieMemName, m_pAxiMemMap );		// TODO: Can we remove this?  Doesn't seem to be used. Unless for kcu SFPs
-	//m_pRogueLib->addMemory( szPcieMemName, m_pAxiMemMap );
-	printf("pgpRogueLib: addMemory AxiMemMap interface %s\n", szPcieMemName );
-
-	m_pW8RegChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, PGP_DATACHAN_REG_ACCESS, true);
-
-	//
-	// Connect DATACHAN 0 WAVE8 Register Access
-	//
-	m_pSrpW8 = rogue::protocols::srp::SrpV3::create();	// Serial Rouge Protocol handler
-	// Create bidirectional links between SRP and W8RegChan 
-	m_pW8RegChan->addSlave( m_pSrpW8 );
-	m_pSrpW8->addSlave( m_pW8RegChan );
-
-//	const char	*	szMemName = "Wave8_Mem0";	// From interface name in wave8AddrMap.h
-	const char	*	szMemName = "Unnamed_5";	// From interface name in wave8AddrMap.h
-	addMemory( szMemName, m_pSrpW8 );
-	//m_pRogueLib->addMemory( szMemName, m_pSrpW8 );
-	printf("pgpRogueLib: addMemory srpW8 interface %s\n", szMemName );
-
-	// Create W8MemMaster and link it to SRP
-	m_pW8MemMaster = rim::Master::create( );
-	m_pW8MemMaster->setSlave( m_pSrpW8 );
-
-	const mapVarPtr_t &	mapVars		= getVariableList();
-	printf( "%s: %zu variables\n", functionName, mapVars.size() );
-
-	printf( "Parsing %zu length ROGUE_ADDR_MAP\n", strlen( ROGUE_ADDR_MAP ) );
-//	parseAddrMapFile( pszAddrMapFileName );
-	parseMemMap( strWave8AddrMap ); // From generated wave8AddrMap.h
-	printf( "Wave8 ROGUE_ADDR_MAP parsed successfully\n" );
-	std::cout << std::flush;
-
-	// Force an initial read of all variables
-	printf( "%s: Reading %zu variables\n", functionName, getVariableList().size() );
-	try
-	{
-		readAll();
-	}
-	catch ( rogue::GeneralError & e )
-	{
-		printf( "%s error: %s!\n", functionName, e.what() );
-	}
-	catch ( std::exception & e )
-	{
-		printf( "%s error: %s!\n", functionName, e.what() );
-	}
-	catch ( ... )
-	{
-		printf( "%s unknown error!\n", functionName );
-	}
-	printf( "%s: Read %zu variables\n", functionName, getVariableList().size() );
-
-	setTriggerEnable( 0, false );
-	//setTriggerEnable( 1, false );
-	//setTriggerEnable( 2, false );
-	//setTriggerEnable( 3, false );
-
-	//showVariableList( true );
-
-	std::string sFpgaVersionPath( "Top.AxiVersion.BuildStamp" );
-	showVariable( sFpgaVersionPath.c_str(), true );
-
-	std::string sDataCnt( "Top.BatcherEventBuilder.DataCnt[0]" );
-	showVariable( sDataCnt.c_str(), true );
-	showVariable( "Top.AxiVersion.FpgaVersion", true );
-	showVariable( "Top.AxiVersion.UpTimeCnt", true );
-#endif
 }
 
 /// virtual Destructor
