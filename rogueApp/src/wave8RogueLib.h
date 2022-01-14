@@ -41,15 +41,16 @@ class wave8RogueLib :	public	pgpRogueLib
 {
 public:		//	Public member functions
 	// Create a static class creator to return our custom class wrapped with a shared pointer
-	static std::shared_ptr<wave8RogueLib> create( unsigned int board, const char * pszAddrMapFileName )
+	static std::shared_ptr<wave8RogueLib> create( unsigned int board, unsigned int lane, const char * pszAddrMapFileName )
 	{
-		static std::shared_ptr<wave8RogueLib> ret = std::make_shared<wave8RogueLib>( board, pszAddrMapFileName );
+		static std::shared_ptr<wave8RogueLib> ret = std::make_shared<wave8RogueLib>( board, lane, pszAddrMapFileName );
 
 		return(ret);
 	}
 
 	///	Constructor
 	wave8RogueLib(	unsigned int	board,
+					unsigned int	lane,
 					const char	*	pszAddrMapFileName  );
 
 	/// Destructor
@@ -77,11 +78,7 @@ public:		//	Public member functions
 
 private:
 	//	Private member variables
-#if 0
-	/// PCIe register access
-	rogue::hardware::axi::AxiMemMapPtr 	m_pAxiMemMap;
-//	ClMemoryMasterPtr		 			m_pAxiMemMaster;
-#endif
+	unsigned int		m_lane;
 
 	///
 	// Firmware Lane assignments:
@@ -89,6 +86,8 @@ private:
 	// Lane 1: 2nd wave8,
 	// Lane 2: 3rd wave8
 	// Lane 3: 4th wave8
+	// ...
+	// Lane 7: 8th wave8
 	//
 	// PGP channel mapping
 	// PGP[lane].VC[0] = SRPv3 (register access)

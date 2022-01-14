@@ -179,8 +179,10 @@ void	wave8RogueLib::parseAddrMapFile( const char * pszAddrMapFileName )
 ///	Constructor
 wave8RogueLib::wave8RogueLib(
 	unsigned int		board,
+	unsigned int		lane,
 	const char		*	pszAddrMapFileName  )
-:	pgpRogueLib(		board	)
+:	pgpRogueLib(		board ),
+	m_lane(				lane )
 #if 0
 	,
 	m_pAxiMemMap(			),
@@ -202,7 +204,13 @@ wave8RogueLib::wave8RogueLib(
 	printf("wave8RogueLib: addMemory AxiMemMap interface %s\n", szPcieMemName );
 #endif
 
-	m_pW8RegChan	= rogue::hardware::axi::AxiStreamDma::create( GetDevName(), PGP_DATACHAN_REG_ACCESS, true);
+	uint32_t dest = (0x100 * m_lane) + PGP_DATACHAN_REG_ACCESS;
+	if ( DEBUG_PGP_ROGUE_LIB >= 1 )
+	{
+		printf( "%s: Creating DataChan for %s with dest %u ...\n", functionName, GetDevName().c_str(), dest );
+		std::cout << std::flush; sleep(5);
+	}
+	m_pW8RegChan	= rogue::hardware::axi::AxiStreamDma::create( GetDevName(), dest, true);
 
 	//
 	// Connect DATACHAN 0 WAVE8 Register Access
@@ -469,7 +477,7 @@ int wave8RogueLib::AdcCalibration()
 				fDone	= false;
 				while ( !fDone )
 				{
-					nanosleep( &tenMs, NULL );
+					nanosleep( &tenMs, NULL ); // Needed?
 					status = readVarPath( "Top.AdcPatternTester.Done", fDone );
 					if ( status != 0 )
 						break;

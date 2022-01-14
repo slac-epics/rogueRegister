@@ -86,6 +86,12 @@ public:		//	Public member functions
  	/// Shutdown driver
 	void Shutdown( );
 
+	///	Get Device Name
+	const std::string	&	GetDevName( ) const
+	{
+		return m_devName;
+	}
+
 	///	Get Driver Version
 	const std::string	&	GetDrvVersion( ) const
 	{

@@ -83,6 +83,7 @@ pgpRogueDev::pgpRogueDev(
 	m_pRogueLib(	NULL	),
 	m_fd(			0		),
 	m_board(		board	),
+	m_lane(			lane	),
 	m_fConnected(	0		),
 	m_devName(				),
 	m_devLock(				),
@@ -148,6 +149,12 @@ pgpRogueDev::pgpRogueDev(
 	close( m_fd );
 	m_fd = 0;
 
+	if ( m_lane >= N_PGP_LANES )
+	{
+		printf( "%s: ERROR Invalid PGP lane number %u\n", functionName, m_lane );
+		return;
+	}
+
 	// Only create pgpRogueLib if the PGP_REG prefix is defined
 	// Allows IOC to read data from a python configured wave8.
 	if ( szPgpReg && strlen(szPgpReg) > 0 )
@@ -155,15 +162,9 @@ pgpRogueDev::pgpRogueDev(
 		//
 		// Connect Rogue Library
 		//
+		printf( "%s: Creating wave8RogueLib for board %u, lane %u\n", functionName, m_board, m_lane );
 		std::cout << std::flush;
-		sleep(5);
-#if 0
-		printf( "%s: Creating pgpRogueLib for board %u\n", functionName, m_board );
-		m_pRogueLib = pgpRogueLib::create( m_board );
-#else
-		printf( "%s: Creating wave8RogueLib for board %u\n", functionName, m_board );
-		m_pRogueLib = wave8RogueLib::create( m_board, szAddrMapPath );
-#endif
+		m_pRogueLib = wave8RogueLib::create( m_board, m_lane, szAddrMapPath );
 		if ( !m_pRogueLib )
 		{
 			printf( "%s: ERROR creating pgpRogueLib for board %u\n", functionName, m_board );
@@ -171,16 +172,18 @@ pgpRogueDev::pgpRogueDev(
 		else
 			printf( "%s: Created pgpRogueLib for board %u\n", functionName, m_board );
 		std::cout << std::flush;
-		sleep(5);
 	}
 
 	//
 	// Create Data Channels
 	// TODO: Make a function than encapsulates this
 	uint32_t	dest;
-	dest = (0x100 * 0) + PGP_DATACHAN_FRAME_ACCESS;
+	dest = (0x100 * m_lane) + PGP_DATACHAN_FRAME_ACCESS;
 	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+	{
 		printf( "%s: Creating DataChan for %s, dest %u ...\n", functionName, m_devName.c_str(), dest );
+		std::cout << std::flush;
+	}
 	m_pDataChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
 
 	// Full rate unbatcher
@@ -217,13 +220,6 @@ pgpRogueDev::pgpRogueDev(
 	m_pDataChan->addSlave( m_pDataFifo );
 #endif
 	
-	// EPICS unbatcher
-	//m_pEpicsUnbatcher	= rogue::protocols::batcher::SplitterV1::create();
-	//m_pDataFifo->addSlave( m_pEpicsUnbatcher );
-
-	//m_pEpicsDataStream	= DataStream::create(this, "EpicsStream");
-	//m_pEpicsUnbatcher->addSlave( m_pEpicsDataStream );
-
 	m_fConnected = 1;	// Do we need this?
 	//StartRun( m_fd );
 }
@@ -490,7 +486,7 @@ int pgpRogueDev::ShowReport( int level )
     if ( level < 0 )
 		return 0;
 
-	cout << "\tRogue " << m_devName	<< " is installed on board " << m_board << endl;
+	cout << "\tRogue " << m_devName	<< " is installed on board " << m_board << " Lane " << m_lane << endl;
 	if ( level >= 1 )
 	{
 		//cout	<< "\t\tType: "			<< m_RogueClass
