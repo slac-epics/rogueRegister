@@ -1,4 +1,8 @@
 Release Notes for rogueRegister EPICS module
+R1.5.0:	2022-01-19 Bruce Hill
+	Add try/catch in wave8RogueLib::AdcCalibration to catch rogue errors.
+	Tweaking AdcCalibration PVs to make AdcCalibStatus update properly.
+
 R1.4.0:	2022-01-14 Bruce Hill
 	Change AdcCalibration to aSub and add status output
 	Fix multi-lane support
