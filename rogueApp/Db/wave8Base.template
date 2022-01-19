@@ -53,13 +53,19 @@ alias( "$(P)$(R)SystemRegs:TrigSrcSel_RBV", "$(P)$(R)Top:SystemRegs:TrigSrcSel_R
 #	B:	Lane  number
 # Outputs:
 #	A:	CalibrationStatus
-record( aSub, "$(P)$(R)AdcCalibration" )
+record( stringout, "$(P)$(R)AdcCalibration" )
 {
-	field( FTA,	 "LONG"	) field( INPA, "$(B)" )
-	field( FTB,	 "LONG"	) field( INPB, "$(L)" )
-	field( FTVA, "STRING" ) field( OUTA, "$(P)$(R)AdcCalibStatus PP MS" )
+	field( VAL,  "Calibrating..." )
+	field( OUT,  "$(P)$(R)AdcCalibStatus CA NMS" )
+#	field( PINI, "YES" )
+	field( FLNK, "$(P)$(R)AdcCalibrationSub.PROC CA NMS" )
+}
+record( aSub, "$(P)$(R)AdcCalibrationSub" )
+{
+	field( FTA,	 "LONG"	  ) field( INPA, "$(B)" )
+	field( FTB,	 "LONG"	  ) field( INPB, "$(L)" )
+	field( FTVA, "STRING" ) field( OUTA, "$(P)$(R)AdcCalibStatus CA MS" )
 	field( SNAM, "AdcCalibration" )
-	field( PINI, "YES" )
 #	field( DISV, "0" )
 #	field( SDIS, "$(P)$(R)PgpMon:RxRemLinkReady_RBV CP" )
 }
@@ -67,3 +73,4 @@ record( aSub, "$(P)$(R)AdcCalibration" )
 record( stringout, "$(P)$(R)AdcCalibStatus" )
 {
 }
+
