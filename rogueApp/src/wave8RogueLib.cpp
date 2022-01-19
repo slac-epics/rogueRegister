@@ -341,249 +341,267 @@ int wave8RogueLib::AdcCalibration()
 	int					status;
 
 	printf( "AdcCalibration()...\n" );
-	for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
+	try
 	{
-		unsigned int	iCh = iAdc * 2;
-
-		// Set adcReadout to the root path for this ADC
-		snprintf( varPath, 256, "Top.AdcReadout[%u]", iAdc );
-		string	adcReadout( varPath );
-		snprintf( varPath, 256, "Top.AdcConfig[%u]", iAdc );
-		string	adcConfig( varPath );
-
-		// Find all delay lane registers
-		for ( unsigned int l = 0; l < N_ADC_LANE_PER_CHAN; l++ )
+		for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
 		{
-			pVarDelayLane[iCh  ][l] = FindVar( adcReadout, ".DelayAdcALane[%u]", l );
-			pVarDelayLane[iCh+1][l] = FindVar( adcReadout, ".DelayAdcBLane[%u]", l );
-		}
+			unsigned int	iCh = iAdc * 2;
 
-		pVarDMode[iAdc]		= FindVar( adcReadout, ".DMode" );
-		pVarInvert[iAdc]	= FindVar( adcReadout, ".Invert" );
-		pVarConvert[iAdc]	= FindVar( adcReadout, ".Convert" );
+			// Set adcReadout to the root path for this ADC
+			snprintf( varPath, 256, "Top.AdcReadout[%u]", iAdc );
+			string	adcReadout( varPath );
+			snprintf( varPath, 256, "Top.AdcConfig[%u]", iAdc );
+			string	adcConfig( varPath );
 
-		// Find all ADC settings registers
-		pVarReg8[iAdc]  = FindVar( adcConfig, ".AdcReg_0x0008" );
-		pVarRegF[iAdc]  = FindVar( adcConfig, ".AdcReg_0x000F" );
-		pVarReg10[iAdc] = FindVar( adcConfig, ".AdcReg_0x0010" );
-		pVarReg11[iAdc] = FindVar( adcConfig, ".AdcReg_0x0011" );
-		pVarReg15[iAdc] = FindVar( adcConfig, ".AdcReg_0x0015" );
-	}
-
-	// Initial configuration for the slow ADC
-	setVariable( "Top.SystemRegs.AvccEn0", true);
-	setVariable( "Top.SystemRegs.AvccEn1", true);
-	setVariable( "Top.SystemRegs.A0p3V3En", true);
-	setVariable( "Top.SystemRegs.A1p3V3En", true);
-	setVariable( "Top.SystemRegs.Ap1V8En", true);
-	setVariable( "Top.SystemRegs.AdcCtrl1", false);
-	setVariable( "Top.SystemRegs.AdcCtrl2", false);
-	setVariable( "Top.SystemRegs.AdcReset", true);
-	sleep(1);
-	setVariable( "Top.SystemRegs.AdcReset", false);
-	sleep(1);
-	for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
-	{
-	   pVarDMode[iAdc]->setValue((uint64_t)0x3);		// deserializer dmode 0x3
-	   pVarInvert[iAdc]->setValue((uint64_t)0x0);		// do not invert data for pattern testing
-	   pVarConvert[iAdc]->setValue((uint64_t)0x0);	// do not convert data for pattern testing
-	   //pVarReg8[iAdc]->setValue((uint64_t)0x10);	// ADC binary data format
-	   pVarRegF[iAdc]->setValue((uint64_t)0x66);		// ADC single pattern
-	   pVarReg15[iAdc]->setValue((uint64_t)0x1);		// ADC DDR mode
-	}
-
-	setVariable( "Top.AdcPatternTester.Samples", 0xffff);
-	setVariable( "Top.AdcPatternTester.Mask", 0xffff);
-
-	bool	delayTestResults[N_ADC_DELAYS];
-
-	// Iterate all ADC channels
-	for ( unsigned int iCh = 0; iCh < N_ADC_CHAN; iCh++ )
-	{
-		//const struct timespec tenthSec	= { 0, 100000000L };
-		const struct timespec tenMs		= { 0, 10000000L };
-		unsigned int	iAdc = iCh >> 1;
-		// set pattern tester channel
-		//setVariable( "Top.AdcPatternTester.Channel", iCh );
-
-		// iterate all lanes on each ADC channel
-		for ( unsigned int lane = 0; lane < N_ADC_LANE_PER_CHAN; lane++ )
-		{
-			if ( DEBUG_PGP_ROGUE_LIB >= 3 )
-				printf( "%s: Testing ADC %u, Ch %u, Lane %u ...\n", functionName, iAdc, iCh, lane );
-			if ( !pVarDelayLane[iCh][lane] )
+			// Find all delay lane registers
+			for ( unsigned int l = 0; l < N_ADC_LANE_PER_CHAN; l++ )
 			{
-				printf( "%s: Error Invalid DelayLane ptr for ADC %u, Ch %u, Lane %u!\n", functionName, iAdc, iCh, lane );
-				continue;
+				pVarDelayLane[iCh  ][l] = FindVar( adcReadout, ".DelayAdcALane[%u]", l );
+				pVarDelayLane[iCh+1][l] = FindVar( adcReadout, ".DelayAdcBLane[%u]", l );
 			}
 
-			// Test each of the 32 possible delay values
-			for ( unsigned int delay = 0; delay < N_ADC_DELAYS; delay++ )
+			pVarDMode[iAdc]		= FindVar( adcReadout, ".DMode" );
+			pVarInvert[iAdc]	= FindVar( adcReadout, ".Invert" );
+			pVarConvert[iAdc]	= FindVar( adcReadout, ".Convert" );
+
+			// Find all ADC settings registers
+			pVarReg8[iAdc]  = FindVar( adcConfig, ".AdcReg_0x0008" );
+			pVarRegF[iAdc]  = FindVar( adcConfig, ".AdcReg_0x000F" );
+			pVarReg10[iAdc] = FindVar( adcConfig, ".AdcReg_0x0010" );
+			pVarReg11[iAdc] = FindVar( adcConfig, ".AdcReg_0x0011" );
+			pVarReg15[iAdc] = FindVar( adcConfig, ".AdcReg_0x0015" );
+		}
+
+		// Initial configuration for the slow ADC
+		setVariable( "Top.SystemRegs.AvccEn0", true);
+		setVariable( "Top.SystemRegs.AvccEn1", true);
+		setVariable( "Top.SystemRegs.A0p3V3En", true);
+		setVariable( "Top.SystemRegs.A1p3V3En", true);
+		setVariable( "Top.SystemRegs.Ap1V8En", true);
+		setVariable( "Top.SystemRegs.AdcCtrl1", false);
+		setVariable( "Top.SystemRegs.AdcCtrl2", false);
+		setVariable( "Top.SystemRegs.AdcReset", true);
+		sleep(1);
+		setVariable( "Top.SystemRegs.AdcReset", false);
+		sleep(1);
+		for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
+		{
+		   pVarDMode[iAdc]->setValue((uint64_t)0x3);		// deserializer dmode 0x3
+		   pVarInvert[iAdc]->setValue((uint64_t)0x0);		// do not invert data for pattern testing
+		   pVarConvert[iAdc]->setValue((uint64_t)0x0);	// do not convert data for pattern testing
+		   //pVarReg8[iAdc]->setValue((uint64_t)0x10);	// ADC binary data format
+		   pVarRegF[iAdc]->setValue((uint64_t)0x66);		// ADC single pattern
+		   pVarReg15[iAdc]->setValue((uint64_t)0x1);		// ADC DDR mode
+		}
+
+		setVariable( "Top.AdcPatternTester.Samples", 0xffff);
+		setVariable( "Top.AdcPatternTester.Mask", 0xffff);
+
+		bool	delayTestResults[N_ADC_DELAYS];
+
+		// Iterate all ADC channels
+		for ( unsigned int iCh = 0; iCh < N_ADC_CHAN; iCh++ )
+		{
+			//const struct timespec tenthSec	= { 0, 100000000L };
+			const struct timespec tenMs		= { 0, 10000000L };
+			unsigned int	iAdc = iCh >> 1;
+			// set pattern tester channel
+			//setVariable( "Top.AdcPatternTester.Channel", iCh );
+
+			// iterate all lanes on each ADC channel
+			for ( unsigned int lane = 0; lane < N_ADC_LANE_PER_CHAN; lane++ )
 			{
-				bool	fPassed = true;
-				setVariable( "Top.AdcPatternTester.Channel", iCh );
-
-				// set delay
-				pVarDelayLane[iCh][lane]->setValue((uint64_t) delay );
-
-				// Reset pattern for each delay value
-				unsigned int pattern = pow(2,(lane*2));
-
-				// set tester pattern
-				uint64_t	reg10	= (uint64_t)(pattern&0xFF00)>>8;
-				pVarReg10[iAdc]->setValue((uint64_t)(pattern&0xFF00)>>8);
-				uint64_t	reg11	= (uint64_t)(pattern&0x00FF);
-				pVarReg11[iAdc]->setValue(reg11);
-				setVariable( "Top.AdcPatternTester.Pattern", pattern);
-
-				// toggle request bit
-				setVariable( "Top.AdcPatternTester.Request", false);
-				setVariable( "Top.AdcPatternTester.Request", true);
-
-				// wait until test done
-				bool	fDone	= false;
-				//DEBUG_PGP_ROGUE_LIB = 6;
-				while ( !fDone )
+				if ( DEBUG_PGP_ROGUE_LIB >= 3 )
+					printf( "%s: Testing ADC %u, Ch %u, Lane %u ...\n", functionName, iAdc, iCh, lane );
+				if ( !pVarDelayLane[iCh][lane] )
 				{
-					nanosleep( &tenMs, NULL );
-					if ( readVarPath( "Top.AdcPatternTester.Done", fDone ) != 0 )
+					printf( "%s: Error Invalid DelayLane ptr for ADC %u, Ch %u, Lane %u!\n", functionName, iAdc, iCh, lane );
+					continue;
+				}
+
+				// Test each of the 32 possible delay values
+				for ( unsigned int delay = 0; delay < N_ADC_DELAYS; delay++ )
+				{
+					bool	fPassed = true;
+					setVariable( "Top.AdcPatternTester.Channel", iCh );
+
+					// set delay
+					pVarDelayLane[iCh][lane]->setValue((uint64_t) delay );
+
+					// Reset pattern for each delay value
+					unsigned int pattern = pow(2,(lane*2));
+
+					// set tester pattern
+					uint64_t	reg10	= (uint64_t)(pattern&0xFF00)>>8;
+					pVarReg10[iAdc]->setValue((uint64_t)(pattern&0xFF00)>>8);
+					uint64_t	reg11	= (uint64_t)(pattern&0x00FF);
+					pVarReg11[iAdc]->setValue(reg11);
+					setVariable( "Top.AdcPatternTester.Pattern", pattern);
+
+					// toggle request bit
+					setVariable( "Top.AdcPatternTester.Request", false);
+					setVariable( "Top.AdcPatternTester.Request", true);
+
+					// wait until test done
+					bool	fDone	= false;
+					//DEBUG_PGP_ROGUE_LIB = 6;
+					while ( !fDone )
 					{
-						printf( "%s: Error testing Ch %u, Lane %u\n", functionName, iCh, lane );
-						break;
+						nanosleep( &tenMs, NULL );
+						if ( readVarPath( "Top.AdcPatternTester.Done", fDone ) != 0 )
+						{
+							printf( "%s: Error testing Ch %u, Lane %u\n", functionName, iCh, lane );
+							break;
+						}
+					}
+					bool	fBit0TestFailed	= false;
+					status = readVarPath( "Top.AdcPatternTester.Failed", fBit0TestFailed );
+					if ( DEBUG_PGP_ROGUE_LIB >= 5 )
+						printf( "PatternTest: ADC %u, Ch %u, Lane %u, Delay %u Bit 0: %s\n", iAdc, iCh, lane, delay, (fBit0TestFailed ? "FAILED" : "Passed") );
+					//DEBUG_PGP_ROGUE_LIB = 3;
+
+					// shift pattern for next bit test (2 bits per lane)
+					pattern = pattern << 1;
+					reg10	= (uint64_t)(pattern&0xFF00)>>8;
+					pVarReg10[iAdc]->setValue(reg10);
+					reg11	= (uint64_t)(pattern&0x00FF);
+					pVarReg11[iAdc]->setValue(reg11);
+
+					// set tester pattern
+					setVariable( "Top.AdcPatternTester.Pattern", pattern);
+
+					// toggle request bit
+					setVariable( "Top.AdcPatternTester.Request", false);
+					setVariable( "Top.AdcPatternTester.Request", true);
+
+					//DEBUG_PGP_ROGUE_LIB = 6;
+					// wait until test done
+					fDone	= false;
+					while ( !fDone )
+					{
+						nanosleep( &tenMs, NULL ); // Needed?
+						status = readVarPath( "Top.AdcPatternTester.Done", fDone );
+						if ( status != 0 )
+							break;
+					}
+					bool	fBit1TestFailed	= false;
+					status = readVarPath( "Top.AdcPatternTester.Failed", fBit1TestFailed );
+					if ( DEBUG_PGP_ROGUE_LIB >= 5 )
+						printf( "PatternTest: ADC %u, Ch %u, Lane %u, Delay %u Bit 1: %s\n", iAdc, iCh, lane, delay, (fBit1TestFailed ? "FAILED" : "Passed") );
+					if ( fBit0TestFailed || fBit1TestFailed )
+						fPassed = false;
+					//DEBUG_PGP_ROGUE_LIB = 3;
+
+					delayTestResults[delay] = fPassed;
+				}
+				if ( DEBUG_PGP_ROGUE_LIB >= 3 )
+					printf( "%s: Evaluating test results Lane %u ...\n", functionName, lane );
+
+				// find best delay setting
+				vector<unsigned int>	lengths;
+				vector<int>				starts;
+				vector<int>				stops;
+				unsigned int	length		= 0;
+				int				start		= -1;
+				int				started		= 0;
+				uint64_t		bestDelay	= 0L;
+				for ( unsigned int i = 5; i < N_ADC_DELAYS; i++ )
+				{
+					// find a vector of ones minimum width 5
+					if (		delayTestResults[i  ] == true
+							&&	delayTestResults[i-1] == true
+							&&	delayTestResults[i-2] == true
+							&&	delayTestResults[i-3] == true
+							&&	delayTestResults[i-4] == true
+							&&	delayTestResults[i-5] == true )
+					{	// Start of vector
+						started	=  1;
+						length++;
+						if ( start < 0 )
+							start = i - 5;
+					}
+					else if (	delayTestResults[i  ] == false
+							&&	delayTestResults[i-1] == true
+							&&	delayTestResults[i-2] == true
+							&&	delayTestResults[i-3] == true
+							&&	delayTestResults[i-4] == true
+							&&	delayTestResults[i-5] == true )
+					{	// End of vector of successful test results
+						lengths.push_back(length+5);
+						starts.push_back(start);
+						stops.push_back(i-1);
+						length = 0;
+						start = -1;
+						started = 0;
+					}
+					if ( started == 1 and i == 31 )
+					{
+						lengths.push_back(length+5);
+						starts.push_back(start);
+						stops.push_back(i-1);
 					}
 				}
-				bool	fBit0TestFailed	= false;
-				status = readVarPath( "Top.AdcPatternTester.Failed", fBit0TestFailed );
-				if ( DEBUG_PGP_ROGUE_LIB >= 5 )
-					printf( "PatternTest: ADC %u, Ch %u, Lane %u, Delay %u Bit 0: %s\n", iAdc, iCh, lane, delay, (fBit0TestFailed ? "FAILED" : "Passed") );
-				//DEBUG_PGP_ROGUE_LIB = 3;
 
-				// shift pattern for next bit test (2 bits per lane)
-				pattern = pattern << 1;
-				reg10	= (uint64_t)(pattern&0xFF00)>>8;
-				pVarReg10[iAdc]->setValue(reg10);
-				reg11	= (uint64_t)(pattern&0x00FF);
-				pVarReg11[iAdc]->setValue(reg11);
-
-				// set tester pattern
-				setVariable( "Top.AdcPatternTester.Pattern", pattern);
-
-				// toggle request bit
-				setVariable( "Top.AdcPatternTester.Request", false);
-				setVariable( "Top.AdcPatternTester.Request", true);
-
-				//DEBUG_PGP_ROGUE_LIB = 6;
-				// wait until test done
-				fDone	= false;
-				while ( !fDone )
+				// find the longest vector of ones
+				if ( lengths.size() > 0 )
 				{
-					nanosleep( &tenMs, NULL ); // Needed?
-					status = readVarPath( "Top.AdcPatternTester.Done", fDone );
-					if ( status != 0 )
-						break;
-				}
-				bool	fBit1TestFailed	= false;
-				status = readVarPath( "Top.AdcPatternTester.Failed", fBit1TestFailed );
-				if ( DEBUG_PGP_ROGUE_LIB >= 5 )
-					printf( "PatternTest: ADC %u, Ch %u, Lane %u, Delay %u Bit 1: %s\n", iAdc, iCh, lane, delay, (fBit1TestFailed ? "FAILED" : "Passed") );
-				if ( fBit0TestFailed || fBit1TestFailed )
-					fPassed = false;
-				//DEBUG_PGP_ROGUE_LIB = 3;
+					if ( DEBUG_PGP_ROGUE_LIB >= 3 )
+						printf( "%s: Finding longest of %zu vectors of ones for Lane %u ...\n", functionName, lengths.size(), lane );
+					vector<unsigned int>::iterator	maxElem;
+					maxElem = max_element( lengths.begin(), lengths.end() );
+					size_t			index	= maxElem - lengths.begin();
+					unsigned int	value	= *maxElem;
+					bestDelay = starts[index] + (stops[index]-starts[index])/2;
+					if ( DEBUG_PGP_ROGUE_LIB >= 3 )
+						printf( "ADC %u, Ch %u, Lane %u BestDelay = %lu, longest run = %u\n", iAdc, iCh, lane, bestDelay, value );
 
-				delayTestResults[delay] = fPassed;
-			}
-			if ( DEBUG_PGP_ROGUE_LIB >= 3 )
-				printf( "%s: Evaluating test results Lane %u ...\n", functionName, lane );
-
-			// find best delay setting
-			vector<unsigned int>	lengths;
-			vector<int>				starts;
-			vector<int>				stops;
-			unsigned int	length		= 0;
-			int				start		= -1;
-			int				started		= 0;
-			uint64_t		bestDelay	= 0L;
-			for ( unsigned int i = 5; i < N_ADC_DELAYS; i++ )
-			{
-				// find a vector of ones minimum width 5
-				if (		delayTestResults[i  ] == true
-						&&	delayTestResults[i-1] == true
-						&&	delayTestResults[i-2] == true
-						&&	delayTestResults[i-3] == true
-						&&	delayTestResults[i-4] == true
-						&&	delayTestResults[i-5] == true )
-				{	// Start of vector
-					started	=  1;
-					length++;
-					if ( start < 0 )
-						start = i - 5;
+					// set best delay
+					pVarDelayLane[iCh][lane]->setValue( bestDelay );
 				}
-				else if (	delayTestResults[i  ] == false
-						&&	delayTestResults[i-1] == true
-						&&	delayTestResults[i-2] == true
-						&&	delayTestResults[i-3] == true
-						&&	delayTestResults[i-4] == true
-						&&	delayTestResults[i-5] == true )
-				{	// End of vector of successful test results
-					lengths.push_back(length+5);
-					starts.push_back(start);
-					stops.push_back(i-1);
-					length = 0;
-					start = -1;
-					started = 0;
-				}
-				if ( started == 1 and i == 31 )
+				else
 				{
-					lengths.push_back(length+5);
-					starts.push_back(start);
-					stops.push_back(i-1);
+					printf( "ADC %u, Ch %u, Lane %u FAILED!\n", iAdc, iCh, lane );
 				}
-			}
-
-			// find the longest vector of ones
-			if ( lengths.size() > 0 )
-			{
-				if ( DEBUG_PGP_ROGUE_LIB >= 3 )
-					printf( "%s: Finding longest of %zu vectors of ones for Lane %u ...\n", functionName, lengths.size(), lane );
-				vector<unsigned int>::iterator	maxElem;
-				maxElem = max_element( lengths.begin(), lengths.end() );
-				size_t			index	= maxElem - lengths.begin();
-				unsigned int	value	= *maxElem;
-				bestDelay = starts[index] + (stops[index]-starts[index])/2;
-				if ( DEBUG_PGP_ROGUE_LIB >= 3 )
-					printf( "ADC %u, Ch %u, Lane %u BestDelay = %lu, longest run = %u\n", iAdc, iCh, lane, bestDelay, value );
-
-				// set best delay
-				pVarDelayLane[iCh][lane]->setValue( bestDelay );
-			}
-			else
-			{
-				printf( "ADC %u, Ch %u, Lane %u FAILED!\n", iAdc, iCh, lane );
 			}
 		}
+
+		// Turn off PatternTester
+		setVariable( "Top.AdcPatternTester.Channel", 0);
+		setVariable( "Top.AdcPatternTester.Mask", 0);
+		setVariable( "Top.AdcPatternTester.Pattern", 0);
+		setVariable( "Top.AdcPatternTester.Request", false);
+		setVariable( "Top.AdcPatternTester.Samples", 0);
+
+		// Restore normal ADC registers
+		for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
+		{
+		   pVarDMode[	iAdc]->setValue((uint64_t)0x3);	// deserializer dmode 0x3
+		   pVarInvert[	iAdc]->setValue((uint64_t)0x1);	// invert data
+		   pVarConvert[	iAdc]->setValue((uint64_t)0x3);	// convert data for pattern testing
+		   pVarReg8[	iAdc]->setValue((uint64_t)0x0);	// misc bits
+		   pVarRegF[	iAdc]->setValue((uint64_t)0x0);	// Clear test patterns
+		   pVarReg10[	iAdc]->setValue((uint64_t)0x0);	// Clear test patterns
+		   pVarReg11[	iAdc]->setValue((uint64_t)0x0);	// Clear test patterns
+		   pVarReg15[	iAdc]->setValue((uint64_t)0x1);	// ADC DDR mode
+		}
+		setVariable( "Top.SystemRegs.AdcCtrl1", false);
+		setVariable( "Top.SystemRegs.AdcCtrl2", false);
 	}
-
-	// Turn off PatternTester
-	setVariable( "Top.AdcPatternTester.Channel", 0);
-	setVariable( "Top.AdcPatternTester.Mask", 0);
-	setVariable( "Top.AdcPatternTester.Pattern", 0);
-	setVariable( "Top.AdcPatternTester.Request", false);
-	setVariable( "Top.AdcPatternTester.Samples", 0);
-
-	// Restore normal ADC registers
-	for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
+	catch ( rogue::GeneralError & e )
 	{
-	   pVarDMode[	iAdc]->setValue((uint64_t)0x3);	// deserializer dmode 0x3
-	   pVarInvert[	iAdc]->setValue((uint64_t)0x1);	// invert data
-	   pVarConvert[	iAdc]->setValue((uint64_t)0x3);	// convert data for pattern testing
-	   pVarReg8[	iAdc]->setValue((uint64_t)0x0);	// misc bits
-	   pVarRegF[	iAdc]->setValue((uint64_t)0x0);	// Clear test patterns
-	   pVarReg10[	iAdc]->setValue((uint64_t)0x0);	// Clear test patterns
-	   pVarReg11[	iAdc]->setValue((uint64_t)0x0);	// Clear test patterns
-	   pVarReg15[	iAdc]->setValue((uint64_t)0x1);	// ADC DDR mode
+		printf( "%s error: %s!\n", functionName, e.what() );
+		return 1;
 	}
-	setVariable( "Top.SystemRegs.AdcCtrl1", false);
-	setVariable( "Top.SystemRegs.AdcCtrl2", false);
+	catch ( std::exception & e )
+	{
+		printf( "%s error: %s!\n", functionName, e.what() );
+		return 2;
+	}
+	catch ( ... )
+	{
+		printf( "%s unknown error!\n", functionName );
+		return 3;
+	}
 	printf( "%s: Test done.\n", functionName );
 	return 0;
 }
