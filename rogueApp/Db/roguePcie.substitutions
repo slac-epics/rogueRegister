@@ -89,6 +89,7 @@ file boolDevRogue.template
 		ONAM	= "Reset"
 		OSV		= "MINOR"
 		DOL		= "0"
+		PINI	= "YES"
 	}
 	{
 		NAME	= "SystemRegs:AvccEn0"

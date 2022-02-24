@@ -7,6 +7,9 @@ file biDevRogue.template
 		PATH	= "$(PTOP).BatcherEventBuilder.BlowoffExt"
 		PYPV	= "$(PTOP):BatcherEventBuilder:BlowoffExt"
 		DESC	= "Status of external blowoff input"
+		ZNAM	= "Disabled"
+		ONAM	= "Blowoff"
+		PINI	= "YES"
 	}
 }
 
