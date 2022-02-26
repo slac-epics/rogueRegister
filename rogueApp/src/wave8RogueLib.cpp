@@ -340,7 +340,7 @@ int wave8RogueLib::AdcCalibration()
 	char				varPath[256];
 	int					status;
 
-	printf( "AdcCalibration()...\n" );
+	printf( "AdcCalibration() in progress ...\n" );
 	try
 	{
 		for ( unsigned int iAdc = 0; iAdc < N_ADC; iAdc++ )
