@@ -1,7 +1,10 @@
 Release Notes for rogueRegister EPICS module
+R1.6.0:	2022-02-25 Bruce Hill
+	For Wave8 v2.3.0 firmware (0x02030000) and rogue/v5.10.0
+
 R1.5.1:	2022-01-27 Bruce Hill
 	Update to asyn/R4.39-1.0.1
-	For Wave8 firmware v2.1.1 and rogue/v5.10.0
+	For Wave8 v2.1.1 firmware (0x02010000) and rogue/v5.10.0
 
 R1.5.0:	2022-01-19 Bruce Hill
 	Add try/catch in wave8RogueLib::AdcCalibration to catch rogue errors.
