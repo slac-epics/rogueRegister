@@ -35,9 +35,9 @@
 #include "rogue/Version.h"
 
 // aes-stream-drivers headers 
-#include <AxisDriver.h>
+//#include <AxisDriver.h>
 #include <AxiVersion.h>
-#include <DmaDriver.h>
+//#include <DmaDriver.h>
 
 // rogueRegister headers
 #include "pgpRogueLib.h"
