@@ -543,13 +543,6 @@ record( longout, "$(P)$(R)CamEventCode" )
 	info( archiveFields,  "HHSV HIGH HIHI HSV LLSV LOLO LOW LSV EGU DESC HOPR LOPR VAL" )
 }
 
-# Put monitors
-substitute "SER_OK_PV=$(PGP):Ch$(PGP_LANE):EvrV2:RateSel_RBV"
-substitute "MON_SCAN=1 second"
-substitute "MON_DISABLED=1"
-substitute "MON_PV= $(P)$(R)CamEventCode"
-include "putMonitor.template"
-
 record( longin, "$(P)$(R)CamEventCode_RBV" )
 {
 	field( INP,  "$(PGP):Ch$(PGP_LANE):EvrV2:RateSel_RBV CPP MS" )
@@ -718,3 +711,9 @@ record( longin, "$(P)$(R)PgpFebFpgaVersion" )
 	info( archiveFields,  "VAL" )
 }
 
+# Put monitors
+substitute "SER_OK_PV=$(PGP):Ch$(PGP_LANE):EvrV2:RateSel_RBV"
+substitute "MON_SCAN=1 second"
+substitute "MON_DISABLED=1"
+substitute "MON_PV= $(P)$(R)CamEventCode"
+include "putMonitor.template"
