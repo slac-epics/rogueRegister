@@ -12,7 +12,6 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 
 # db templates
-#DB += pgpCamlinkBase.template
 DB += AdcIntegrals.db
 DB += AxiVersion.db
 DB += w8-aliases.db
