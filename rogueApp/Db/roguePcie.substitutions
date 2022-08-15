@@ -491,6 +491,7 @@ file liDevRogue.template
 		PYPV	= "Top:TimingFrameRx:RxLinkUp"
 		DESC	= "Timing fiber link status"
 		SCAN	= "\$(SCAN=1 second)"
+		LLSV 	= "MAJOR"
 	}
 	{
 		NAME	= "TrEvent:FifoWrCnt"
