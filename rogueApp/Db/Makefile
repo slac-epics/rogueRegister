@@ -30,6 +30,7 @@ DB += PgpCannedSequences.db
 DB += PgpChCannedSequences.db
 DB += wave8Data.db
 DB += wave8Reg.db
+DB += NameChange_RBV_aliases.db
 
 # Install archive files
 #ARCHIVE += foo.tpl-arch
