@@ -1,5 +1,5 @@
 # biDevRogue.template
-record( bi, "$(P)$(R)$(NAME)" )
+record( bi, "$(P)$(R)$(NAME)_RBV" )
 {
 	field( DESC, "$(DESC=?)" )
 	field( DTYP, "RogueBI" )
@@ -7,8 +7,11 @@ record( bi, "$(P)$(R)$(NAME)" )
 	field( SCAN, "$(SCAN=)" )
 	field( ZNAM, "$(ZNAM=Disabled)" )
 	field( ONAM, "$(ONAM=Enabled)" )
+	field( ZSV,  "$(ZSV=NO_ALARM)" )
+	field( OSV,  "$(OSV=NO_ALARM)" )
 	field( DISV, "$(DISV=1)" )
 	field( SDIS, "$(SDIS=)" )
+	field( TSE,  "$(TSE=0)" )
 	info( autosaveFields, "" )
 }
-alias( "$(P)$(R)$(NAME)", "$(P)$(R)$(PYPV)" )
+alias( "$(P)$(R)$(NAME)_RBV", "$(P)$(R)$(PYPV)" )

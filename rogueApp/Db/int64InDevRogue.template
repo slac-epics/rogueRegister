@@ -1,5 +1,5 @@
 # int64InDevRogue.template
-record( int64in, "$(P)$(R)$(NAME)" )
+record( int64in, "$(P)$(R)$(NAME)_RBV" )
 {
 	field( DESC, "$(DESC=?)" )
 	field( DTYP, "RogueLI64" )
@@ -20,4 +20,4 @@ record( int64in, "$(P)$(R)$(NAME)" )
 	field( HHSV, "$(HHSV=0)" )
 	info( autosaveFields, "" )
 }
-alias( "$(P)$(R)$(NAME)", "$(P)$(R)$(PYPV)" )
+alias( "$(P)$(R)$(NAME)_RBV", "$(P)$(R)$(PYPV)" )

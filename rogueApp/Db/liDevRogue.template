@@ -1,5 +1,5 @@
 # liDevRogue.template
-record( longin, "$(P)$(R)$(NAME)" )
+record( longin, "$(P)$(R)$(NAME)_RBV" )
 {
 	field( DESC, "$(DESC=?)" )
 	field( DTYP, "RogueLI" )
@@ -20,4 +20,4 @@ record( longin, "$(P)$(R)$(NAME)" )
 	field( HHSV, "$(HHSV=0)" )
 	info( autosaveFields, "" )
 }
-alias( "$(P)$(R)$(NAME)", "$(P)$(R)$(PYPV)" )
+alias( "$(P)$(R)$(NAME)_RBV", "$(P)$(R)$(PYPV)" )
