@@ -167,9 +167,6 @@ bool	pgpRogueLib::getTriggerEnable( unsigned int triggerNum )
 	return false;
 }
 
-// TODO: Make different devices be subclasses of pgpRogueLib
-#include "wave8AddrMap.h"
-std::string		strWave8AddrMap( ROGUE_ADDR_MAP );
 #endif
 
 
