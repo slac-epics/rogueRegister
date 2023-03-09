@@ -29,9 +29,10 @@ file SfpTransceiver.db
 	{ PTOP	= "Top", N = "3" }
 }
 
+# Each wave8 just uses TriggerEventManager 0
 file TriggerEventManager.template
 {
-	{ PTOP	= "Top" }
+	{ PTOP	= "Top", L = "0" }
 }
 
 file BatcherEventBuilder.db
