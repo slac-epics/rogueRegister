@@ -187,16 +187,6 @@ file boolDevRogue.template
 		SCAN	= ""
 	}
 	{
-		NAME	= "EvrV2:EnableReg",
-		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[0].EnableReg"
-		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2ChannelReg[0]:EnableReg"
-		DESC	= "Enables trigger 0 EvrV2 Channel Logic"
-		DOL		= "1"
-		PINI	= "YES"
-		SAVE	= ""
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
 		NAME	= "EvrV2:EnableTrig",
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].EnableTrig"
 		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:EnableTrig"
