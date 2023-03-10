@@ -1,4 +1,12 @@
 Release Notes for rogueRegister EPICS module
+R1.7.0:	2023-02-15 Bruce Hill
+	For Wave8 v2.4.2 firmware (0x02040200) and rogue/v5.10.0
+	Add a putMonitor for RawBuffers:BuffLen
+	Naming consistency cleanup so rogue input PVs end in *_RBV
+	Add NameChange_RBV_aliases.db so prior readback names work.
+	Set severity to MAJOR for RxLinkUp down
+	Removed some obsolete lines and files.
+
 R1.6.0:	2022-02-25 Bruce Hill
 	For Wave8 v2.3.0 firmware (0x02030000) and rogue/v5.10.0
 
