@@ -91,10 +91,10 @@ record( bo, "$(P)$(R)EvrV2:EnableReg" )
 	info( autosaveFields, "VAL" )
 }
 
-# LCLS-I Rate Type
+# Timing Rate Type
 record( mbbi, "$(P)$(R)EvrV2:RateType_RBV" )
 {
-	field( DESC, "LCLS-I Rate Type" )
+	field( DESC, "Timing Rate Type" )
 	field( INP,  "@B$(B) L$(L) $(PTOP).TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[$(L)].RateType" )
 	field( DTYP, "RogueMBBI" )
 	field( ZRVL, "0" ) field( ZRST, "FixedRates" )
@@ -106,7 +106,7 @@ record( mbbi, "$(P)$(R)EvrV2:RateType_RBV" )
 
 record( mbbo, "$(P)$(R)EvrV2:RateType" )
 {
-	field( DESC, "LCLS-I Rate Type" )
+	field( DESC, "Timing Rate Type" )
 	field( OUT,  "@B$(B) L$(L) $(PTOP).TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[$(L)].RateType" )
 	field( DTYP, "RogueMBBO" )
 	field( DOL,  "2" )
@@ -119,22 +119,70 @@ record( mbbo, "$(P)$(R)EvrV2:RateType" )
 	info( autosaveFields, "" )
 }
 
-# LCLS-I Rate Select
-record( longin, "$(P)$(R)EvrV2:EventCode_RBV" )
+# EvrV2 Rate Select, Common to both LCLS-I and LCLS-II timing, but different ranges for each
+record( longin, "$(P)$(R)EvrV2:RateSel_RBV" )
 {
-	field( DESC, "LCLS-I Event Code" )
+	field( DESC, "EvrV2 Rate Select" )
 	field( INP,  "@B$(B) L$(L) $(PTOP).TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[$(L)].RateSel" )
 	field( DTYP, "RogueLI" )
 	info( autosaveFields, "" )
 }
 
-record( longout, "$(P)$(R)EvrV2:EventCode" )
+record( longout, "$(P)$(R)Lcls1:RateSel" )
 {
-	field( DESC, "Ch$(L) LCLS-I EventCode" )
+	field( DESC, "Ch$(L) Lcls1 RateSel" )
+	field( DOL,  "45" )
+	field( PINI, "YES" )
+	field( FLNK, "$(P)$(R)EvrV2:RateSelCalc" )
+	info( autosaveFields, "VAL" )
+}
+
+record( longout, "$(P)$(R)Lcls2:RateSel" )
+{
+	field( DESC, "Ch$(L) Lcls2 RateSel" )
+	field( DOL,  "0" )
+	field( PINI, "YES" )
+	field( FLNK, "$(P)$(R)EvrV2:RateSelCalc" )
+	info( autosaveFields, "VAL" )
+}
+
+record( calcout, "$(P)$(R)EvrV2:RateSelCalc" )
+{
+	field( INPA, "$(P)$(R)Lcls1:RateSel MS NPP" ) 
+	field( INPB, "$(P)$(R)Lcls2:RateSel MS NPP" )
+	field( INPC, "$(P):Timing:ClkSel MS NPP" )
+	field( CALC, "C ? B : A" )
+	field( OUT,  "$(P)$(R)EvrV2:RateSel MS CA" )
+}
+
+record( longout, "$(P)$(R)EvrV2:RateSel" )
+{
+	field( DESC, "EvrV2 RateSel LCLS-I & LCLS-II" )
 	field( OUT,  "@B$(B) L$(L) $(PTOP).TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[$(L)].RateSel" )
 	field( DTYP, "RogueLO" )
 	field( PINI, "YES" )
-	field( FLNK, "$(P)$(R)EvrV2:EventCode_RBV" )
+	field( FLNK, "$(P)$(R)EvrV2:RateSel_RBV" )
+}
+#alias( "$(P)$(R)EvrV2:RateSel", "$(P)$(R)EvrV2:EventCode" )
+
+record( mbbi, "$(P)$(R)Timing:TriggerSource_RBV" )
+{
+	field( DESC, "TriggerEventManager Trigger Source" )
+	field( DTYP, "RogueMBBI" )
+	field( INP,  "@B$(B) L$(L) $(PTOP).TriggerEventManager.TriggerEventBuffer[$(L)].TriggerSource" )
+	field( ZRVL, "0" ) field( ZRST, "XPM" )
+	field( ONVL, "1" ) field( ONST, "EVR" )
+}
+record( mbbo, "$(P)$(R)Timing:TriggerSource" )
+{
+	field( DESC, "TriggerEventManager Trigger Source" )
+	field( DTYP, "RogueMBBO" )
+	field( PINI, "YES" )
+	field( DOL,  "0" )
+	field( OUT,  "@B$(B) L$(L) $(PTOP).TriggerEventManager.TriggerEventBuffer[$(L)].TriggerSource" )
+	field( ZRVL, "0" ) field( ZRST, "XPM" )
+	field( ONVL, "1" ) field( ONST, "EVR" )
+	field( FLNK, "$(P)$(R)Timing:TriggerSource_RBV" )
 	info( autosaveFields, "VAL" )
 }
 
