@@ -1,4 +1,8 @@
 Release Notes for rogueRegister EPICS module
+R1.8.0:	2023-03-09 Bruce Hill
+	Brought over latest lcls1/lcls2 timing PVs from ADPgpCamlink.
+	Added switchable emb-lcls1-timing.edl and emb-lcls2-timing.edl panels
+
 R1.7.0:	2023-02-15 Bruce Hill
 	For Wave8 v2.4.2 firmware (0x02040200) and rogue/v5.10.0
 	Add a putMonitor for RawBuffers:BuffLen
