@@ -4,15 +4,15 @@
 file biDevRogue.template
 {
 	{
-    	NAME	= "TimingFrameRx:RxClkCount"
-    	PATH	= "Top.TimingFrameRx.RxClkCount"
-    	PYPV	= "Top:TimingFrameRx:RxClkCount"
+	    	NAME	= "TimingFrameRx:RxClkCount"
+    		PATH	= "Top.TimingFrameRx.RxClkCount"
+	    	PYPV	= "Top:TimingFrameRx:RxClkCount"
 		DESC	= "Recovered clock count div 16"
 	}
 	{
-    	NAME	= "TimingFrameRx:RxRstCount"
-    	PATH	= "Top.TimingFrameRx.RxRstCount"
-    	PYPV	= "Top:TimingFrameRx:RxRstCount"
+    		NAME	= "TimingFrameRx:RxRstCount"
+	    	PATH	= "Top.TimingFrameRx.RxRstCount"
+	    	PYPV	= "Top:TimingFrameRx:RxRstCount"
 		DESC	= "Receive link reset count"
 	}
 	{
@@ -44,17 +44,31 @@ file boDevRogue.template
 {
 	{
 		NAME	= "Timing:timingRxUserRst",
-    	PATH	= "Top.SystemRegs.timingRxUserRst"
-    	PYPV	= "Top:SystemRegs:timingRxUserRst"
+	    	PATH	= "Top.SystemRegs.timingRxUserRst"
+    		PYPV	= "Top:SystemRegs:timingRxUserRst"
 		DESC 	= "Timing RX reset"
 		SAVE	= ""
 	}
 	{
 		NAME	= "Timing:timingTxUserRst",
-    	PATH	= "Top.SystemRegs.timingTxUserRst"
-    	PYPV	= "Top:SystemRegs:timingTxUserRst"
+	    	PATH	= "Top.SystemRegs.timingTxUserRst"
+	    	PYPV	= "Top:SystemRegs:timingTxUserRst"
 		DESC 	= "Timing TX reset"
 		SAVE	= ""
+	}
+	{
+		NAME	= "HV:0:enable",
+	    	PATH	= "Top.SystemRegs.HvEn[0]"
+	    	PYPV	= "Top:SystemRegs:HvEn[0]"
+		DESC 	= "HV0 enable"
+		SAVE	= "VAL"
+	}
+	{
+		NAME	= "HV:1:enable",
+	    	PATH	= "Top.SystemRegs.HvEn[1]"
+	    	PYPV	= "Top:SystemRegs:HvEn[1]"
+		DESC 	= "HV1 enable"
+		SAVE	= "VAL"
 	}
 }
 file boolDevRogue.template
@@ -599,7 +613,6 @@ file longDevRogue.template
 		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:Delay"
 		DESC	= "Trigger Delay"
 		SAVE	= "VAL"
-		SCAN	= ""
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
@@ -608,7 +621,6 @@ file longDevRogue.template
 		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:Polarity"
 		DESC	= "Trigger Polarity"
 		SAVE	= "VAL"
-		SCAN	= ""
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
@@ -616,9 +628,8 @@ file longDevRogue.template
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Source"
 		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:Source"
 		DESC	= "Trigger Source"
-		DOL		= "0"
+		DOL	= "0"
 		SAVE	= "VAL"
-		SCAN	= ""
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
@@ -627,9 +638,9 @@ file longDevRogue.template
 		PYPV	= "Top:Integrators:BaselineSize"
 		DESC	= "Baseline sample size as power of 2"
 		PINI	= "YES"
-		DOL		= "7"
+		DOL	= "7"
 		SAVE	= "VAL"
-		EGU		= "2^X"
+		EGU	= "2^X"
 		SCAN	= "\$(SCAN=1 second)"
 	}
 	{
@@ -669,7 +680,7 @@ file longDevRogue.template
 		PATH	= "Top.Integrators.IntFifoPauseThreshold"
 		PYPV	= "Top:Integrators:IntFifoPauseThreshold"
 		PINI	= "YES"
-		DOL		= "255"
+		DOL	= "255"
 		SCAN	= ""
 	}
 	{
@@ -677,10 +688,10 @@ file longDevRogue.template
 		PATH	= "Top.Integrators.IntegralSize"
 		PYPV	= "Top:Integrators:IntegralSize"
 		DESC	= "Integral sample size as # samples"
-		DOL		= "1"
+		DOL	= "1"
 		SAVE	= "VAL"
 		PINI	= "YES"
-		EGU		= "Samples"
+		EGU	= "Samples"
 		SCAN	= ""
 		SCAN	= "\$(SCAN=1 second)"
 	}
@@ -689,7 +700,7 @@ file longDevRogue.template
 		PATH	= "Top.Integrators.ProcFifoPauseThreshold"
 		PYPV	= "Top:Integrators:ProcFifoPauseThreshold"
 		PINI	= "YES"
-		DOL		= "255"
+		DOL	= "255"
 		SAVE	= "VAL"
 		SCAN	= "\$(SCAN=1 second)"
 	}
@@ -698,10 +709,10 @@ file longDevRogue.template
 		PATH	= "Top.Integrators.TrigDelay"
 		PYPV	= "Top:Integrators:TrigDelay"
 		DESC	= "Integrator start offset in samples"
-		DOL		= "5"
+		DOL	= "5"
 		SAVE	= "VAL"
 		PINI	= "YES"
-		EGU		= "Samples"
+		EGU	= "Samples"
 		SCAN	= ""
 		SCAN	= "\$(SCAN=1 second)"
 	}
@@ -765,7 +776,7 @@ file longDevRogue.template
 		NAME	= "RawBuffers:BuffLen",
 		PATH	= "Top.RawBuffers.BuffLen"
 		PYPV	= "Top:RawBuffers:BuffLen"
-		DOL		= "255"
+		DOL	= "255"
 		SAVE	= "VAL"
 		SCAN	= "\$(SCAN=1 second)"
 	}
@@ -774,7 +785,7 @@ file longDevRogue.template
 		PATH	= "Top.RawBuffers.FifoPauseThreshold"
 		PYPV	= "Top:RawBuffers:FifoPauseThreshold"
 		PINI	= "YES"
-		DOL		= "255"
+		DOL	= "255"
 		SAVE	= "VAL"
 		SCAN	= ""
 	}
@@ -941,6 +952,60 @@ file int64DevRogue.template
 		SCAN	= "\$(SCAN=1 second)"
 		SAVE	= ""
 	}
+}
+
+file calcin.template
+{
+	{
+		CNAME	= "HV:0:Feedback"
+		NAME	= "HV:0:FeedbackRaw"
+		PATH	= "Top.HV[0].HvFeedbackRaw"
+		PYPV	= "Top:HV[0]:HvFeedbackRaw"
+		SCAN	= "\$(SCAN=1 second)"
+		CALC    = "500.0*A/65535"
+		EGU     = "V"
+		SDIS    = "$(P)$(R)HV:0:enable"
+		DISV    = "0"
+        }
+	{
+		CNAME	= "HV:1:Feedback"
+		NAME	= "HV:1:FeedbackRaw"
+		PATH	= "Top.HV[1].HvFeedbackRaw"
+		PYPV	= "Top:HV[1]:HvFeedbackRaw"
+		SCAN	= "\$(SCAN=1 second)"
+		CALC    = "500.0*A/65535"
+		EGU     = "V"
+		SDIS    = "$(P)$(R)HV:1:enable"
+		DISV    = "0"
+        }
+}
+
+file calcout.template
+{
+	{
+		CNAME	= "HV:0:Control"
+		NAME	= "HV:0:ControlRaw"
+		PATH	= "Top.HV[0].HvControlRaw"
+		PYPV	= "Top:HV[0]:HvControlRaw"
+		SCAN	= ""
+		CSAVE   = "VAL"
+		EGU     = "V"
+		CALC    = "4095*A/500.0"
+		SDIS    = "$(P)$(R)HV:0:enable"
+		DISV    = "0"
+        }
+	{
+		CNAME	= "HV:1:Control"
+		NAME	= "HV:1:ControlRaw"
+		PATH	= "Top.HV[1].HvControlRaw"
+		PYPV	= "Top:HV[1]:HvControlRaw"
+		SCAN	= ""
+		CSAVE   = "VAL"
+		EGU     = "V"
+		CALC    = "4095*A/500.0"
+		SDIS    = "$(P)$(R)HV:1:enable"
+		DISV    = "0"
+        }
 }
 
 #       DESC    = "0         1         2         3         "

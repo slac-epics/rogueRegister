@@ -1,0 +1,13 @@
+include "liDevRogue.template"
+record( longin, "$(P)$(R)$(NAME)_RBV" )
+{
+        field( FLNK, "$(P)$(R)$(CNAME)_RBV" )
+}
+
+record( calc, "$(P)$(R)$(CNAME)_RBV" )
+{
+	field(DESC, "$(DESC=?)")
+	field(INPA, "$(P)$(R)$(NAME)_RBV NMS NPP" )
+	field(CALC, "$(CALC=0)" )
+	field(EGU,  "$(EGU=)" )
+}

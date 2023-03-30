@@ -1,4 +1,12 @@
 Release Notes for rogueRegister EPICS module
+
+R1.8.2: 2023-03-30 Michael Browne
+        Brought over v2.3.0 register map *with* HV functions.  Added
+	these to the db files.
+
+R1.8.1: 2023-03-13 Michael Browne
+        Fixed minor typo that was breaking EvrV2:EnableReg.
+
 R1.8.0:	2023-03-09 Bruce Hill
 	Brought over latest lcls1/lcls2 timing PVs from ADPgpCamlink.
 	Added switchable emb-lcls1-timing.edl and emb-lcls2-timing.edl panels

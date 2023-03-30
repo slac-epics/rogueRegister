@@ -1,0 +1,28 @@
+include "longDevRogue.template"
+record(ao, "$(P)$(R)$(CNAME)" ) 
+{
+	field(DESC, "$(DESC=?)")
+	field(EGU,  "$(EGU=)")
+	field(FLNK, "$(P)$(R)$(CNAME)_CALC")
+	info( autosaveFields, "$(CSAVE=VAL)" )
+}
+
+record(calcout, "$(P)$(R)$(CNAME)_CALC" ) 
+{
+	field(INPA, "$(P)$(R)$(CNAME) NPP NMS")
+	field(CALC, "$(CALC=0)")
+	field(OOPT, "$(OOPT=Every Time)")
+	field(DOPT, "Use CALC")
+	field(OUT,  "$(P)$(R)$(NAME) PP")
+}
+
+record(calcout, "$(P)$(R)$(CNAME)_REENABLE")
+{
+        field(INPA, "$(SDIS=0) CPP")
+        field(INPB, "$(DISV=1)")
+	field(INPC, "$(P)$(R)$(CNAME)_REENABLE NMS NPP")
+	field(CALC, "((A!=B)&&(C==0))?1:0")
+	field(DOPT, "Use CALC")
+	field(OOPT, "Transition To Non-zero")
+	field(OUT,  "$(P)$(R)$(CNAME).PROC")
+}

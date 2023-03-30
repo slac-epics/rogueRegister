@@ -466,6 +466,8 @@
      "Top.SystemRegs.timingRxUserRst	Bool	0x100008	0x8	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.timingRxUserRst	0x4	0	1	1	0	Timing RX reset|"\
      "Top.SystemRegs.timingTxUserRst	Bool	0x100008	0x8	RW	[1]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.timingRxUserRst	0x4	0	1	1	0	Timing TX reset|"\
      "Top.SystemRegs.timingUseMiniTpg	Bool	0x100008	0x8	RW	[2]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.timingRxUserRst	0x4	0	1	1	0	Enable Mini TPG|"\
+     "Top.SystemRegs.HvEn[0]	Bool	0x10000c	0xc	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.HvEn[0]	0x4	0	1	1	0	Enable HV generator in bay 0|"\
+     "Top.SystemRegs.HvEn[1]	Bool	0x10000c	0xc	RW	[1]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.HvEn[0]	0x4	0	1	1	0	Enable HV generator in bay 1|"\
      "Top.SystemRegs.TempDigRaw[0]	UInt16	0x130000	0x30000	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.SystemRegs.TempDigRaw[0]	0x4	0	16	16	0	Digital board temperature sensor 0|"\
      "Top.SystemRegs.TempDigRaw[1]	UInt16	0x130400	0x30400	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.SystemRegs.TempDigRaw[1]	0x4	0	16	16	0	Digital board temperature sensor 1|"\
      "Top.SystemRegs.TempAnaRaw[0]	UInt16	0x140000	0x40000	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.SystemRegs.TempAnaRaw[0]	0x4	0	16	16	0	Analog board temperature sensor 0|"\
@@ -553,8 +555,13 @@ limit condition when this bit is HIGH.|"\
      "Top.SystemRegs.FpgaTempMon.AlertMode	Bool	0x1502fc	0x2fc	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.SystemRegs.FpgaTempMon.AlertMode	0x4	0	1	1	0	Alert mode (AM))|"\
      "Top.SystemRegs.FpgaTempMon.ManufacturerId	UInt8	0x1503f8	0x3f8	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.SystemRegs.FpgaTempMon.ManufacturerId	0x4	0	8	8	0	Read manufacturers ID (RMID) should be 0xA1|"\
      "Top.SystemRegs.FpgaTempMon.DieRevision	UInt8	0x1503fc	0x3fc	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.SystemRegs.FpgaTempMon.DieRevision	0x4	0	8	8	0	Read stepping or die revision (RDR) should be 0x00|"\
+     "Top.HV[0].HvControlRaw	UInt14	0x110000	0x0	RW	[0]	[14]	0	16383	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HV[0].HvControlRaw	0x4	0	14	14	0	Set voltage of HV generator|"\
+     "Top.HV[0].HvFeedbackRaw	UInt16	0x110400	0x400	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HV[0].HvFeedbackRaw	0x4	0	16	16	0	Get voltage of HV generator|"\
+     "Top.HV[1].HvControlRaw	UInt14	0x120000	0x0	RW	[0]	[14]	0	16383	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HV[1].HvControlRaw	0x4	0	14	14	0	Set voltage of HV generator|"\
+     "Top.HV[1].HvFeedbackRaw	UInt16	0x120400	0x400	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HV[1].HvFeedbackRaw	0x4	0	16	16	0	Get voltage of HV generator|"\
      "Top.Integrators.TrigDelay	UInt8	0x3000000	0x0	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.TrigDelay	0x4	0	8	8	0	Integrator trigger delay|"\
      "Top.Integrators.IntegralSize	UInt8	0x3000004	0x4	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.IntegralSize	0x4	0	8	8	0	Integrator size|"\
+     "Top.Integrators.IntegralSigned	UInt1	0x3000004	0x4	RW	[8]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.IntegralSize	0x4	0	1	1	0	Carry Integral sign|"\
      "Top.Integrators.BaselineSize	UInt3	0x3000008	0x8	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.BaselineSize	0x4	0	3	3	0	Baseline size (power of 2)|"\
      "Top.Integrators.QuadrantSel	Bool	0x300000c	0xc	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.Integrators.QuadrantSel	0x4	0	1	1	0	Odd/even channel selector for floating point equations|"\
      "Top.Integrators.IntensityRaw	UInt64	0x3000010	0x10	RO	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.IntensityRaw	0x8	0	64	64	0	Calculated Intensity in Float64|"\
