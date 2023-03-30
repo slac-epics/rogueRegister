@@ -988,11 +988,13 @@ file calcout.template
 		PATH	= "Top.HV[0].HvControlRaw"
 		PYPV	= "Top:HV[0]:HvControlRaw"
 		SCAN	= ""
-		CSAVE   = "VAL"
+		CSAVE   = "VAL DRVH HOPR"
 		EGU     = "V"
 		CALC    = "4095*A/500.0"
 		SDIS    = "$(P)$(R)HV:0:enable"
 		DISV    = "0"
+		DRVH    = "100"
+		HOPR    = "100"
         }
 	{
 		CNAME	= "HV:1:Control"
@@ -1000,11 +1002,13 @@ file calcout.template
 		PATH	= "Top.HV[1].HvControlRaw"
 		PYPV	= "Top:HV[1]:HvControlRaw"
 		SCAN	= ""
-		CSAVE   = "VAL"
+		CSAVE   = "VAL DRVH HOPR"
 		EGU     = "V"
 		CALC    = "4095*A/500.0"
 		SDIS    = "$(P)$(R)HV:1:enable"
 		DISV    = "0"
+		DRVH    = "100"
+		HOPR    = "100"
         }
 }
 

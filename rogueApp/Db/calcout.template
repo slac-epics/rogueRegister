@@ -3,6 +3,10 @@ record(ao, "$(P)$(R)$(CNAME)" )
 {
 	field(DESC, "$(DESC=?)")
 	field(EGU,  "$(EGU=)")
+	field(DRVL, "$(DRVL=0)")
+	field(DRVH, "$(DRVH=0)")
+	field(LOPR, "$(LOPR=0)")
+	field(HOPR, "$(HOPR=0)")
 	field(FLNK, "$(P)$(R)$(CNAME)_CALC")
 	info( autosaveFields, "$(CSAVE=VAL)" )
 }
