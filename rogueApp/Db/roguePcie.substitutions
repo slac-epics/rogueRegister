@@ -62,6 +62,7 @@ file boDevRogue.template
 	    	PYPV	= "Top:SystemRegs:HvEn[0]"
 		DESC 	= "HV0 enable"
 		SAVE	= "VAL"
+		PINI    = "YES"
 	}
 	{
 		NAME	= "HV:1:enable",
@@ -69,6 +70,7 @@ file boDevRogue.template
 	    	PYPV	= "Top:SystemRegs:HvEn[1]"
 		DESC 	= "HV1 enable"
 		SAVE	= "VAL"
+		PINI    = "YES"
 	}
 }
 file boolDevRogue.template

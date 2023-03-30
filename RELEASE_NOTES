@@ -1,11 +1,8 @@
 Release Notes for rogueRegister EPICS module
 
-R1.8.3: 2023-03-30 Michael Browne
-        Add 100V limits to HV outputs.
-
 R1.8.2: 2023-03-30 Michael Browne
         Brought over v2.3.0 register map *with* HV functions.  Added
-	these to the db files.
+	these to the db files.  Add 100V limits to HV outputs.
 
 R1.8.1: 2023-03-13 Michael Browne
         Fixed minor typo that was breaking EvrV2:EnableReg.
