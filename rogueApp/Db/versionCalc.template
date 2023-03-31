@@ -1,0 +1,10 @@
+record( longin, "$(P)$(R)$(NAME)_RBV" )
+{
+	field( FLNK,  "$(P)$(R)$(NAME)_GE_204 PP")
+}
+
+record( calc,    "$(P)$(R)$(NAME)_GE_204")
+{
+	field( INPA,  "$(P)$(R)$(NAME)_RBV NMS NPP" )
+	field( CALC,  "A>=0x2040000")
+}

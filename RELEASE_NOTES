@@ -1,5 +1,10 @@
 Release Notes for rogueRegister EPICS module
 
+R1.8.3: 2023-03-31 Michael Browne
+	Brought over v2.4.0 register map with DataPathCtrl.  Added
+	Top.DataPathCtrl.EnableStream PV, disable if FpgaVersion_RBV 
+	is less than 0x2040000.
+
 R1.8.2: 2023-03-30 Michael Browne
         Brought over v2.3.0 register map *with* HV functions.  Added
 	these to the db files.  Add 100V limits to HV outputs.

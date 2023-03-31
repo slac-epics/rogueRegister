@@ -854,6 +854,15 @@ file longDevRogue.template
 		PATH	= "Top.XpmMiniWrapper.XpmMini.Link"
 		PYPV	= "Top:XpmMiniWrapper:XpmMini:Link"
 	}
+	{
+		NAME    = "DataPathCtrl:EnableStream"
+		PATH    = "Top.DataPathCtrl.EnableStream"
+		PYPV    = "Top:DataPathCtrl:EnableStream"
+		SDIS    = "$(P)$(R)AxiVersion:FpgaVersion_GE_204"
+		DISV    = "0"
+		DRVH    = "3"
+		HOPR    = "3"
+	}
 }
 
 file int64InDevRogue.template

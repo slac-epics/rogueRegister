@@ -38,6 +38,13 @@ file liDevRogue.template
 	}
 }
 
+file versionCalc.template
+{
+	{
+	        NAME    = "AxiVersion:FpgaVersion"
+	}
+}
+
 #file loDevRogue.template
 #{
 #}
