@@ -78,7 +78,7 @@ record( stringout, "$(P)$(R)AdcCalibStatus" )
 # Note: SER_OK_PV macro refers to typical use in serial I/O, but same principle here.
 #		We just need one PV whose SEVR field is monitored to keep all the putMonitors
 #		from processing while communications to the wave8 are down.
-substitute "SER_OK_PV=$(P)$(R)AxiVersion:UpTime"
+substitute "SER_OK_PV=$(P)$(R)AxiVersion:UpTime_RBV"
 substitute "MON_PV=$(P)$(R)RawBuffers:BuffLen"
 substitute "MON_VALUE=1"
 include "putMonitor.template"
