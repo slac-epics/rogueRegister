@@ -858,6 +858,8 @@ file longDevRogue.template
 		NAME    = "DataPathCtrl:EnableStream"
 		PATH    = "Top.DataPathCtrl.EnableStream"
 		PYPV    = "Top:DataPathCtrl:EnableStream"
+		SAVE    = "VAL"
+		PINI    = "YES"
 		SDIS    = "$(P)$(R)AxiVersion:FpgaVersion_GE_204"
 		DISV    = "0"
 		DRVH    = "3"

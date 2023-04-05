@@ -1,7 +1,11 @@
 Release Notes for rogueRegister EPICS module
 
+R1.8.5: 2023-04-04 Michael Browne
+	Add EnableStream to initialization and autosave.
+
 R1.8.4: 2023-04-04 Michael Browne
 	Fix typo in MON_PUT record.
+
 R1.8.3: 2023-03-31 Michael Browne
 	Brought over v2.4.0 register map with DataPathCtrl.  Added
 	Top.DataPathCtrl.EnableStream PV, disable if FpgaVersion_RBV 
