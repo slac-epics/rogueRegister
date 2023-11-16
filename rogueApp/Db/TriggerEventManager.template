@@ -13,27 +13,19 @@
 #
 
 # LCLS-I Dest Select
-record( mbbi, "$(P)$(R)EvrV2:DestSel_RBV" )
+record( longin, "$(P)$(R)EvrV2:DestSel_RBV" )
 {
 	field( DESC, "LCLS-I Dest Select" )
 	field( INP,  "@B$(B) L$(L) $(PTOP).TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[$(L)].DestSel" )
-	field( DTYP, "RogueMBBI" )
-	field( ZRVL, "0" ) field( ZRST, "Inclusive" )
-	field( ONVL, "1" ) field( ONST, "Exclusive" )
-	field( TWVL, "2" ) field( TWST, "Don't care" )
-	field( THVL, "3" ) field( THST, "Reserved" )
+	field( DTYP, "RogueLI" )
 	info( autosaveFields, "" )
 }
 
-record( mbbo, "$(P)$(R)EvrV2:DestSel" )
+record( longout, "$(P)$(R)EvrV2:DestSel" )
 {
 	field( DESC, "LCLS-I Dest Select" )
 	field( OUT,  "@B$(B) L$(L) $(PTOP).TriggerEventManager.EvrV2CoreTriggers.EvrV2ChannelReg[$(L)].DestSel" )
-	field( DTYP, "RogueMBBO" )
-	field( ZRVL, "0" ) field( ZRST, "Inclusive" )
-	field( ONVL, "1" ) field( ONST, "Exclusive" )
-	field( TWVL, "2" ) field( TWST, "Don't care" )
-	field( THVL, "3" ) field( THST, "Reserved" )
+	field( DTYP, "RogueLO" )
 	field( PINI, "YES" )
 	field( FLNK, "$(P)$(R)EvrV2:DestSel_RBV" )
 	info( autosaveFields, "VAL" )
