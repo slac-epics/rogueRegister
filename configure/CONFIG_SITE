@@ -52,8 +52,8 @@ endif
 
 #ROGUE_DIR=/reg/neh/home/bhill/git-wa-neh/slaclab/rogue-git
 #ROGUE_DIR=/reg/neh/home/bhill/git-wa-neh/slaclab/rogue-no-python-git/$(T_A)
-#ROGUE_DIR=/cds/group/pcds/package/rogue/v5.10.0/$(T_A)
-ROGUE_DIR=/cds/home/t/tjohnson/trunk/package/rogue/$(T_A)
+ROGUE_DIR=/cds/group/pcds/package/rogue/v5.18.4/$(T_A)
+#ROGUE_DIR=/cds/home/t/tjohnson/trunk/package/rogue/$(T_A)
 
 #PGP_DRIVER_DIR=/reg/neh/home/bhill/git-wa-neh/slaclab/aes-stream-drivers-git
 #PGP_DRIVER_DIR=/cds/group/pcds/package/slaclab/aes-stream-drivers/v5.15.2
