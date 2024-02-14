@@ -35,7 +35,7 @@ x 276
 y 36
 w 80
 h 20
-controlPv "$(PGP):XpmMini:Config_L0Select_DestSel_RBV"
+controlPv "$(PGP):EvrV2:DestSel_RBV"
 font "helvetica-medium-r-12.0"
 fontAlign "center"
 fgColor index 15
@@ -134,69 +134,18 @@ value {
 }
 endObjectProperties
 
-# (Text Monitor)
-object activeXTextDspClass:noedit
-beginObjectProperties
-major 4
-minor 7
-release 0
-x 276
-y 144
-w 80
-h 20
-controlPv "$(P)$(R)EvrV2:EnableReg_RBV"
-font "helvetica-medium-r-12.0"
-fontAlign "center"
-fgColor index 15
-fgAlarm
-bgColor index 12
-limitsFromDb
-nullColor index 40
-smartRefresh
-newPos
-objType "monitors"
-noExecuteClipMask
-endObjectProperties
-
-# (Menu Button)
-object activeMenuButtonClass
+# (Group)
+object activeGroupClass
 beginObjectProperties
 major 4
 minor 0
 release 0
-x 128
-y 144
-w 140
-h 20
-fgColor index 14
-bgColor index 3
-inconsistentColor index 40
-topShadowColor index 1
-botShadowColor index 11
-controlPv "$(P)$(R)EvrV2:EnableReg"
-indicatorPv "$(P)$(R)EvrV2:EnableReg_RBV"
-font "helvetica-medium-r-12.0"
-endObjectProperties
-
-# (Static Text)
-object activeXTextClass
-beginObjectProperties
-major 4
-minor 1
-release 1
 x 0
-y 144
-w 120
+y 0
+w 356
 h 20
-font "helvetica-medium-r-12.0"
-fontAlign "right"
-fgColor index 14
-bgColor index 0
-useDisplayBg
-value {
-  "EvrV2:EnableReg"
-}
-endObjectProperties
+
+beginGroup
 
 # (Menu Button)
 object activeMenuButtonClass
@@ -326,6 +275,13 @@ value {
 }
 endObjectProperties
 
+endGroup
+
+visPv "$(P)$(R)Timing:TriggerSource_RBV"
+visMin "1"
+visMax "2"
+endObjectProperties
+
 # (Text Control)
 object activeXTextDspClass
 beginObjectProperties
@@ -336,7 +292,7 @@ x 128
 y 36
 w 140
 h 20
-controlPv "$(PGP):XpmMini:Config_L0Select_DestSel"
+controlPv "$(PGP):EvrV2:DestSel"
 format "decimal"
 font "helvetica-medium-r-12.0"
 fontAlign "center"
