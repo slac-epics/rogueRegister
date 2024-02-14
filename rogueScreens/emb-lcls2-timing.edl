@@ -134,6 +134,19 @@ value {
 }
 endObjectProperties
 
+# (Group)
+object activeGroupClass
+beginObjectProperties
+major 4
+minor 0
+release 0
+x 0
+y 0
+w 356
+h 20
+
+beginGroup
+
 # (Menu Button)
 object activeMenuButtonClass
 beginObjectProperties
@@ -260,6 +273,13 @@ useDisplayBg
 value {
   "Timing:DestType"
 }
+endObjectProperties
+
+endGroup
+
+visPv "$(P)$(R)Timing:TriggerSource_RBV"
+visMin "1"
+visMax "2"
 endObjectProperties
 
 # (Text Control)
