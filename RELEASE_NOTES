@@ -1,5 +1,9 @@
 Release Notes for rogueRegister EPICS module
 
+R2.1.0: 2024-02-14 Kaushik Malapati
+	Change DestType enum to be ReadoutGroup/LocalConfig and hide rate
+	dest type fields when in ReadoutGroup in emb-lcls2-timing
+
 R1.8.5: 2023-04-04 Michael Browne
 	Add EnableStream to initialization and autosave.
 
