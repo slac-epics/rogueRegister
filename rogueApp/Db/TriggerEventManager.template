@@ -153,6 +153,35 @@ record( longout, "$(P)$(R)EvrV2:RateSel" )
 }
 #alias( "$(P)$(R)EvrV2:RateSel", "$(P)$(R)EvrV2:EventCode" )
 
+record( mbbo, "$(P)$(R)EvrV2:FixedRate" )
+{
+	field( DESC, "LCLS-2 Fixed Rate" )
+        field( OUT,  "$(P)$(R)Lcls2:RateSel CA")
+        field( DTYP, "Raw Soft Channel" )
+        field( ZRVL, "0" ) field( ZRST, "1.02Hz" )
+	field( ONVL, "1" ) field( ONST, "10.2Hz" )
+        field( TWVL, "2" ) field( TWST, "102Hz" )
+	field( THVL, "3" ) field( THST, "1.02kHz" )
+	field( FRVL, "4" ) field( FRST, "10.2kHz" )
+	field( FVVL, "5" ) field( FVST, "71.4kHz" )
+	field( SXVL, "6" ) field( SXST, "929kHz" )
+        info( autosaveFields, "VAL" )
+}
+
+record( mbbo, "$(P)$(R)EvrV2:ACRate" )
+{
+	field( DESC, "LCLS-2 AC Rate" )
+        field( OUT,  "$(P)$(R)Lcls2:RateSel CA")
+        field( DTYP, "Raw Soft Channel" )
+        field( ZRVL, "0" ) field( ZRST, "0.5Hz" )
+	field( ONVL, "1" ) field( ONST, "1Hz" )
+        field( TWVL, "2" ) field( TWST, "5Hz" )
+	field( THVL, "3" ) field( THST, "10Hz" )
+	field( FRVL, "4" ) field( FRST, "30Hz" )
+	field( FVVL, "5" ) field( FVST, "60Hz" )
+        info( autosaveFields, "VAL" )
+}
+
 record( mbbi, "$(P)$(R)Timing:TriggerSource_RBV" )
 {
 	field( DESC, "TriggerEventManager Trigger Source" )

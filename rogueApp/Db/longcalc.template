@@ -1,0 +1,20 @@
+include "calcout.template"
+
+record(calcout, "$(P)$(R)$(LCNAME)_CALC" )
+{
+        field(INPA, "$(P)$(R)$(NAME)_RBV NPP NMS")
+        field(CALC, "$(LCALC=0)")
+        field(OOPT, "$(OOPT=Every Time)")
+        field(DOPT, "Use CALC")
+        field(OUT,  "$(P)$(R)$(CNAME) CA")
+}
+
+record(ao, "$(P)$(R)$(CNAME)" )
+{
+        field(PREC, "$(PREC=0)")
+}
+
+record( longin, "$(P)$(R)$(NAME)_RBV" )
+{
+        field( FLNK, "$(P)$(R)$(LCNAME)_CALC" )
+}

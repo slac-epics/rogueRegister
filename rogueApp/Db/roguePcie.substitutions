@@ -610,14 +610,6 @@ file loDevRogue.template
 file longDevRogue.template
 {
 	{
-		NAME	= "EvrV2:Delay",
-		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Delay"
-		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:Delay"
-		DESC	= "Trigger Delay"
-		SAVE	= "VAL"
-		SCAN	= "\$(SCAN=1 second)"
-	}
-	{
 		NAME	= "EvrV2:Polarity",
 		PATH	= "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Polarity"
 		PYPV	= "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:Polarity"
@@ -1024,6 +1016,23 @@ file calcout.template
 		HOPR    = "100"
         }
 }
-
+file longcalc.template
+{
+        {
+                CNAME   = "EvrV2:DelayControl"
+                NAME    = "EvrV2:Delay",
+                PATH    = "Top.TriggerEventManager.EvrV2CoreTriggers.EvrV2TriggerReg[0].Delay"
+                PYPV    = "Top:TriggerEventManager:EvrV2CoreTriggers:EvrV2TriggerReg[0]:Delay"
+                DESC    = "Trigger Delay"
+                SAVE    = "VAL"
+                SCAN    = "\$(SCAN=1 second)"
+                CSAVE   = "VAL"
+                EGU     = "ns"
+                CALC    = "A*1.3/7"
+		LCNAME	= "EvrV2:DelayControlReadback"
+		LCALC	= "A*7/1.3"
+		PREC	= "4"
+        }
+}
 #       DESC    = "0         1         2         3         "
 #       DESC    = "01234567890123 Max 40 char 7890123456789"
