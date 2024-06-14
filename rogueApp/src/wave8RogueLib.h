@@ -23,7 +23,6 @@
 
 // rogue headers 
 #include <rogue/Helpers.h>
-#include <rogue/LibraryBase.h>
 #include <rogue/hardware/axi/AxiMemMap.h>
 #include <rogue/hardware/axi/AxiStreamDma.h>
 #include <rogue/interfaces/memory/Constants.h>
@@ -32,6 +31,7 @@
 #include <rogue/protocols/srp/SrpV3.h>
 
 // rogueRegister headers
+#include "LibraryBase.h"
 #include "pgpRogueLib.h"
 //#include "ClMemoryMaster.h"
 
