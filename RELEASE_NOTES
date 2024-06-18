@@ -1,5 +1,8 @@
 Release Notes for rogueRegister EPICS module
 
+R2.3.0: 2024-06-18 Michael Skoufis 
+        Add LibraryBase class for versions of Rogue > v6.0.0	
+
 R2.1.0: 2024-02-14 Kaushik Malapati
 	Change DestType enum to be ReadoutGroup/LocalConfig and hide rate
 	dest type fields when in ReadoutGroup in emb-lcls2-timing
