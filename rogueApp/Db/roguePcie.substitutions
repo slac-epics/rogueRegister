@@ -626,6 +626,15 @@ file longDevRogue.template
 		SAVE	= "VAL"
 		SCAN	= "\$(SCAN=1 second)"
 	}
+        {
+                NAME    = "Integrators:IntegralSigned",
+                PATH    = "Top.Integrators.IntegralSigned"
+                PYPV    = "Top:Integrators:IntegralSigned"
+                DESC    = "Carry Integral sign"
+                PINI    = "YES"
+                SAVE    = "VAL"
+                SCAN    = "\$(SCAN=1 second)"
+        }
 	{
 		NAME	= "Integrators:BaselineSize",
 		PATH	= "Top.Integrators.BaselineSize"
