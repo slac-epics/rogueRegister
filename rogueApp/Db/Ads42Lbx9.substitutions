@@ -3,97 +3,97 @@
 file liDevRogue.template
 {
 	{
-		NAME	= "AdcReadout$(ADC):AdcASample[0]"
+		NAME	= "AdcReadout$(ADC):AdcASample0"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcASample[0]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcASample[0]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcASample[1]"
+		NAME	= "AdcReadout$(ADC):AdcASample1"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcASample[1]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcASample[1]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcASample[2]"
+		NAME	= "AdcReadout$(ADC):AdcASample2"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcASample[2]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcASample[2]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcASample[3]"
+		NAME	= "AdcReadout$(ADC):AdcASample3"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcASample[3]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcASample[3]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcASample[4]"
+		NAME	= "AdcReadout$(ADC):AdcASample4"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcASample[4]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcASample[4]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcASample[5]"
+		NAME	= "AdcReadout$(ADC):AdcASample5"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcASample[5]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcASample[5]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcASample[6]"
+		NAME	= "AdcReadout$(ADC):AdcASample6"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcASample[6]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcASample[6]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcASample[7]"
+		NAME	= "AdcReadout$(ADC):AdcASample7"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcASample[7]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcASample[7]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcBSample[0]"
+		NAME	= "AdcReadout$(ADC):AdcBSample0"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcBSample[0]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcBSample[0]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcBSample[1]"
+		NAME	= "AdcReadout$(ADC):AdcBSample1"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcBSample[1]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcBSample[1]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcBSample[2]"
+		NAME	= "AdcReadout$(ADC):AdcBSample2"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcBSample[2]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcBSample[2]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcBSample[3]"
+		NAME	= "AdcReadout$(ADC):AdcBSample3"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcBSample[3]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcBSample[3]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcBSample[4]"
+		NAME	= "AdcReadout$(ADC):AdcBSample4"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcBSample[4]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcBSample[4]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcBSample[5]"
+		NAME	= "AdcReadout$(ADC):AdcBSample5"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcBSample[5]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcBSample[5]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcBSample[6]"
+		NAME	= "AdcReadout$(ADC):AdcBSample6"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcBSample[6]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcBSample[6]"
 		DESC	= "ADC Sample"
 	}
 	{
-		NAME	= "AdcReadout$(ADC):AdcBSample[7]"
+		NAME	= "AdcReadout$(ADC):AdcBSample7"
 		PATH	= "$(PTOP).AdcReadout[$(ADC)].AdcBSample[7]"
 		PYPV	= "$(PTOP):AdcReadout[$(ADC)]:AdcBSample[7]"
 		DESC	= "ADC Sample"
