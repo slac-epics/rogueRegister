@@ -1,5 +1,9 @@
 Release Notes for rogueRegister EPICS module
 
+pre-release: 2025-07-17 Jeremy Lorelli
+    Update to asyn/R4.39-1.0.2
+    Fix signed-unsigned compare warnings
+
 R2.3.0: 2024-06-18 Michael Skoufis 
         Add LibraryBase class for versions of Rogue > v6.0.0	
 
