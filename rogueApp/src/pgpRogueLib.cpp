@@ -407,7 +407,7 @@ template<class R> int pgpRogueLib::readVarPath( const char * pszVarPath, R & val
 		else if ( pVar->name().find( ".Sfp" ) == std::string::npos )
 			// Variable name doesn't contain ".Sfp"
 			printf( "%s %s rogue error from %s: %s!\n", functionName, pVar->name().c_str(), varPath.c_str(), e.what() );
-		else if ( pVar->name().compare( idPos, pVar->name().length(), idStr ) == std::string::npos )
+		else if ( pVar->name().compare( idPos, pVar->name().length(), idStr ) == -1 )
 			// Sfp Variable name doesn't end with ".Identifier"
 			printf( "%s %s rogue error from SFP %s: %s!\n", functionName, pVar->name().c_str(), varPath.c_str(), e.what() );
 	}
