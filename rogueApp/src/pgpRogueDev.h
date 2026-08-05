@@ -116,6 +116,8 @@ public:		//	Public member functions
 	//int	GetData( size_t iSignal, void * pBuffer, size_t sBuffer );
 
 	long update_integrals( epicsTimeStamp tcUpdate, rogue::interfaces::stream::FramePtr	pDataFrame );
+	long update_hls_integrals( epicsTimeStamp tcUpdate, rogue::interfaces::stream::FramePtr pDataFrame );
+	long update_peaks( epicsTimeStamp tcUpdate, rogue::interfaces::stream::FramePtr     pDataFrame );
 
 	void ResetCounters();
 
@@ -162,6 +164,58 @@ public:		//	Public member functions
 		return;
 	}
 
+	void SetHlsIntegralRogueInfo( size_t iSig, rogue_info_t * pRogueInfo )
+	{
+		if ( iSig < PGP_NUM_SIGNALS )
+			m_pHlsIntegralRogueInfo[iSig] = pRogueInfo;
+		return;
+	}
+
+        void SetPeakAmpRogueInfo( size_t iSig, rogue_info_t * pRogueInfo )
+        {
+                if ( iSig < PGP_NUM_SIGNALS )
+                        m_pPeakAmpRogueInfo[iSig] = pRogueInfo;
+                return;
+        }
+
+	void SetPeakPosRogueInfo( size_t iSig, rogue_info_t * pRogueInfo )
+        {
+                if ( iSig < PGP_NUM_SIGNALS )
+                        m_pPeakPosRogueInfo[iSig] = pRogueInfo;
+                return;
+        }
+
+	void SetBaselineRogueInfo( size_t iSig, rogue_info_t * pRogueInfo )
+        {
+                if ( iSig < PGP_NUM_SIGNALS )
+                        m_pBaselineRogueInfo[iSig] = pRogueInfo;
+                return;
+        }
+
+	void SetPeakXRogueInfo( rogue_info_t * pRogueInfo )
+        {
+		m_pPeakXRogueInfo = pRogueInfo;
+                return;
+        }
+
+	void SetPeakYRogueInfo( rogue_info_t * pRogueInfo )
+        {
+                m_pPeakYRogueInfo = pRogueInfo;
+                return;
+        }
+
+	void SetIntegralXRogueInfo( rogue_info_t * pRogueInfo )
+        {
+                m_pIntegralXRogueInfo = pRogueInfo;
+                return;
+        }
+
+	void SetIntegralYRogueInfo( rogue_info_t * pRogueInfo )
+        {
+                m_pIntegralYRogueInfo = pRogueInfo;
+                return;
+        }
+
 	/// Return shared_ptr to pgpRogueLib device
 	pgpRogueLibPtr	GetRogueLib( ) const
 	{
@@ -195,6 +249,14 @@ private:
 	epicsMutexId		m_devLock;
 	rogue_info_t	 *	m_pRawDataRogueInfo[PGP_NUM_SIGNALS];
 	rogue_info_t	 *	m_pIntegralRogueInfo[PGP_NUM_SIGNALS];
+	rogue_info_t	 *	m_pHlsIntegralRogueInfo[PGP_NUM_SIGNALS];
+	rogue_info_t     *      m_pPeakAmpRogueInfo[PGP_NUM_SIGNALS];
+	rogue_info_t     *      m_pPeakPosRogueInfo[PGP_NUM_SIGNALS];
+	rogue_info_t     *      m_pBaselineRogueInfo[PGP_NUM_SIGNALS];
+	rogue_info_t     *      m_pPeakXRogueInfo;
+	rogue_info_t     *      m_pPeakYRogueInfo;
+	rogue_info_t     *      m_pIntegralXRogueInfo;
+	rogue_info_t     *      m_pIntegralYRogueInfo;
 	epicsTimeStamp		m_tsFrame;		// Timestamp from latest frame
 
 	///	Wave8 Data Stream
@@ -223,6 +285,7 @@ struct _rogue_info
 	bool				m_fSignedValue;
 	uint32_t			m_modelId;
 	uint32_t			m_numBits;
+	uint32_t                        m_numValues;
 	size_t				m_signal;
 	size_t				m_newDataCount;
 	IOSCANPVT			m_scanIo;

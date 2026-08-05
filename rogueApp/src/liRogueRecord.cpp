@@ -61,22 +61,48 @@ static long init_li( void * pCommon )
 		struct instio      *pinstio = &pRecord->inp.value.instio;
 		if ( pinstio->string &&	strstr( pinstio->string, "Integrators.AdcIntegral" ) )
 		{
-			//printf( "%s: SetIntegralRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
+			printf( "%s: SetIntegralRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
 			pRogueInfo->m_pRogueDev->SetIntegralRogueInfo( pRogueInfo->m_signal, pRogueInfo );
 		}
+		else if ( pinstio->string && strstr( pinstio->string, "Hls1.Integral" ) )
+		{
+			printf( "%s: SetHlsIntegralRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
+			pRogueInfo->m_pRogueDev->SetHlsIntegralRogueInfo( pRogueInfo->m_signal, pRogueInfo );
+		}
+		else if ( pinstio->string && strstr( pinstio->string, "Hls0.PeakPos" ) )
+                {
+                        printf( "%s: SetPeakPosRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
+                        pRogueInfo->m_pRogueDev->SetPeakPosRogueInfo( pRogueInfo->m_signal, pRogueInfo );
+                }
+		else if ( pinstio->string && strstr( pinstio->string, "Hls0.PeakAmp" ) )
+                {
+                        printf( "%s: SetPeakAmpRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
+                        pRogueInfo->m_pRogueDev->SetPeakAmpRogueInfo( pRogueInfo->m_signal, pRogueInfo );
+                }
+		else if ( pinstio->string && strstr( pinstio->string, "Hls0.Baseline" ) )
+                {
+                        printf( "%s: SetBaselineRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
+                        pRogueInfo->m_pRogueDev->SetBaselineRogueInfo( pRogueInfo->m_signal, pRogueInfo );
+                }
+
 	}
-	// TODO: Do we need to call rogue_read_record during record initialization?
-	if ( pRogueInfo->m_fSignedValue )
-	{
-		int64_t		rogueValue;
-		rogue_read_record( pRecord, rogueValue );
-		pRecord->val = static_cast<epicsInt32>( rogueValue );
-	}
-	else
-	{
-		uint64_t	rogueValue;
-		rogue_read_record( pRecord, rogueValue );
-		pRecord->val = static_cast<epicsInt32>( rogueValue );
+
+	const char* varPath = pRogueInfo->m_varPath.c_str();
+	if ( strstr( varPath, "DataStream" ) != varPath )
+        {
+		// TODO: Do we need to call rogue_read_record during record initialization?
+		if ( pRogueInfo->m_fSignedValue )
+		{
+			int64_t		rogueValue;
+			rogue_read_record( pRecord, rogueValue );
+			pRecord->val = static_cast<epicsInt32>( rogueValue );
+		}
+		else
+		{
+			uint64_t	rogueValue;
+			rogue_read_record( pRecord, rogueValue );
+			pRecord->val = static_cast<epicsInt32>( rogueValue );
+		}
 	}
 	//pRecord->linr = 0;		// prevent conversions
 
@@ -110,6 +136,7 @@ static long read_li( void	*	record )
 	long				status		= 0;
 	longinRecord	*	pRecord		= reinterpret_cast <longinRecord *>( record );
 	rogue_info_t	*	pRogueInfo	= reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	const char* varPath = pRogueInfo->m_varPath.c_str();
 	if ( pRogueInfo->m_newDataCount	!= 0 )
 	{
 		// Data already loaded via update_longin()
@@ -117,21 +144,24 @@ static long read_li( void	*	record )
 		if ( DEBUG_ROGUE_RECORDS >= 4 )
 			printf( "%s: %s status %ld, I/O intValue %d\n", functionName, pRecord->name, status, pRecord->val );
 	}
-	else if ( pRogueInfo->m_fSignedValue )
+	else if ( strstr( varPath, "DataStream" ) != varPath )
 	{
-		int64_t		rogueValue	= -1L;
-		status = rogue_read_record( pRecord, rogueValue );
-		pRecord->val = static_cast<epicsInt32>( rogueValue );
-		if ( DEBUG_ROGUE_RECORDS >= 4 )
-			printf( "%s: %s status %ld, intValue %d\n", functionName, pRecord->name, status, pRecord->val );
-	}
-	else
-	{
-		uint64_t	rogueValue	= 0L;
-		status = rogue_read_record( pRecord, rogueValue );
-		pRecord->val = static_cast<epicsInt32>( rogueValue );
-		if ( DEBUG_ROGUE_RECORDS >= 4 )
-			printf( "%s: %s status %ld, uintValue %u\n", functionName, pRecord->name, status, pRecord->val );
+		if ( pRogueInfo->m_fSignedValue )
+		{
+			int64_t		rogueValue	= -1L;
+			status = rogue_read_record( pRecord, rogueValue );
+			pRecord->val = static_cast<epicsInt32>( rogueValue );
+			if ( DEBUG_ROGUE_RECORDS >= 4 )
+				printf( "%s: %s status %ld, intValue %d\n", functionName, pRecord->name, status, pRecord->val );
+		}
+		else
+		{
+			uint64_t	rogueValue	= 0L;
+			status = rogue_read_record( pRecord, rogueValue );
+			pRecord->val = static_cast<epicsInt32>( rogueValue );
+			if ( DEBUG_ROGUE_RECORDS >= 4 )
+				printf( "%s: %s status %ld, uintValue %u\n", functionName, pRecord->name, status, pRecord->val );
+		}
 	}
 	pRogueInfo->m_newDataCount = 0;
 	return status;

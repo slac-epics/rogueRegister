@@ -85,19 +85,24 @@ int rogue_init_record(
 	pRogueInfo->m_fSignedValue	= false;
 	pRogueInfo->m_pRecCommon	= (struct dbCommon *) record,
 	scanIoInit( &pRogueInfo->m_scanIo );
-	rogue::interfaces::memory::VariablePtr	pVar;
-	pVar = pRogueInfo->m_pRogueLib->getVariable( pRogueInfo->m_varPath );
-	if ( !pVar )
+
+	if ( strstr( varPath, "DataStream" ) != varPath )
 	{
-		printf( "%s error: %s not found!\n", functionName, pRogueInfo->m_varPath.c_str() );
-	}
-	else
-	{
-		pRogueInfo->m_modelId	= pVar->modelId();
-		pRogueInfo->m_numBits	= pVar->bitTotal();
-		if ( pVar->modelId() == rogue::interfaces::memory::Int )
+		rogue::interfaces::memory::VariablePtr	pVar;
+		pVar = pRogueInfo->m_pRogueLib->getVariable( pRogueInfo->m_varPath );
+		if ( !pVar )
 		{
-			pRogueInfo->m_fSignedValue	= true;
+			printf( "%s error: %s not found!\n", functionName, pRogueInfo->m_varPath.c_str() );
+		}
+		else
+		{
+			pRogueInfo->m_modelId	= pVar->modelId();
+			pRogueInfo->m_numBits	= pVar->bitTotal();
+			pRogueInfo->m_numValues = pVar->numValues();
+			if ( pVar->modelId() == rogue::interfaces::memory::Int )
+			{
+				pRogueInfo->m_fSignedValue	= true;
+			}
 		}
 	}
 	record->dpvt				= pRogueInfo;

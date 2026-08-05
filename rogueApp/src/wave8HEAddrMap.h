@@ -1040,39 +1040,352 @@ limit condition when this bit is HIGH.|"\
      "Top.AdcPatternTester.Done	Bool	0x1500014	0x14	RO	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.AdcPatternTester.Done	0x4	0	1	1	0	Done|"\
      "Top.AdcPatternTester.Failed	Bool	0x1500018	0x18	RO	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.AdcPatternTester.Failed	0x4	0	1	1	0	Failed|"\
      "Top.AdcPatternTester.Count	UInt32	0x150001c	0x1c	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.AdcPatternTester.Count	0x4	0	32	32	0	Count|"\
-     "Top.Integrators.TrigDelay	UInt8	0x3000000	0x0	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.TrigDelay	0x4	0	8	8	0	Integrator trigger delay|"\
-     "Top.Integrators.IntegralSize	UInt8	0x3000004	0x4	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.IntegralSize	0x4	0	8	8	0	Integrator size|"\
-     "Top.Integrators.IntegralSigned	UInt1	0x3000004	0x4	RW	[8]	[1]	0	1	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.IntegralSize	0x4	0	1	1	0	Carry Integral sign|"\
-     "Top.Integrators.BaselineSize	UInt3	0x3000008	0x8	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.BaselineSize	0x4	0	3	3	0	Baseline size (power of 2)|"\
-     "Top.Integrators.QuadrantSel	Bool	0x300000c	0xc	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.Integrators.QuadrantSel	0x4	0	1	1	0	Odd/even channel selector for floating point equations|"\
-     "Top.Integrators.IntensityRaw	UInt64	0x3000010	0x10	RO	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.IntensityRaw	0x8	0	64	64	0	Calculated Intensity in Float64|"\
-     "Top.Integrators.PositionXRaw	UInt64	0x3000018	0x18	RO	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.PositionXRaw	0x8	0	64	64	0	Calculated Position X in Float64|"\
-     "Top.Integrators.PositionYRaw	UInt64	0x3000020	0x20	RO	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.PositionYRaw	0x8	0	64	64	0	Calculated Position Y in Float64|"\
-     "Top.Integrators.AdcIntegral[0]	Int25	0x3000030	0x30	RO	[0]	[25]	-16777216	16777215	None	False	True	3	False	False	0	True	True	Unnamed_5	Top.Integrators.AdcIntegral[0]	0x4	0	25	25	0	Integral ADC channel0|"\
-     "Top.Integrators.AdcIntegral[1]	Int25	0x3000034	0x34	RO	[0]	[25]	-16777216	16777215	None	False	True	3	False	False	0	True	True	Unnamed_5	Top.Integrators.AdcIntegral[1]	0x4	0	25	25	0	Integral ADC channel1|"\
-     "Top.Integrators.AdcIntegral[2]	Int25	0x3000038	0x38	RO	[0]	[25]	-16777216	16777215	None	False	True	3	False	False	0	True	True	Unnamed_5	Top.Integrators.AdcIntegral[2]	0x4	0	25	25	0	Integral ADC channel2|"\
-     "Top.Integrators.AdcIntegral[3]	Int25	0x300003c	0x3c	RO	[0]	[25]	-16777216	16777215	None	False	True	3	False	False	0	True	True	Unnamed_5	Top.Integrators.AdcIntegral[3]	0x4	0	25	25	0	Integral ADC channel3|"\
-     "Top.Integrators.AdcIntegral[4]	Int25	0x3000040	0x40	RO	[0]	[25]	-16777216	16777215	None	False	True	3	False	False	0	True	True	Unnamed_5	Top.Integrators.AdcIntegral[4]	0x4	0	25	25	0	Integral ADC channel4|"\
-     "Top.Integrators.AdcIntegral[5]	Int25	0x3000044	0x44	RO	[0]	[25]	-16777216	16777215	None	False	True	3	False	False	0	True	True	Unnamed_5	Top.Integrators.AdcIntegral[5]	0x4	0	25	25	0	Integral ADC channel5|"\
-     "Top.Integrators.AdcIntegral[6]	Int25	0x3000048	0x48	RO	[0]	[25]	-16777216	16777215	None	False	True	3	False	False	0	True	True	Unnamed_5	Top.Integrators.AdcIntegral[6]	0x4	0	25	25	0	Integral ADC channel6|"\
-     "Top.Integrators.AdcIntegral[7]	Int25	0x300004c	0x4c	RO	[0]	[25]	-16777216	16777215	None	False	True	3	False	False	0	True	True	Unnamed_5	Top.Integrators.AdcIntegral[7]	0x4	0	25	25	0	Integral ADC channel7|"\
-     "Top.Integrators.Baseline[0]	UInt16	0x3000050	0x50	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.Baseline[0]	0x4	0	16	16	0	Baseline ADC channel0|"\
-     "Top.Integrators.Baseline[1]	UInt16	0x3000054	0x54	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.Baseline[1]	0x4	0	16	16	0	Baseline ADC channel1|"\
-     "Top.Integrators.Baseline[2]	UInt16	0x3000058	0x58	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.Baseline[2]	0x4	0	16	16	0	Baseline ADC channel2|"\
-     "Top.Integrators.Baseline[3]	UInt16	0x300005c	0x5c	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.Baseline[3]	0x4	0	16	16	0	Baseline ADC channel3|"\
-     "Top.Integrators.Baseline[4]	UInt16	0x3000060	0x60	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.Baseline[4]	0x4	0	16	16	0	Baseline ADC channel4|"\
-     "Top.Integrators.Baseline[5]	UInt16	0x3000064	0x64	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.Baseline[5]	0x4	0	16	16	0	Baseline ADC channel5|"\
-     "Top.Integrators.Baseline[6]	UInt16	0x3000068	0x68	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.Baseline[6]	0x4	0	16	16	0	Baseline ADC channel6|"\
-     "Top.Integrators.Baseline[7]	UInt16	0x300006c	0x6c	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.Baseline[7]	0x4	0	16	16	0	Baseline ADC channel7|"\
-     "Top.Integrators.CorrCoefficientRaw[0]	UInt64	0x3000080	0x80	RW	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.CorrCoefficientRaw[0]	0x8	0	64	64	0	Gain correction coefficient 0 in Float64|"\
-     "Top.Integrators.CorrCoefficientRaw[1]	UInt64	0x3000088	0x88	RW	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.CorrCoefficientRaw[1]	0x8	0	64	64	0	Gain correction coefficient 1 in Float64|"\
-     "Top.Integrators.CorrCoefficientRaw[2]	UInt64	0x3000090	0x90	RW	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.CorrCoefficientRaw[2]	0x8	0	64	64	0	Gain correction coefficient 2 in Float64|"\
-     "Top.Integrators.CorrCoefficientRaw[3]	UInt64	0x3000098	0x98	RW	[0]	[64]	0	18446744073709551615	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.CorrCoefficientRaw[3]	0x8	0	64	64	0	Gain correction coefficient 3 in Float64|"\
-     "Top.Integrators.CntRst	Bool	0x3000100	0x100	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	False	4	False	False	0	True	True	Unnamed_5	Top.Integrators.CntRst	0x4	0	1	1	0	Reset counters|"\
-     "Top.Integrators.ProcFifoPauseThreshold	UInt8	0x3000104	0x104	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.ProcFifoPauseThreshold	0x4	0	8	8	0	Processed data buffers threshold before throttling triggers from the timing core|"\
-     "Top.Integrators.ProcFifoPauseCnt	UInt32	0x3000108	0x108	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.ProcFifoPauseCnt	0x4	0	32	32	0	Processed data buffer threshold event counter|"\
-     "Top.Integrators.IntFifoPauseThreshold	UInt8	0x300010c	0x10c	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.IntFifoPauseThreshold	0x4	0	8	8	0	Integral data buffers threshold before throttling triggers from the timing core|"\
-     "Top.Integrators.IntFifoPauseCnt	UInt32	0x3000110	0x110	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.IntFifoPauseCnt	0x4	0	32	32	0	Integral data buffer threshold event counter|"\
-     "Top.Integrators.TrigCnt	UInt32	0x3000070	0x70	RO	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.Integrators.TrigCnt	0x4	0	32	32	0	Trigger counter|"\
+     "Top.FirFiltering.Ch[0].Taps[0]	Fixed_16_15	0x3000000	0x0	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[0]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[1]	Fixed_16_15	0x3000004	0x4	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[1]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[2]	Fixed_16_15	0x3000008	0x8	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[2]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[3]	Fixed_16_15	0x300000c	0xc	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[3]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[4]	Fixed_16_15	0x3000010	0x10	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[4]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[5]	Fixed_16_15	0x3000014	0x14	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[5]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[6]	Fixed_16_15	0x3000018	0x18	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[6]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[7]	Fixed_16_15	0x300001c	0x1c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[7]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[8]	Fixed_16_15	0x3000020	0x20	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[8]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[9]	Fixed_16_15	0x3000024	0x24	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[9]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[10]	Fixed_16_15	0x3000028	0x28	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[10]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[11]	Fixed_16_15	0x300002c	0x2c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[11]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[12]	Fixed_16_15	0x3000030	0x30	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[12]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[13]	Fixed_16_15	0x3000034	0x34	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[13]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[14]	Fixed_16_15	0x3000038	0x38	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[14]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[15]	Fixed_16_15	0x300003c	0x3c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[15]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[16]	Fixed_16_15	0x3000040	0x40	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[16]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[17]	Fixed_16_15	0x3000044	0x44	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[17]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[18]	Fixed_16_15	0x3000048	0x48	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[18]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[19]	Fixed_16_15	0x300004c	0x4c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[19]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[20]	Fixed_16_15	0x3000050	0x50	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[20]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[21]	Fixed_16_15	0x3000054	0x54	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[21]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[22]	Fixed_16_15	0x3000058	0x58	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[22]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[23]	Fixed_16_15	0x300005c	0x5c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[23]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[24]	Fixed_16_15	0x3000060	0x60	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[24]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[25]	Fixed_16_15	0x3000064	0x64	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[25]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[26]	Fixed_16_15	0x3000068	0x68	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[26]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[27]	Fixed_16_15	0x300006c	0x6c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[27]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[28]	Fixed_16_15	0x3000070	0x70	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[28]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[29]	Fixed_16_15	0x3000074	0x74	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[29]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[30]	Fixed_16_15	0x3000078	0x78	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[30]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[31]	Fixed_16_15	0x300007c	0x7c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[31]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[0].Taps[32]	Fixed_16_15	0x3000080	0x80	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[0].Taps[32]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[0]	Fixed_16_15	0x3010000	0x0	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[0]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[1]	Fixed_16_15	0x3010004	0x4	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[1]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[2]	Fixed_16_15	0x3010008	0x8	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[2]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[3]	Fixed_16_15	0x301000c	0xc	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[3]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[4]	Fixed_16_15	0x3010010	0x10	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[4]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[5]	Fixed_16_15	0x3010014	0x14	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[5]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[6]	Fixed_16_15	0x3010018	0x18	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[6]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[7]	Fixed_16_15	0x301001c	0x1c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[7]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[8]	Fixed_16_15	0x3010020	0x20	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[8]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[9]	Fixed_16_15	0x3010024	0x24	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[9]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[10]	Fixed_16_15	0x3010028	0x28	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[10]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[11]	Fixed_16_15	0x301002c	0x2c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[11]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[12]	Fixed_16_15	0x3010030	0x30	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[12]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[13]	Fixed_16_15	0x3010034	0x34	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[13]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[14]	Fixed_16_15	0x3010038	0x38	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[14]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[15]	Fixed_16_15	0x301003c	0x3c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[15]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[16]	Fixed_16_15	0x3010040	0x40	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[16]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[17]	Fixed_16_15	0x3010044	0x44	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[17]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[18]	Fixed_16_15	0x3010048	0x48	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[18]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[19]	Fixed_16_15	0x301004c	0x4c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[19]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[20]	Fixed_16_15	0x3010050	0x50	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[20]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[21]	Fixed_16_15	0x3010054	0x54	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[21]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[22]	Fixed_16_15	0x3010058	0x58	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[22]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[23]	Fixed_16_15	0x301005c	0x5c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[23]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[24]	Fixed_16_15	0x3010060	0x60	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[24]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[25]	Fixed_16_15	0x3010064	0x64	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[25]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[26]	Fixed_16_15	0x3010068	0x68	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[26]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[27]	Fixed_16_15	0x301006c	0x6c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[27]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[28]	Fixed_16_15	0x3010070	0x70	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[28]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[29]	Fixed_16_15	0x3010074	0x74	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[29]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[30]	Fixed_16_15	0x3010078	0x78	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[30]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[31]	Fixed_16_15	0x301007c	0x7c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[31]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[1].Taps[32]	Fixed_16_15	0x3010080	0x80	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[1].Taps[32]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[0]	Fixed_16_15	0x3020000	0x0	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[0]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[1]	Fixed_16_15	0x3020004	0x4	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[1]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[2]	Fixed_16_15	0x3020008	0x8	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[2]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[3]	Fixed_16_15	0x302000c	0xc	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[3]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[4]	Fixed_16_15	0x3020010	0x10	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[4]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[5]	Fixed_16_15	0x3020014	0x14	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[5]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[6]	Fixed_16_15	0x3020018	0x18	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[6]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[7]	Fixed_16_15	0x302001c	0x1c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[7]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[8]	Fixed_16_15	0x3020020	0x20	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[8]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[9]	Fixed_16_15	0x3020024	0x24	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[9]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[10]	Fixed_16_15	0x3020028	0x28	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[10]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[11]	Fixed_16_15	0x302002c	0x2c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[11]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[12]	Fixed_16_15	0x3020030	0x30	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[12]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[13]	Fixed_16_15	0x3020034	0x34	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[13]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[14]	Fixed_16_15	0x3020038	0x38	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[14]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[15]	Fixed_16_15	0x302003c	0x3c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[15]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[16]	Fixed_16_15	0x3020040	0x40	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[16]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[17]	Fixed_16_15	0x3020044	0x44	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[17]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[18]	Fixed_16_15	0x3020048	0x48	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[18]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[19]	Fixed_16_15	0x302004c	0x4c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[19]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[20]	Fixed_16_15	0x3020050	0x50	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[20]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[21]	Fixed_16_15	0x3020054	0x54	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[21]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[22]	Fixed_16_15	0x3020058	0x58	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[22]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[23]	Fixed_16_15	0x302005c	0x5c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[23]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[24]	Fixed_16_15	0x3020060	0x60	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[24]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[25]	Fixed_16_15	0x3020064	0x64	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[25]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[26]	Fixed_16_15	0x3020068	0x68	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[26]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[27]	Fixed_16_15	0x302006c	0x6c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[27]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[28]	Fixed_16_15	0x3020070	0x70	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[28]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[29]	Fixed_16_15	0x3020074	0x74	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[29]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[30]	Fixed_16_15	0x3020078	0x78	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[30]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[31]	Fixed_16_15	0x302007c	0x7c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[31]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[2].Taps[32]	Fixed_16_15	0x3020080	0x80	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[2].Taps[32]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[0]	Fixed_16_15	0x3030000	0x0	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[0]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[1]	Fixed_16_15	0x3030004	0x4	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[1]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[2]	Fixed_16_15	0x3030008	0x8	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[2]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[3]	Fixed_16_15	0x303000c	0xc	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[3]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[4]	Fixed_16_15	0x3030010	0x10	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[4]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[5]	Fixed_16_15	0x3030014	0x14	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[5]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[6]	Fixed_16_15	0x3030018	0x18	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[6]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[7]	Fixed_16_15	0x303001c	0x1c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[7]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[8]	Fixed_16_15	0x3030020	0x20	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[8]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[9]	Fixed_16_15	0x3030024	0x24	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[9]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[10]	Fixed_16_15	0x3030028	0x28	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[10]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[11]	Fixed_16_15	0x303002c	0x2c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[11]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[12]	Fixed_16_15	0x3030030	0x30	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[12]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[13]	Fixed_16_15	0x3030034	0x34	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[13]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[14]	Fixed_16_15	0x3030038	0x38	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[14]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[15]	Fixed_16_15	0x303003c	0x3c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[15]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[16]	Fixed_16_15	0x3030040	0x40	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[16]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[17]	Fixed_16_15	0x3030044	0x44	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[17]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[18]	Fixed_16_15	0x3030048	0x48	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[18]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[19]	Fixed_16_15	0x303004c	0x4c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[19]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[20]	Fixed_16_15	0x3030050	0x50	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[20]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[21]	Fixed_16_15	0x3030054	0x54	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[21]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[22]	Fixed_16_15	0x3030058	0x58	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[22]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[23]	Fixed_16_15	0x303005c	0x5c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[23]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[24]	Fixed_16_15	0x3030060	0x60	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[24]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[25]	Fixed_16_15	0x3030064	0x64	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[25]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[26]	Fixed_16_15	0x3030068	0x68	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[26]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[27]	Fixed_16_15	0x303006c	0x6c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[27]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[28]	Fixed_16_15	0x3030070	0x70	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[28]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[29]	Fixed_16_15	0x3030074	0x74	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[29]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[30]	Fixed_16_15	0x3030078	0x78	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[30]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[31]	Fixed_16_15	0x303007c	0x7c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[31]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[3].Taps[32]	Fixed_16_15	0x3030080	0x80	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[3].Taps[32]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[0]	Fixed_16_15	0x3040000	0x0	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[0]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[1]	Fixed_16_15	0x3040004	0x4	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[1]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[2]	Fixed_16_15	0x3040008	0x8	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[2]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[3]	Fixed_16_15	0x304000c	0xc	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[3]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[4]	Fixed_16_15	0x3040010	0x10	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[4]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[5]	Fixed_16_15	0x3040014	0x14	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[5]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[6]	Fixed_16_15	0x3040018	0x18	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[6]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[7]	Fixed_16_15	0x304001c	0x1c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[7]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[8]	Fixed_16_15	0x3040020	0x20	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[8]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[9]	Fixed_16_15	0x3040024	0x24	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[9]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[10]	Fixed_16_15	0x3040028	0x28	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[10]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[11]	Fixed_16_15	0x304002c	0x2c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[11]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[12]	Fixed_16_15	0x3040030	0x30	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[12]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[13]	Fixed_16_15	0x3040034	0x34	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[13]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[14]	Fixed_16_15	0x3040038	0x38	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[14]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[15]	Fixed_16_15	0x304003c	0x3c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[15]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[16]	Fixed_16_15	0x3040040	0x40	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[16]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[17]	Fixed_16_15	0x3040044	0x44	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[17]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[18]	Fixed_16_15	0x3040048	0x48	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[18]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[19]	Fixed_16_15	0x304004c	0x4c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[19]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[20]	Fixed_16_15	0x3040050	0x50	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[20]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[21]	Fixed_16_15	0x3040054	0x54	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[21]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[22]	Fixed_16_15	0x3040058	0x58	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[22]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[23]	Fixed_16_15	0x304005c	0x5c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[23]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[24]	Fixed_16_15	0x3040060	0x60	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[24]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[25]	Fixed_16_15	0x3040064	0x64	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[25]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[26]	Fixed_16_15	0x3040068	0x68	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[26]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[27]	Fixed_16_15	0x304006c	0x6c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[27]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[28]	Fixed_16_15	0x3040070	0x70	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[28]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[29]	Fixed_16_15	0x3040074	0x74	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[29]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[30]	Fixed_16_15	0x3040078	0x78	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[30]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[31]	Fixed_16_15	0x304007c	0x7c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[31]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[4].Taps[32]	Fixed_16_15	0x3040080	0x80	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[4].Taps[32]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[0]	Fixed_16_15	0x3050000	0x0	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[0]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[1]	Fixed_16_15	0x3050004	0x4	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[1]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[2]	Fixed_16_15	0x3050008	0x8	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[2]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[3]	Fixed_16_15	0x305000c	0xc	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[3]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[4]	Fixed_16_15	0x3050010	0x10	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[4]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[5]	Fixed_16_15	0x3050014	0x14	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[5]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[6]	Fixed_16_15	0x3050018	0x18	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[6]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[7]	Fixed_16_15	0x305001c	0x1c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[7]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[8]	Fixed_16_15	0x3050020	0x20	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[8]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[9]	Fixed_16_15	0x3050024	0x24	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[9]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[10]	Fixed_16_15	0x3050028	0x28	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[10]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[11]	Fixed_16_15	0x305002c	0x2c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[11]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[12]	Fixed_16_15	0x3050030	0x30	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[12]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[13]	Fixed_16_15	0x3050034	0x34	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[13]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[14]	Fixed_16_15	0x3050038	0x38	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[14]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[15]	Fixed_16_15	0x305003c	0x3c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[15]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[16]	Fixed_16_15	0x3050040	0x40	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[16]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[17]	Fixed_16_15	0x3050044	0x44	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[17]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[18]	Fixed_16_15	0x3050048	0x48	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[18]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[19]	Fixed_16_15	0x305004c	0x4c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[19]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[20]	Fixed_16_15	0x3050050	0x50	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[20]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[21]	Fixed_16_15	0x3050054	0x54	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[21]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[22]	Fixed_16_15	0x3050058	0x58	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[22]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[23]	Fixed_16_15	0x305005c	0x5c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[23]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[24]	Fixed_16_15	0x3050060	0x60	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[24]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[25]	Fixed_16_15	0x3050064	0x64	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[25]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[26]	Fixed_16_15	0x3050068	0x68	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[26]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[27]	Fixed_16_15	0x305006c	0x6c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[27]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[28]	Fixed_16_15	0x3050070	0x70	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[28]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[29]	Fixed_16_15	0x3050074	0x74	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[29]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[30]	Fixed_16_15	0x3050078	0x78	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[30]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[31]	Fixed_16_15	0x305007c	0x7c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[31]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[5].Taps[32]	Fixed_16_15	0x3050080	0x80	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[5].Taps[32]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[0]	Fixed_16_15	0x3060000	0x0	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[0]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[1]	Fixed_16_15	0x3060004	0x4	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[1]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[2]	Fixed_16_15	0x3060008	0x8	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[2]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[3]	Fixed_16_15	0x306000c	0xc	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[3]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[4]	Fixed_16_15	0x3060010	0x10	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[4]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[5]	Fixed_16_15	0x3060014	0x14	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[5]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[6]	Fixed_16_15	0x3060018	0x18	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[6]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[7]	Fixed_16_15	0x306001c	0x1c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[7]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[8]	Fixed_16_15	0x3060020	0x20	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[8]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[9]	Fixed_16_15	0x3060024	0x24	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[9]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[10]	Fixed_16_15	0x3060028	0x28	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[10]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[11]	Fixed_16_15	0x306002c	0x2c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[11]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[12]	Fixed_16_15	0x3060030	0x30	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[12]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[13]	Fixed_16_15	0x3060034	0x34	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[13]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[14]	Fixed_16_15	0x3060038	0x38	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[14]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[15]	Fixed_16_15	0x306003c	0x3c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[15]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[16]	Fixed_16_15	0x3060040	0x40	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[16]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[17]	Fixed_16_15	0x3060044	0x44	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[17]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[18]	Fixed_16_15	0x3060048	0x48	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[18]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[19]	Fixed_16_15	0x306004c	0x4c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[19]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[20]	Fixed_16_15	0x3060050	0x50	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[20]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[21]	Fixed_16_15	0x3060054	0x54	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[21]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[22]	Fixed_16_15	0x3060058	0x58	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[22]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[23]	Fixed_16_15	0x306005c	0x5c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[23]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[24]	Fixed_16_15	0x3060060	0x60	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[24]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[25]	Fixed_16_15	0x3060064	0x64	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[25]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[26]	Fixed_16_15	0x3060068	0x68	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[26]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[27]	Fixed_16_15	0x306006c	0x6c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[27]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[28]	Fixed_16_15	0x3060070	0x70	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[28]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[29]	Fixed_16_15	0x3060074	0x74	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[29]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[30]	Fixed_16_15	0x3060078	0x78	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[30]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[31]	Fixed_16_15	0x306007c	0x7c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[31]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[6].Taps[32]	Fixed_16_15	0x3060080	0x80	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[6].Taps[32]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[0]	Fixed_16_15	0x3070000	0x0	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[0]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[1]	Fixed_16_15	0x3070004	0x4	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[1]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[2]	Fixed_16_15	0x3070008	0x8	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[2]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[3]	Fixed_16_15	0x307000c	0xc	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[3]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[4]	Fixed_16_15	0x3070010	0x10	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[4]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[5]	Fixed_16_15	0x3070014	0x14	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[5]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[6]	Fixed_16_15	0x3070018	0x18	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[6]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[7]	Fixed_16_15	0x307001c	0x1c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[7]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[8]	Fixed_16_15	0x3070020	0x20	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[8]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[9]	Fixed_16_15	0x3070024	0x24	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[9]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[10]	Fixed_16_15	0x3070028	0x28	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[10]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[11]	Fixed_16_15	0x307002c	0x2c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[11]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[12]	Fixed_16_15	0x3070030	0x30	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[12]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[13]	Fixed_16_15	0x3070034	0x34	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[13]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[14]	Fixed_16_15	0x3070038	0x38	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[14]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[15]	Fixed_16_15	0x307003c	0x3c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[15]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[16]	Fixed_16_15	0x3070040	0x40	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[16]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[17]	Fixed_16_15	0x3070044	0x44	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[17]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[18]	Fixed_16_15	0x3070048	0x48	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[18]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[19]	Fixed_16_15	0x307004c	0x4c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[19]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[20]	Fixed_16_15	0x3070050	0x50	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[20]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[21]	Fixed_16_15	0x3070054	0x54	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[21]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[22]	Fixed_16_15	0x3070058	0x58	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[22]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[23]	Fixed_16_15	0x307005c	0x5c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[23]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[24]	Fixed_16_15	0x3070060	0x60	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[24]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[25]	Fixed_16_15	0x3070064	0x64	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[25]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[26]	Fixed_16_15	0x3070068	0x68	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[26]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[27]	Fixed_16_15	0x307006c	0x6c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[27]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[28]	Fixed_16_15	0x3070070	0x70	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[28]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[29]	Fixed_16_15	0x3070074	0x74	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[29]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[30]	Fixed_16_15	0x3070078	0x78	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[30]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[31]	Fixed_16_15	0x307007c	0x7c	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[31]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.Ch[7].Taps[32]	Fixed_16_15	0x3070080	0x80	RW	[0]	[16]	None	None	None	False	True	8	False	False	15	True	True	Unnamed_5	Top.FirFiltering.Ch[7].Taps[32]	0x4	0	16	16	0	|"\
+     "Top.FirFiltering.BypassFilter	Bool	0x3080100	0x80100	RW	[0]	[1]	0	1	{False: 'False', True: 'True'}	False	True	4	False	False	0	True	True	Unnamed_5	Top.FirFiltering.BypassFilter	0x4	0	1	1	0	Used to bypass the FIR filtering|"\
+     "Top.HlsTrigBuffer.MAX_CNT_C	UInt16	0x3200000	0x0	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsTrigBuffer.MAX_CNT_C	0x4	0	16	16	0	Max number of ADC timeslices sent per trigger|"\
+     "Top.HlsTrigBuffer.TrigCnt	UInt16	0x3200004	0x4	RO	[0]	[16]	0	65535	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsTrigBuffer.TrigCnt	0x4	0	16	16	0	current value of the trigger counter|"\
+     "Top.HlsTrigBuffer.OverflowCnt	UInt8	0x3200008	0x8	RO	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsTrigBuffer.OverflowCnt	0x4	0	8	8	0	Number of buffer overflow event detected|"\
+     "Top.HlsTrigBuffer.PauseThresh	UInt10	0x3200080	0x80	RW	[0]	[10]	0	1023	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsTrigBuffer.PauseThresh	0x4	0	10	10	0	Set the pause threshold of the buffer|"\
+     "Top.HlsTrigBuffer.CntRst	UInt1	0x32000fc	0xfc	WO	[0]	[1]	0	1	None	False	False	2	False	False	0	False	True	Unnamed_5	Top.HlsTrigBuffer.CntRst	0x4	0	1	1	0	Counter Reset|"\
+     "Top.HlsProcessor.BaselineBeg	UInt8	0x3300800	0x800	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.BaselineBeg	0x4	0	8	8	0	\
+The baseline region's beginning time sample.\
+|"\
+     "Top.HlsProcessor.BaselineEnd	UInt8	0x3300810	0x810	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.BaselineEnd	0x4	0	8	8	0	\
+The baseline region's ending time sample. This is inclusive.\
+|"\
+     "Top.HlsProcessor.BaselineCnt	UInt8	0x3300820	0x820	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.BaselineCnt	0x4	0	8	8	0	\
+The count of time samples in the baseline region.\
+This must be = BaselineEnd - BaselineBeg + 1\
+(both endpoints are inclusive).\
+|"\
+     "Top.HlsProcessor.SignalBeg	UInt8	0x3300900	0x900	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.SignalBeg	0x4	0	8	8	0	\
+The signal region's beginning time sample.\
+|"\
+     "Top.HlsProcessor.SignalEnd	UInt8	0x3300910	0x910	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.SignalEnd	0x4	0	8	8	0	\
+The signal region's ending time sample. This is inclusive.\
+|"\
+     "Top.HlsProcessor.SignalCnt	UInt8	0x3300920	0x920	RW	[0]	[8]	0	255	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.SignalCnt	0x4	0	8	8	0	\
+The count of time samples in the signal region.\
+This must be = SignalEnd - SignalBeg + 1\
+(both endpoints are inclusive).\
+|"\
+     "Top.HlsProcessor.CalcCfg_blScale	UInt32	0x3300a00	0xa00	RW	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.CalcCfg_blScale	0x4	0	32	32	0	\
+Baseline normalization factor used when calculating the pedestal subtracted peak.\
+This effectively replaces a division by the BaselineCnt with a scaled multiple\
+which is much cheaper in FPGA resources and more performant than a divide.\
+|"\
+     "Top.HlsProcessor.CalcCfg_intBlScale	UInt32	0x3300a10	0xa10	RW	[0]	[32]	0	4294967295	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.CalcCfg_intBlScale	0x4	0	32	32	0	\
+Baseline normalization factor used when calculating the pedestal subtracted integral.\
+This effectively replaces a multiplication by SignalCnt/BaselineCnt with one scaled\
+multiple, thus avoiding the more FPGA resource hungry and less performant multiple\
+& divide with a simple multiple and shift.\
+|"\
+     "Top.HlsProcessor.PosPeak_cx	Float32	0x3300b00	0xb00	RW	[0]	[32]	-3.4e+38	3.4e+38	None	False	True	6	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosPeak_cx	0x4	0	32	32	0	\
+The conversion constant for the X position when calculated from the peak values.\
+|"\
+     "Top.HlsProcessor.PosPeak_cy	Float32	0x3300b10	0xb10	RW	[0]	[32]	-3.4e+38	3.4e+38	None	False	True	6	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosPeak_cy	0x4	0	32	32	0	\
+The conversion constant for the Y position when calculated from the peak values.\
+|"\
+     "Top.HlsProcessor.PosPeak_xm	UInt3	0x3300b20	0xb20	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosPeak_xm	0x4	0	3	3	0	\
+The diode # (0-7) to be used as negative X\
+when the position is calculated from the peak values.\
+|"\
+     "Top.HlsProcessor.PosPeak_xp	UInt3	0x3300b30	0xb30	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosPeak_xp	0x4	0	3	3	0	\
+The diode # (0-7) to be used as positive X\
+when the position is calculated from the peak values.\
+|"\
+     "Top.HlsProcessor.PosPeak_ym	UInt3	0x3300b40	0xb40	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosPeak_ym	0x4	0	3	3	0	\
+The diode # (0-7) to be used as negative Y\
+when the position is calculated from the peak values.\
+|"\
+     "Top.HlsProcessor.PosPeak_yp	UInt3	0x3300b50	0xb50	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosPeak_yp	0x4	0	3	3	0	\
+The diode # (0-7) to be used as positive Y\
+when the position is calculated from the peak values.\
+|"\
+     "Top.HlsProcessor.PosIntegral_cx	Float32	0x3300c00	0xc00	RW	[0]	[32]	-3.4e+38	3.4e+38	None	False	True	6	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosIntegral_cx	0x4	0	32	32	0	\
+The conversion constant for the X position when calculated from the integral values.\
+|"\
+     "Top.HlsProcessor.PosIntegral_cy	Float32	0x3300c10	0xc10	RW	[0]	[32]	-3.4e+38	3.4e+38	None	False	True	6	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosIntegral_cy	0x4	0	32	32	0	\
+The conversion constant for the Y position when calculated from the integral values.\
+|"\
+     "Top.HlsProcessor.PosIntegral_xm	UInt3	0x3300c20	0xc20	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosIntegral_xm	0x4	0	3	3	0	\
+The diode # (0-7) to be used as negative X\
+when the position is calculated from the integral values.\
+|"\
+     "Top.HlsProcessor.PosIntegral_xp	UInt3	0x3300c30	0xc30	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosIntegral_xp	0x4	0	3	3	0	\
+The diode # (0-7) to be used as positive X\
+when the position is calculated from the integral values.\
+|"\
+     "Top.HlsProcessor.PosIntegral_ym	UInt3	0x3300c40	0xc40	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosIntegral_ym	0x4	0	3	3	0	\
+The diode # (0-7) to be used as negative Y\
+when the position is calculated from the integral values.\
+|"\
+     "Top.HlsProcessor.PosIntegral_yp	UInt3	0x3300c50	0xc50	RW	[0]	[3]	0	7	None	False	True	2	False	False	0	True	True	Unnamed_5	Top.HlsProcessor.PosIntegral_yp	0x4	0	3	3	0	\
+The diode # (0-7) to be used as positive Y\
+when the position is calculated from the integral values.\
+|"\
 
 #endif

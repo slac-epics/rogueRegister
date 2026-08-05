@@ -28,6 +28,7 @@
 #include <epicsExport.h>
 #include <epicsThread.h>
 #include <longinRecord.h>
+#include <aiRecord.h>
 
 // rogue headers
 //#include "rogue/GeneralError.h"
@@ -47,6 +48,10 @@
 extern "C" long	update_longin(		longinRecord	*	pRecord,
 									epicsTimeStamp		tcUpdate,
 									epicsInt32			newValue	);
+
+extern "C" long	update_ai(		aiRecord	*	pRecord,
+									epicsTimeStamp		tcUpdate,
+									epicsFloat64			newValue	);
 
 extern "C" long	update_waveform(	waveformRecord	*	pRecord,
 									epicsTimeStamp		tcUpdate,
@@ -95,12 +100,20 @@ pgpRogueDev::pgpRogueDev(
 	// Create mutexes
     m_devLock	= epicsMutexMustCreate();
 
-    // Initialize arrays
+    // Initialize arrays and scalars
 	for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
 	{
 		m_pRawDataRogueInfo[iSig]	= NULL;
 		m_pIntegralRogueInfo[iSig]	= NULL;
+		m_pHlsIntegralRogueInfo[iSig]   = NULL;
+		m_pPeakAmpRogueInfo[iSig]       = NULL;
+		m_pPeakPosRogueInfo[iSig]       = NULL;
+		m_pBaselineRogueInfo[iSig]      = NULL;
 	}
+	m_pPeakXRogueInfo = NULL;
+	m_pPeakYRogueInfo = NULL;
+	m_pIntegralXRogueInfo = NULL;
+	m_pIntegralYRogueInfo = NULL;
 
     // Install exit hook for clean shutdown
 //	epicsAtExit( (EPICSTHREADFUNC)pgpRogueDev::ExitHook, (void *) this );
@@ -344,6 +357,14 @@ void pgpRogueDev::ProcessData(
 	case 11:	//8 Floats for position and intensity, see python for unpacking code
 		// update_positions( m_tsFrame, pDataFrame );
 		break;
+	case 12:
+		// Hls peaks
+		update_peaks( m_tsFrame, pDataFrame );
+		break;
+	case 13:
+		// Hls integrals
+		update_hls_integrals( m_tsFrame, pDataFrame );
+		break;
 	}
 
 	pDataFrame.reset();
@@ -454,6 +475,130 @@ long pgpRogueDev::update_integrals( epicsTimeStamp tcUpdate, ris::FramePtr	pData
 		pDataFrame.reset();
 	}
 	return status;
+}
+
+long pgpRogueDev::update_hls_integrals( epicsTimeStamp tcUpdate, ris::FramePtr	pDataFrame )
+{
+	const char		*	functionName	= "update_hls_integrals";
+	long				status = 0;
+	rogue::interfaces::stream::FrameIterator	it;
+	if ( pDataFrame )
+	{
+		if ( DEBUG_PGP_ROGUE_DEV >= 4 )
+			printf( "%s: Updating integrals\n", functionName );
+		it = pDataFrame->begin();
+		for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
+		{
+			epicsInt32			rawIntegral	= 0;
+			fromFrame( it, 3, &rawIntegral );
+			rawIntegral /= 4;
+			rogue_info_t	*	pRogueInfo = m_pHlsIntegralRogueInfo[iSig];
+			if ( pRogueInfo )
+			{
+				longinRecord	*	pliRecord	= (longinRecord *) pRogueInfo->m_pRecCommon;
+				pRogueInfo->m_newDataCount = 1;
+				update_longin( pliRecord, tcUpdate, rawIntegral );
+			}
+		}
+
+		epicsFloat32 rawIntegralPosition = 0;
+		fromFrame( it, sizeof(rawIntegralPosition), &rawIntegralPosition );
+		rogue_info_t* pRogueInfo = m_pIntegralXRogueInfo;
+		if ( pRogueInfo )
+		{
+			aiRecord    *       paiRecord       = (aiRecord *) pRogueInfo->m_pRecCommon;
+			pRogueInfo->m_newDataCount = 1;
+			update_ai( paiRecord, tcUpdate, static_cast<epicsFloat64>( rawIntegralPosition ) );
+
+		}
+
+		rawIntegralPosition = 0;
+                fromFrame( it, sizeof(rawIntegralPosition), &rawIntegralPosition );
+                pRogueInfo = m_pIntegralYRogueInfo;
+                if ( pRogueInfo )
+                {
+                        aiRecord    *       paiRecord       = (aiRecord *) pRogueInfo->m_pRecCommon;
+                        pRogueInfo->m_newDataCount = 1;
+                        update_ai( paiRecord, tcUpdate, static_cast<epicsFloat64>( rawIntegralPosition ) );
+
+                }
+
+		pDataFrame.reset();
+	}
+	return status;
+}
+
+long pgpRogueDev::update_peaks( epicsTimeStamp tcUpdate, ris::FramePtr      pDataFrame )
+{
+        const char              *       functionName    = "update_peaks";
+        long                            status = 0;
+        rogue::interfaces::stream::FrameIterator        it;
+        if ( pDataFrame )
+        {
+                if ( DEBUG_PGP_ROGUE_DEV >= 4 )
+                        printf( "%s: Updating peaks\n", functionName );
+                it = pDataFrame->begin();
+                //it += 8;
+                //pRogueInfo->m_newDataCount = pDataFrame->getSize() / sizeof(uint16_t);
+                for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
+                {
+                        epicsInt32                      rawPeak     = 0;
+                        fromFrame( it, sizeof(rawPeak), &rawPeak );
+                        rogue_info_t    *       pRogueInfo = m_pPeakAmpRogueInfo[iSig];
+                        if ( pRogueInfo )
+                        {
+                                longinRecord    *       pliRecord       = (longinRecord *) pRogueInfo->m_pRecCommon;
+                                pRogueInfo->m_newDataCount = 1;
+                                update_longin( pliRecord, tcUpdate, ((rawPeak & 0x00FFFFFF) / 4) );
+                        }
+			pRogueInfo = m_pPeakPosRogueInfo[iSig];
+			if ( pRogueInfo )
+                        {
+                                longinRecord    *       pliRecord       = (longinRecord *) pRogueInfo->m_pRecCommon;
+                                pRogueInfo->m_newDataCount = 1;
+                                update_longin( pliRecord, tcUpdate, ((rawPeak >> 24) & 0xFF) );
+                        }
+                }
+		for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
+                {
+                        epicsInt32                      rawBaseline     = 0;
+                        fromFrame( it, 3, &rawBaseline );
+                        rawBaseline /= 4;
+                        rogue_info_t    *       pRogueInfo = m_pBaselineRogueInfo[iSig];
+                        if ( pRogueInfo )
+                        {
+                                longinRecord    *       pliRecord       = (longinRecord *) pRogueInfo->m_pRecCommon;
+                                pRogueInfo->m_newDataCount = 1;
+                                update_longin( pliRecord, tcUpdate, rawBaseline );
+                        }
+                }
+
+
+                epicsFloat32 rawPeakPosition = 0;
+                fromFrame( it, sizeof(rawPeakPosition), &rawPeakPosition );
+                rogue_info_t* pRogueInfo = m_pPeakXRogueInfo;
+                if ( pRogueInfo )
+                {
+                        aiRecord    *       paiRecord       = (aiRecord *) pRogueInfo->m_pRecCommon;
+                        pRogueInfo->m_newDataCount = 1;
+                        update_ai( paiRecord, tcUpdate, static_cast<epicsFloat64>( rawPeakPosition ) );
+
+                }
+
+                rawPeakPosition = 0;
+                fromFrame( it, sizeof(rawPeakPosition), &rawPeakPosition );
+                pRogueInfo = m_pPeakYRogueInfo;
+                if ( pRogueInfo )
+                {
+                        aiRecord    *       paiRecord       = (aiRecord *) pRogueInfo->m_pRecCommon;
+                        pRogueInfo->m_newDataCount = 1;
+                        update_ai( paiRecord, tcUpdate, static_cast<epicsFloat64>( rawPeakPosition ) );
+
+                }
+
+                pDataFrame.reset();
+        }
+        return status;
 }
 
 extern "C" int

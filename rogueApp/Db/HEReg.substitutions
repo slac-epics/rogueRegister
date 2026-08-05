@@ -1,0 +1,24 @@
+file FirFiltering.db
+{
+        {}
+}
+
+file HlsProcessor.db
+{
+        {}
+}
+
+file HlsTrigBuffer.db
+{
+        {}
+}
+
+file HlsDataStream.db
+{
+        {}
+}
+
+file HEBase.template
+{
+	{}
+}

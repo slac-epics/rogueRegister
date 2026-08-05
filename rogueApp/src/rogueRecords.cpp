@@ -1,7 +1,7 @@
-
 #include <stdio.h>
 #include <alarm.h>
 #include <link.h>
+#include <math.h>
 
 #include <devSup.h>
 #include <dbCommon.h>
@@ -351,6 +351,7 @@ extern "C"
 
 template int        rogue_init_record(	aiRecord	*, DBLINK );
 template int        rogue_read_record(	aiRecord	*, double  & rogueVal );
+template int        rogue_read_record(  aiRecord        *, float  & rogueVal );
 
 #ifdef USE_TYPED_DSET
 static long init_ai( struct dbCommon * pCommon )
@@ -360,9 +361,49 @@ static long init_ai( void * pCommon )
 {
 	aiRecord	*	pRecord	= reinterpret_cast < aiRecord * >( pCommon );
 	int             status	= rogue_init_record( pRecord, pRecord->inp );
-	if ( status == 0 )
+	rogue_info_t* pRogueInfo = reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+
+	if (    pRecord->scan == menuScanI_O_Intr
+                &&      pRecord->inp.type == INST_IO )
+        {
+                struct instio      *pinstio = &pRecord->inp.value.instio;
+		if ( pinstio->string && strstr( pinstio->string, "Hls0.PeakPosX" ) )
+                {
+                        printf( "%s: SetPeakXRogueInfo.\n", pRecord->name);
+                        pRogueInfo->m_pRogueDev->SetPeakXRogueInfo( pRogueInfo );
+                }
+		else if ( pinstio->string && strstr( pinstio->string, "Hls0.PeakPosY" ) )
+                {
+                        printf( "%s: SetPeakYRogueInfo.\n", pRecord->name);
+                        pRogueInfo->m_pRogueDev->SetPeakYRogueInfo( pRogueInfo );
+                }
+		else if ( pinstio->string && strstr( pinstio->string, "Hls1.IntegralPosX" ) )
+                {
+                        printf( "%s: SetIntegralXRogueInfo.\n", pRecord->name);
+                        pRogueInfo->m_pRogueDev->SetIntegralXRogueInfo( pRogueInfo );
+                }
+		else if ( pinstio->string && strstr( pinstio->string, "Hls1.IntegralPosY" ) )
+                {
+                        printf( "%s: SetIntegralYRogueInfo.\n", pRecord->name);
+                        pRogueInfo->m_pRogueDev->SetIntegralYRogueInfo( pRogueInfo );
+                }
+	}
+
+	const char* varPath = pRogueInfo->m_varPath.c_str();
+	if ( status == 0 && strstr( varPath, "DataStream" ) != varPath )
 	{
-		rogue_read_record( pRecord, pRecord->val );
+		if ( pRogueInfo->m_modelId == 6 )
+		{
+			float rogueValue = NAN;
+			rogue_read_record( pRecord, rogueValue);
+			pRecord->val = static_cast<epicsFloat64>(rogueValue);
+		}
+		else
+		{
+			double rogueValue = NAN;
+                        rogue_read_record( pRecord, rogueValue);
+                        pRecord->val = static_cast<epicsFloat64>(rogueValue);
+		}
 	}
 	return status;
 }
@@ -371,7 +412,19 @@ static long init_ai( void * pCommon )
 static long read_ai( aiRecord	*	pRecord )
 {
 	long	status = 0;
-	rogue_read_record( pRecord, pRecord->val );
+	rogue_info_t* pRogueInfo = reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	if ( pRogueInfo->m_modelId == 6 )
+	{
+		float rogueValue = NAN;
+		status = rogue_read_record( pRecord, rogueValue);
+		pRecord->val = static_cast<epicsFloat64>(rogueValue);
+	}
+	else
+	{
+		double rogueValue = NAN;
+		status = rogue_read_record( pRecord, rogueValue);
+		pRecord->val = static_cast<epicsFloat64>(rogueValue);
+	}
 	return status;
 }
 #else
@@ -380,12 +433,74 @@ static long read_ai( void	*	record )
 	const char 		*	functionName = "read_ai";
 	long				status = 0;
 	aiRecord		*	pRecord	= reinterpret_cast <aiRecord *>( record );
-	rogue_read_record( pRecord, pRecord->val );
+	rogue_info_t* pRogueInfo = reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	const char* varPath = pRogueInfo->m_varPath.c_str();
 	if ( DEBUG_ROGUE_RECORDS >= 4 )
-		printf( "%s: %s status %ld, aiValue %f\n", functionName, pRecord->name, status, pRecord->val );
+		printf( "%s: %s before read status %ld, aiValue %f\n", functionName, pRecord->name, status, pRecord->val );
+	if ( pRogueInfo->m_newDataCount != 0 )
+        {
+                // Data already loaded via update_ai()
+                status = 0;
+                if ( DEBUG_ROGUE_RECORDS >= 4 )
+                        printf( "%s: %s status %ld, I/O aValue %f\n", functionName, pRecord->name, status, pRecord->val );
+        }
+	else if ( strstr( varPath, "DataStream" ) != varPath )
+        {
+		if ( pRogueInfo->m_modelId == 6 )
+		{
+			float rogueValue = NAN;
+			status = rogue_read_record( pRecord, rogueValue);
+			pRecord->val = static_cast<epicsFloat64>(rogueValue);
+		}
+		else
+		{
+			double rogueValue = NAN;
+			status = rogue_read_record( pRecord, rogueValue);
+			pRecord->val = static_cast<epicsFloat64>(rogueValue);
+		}
+		if ( DEBUG_ROGUE_RECORDS >= 4 )
+			printf( "%s: %s status %ld, aiValue %f\n", functionName, pRecord->name, status, pRecord->val );
+	}
+	pRogueInfo->m_newDataCount = 0;
+	if ( status == 0 )
+		status = 2;
 	return status;
 }
 #endif
+
+extern "C" long update_ai( aiRecord * pRecord, epicsTimeStamp tcUpdate, epicsFloat64 newValue )
+{
+        if ( ! pRecord )
+                return -1;
+        rogue_info_t    *       pRogueInfo      = reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+        int             status  = 0;
+        pRecord->time   = tcUpdate;
+        pRecord->val    = newValue;
+        pRogueInfo->m_newDataCount      = 1;
+        if ( DEBUG_ROGUE_RECORDS >= 5 )
+        {
+                char    acBuff[40];
+                epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &pRecord->time );
+                printf( "%s: tsFrame %s, pulseId 0x%X, val %f\n", pRecord->name, acBuff, pRecord->time.nsec & 0x1FFFF, newValue );
+        }
+
+        // Process ai record via read_ai() using high priority scanIo Q
+        scanIoImmediate( pRogueInfo->m_scanIo, pRecord->prio );
+
+        if ( status )
+        {
+                pRecord->nsta = UDF_ALARM;
+                pRecord->nsev = INVALID_ALARM;
+                return -1;
+        }
+        else
+        {
+                pRecord->nsta = NO_ALARM;
+                pRecord->nsev = NO_ALARM;
+                pRecord->udf = FALSE;
+        }
+        return 0;
+}
 
 struct
 {
@@ -400,12 +515,13 @@ struct
 #else
 	dset				common;
 	long (*read_ai)(	struct aiRecord	*	pRec );
+	long (*special_linconv)(struct aiRecord *       pRec );
 #endif
 }	dsetRogueAI =
 #ifdef USE_TYPED_DSET
-{ { 5, NULL, NULL, init_ai, NULL }, read_ai };
+{ { 6, NULL, NULL, init_ai, rogue_ioinfo }, read_ai, NULL };
 #else
-{ 5, NULL, NULL, init_ai, NULL, read_ai };
+{ 6, NULL, NULL, init_ai, (DEVSUPFUN) rogue_ioinfo<aiRecord>, read_ai, NULL };
 #endif
 
 epicsExportAddress( dset, dsetRogueAI );
@@ -417,6 +533,7 @@ epicsExportAddress( dset, dsetRogueAI );
 // ao record support
 template int        rogue_init_record(	aoRecord *, DBLINK );
 template int        rogue_write_record(	aoRecord *, const double & rogueVal );
+template int        rogue_write_record( aoRecord *, const float & rogueVal );
 
 #ifdef __cplusplus
 extern "C"
@@ -432,8 +549,18 @@ static long init_ao( void * pCommon )
 static long write_ao( void	*	record )
 {
 	aoRecord	*	pRecord		= reinterpret_cast <aoRecord *>( record );
-	int				status		=  rogue_write_record( pRecord, pRecord->val );
-
+	int status =  0;
+	rogue_info_t* pRogueInfo = reinterpret_cast < rogue_info_t * >( pRecord->dpvt );
+	if ( pRogueInfo->m_modelId == 6 )
+	{
+		float rogueValue = static_cast<float>( pRecord->val );
+		status = rogue_write_record( pRecord, rogueValue);
+	}
+	else
+	{
+		double rogueValue = static_cast<double>( pRecord->val );
+		status = rogue_write_record( pRecord, rogueValue);
+	}
 	const char 	*	functionName = "write_ao";
 	if ( DEBUG_ROGUE_RECORDS >= 3 )
 		printf( "%s: %s status %d, value %f\n", functionName, pRecord->name, status, pRecord->val );
@@ -448,8 +575,9 @@ struct
 	DEVSUPFUN           init_ao;
 	DEVSUPFUN           get_ioint_info;
 	DEVSUPFUN           write_ao;
+	DEVSUPFUN           special_linconv;
 }	dsetRogueAO =
-{ 5, NULL, NULL, init_ao, NULL, write_ao };
+{ 6, NULL, NULL, init_ao, NULL, write_ao, NULL };
 
 epicsExportAddress( dset, dsetRogueAO );
 
