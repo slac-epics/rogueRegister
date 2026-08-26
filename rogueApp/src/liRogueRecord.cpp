@@ -61,29 +61,29 @@ static long init_li( void * pCommon )
         struct instio      *pinstio = &pRecord->inp.value.instio;
         if ( pinstio->string && strstr( pinstio->string, "Integrators.AdcIntegral" ) )
         {
-            printf( "%s: SetIntegralRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
+            if ( DEBUG_ROGUE_RECORDS >= 1 ) printf( "%s: SetIntegralRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
             pRogueInfo->m_pRogueDev->SetIntegralRogueInfo( pRogueInfo->m_signal, pRogueInfo );
         }
         else if ( pinstio->string && strstr( pinstio->string, "Hls1.Integral" ) )
         {
-            printf( "%s: SetHlsIntegralRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
+            if ( DEBUG_ROGUE_RECORDS >= 1 ) printf( "%s: SetHlsIntegralRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
             pRogueInfo->m_pRogueDev->SetHlsIntegralRogueInfo( pRogueInfo->m_signal, pRogueInfo );
         }
         else if ( pinstio->string && strstr( pinstio->string, "Hls0.PeakPos" ) )
-                {
-                        printf( "%s: SetPeakPosRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
-                        pRogueInfo->m_pRogueDev->SetPeakPosRogueInfo( pRogueInfo->m_signal, pRogueInfo );
-                }
+        {
+            if ( DEBUG_ROGUE_RECORDS >= 1 ) printf( "%s: SetPeakPosRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
+            pRogueInfo->m_pRogueDev->SetPeakPosRogueInfo( pRogueInfo->m_signal, pRogueInfo );
+        }
         else if ( pinstio->string && strstr( pinstio->string, "Hls0.PeakAmp" ) )
-                {
-                        printf( "%s: SetPeakAmpRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
-                        pRogueInfo->m_pRogueDev->SetPeakAmpRogueInfo( pRogueInfo->m_signal, pRogueInfo );
-                }
+        {
+            if ( DEBUG_ROGUE_RECORDS >= 1 ) printf( "%s: SetPeakAmpRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
+            pRogueInfo->m_pRogueDev->SetPeakAmpRogueInfo( pRogueInfo->m_signal, pRogueInfo );
+        }
         else if ( pinstio->string && strstr( pinstio->string, "Hls0.Baseline" ) )
-                {
-                        printf( "%s: SetBaselineRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
-                        pRogueInfo->m_pRogueDev->SetBaselineRogueInfo( pRogueInfo->m_signal, pRogueInfo );
-                }
+        {
+            if ( DEBUG_ROGUE_RECORDS >= 1 ) printf( "%s: SetBaselineRogueInfo for signal %zu.\n", pRecord->name, pRogueInfo->m_signal );
+            pRogueInfo->m_pRogueDev->SetBaselineRogueInfo( pRogueInfo->m_signal, pRogueInfo );
+        }
 
     }
 
