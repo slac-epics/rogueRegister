@@ -514,7 +514,7 @@ template<class R> int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const R 
             int writeError = 0;
             if ( pVar->modelId() == rim::Fixed )
             {
-        readStatus = fixedReadValue( pVar,  valueRet );
+                readStatus = fixedReadValue( pVar,  valueRet );
                 writeError = (readStatus != 0 || fabs(value - valueRet) > 0.0001);
             }
             else
@@ -527,18 +527,20 @@ template<class R> int pgpRogueLib::writeVarPath( rim::VariablePtr pVar, const R 
             {
                 std::cout   << functionName << ": " << pVar->path()
                             << ", setValue="    << value;
-                if ( pVar->modelId() != rim::Fixed && writeError )
+                if ( ! writeError )
                 {
-                    std::cout   << ", Error getValue="  << valueRet << std::endl;
-                    status  = -2;
+                    std::cout << ", getValue=" << valueRet << std::endl;
                 }
-                else if ( pVar->modelId() == rim::Fixed && writeError )
+                else if ( pVar->modelId() != rim::Fixed )
                 {
-                    std::cout       << ", Error getValue="  << valueRet << ", readStatus=" << readStatus << std::endl;
-                    status  = -2;
+                    std::cout << ", Error getValue=" << valueRet << std::endl;
+                    status = -2;
                 }
                 else
-                    std::cout   << ", getValue="    << valueRet << std::endl;
+                {
+                    std::cout << ", Error getValue=" << valueRet << ", readStatus=" << readStatus << std::endl;
+                    status = -2;
+                }
             }
         }
     }
