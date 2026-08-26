@@ -568,7 +568,7 @@ file longDevRogue.template
 		SAVE	= "VAL"
 		SCAN	= ""
 	}
-      	{
+	{
 		NAME    = "TrEvent:TriggerDelay"
                	PATH    = "Top.TriggerEventManager.TriggerEventBuffer[0].TriggerDelay"
                	PYPV    = "Top:TriggerEventManager:TriggerEventBuffer[0]:TriggerDelay"

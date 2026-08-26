@@ -8,10 +8,10 @@
 // the terms contained in the LICENSE.txt file.
 //////////////////////////////////////////////////////////////////////////////
 //
-//	pgpRogueDev driver
+//  pgpRogueDev driver
 //
-//	EPICS device support for rogue compatible firmware on a KCU1500 pciE card.
-//	Device data streams are accessed via the SLAC Rogue streaming API.
+//  EPICS device support for rogue compatible firmware on a KCU1500 pciE card.
+//  Device data streams are accessed via the SLAC Rogue streaming API.
 //
 
 #include <sys/types.h>
@@ -45,209 +45,209 @@
 #include "wave8RogueLib.h"
 #include "rogueRecords.h"
 
-extern "C" long	update_longin(		longinRecord	*	pRecord,
-									epicsTimeStamp		tcUpdate,
-									epicsInt32			newValue	);
+extern "C" long update_longin(      longinRecord    *   pRecord,
+                                    epicsTimeStamp      tcUpdate,
+                                    epicsInt32          newValue    );
 
-extern "C" long	update_ai(		aiRecord	*	pRecord,
-									epicsTimeStamp		tcUpdate,
-									epicsFloat64			newValue	);
+extern "C" long update_ai(      aiRecord    *   pRecord,
+                                    epicsTimeStamp      tcUpdate,
+                                    epicsFloat64            newValue    );
 
-extern "C" long	update_waveform(	waveformRecord	*	pRecord,
-									epicsTimeStamp		tcUpdate,
-									rogue::interfaces::stream::FramePtr	pDataFrame	);
+extern "C" long update_waveform(    waveformRecord  *   pRecord,
+                                    epicsTimeStamp      tcUpdate,
+                                    rogue::interfaces::stream::FramePtr pDataFrame  );
 
-using namespace	std;
+using namespace std;
 namespace ris = rogue::interfaces::stream;
 
-int		DEBUG_PGP_ROGUE_DEV	= 3;
+int     DEBUG_PGP_ROGUE_DEV = 3;
 
-#define	N_PGP_ROGUE_DEV	4
+#define N_PGP_ROGUE_DEV 4
 
-///	ppgRogue map - Stores ptr to all pgpRogueDev instances indexed by name
-//map<string, pgpRogueDevPtr *>	pgpRogueDev::ms_pgpRogueDevMap;
-static	pgpRogueDevPtr	gPgpRogueDev[N_PGP_ROGUE_DEV];
+/// ppgRogue map - Stores ptr to all pgpRogueDev instances indexed by name
+//map<string, pgpRogueDevPtr *> pgpRogueDev::ms_pgpRogueDevMap;
+static  pgpRogueDevPtr  gPgpRogueDev[N_PGP_ROGUE_DEV];
 
-int		pgpRogueDev::setTriggerEnable( unsigned int triggerNum, bool fEnable )
+int     pgpRogueDev::setTriggerEnable( unsigned int triggerNum, bool fEnable )
 {
-	int		status	= 0;
-	if (m_pRogueLib)
-		m_pRogueLib->setTriggerEnable( triggerNum, fEnable );
-	return status;
+    int     status  = 0;
+    if (m_pRogueLib)
+        m_pRogueLib->setTriggerEnable( triggerNum, fEnable );
+    return status;
 }
 
 
-///	Constructor
+/// Constructor
 pgpRogueDev::pgpRogueDev(
-	unsigned int	board,
-	unsigned int	lane,
-	const char *	szAddrMapPath,
-	const char *	szPgpReg )
+    unsigned int    board,
+    unsigned int    lane,
+    const char *    szAddrMapPath,
+    const char *    szPgpReg )
 :
-	m_fExitApp(		false	),
-	m_pRogueLib(	NULL	),
-	m_fd(			0		),
-	m_board(		board	),
-	m_lane(			lane	),
-	m_fConnected(	0		),
-	m_devName(				),
-	m_devLock(				),
-	m_pDataChan(			),
-	m_pDataStream(			)
+    m_fExitApp(     false   ),
+    m_pRogueLib(    NULL    ),
+    m_fd(           0       ),
+    m_board(        board   ),
+    m_lane(         lane    ),
+    m_fConnected(   0       ),
+    m_devName(              ),
+    m_devLock(              ),
+    m_pDataChan(            ),
+    m_pDataStream(          )
 {
-	const char		*	functionName	= "pgpRogueDev::pgpRogueDev";
+    const char      *   functionName    = "pgpRogueDev::pgpRogueDev";
 
-	// Create mutexes
-    m_devLock	= epicsMutexMustCreate();
+    // Create mutexes
+    m_devLock   = epicsMutexMustCreate();
 
     // Initialize arrays and scalars
-	for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
-	{
-		m_pRawDataRogueInfo[iSig]	= NULL;
-		m_pIntegralRogueInfo[iSig]	= NULL;
-		m_pHlsIntegralRogueInfo[iSig]   = NULL;
-		m_pPeakAmpRogueInfo[iSig]       = NULL;
-		m_pPeakPosRogueInfo[iSig]       = NULL;
-		m_pBaselineRogueInfo[iSig]      = NULL;
-	}
-	m_pPeakXRogueInfo = NULL;
-	m_pPeakYRogueInfo = NULL;
-	m_pIntegralXRogueInfo = NULL;
-	m_pIntegralYRogueInfo = NULL;
+    for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
+    {
+        m_pRawDataRogueInfo[iSig]   = NULL;
+        m_pIntegralRogueInfo[iSig]  = NULL;
+        m_pHlsIntegralRogueInfo[iSig]   = NULL;
+        m_pPeakAmpRogueInfo[iSig]       = NULL;
+        m_pPeakPosRogueInfo[iSig]       = NULL;
+        m_pBaselineRogueInfo[iSig]      = NULL;
+    }
+    m_pPeakXRogueInfo = NULL;
+    m_pPeakYRogueInfo = NULL;
+    m_pIntegralXRogueInfo = NULL;
+    m_pIntegralYRogueInfo = NULL;
 
     // Install exit hook for clean shutdown
-//	epicsAtExit( (EPICSTHREADFUNC)pgpRogueDev::ExitHook, (void *) this );
+//  epicsAtExit( (EPICSTHREADFUNC)pgpRogueDev::ExitHook, (void *) this );
 
-	/*
-	 * Check arguments
-	 */
+    /*
+     * Check arguments
+     */
 
-	char	acDevName[60];
-	sprintf( acDevName, "/dev/datadev_%u", board );
-	m_devName = acDevName;
+    char    acDevName[60];
+    sprintf( acDevName, "/dev/datadev_%u", board );
+    m_devName = acDevName;
 
 #if 0
-	uint8_t mask[DMA_MASK_SIZE];
-	dmaInitMaskBytes(mask);
-	for (unsigned lane=0; lane<4; lane++) {
-		dmaAddMaskBytes((uint8_t*)mask, (lane<<8 | channel));
-	}
+    uint8_t mask[DMA_MASK_SIZE];
+    dmaInitMaskBytes(mask);
+    for (unsigned lane=0; lane<4; lane++) {
+        dmaAddMaskBytes((uint8_t*)mask, (lane<<8 | channel));
+    }
 #endif
 
-	//rogue::Logging::setLevel( rogue::Logging::Info );
-	//rogue::Logging::setLevel( rogue::Logging::Warning );
-	rogue::Logging::setLevel( rogue::Logging::Error );
-	m_LibVersion = rogue::Version::current();
-	// See if we can connect to the device
-	m_fd = open(m_devName.c_str(), O_RDWR);
-	if (m_fd < 0) {
-		std::cout << "Error opening " << m_devName << std::endl;
-	}
-	else
-	{
-		AxiVersion vsn;
-		if ( axiVersionGet(m_fd, &vsn) >= 0 )
-		{
-			printf("pgpRogueDev: -- Core Axi Version --\n");
-			printf("firmwareVersion : %x\n", vsn.firmwareVersion);
-			printf("buildString     : %s\n", vsn.buildString); 
-			//printf("upTimeCount     : %u\n", vsn.upTimeCount);
-			//printf("deviceId        : %x\n", vsn.deviceId);
-			//printf("buildString     : %s\n", vsn.buildString);
+    //rogue::Logging::setLevel( rogue::Logging::Info );
+    //rogue::Logging::setLevel( rogue::Logging::Warning );
+    rogue::Logging::setLevel( rogue::Logging::Error );
+    m_LibVersion = rogue::Version::current();
+    // See if we can connect to the device
+    m_fd = open(m_devName.c_str(), O_RDWR);
+    if (m_fd < 0) {
+        std::cout << "Error opening " << m_devName << std::endl;
+    }
+    else
+    {
+        AxiVersion vsn;
+        if ( axiVersionGet(m_fd, &vsn) >= 0 )
+        {
+            printf("pgpRogueDev: -- Core Axi Version --\n");
+            printf("firmwareVersion : %x\n", vsn.firmwareVersion);
+            printf("buildString     : %s\n", vsn.buildString); 
+            //printf("upTimeCount     : %u\n", vsn.upTimeCount);
+            //printf("deviceId        : %x\n", vsn.deviceId);
+            //printf("buildString     : %s\n", vsn.buildString);
 
-			// TODO: Need a better mapping of these version strings to EPICS PVs
-			m_DrvVersion = vsn.firmwareVersion;
-		}
-	}
-	close( m_fd );
-	m_fd = 0;
+            // TODO: Need a better mapping of these version strings to EPICS PVs
+            m_DrvVersion = vsn.firmwareVersion;
+        }
+    }
+    close( m_fd );
+    m_fd = 0;
 
-	if ( m_lane >= N_PGP_LANES )
-	{
-		printf( "%s: ERROR Invalid PGP lane number %u\n", functionName, m_lane );
-		return;
-	}
+    if ( m_lane >= N_PGP_LANES )
+    {
+        printf( "%s: ERROR Invalid PGP lane number %u\n", functionName, m_lane );
+        return;
+    }
 
-	// Only create pgpRogueLib if the PGP_REG prefix is defined
-	// Allows IOC to read data from a python configured wave8.
-	if ( szPgpReg && strlen(szPgpReg) > 0 )
-	{
-		//
-		// Connect Rogue Library
-		//
-		printf( "%s: Creating wave8RogueLib for board %u, lane %u\n", functionName, m_board, m_lane );
-		std::cout << std::flush;
-		m_pRogueLib = wave8RogueLib::create( m_board, m_lane, szAddrMapPath );
-		if ( !m_pRogueLib )
-		{
-			printf( "%s: ERROR creating pgpRogueLib for board %u\n", functionName, m_board );
-		}
-		else
-			printf( "%s: Created pgpRogueLib for board %u\n", functionName, m_board );
-		std::cout << std::flush;
-	}
+    // Only create pgpRogueLib if the PGP_REG prefix is defined
+    // Allows IOC to read data from a python configured wave8.
+    if ( szPgpReg && strlen(szPgpReg) > 0 )
+    {
+        //
+        // Connect Rogue Library
+        //
+        printf( "%s: Creating wave8RogueLib for board %u, lane %u\n", functionName, m_board, m_lane );
+        std::cout << std::flush;
+        m_pRogueLib = wave8RogueLib::create( m_board, m_lane, szAddrMapPath );
+        if ( !m_pRogueLib )
+        {
+            printf( "%s: ERROR creating pgpRogueLib for board %u\n", functionName, m_board );
+        }
+        else
+            printf( "%s: Created pgpRogueLib for board %u\n", functionName, m_board );
+        std::cout << std::flush;
+    }
 
-	//
-	// Create Data Channels
-	// TODO: Make a function than encapsulates this
-	uint32_t	dest;
-	dest = (0x100 * m_lane) + PGP_DATACHAN_FRAME_ACCESS;
-	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
-	{
-		printf( "%s: Creating DataChan for %s, dest %u ...\n", functionName, m_devName.c_str(), dest );
-		std::cout << std::flush;
-	}
-	m_pDataChan	= rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
+    //
+    // Create Data Channels
+    // TODO: Make a function than encapsulates this
+    uint32_t    dest;
+    dest = (0x100 * m_lane) + PGP_DATACHAN_FRAME_ACCESS;
+    if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+    {
+        printf( "%s: Creating DataChan for %s, dest %u ...\n", functionName, m_devName.c_str(), dest );
+        std::cout << std::flush;
+    }
+    m_pDataChan = rogue::hardware::axi::AxiStreamDma::create( m_devName, dest, true);
 
-	// Full rate unbatcher
-	m_pUnbatcher	= rogue::protocols::batcher::SplitterV1::create();
-	m_pDataChan->addSlave( m_pUnbatcher );
+    // Full rate unbatcher
+    m_pUnbatcher    = rogue::protocols::batcher::SplitterV1::create();
+    m_pDataChan->addSlave( m_pUnbatcher );
 
-	//
-	// Connect DATACHAN 1 Frame Stream
-	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
-		printf( "%s: Connecting DataChan to DataStream ...\n", functionName );
-	m_pDataStream	= DataStream::create(this, "DataStream");
-	//m_pDataChan->addSlave( m_pDataStream );
-	// or
-	m_pUnbatcher->addSlave( m_pDataStream );
-	
-	// 	ris::FifoPtr create(uint32_t maxDepth, uint32_t trimSize, bool noCopy)
-	m_pDataFifo	= ris::Fifo::create( 0, 0, false );
+    //
+    // Connect DATACHAN 1 Frame Stream
+    if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+        printf( "%s: Connecting DataChan to DataStream ...\n", functionName );
+    m_pDataStream   = DataStream::create(this, "DataStream");
+    //m_pDataChan->addSlave( m_pDataStream );
+    // or
+    m_pUnbatcher->addSlave( m_pDataStream );
+    
+    //  ris::FifoPtr create(uint32_t maxDepth, uint32_t trimSize, bool noCopy)
+    m_pDataFifo = ris::Fifo::create( 0, 0, false );
 
 #if 0
-	// TODO: Should I drop the rogue rateDrop?
-	double	rateDropPeriod		= 1.0;	// seconds?
-	bool	rateDropUsePeriod	= true;
-	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
-		printf( "%s: Connecting DataChan to RateDrop, period %f0.3 ...\n", functionName, rateDropPeriod );
-	m_pRateDrop	= ris::RateDrop::create( rateDropUsePeriod, rateDropPeriod );
-	m_pDataChan->addSlave( m_pRateDrop );
+    // TODO: Should I drop the rogue rateDrop?
+    double  rateDropPeriod      = 1.0;  // seconds?
+    bool    rateDropUsePeriod   = true;
+    if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+        printf( "%s: Connecting DataChan to RateDrop, period %f0.3 ...\n", functionName, rateDropPeriod );
+    m_pRateDrop = ris::RateDrop::create( rateDropUsePeriod, rateDropPeriod );
+    m_pDataChan->addSlave( m_pRateDrop );
 
-	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
-		printf( "%s: Connecting RateDrop to Fifo ...\n", functionName );
-	m_pRateDrop->addSlave( m_pDataFifo );
+    if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+        printf( "%s: Connecting RateDrop to Fifo ...\n", functionName );
+    m_pRateDrop->addSlave( m_pDataFifo );
 #else
-	if ( DEBUG_PGP_ROGUE_DEV >= 1 )
-		printf( "%s: Connecting DataChan to Fifo ...\n", functionName );
-	m_pDataChan->addSlave( m_pDataFifo );
+    if ( DEBUG_PGP_ROGUE_DEV >= 1 )
+        printf( "%s: Connecting DataChan to Fifo ...\n", functionName );
+    m_pDataChan->addSlave( m_pDataFifo );
 #endif
-	
-	m_fConnected = 1;	// Do we need this?
-	//StartRun( m_fd );
+    
+    m_fConnected = 1;   // Do we need this?
+    //StartRun( m_fd );
 }
 
 /// virtual Destructor
 pgpRogueDev::~pgpRogueDev()
 {
-//	Shutdown();
+//  Shutdown();
 
-	// Cleanup driver
-	//delete m_pSyncDataAcquirer;
-	//m_pSyncDataAcquirer	= NULL;
+    // Cleanup driver
+    //delete m_pSyncDataAcquirer;
+    //m_pSyncDataAcquirer   = NULL;
 
-	close( m_fd );
-	epicsMutexDestroy(	m_devLock );
+    close( m_fd );
+    epicsMutexDestroy(  m_devLock );
 }
 
 /// Configure timing for LCLS-I
@@ -261,271 +261,270 @@ void pgpRogueDev::disconnect( )
 }
 
 void pgpRogueDev::ProcessData(
-	DataCbInfo		* pDataInfo,
-	rogue::interfaces::stream::FramePtr pDataFrame )
+    DataCbInfo      * pDataInfo,
+    rogue::interfaces::stream::FramePtr pDataFrame )
 {
-	const char		*	functionName	= "pgpRogueDev::ProcessData";
+    const char      *   functionName    = "pgpRogueDev::ProcessData";
 
-	// Frame is locked in DataStream::acceptFrame()
-	//rogue::interfaces::stream::FramePtr 	pDataFrame	= pDataInfo->m_DataPtr;
+    // Frame is locked in DataStream::acceptFrame()
+    //rogue::interfaces::stream::FramePtr   pDataFrame  = pDataInfo->m_DataPtr;
 
-	if ( ! pDataFrame )
-	{
-		if ( DEBUG_PGP_ROGUE_DEV >= 3 )
-			printf( "%s: NULL Dataframe!\n", functionName );
-		return;
-	}
+    if ( ! pDataFrame )
+    {
+        if ( DEBUG_PGP_ROGUE_DEV >= 3 )
+            printf( "%s: NULL Dataframe!\n", functionName );
+        return;
+    }
 
-	rogue::interfaces::stream::FrameIterator	it		= pDataFrame->begin();
-	unsigned int			channel = pDataFrame->getChannel();
-	if ( DEBUG_PGP_ROGUE_DEV >= 6 ) printf( "%s: Dataframe chan %u\n", functionName, channel );
+    rogue::interfaces::stream::FrameIterator    it      = pDataFrame->begin();
+    unsigned int            channel = pDataFrame->getChannel();
+    if ( DEBUG_PGP_ROGUE_DEV >= 6 ) printf( "%s: Dataframe chan %u\n", functionName, channel );
 
-	// Notes from wave8-git/software/python/wave8Viewer/_wave8Viewer.py
-	// Channel	Content
-	// 0		timestamp
-	// 1		timestamp (either?)
-	// 2-9		raw waveforms signals 0-7
-	// 10		8 Integrals and baselines, see python for unpacking code
-	// 11		8 Floats for position and intensity, see python for unpacking code
+    // Notes from wave8-git/software/python/wave8Viewer/_wave8Viewer.py
+    // Channel  Content
+    // 0        timestamp
+    // 1        timestamp (either?)
+    // 2-9      raw waveforms signals 0-7
+    // 10       8 Integrals and baselines, see python for unpacking code
+    // 11       8 Floats for position and intensity, see python for unpacking code
 
-	if ( DEBUG_PGP_ROGUE_DEV >= 4 )
-	{
-    	// Acquire lock on frame. Will be released when lock class goes out of scope
-		//rogue::interfaces::stream::FrameLockPtr		lock	= pDataFrame->lock();
-		it		= pDataFrame->begin();
-		// Let's see how big it is
-		size_t	nBytes	= 0;
+    if ( DEBUG_PGP_ROGUE_DEV >= 4 )
+    {
+        // Acquire lock on frame. Will be released when lock class goes out of scope
+        //rogue::interfaces::stream::FrameLockPtr       lock    = pDataFrame->lock();
+        it      = pDataFrame->begin();
+        // Let's see how big it is
+        size_t  nBytes  = 0;
 #if 1
-		for ( ; it != pDataFrame->end(); it++ )
-		{
-			nBytes++;
-		}
+        for ( ; it != pDataFrame->end(); it++ )
+        {
+            nBytes++;
+        }
 #endif
-		printf( "%s: Frame channel=%u, getPayload=%u, getSize()=%u, nBytes=%zu\n", functionName,
-				channel, pDataFrame->getPayload(), pDataFrame->getSize(), nBytes );
-	}
+        printf( "%s: Frame channel=%u, getPayload=%u, getSize()=%u, nBytes=%zu\n", functionName,
+                channel, pDataFrame->getPayload(), pDataFrame->getSize(), nBytes );
+    }
 
-	//IOSCANPVT			pscanIoPvt;
-	rogue_info_t	*	pRogueInfo;
-	epicsTimeStamp		tsCur;
-	epicsTimeGetCurrent( &tsCur );
+    //IOSCANPVT         pscanIoPvt;
+    rogue_info_t    *   pRogueInfo;
+    epicsTimeStamp      tsCur;
+    epicsTimeGetCurrent( &tsCur );
 
-	switch ( channel )
-	{
-	default:
-		break;
-	case 0:		// Timestamp
-	case 1:		// Timestamp
-		if ( pDataFrame->getPayload() != 32 )
-			break;
-		it  = pDataFrame->begin();
+    switch ( channel )
+    {
+    default:
+        break;
+    case 0:     // Timestamp
+    case 1:     // Timestamp
+        if ( pDataFrame->getPayload() != 32 )
+            break;
+        it  = pDataFrame->begin();
 #if 0
-		it += 8;    // Skipping ?
+        it += 8;    // Skipping ?
 #else
-		epicsInt32		i1;
-		epicsInt32		i2;
-		fromFrame( it, 4, &i1 );
-		fromFrame( it, 4, &i2 );
+        epicsInt32      i1;
+        epicsInt32      i2;
+        fromFrame( it, 4, &i1 );
+        fromFrame( it, 4, &i2 );
 #endif
-		fromFrame( it, 4, &m_tsFrame.nsec );
-		fromFrame( it, 4, &m_tsFrame.secPastEpoch );
-		if ( DEBUG_PGP_ROGUE_DEV >= 5 )
-		{
-			char	acBuff[40];
-			epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &m_tsFrame );
-			printf( "%s: Channel %u, tsFrame %s, pulseId 0x%X, i1 %d, i2 %d\n", functionName, channel,
-					acBuff, m_tsFrame.nsec & 0x1FFFF, i1, i2 );
-			if ( DEBUG_PGP_ROGUE_DEV >= 5 )
-			{
-				epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &tsCur );
-				printf( "%s: Channel %u, tsCur %s, pulseId 0x%X\n", functionName, channel,
-						acBuff, tsCur.nsec & 0x1FFFF );
-			}
-		}
-		break;
-	case 2:	case 3:	case 4:	case 5:
-	case 6:	case 7:	case 8:	case 9:
-		pRogueInfo = m_pRawDataRogueInfo[channel-2];
-		if ( pRogueInfo )
-		{
-			(void) update_waveform( (waveformRecord *) pRogueInfo->m_pRecCommon, m_tsFrame, pDataFrame );
-		}
-		break;
-	case 10:	// 8 Integrals and baselines, see python for unpacking code
-		(void) update_integrals( m_tsFrame, pDataFrame );
-		break;
-	case 11:	//8 Floats for position and intensity, see python for unpacking code
-		// update_positions( m_tsFrame, pDataFrame );
-		break;
-	case 12:
-		// Hls peaks
-		update_peaks( m_tsFrame, pDataFrame );
-		break;
-	case 13:
-		// Hls integrals
-		update_hls_integrals( m_tsFrame, pDataFrame );
-		break;
-	}
+        fromFrame( it, 4, &m_tsFrame.nsec );
+        fromFrame( it, 4, &m_tsFrame.secPastEpoch );
+        if ( DEBUG_PGP_ROGUE_DEV >= 5 )
+        {
+            char    acBuff[40];
+            epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &m_tsFrame );
+            printf( "%s: Channel %u, tsFrame %s, pulseId 0x%X, i1 %d, i2 %d\n", functionName, channel,
+                    acBuff, m_tsFrame.nsec & 0x1FFFF, i1, i2 );
+            if ( DEBUG_PGP_ROGUE_DEV >= 5 )
+            {
+                epicsTimeToStrftime( acBuff, 40, "%F %H:%M:%S.%04f", &tsCur );
+                printf( "%s: Channel %u, tsCur %s, pulseId 0x%X\n", functionName, channel,
+                        acBuff, tsCur.nsec & 0x1FFFF );
+            }
+        }
+        break;
+    case 2: case 3: case 4: case 5:
+    case 6: case 7: case 8: case 9:
+        pRogueInfo = m_pRawDataRogueInfo[channel-2];
+        if ( pRogueInfo )
+        {
+            (void) update_waveform( (waveformRecord *) pRogueInfo->m_pRecCommon, m_tsFrame, pDataFrame );
+        }
+        break;
+    case 10:    // 8 Integrals and baselines, see python for unpacking code
+        (void) update_integrals( m_tsFrame, pDataFrame );
+        break;
+    case 11:    //8 Floats for position and intensity, see python for unpacking code
+        // update_positions( m_tsFrame, pDataFrame );
+        break;
+    case 12:
+        // Hls peaks
+        update_peaks( m_tsFrame, pDataFrame );
+        break;
+    case 13:
+        // Hls integrals
+        update_hls_integrals( m_tsFrame, pDataFrame );
+        break;
+    }
 
-	pDataFrame.reset();
+    pDataFrame.reset();
 #if 0
-	// loadSize = frame.getPayload()
-	// dat = bytearray(loadSize)
-	// frame.read(dat,0)
-	// ris::fromFrame( it, loadSize, dat )
-	//
-	// array = []
-	// array = [	int.from_bytes( dat[i:i+2], byteorder='little', signed=False )
-	// 					for i in range(0,loadSize,2)	]
-	if  ( m_CallbackClientFunc != NULL )
-	{
-		if ( DEBUG_PGP_ROGUE_DEV >= 2 )
-			printf( "%s: Calling callback\n", functionName );
-		(*m_CallbackClientFunc)( m_pCallbackClient, pDataInfo );
-	}
+    // loadSize = frame.getPayload()
+    // dat = bytearray(loadSize)
+    // frame.read(dat,0)
+    // ris::fromFrame( it, loadSize, dat )
+    //
+    // array = []
+    // array = [    int.from_bytes( dat[i:i+2], byteorder='little', signed=False )
+    //                  for i in range(0,loadSize,2)    ]
+    if  ( m_CallbackClientFunc != NULL )
+    {
+        if ( DEBUG_PGP_ROGUE_DEV >= 2 )
+            printf( "%s: Calling callback\n", functionName );
+        (*m_CallbackClientFunc)( m_pCallbackClient, pDataInfo );
+    }
 #endif
 
-	return;
+    return;
 }
 
 void pgpRogueDev::cancelDataCallbacks( )
 {
-	m_pCallbackClient		= NULL;
-	m_CallbackClientFunc	= NULL;
+    m_pCallbackClient       = NULL;
+    m_CallbackClientFunc    = NULL;
 }
 
 void pgpRogueDev::requestDataCallbacks( void * pClientContext, DataCallback callbackFunction )
 {
-	m_pCallbackClient		= pClientContext;
-	m_CallbackClientFunc	= callbackFunction;
+    m_pCallbackClient       = pClientContext;
+    m_CallbackClientFunc    = callbackFunction;
 }
 
-int	pgpRogueDev::DumpPgpVars( const char * pszFilePath, bool fWriteOnly, bool fForceRead )
+int pgpRogueDev::DumpPgpVars( const char * pszFilePath, bool fWriteOnly, bool fForceRead )
 {
-	const char	*	functionName = "pgpRogueDev::DumpPgpVars";
-	if ( m_pRogueLib == NULL )
-	{
-		printf( "%s error: %s PGP Dev not configured!\n", functionName, m_devName.c_str() );
-		return -1;
-	}
-	m_pRogueLib->dumpVariables( pszFilePath, fWriteOnly, fForceRead, false );
-	return 0;
+    const char  *   functionName = "pgpRogueDev::DumpPgpVars";
+    if ( m_pRogueLib == NULL )
+    {
+        printf( "%s error: %s PGP Dev not configured!\n", functionName, m_devName.c_str() );
+        return -1;
+    }
+    m_pRogueLib->dumpVariables( pszFilePath, fWriteOnly, fForceRead, false );
+    return 0;
 }
 
 int pgpRogueDev::SetPgpVariable( const char * pszVarPath, double value )
 {
-	const char	*	functionName = "pgpRogueDev::SetPgpVariable";
-	if ( m_pRogueLib == NULL )
-	{
-		printf( "%s error: %s PGP Dev not configured!\n", functionName, m_devName.c_str() );
-		return -1;
-	}
-	m_pRogueLib->setVariable( pszVarPath, value );
-	return 0;
+    const char  *   functionName = "pgpRogueDev::SetPgpVariable";
+    if ( m_pRogueLib == NULL )
+    {
+        printf( "%s error: %s PGP Dev not configured!\n", functionName, m_devName.c_str() );
+        return -1;
+    }
+    m_pRogueLib->setVariable( pszVarPath, value );
+    return 0;
 }
 
 int pgpRogueDev::ShowPgpVariable( const char * pszVarPath, int level )
 {
-	const char	*	functionName = "pgpRogueDev::ShowPgpVariable";
-	if ( m_pRogueLib == NULL )
-	{
-		printf( "%s error: %s PGP Dev not configured!\n", functionName, m_devName.c_str() );
-		return -1;
-	}
-	m_pRogueLib->showVariable( pszVarPath, level != 0 );
-	return 0;
+    const char  *   functionName = "pgpRogueDev::ShowPgpVariable";
+    if ( m_pRogueLib == NULL )
+    {
+        printf( "%s error: %s PGP Dev not configured!\n", functionName, m_devName.c_str() );
+        return -1;
+    }
+    m_pRogueLib->showVariable( pszVarPath, level != 0 );
+    return 0;
 }
 
 int pgpRogueDev::pgpLoadConfig( const char * pszFilename, double stepDelay )
 {
-	const char	*	functionName = "pgpRogueDev::pgpLoadConfig";
-	if ( m_pRogueLib == NULL )
-	{
-		printf( "%s error: %s PGP Dev not configured!\n", functionName, m_devName.c_str() );
-		return -1;
-	}
-	m_pRogueLib->LoadConfigFile( pszFilename, stepDelay );
-	return 0;
+    const char  *   functionName = "pgpRogueDev::pgpLoadConfig";
+    if ( m_pRogueLib == NULL )
+    {
+        printf( "%s error: %s PGP Dev not configured!\n", functionName, m_devName.c_str() );
+        return -1;
+    }
+    m_pRogueLib->LoadConfigFile( pszFilename, stepDelay );
+    return 0;
 }
 
-long pgpRogueDev::update_integrals( epicsTimeStamp tcUpdate, ris::FramePtr	pDataFrame )
+long pgpRogueDev::update_integrals( epicsTimeStamp tcUpdate, ris::FramePtr  pDataFrame )
 {
-	const char		*	functionName	= "update_integrals";
-	long				status = 0;
-	rogue::interfaces::stream::FrameIterator	it;
-	if ( pDataFrame )
-	{
-		if ( DEBUG_PGP_ROGUE_DEV >= 4 )
-			printf( "%s: Updating integrals\n", functionName );
-		it = pDataFrame->begin();
-		it += 8;
-		//pRogueInfo->m_newDataCount = pDataFrame->getSize() / sizeof(uint16_t);
-		for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
-		{
-			epicsInt32			rawIntegral	= 0;
-			fromFrame( it, sizeof(rawIntegral), &rawIntegral );
-			rogue_info_t	*	pRogueInfo = m_pIntegralRogueInfo[iSig];
-			if ( pRogueInfo )
-			{
-				longinRecord	*	pliRecord	= (longinRecord *) pRogueInfo->m_pRecCommon;
-				pRogueInfo->m_newDataCount = 1;
-				update_longin( pliRecord, m_tsFrame, rawIntegral );
-			}
-		}
-		pDataFrame.reset();
-	}
-	return status;
+    const char      *   functionName    = "update_integrals";
+    long                status = 0;
+    rogue::interfaces::stream::FrameIterator    it;
+    if ( pDataFrame )
+    {
+        if ( DEBUG_PGP_ROGUE_DEV >= 4 )
+            printf( "%s: Updating integrals\n", functionName );
+        it = pDataFrame->begin();
+        it += 8;
+        //pRogueInfo->m_newDataCount = pDataFrame->getSize() / sizeof(uint16_t);
+        for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
+        {
+            epicsInt32          rawIntegral = 0;
+            fromFrame( it, sizeof(rawIntegral), &rawIntegral );
+            rogue_info_t    *   pRogueInfo = m_pIntegralRogueInfo[iSig];
+            if ( pRogueInfo )
+            {
+                longinRecord    *   pliRecord   = (longinRecord *) pRogueInfo->m_pRecCommon;
+                pRogueInfo->m_newDataCount = 1;
+                update_longin( pliRecord, m_tsFrame, rawIntegral );
+            }
+        }
+        pDataFrame.reset();
+    }
+    return status;
 }
 
-long pgpRogueDev::update_hls_integrals( epicsTimeStamp tcUpdate, ris::FramePtr	pDataFrame )
+long pgpRogueDev::update_hls_integrals( epicsTimeStamp tcUpdate, ris::FramePtr  pDataFrame )
 {
-	const char		*	functionName	= "update_hls_integrals";
-	long				status = 0;
-	rogue::interfaces::stream::FrameIterator	it;
-	if ( pDataFrame )
-	{
-		if ( DEBUG_PGP_ROGUE_DEV >= 4 )
-			printf( "%s: Updating integrals\n", functionName );
-		it = pDataFrame->begin();
-		for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
-		{
-			epicsInt32			rawIntegral	= 0;
-			fromFrame( it, 3, &rawIntegral );
-			rawIntegral /= 4;
-			rogue_info_t	*	pRogueInfo = m_pHlsIntegralRogueInfo[iSig];
-			if ( pRogueInfo )
-			{
-				longinRecord	*	pliRecord	= (longinRecord *) pRogueInfo->m_pRecCommon;
-				pRogueInfo->m_newDataCount = 1;
-				update_longin( pliRecord, tcUpdate, rawIntegral );
-			}
-		}
+    const char      *   functionName    = "update_hls_integrals";
+    long                status = 0;
+    rogue::interfaces::stream::FrameIterator    it;
+    if ( pDataFrame )
+    {
+        if ( DEBUG_PGP_ROGUE_DEV >= 4 )
+            printf( "%s: Updating integrals\n", functionName );
+        it = pDataFrame->begin();
+        for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
+        {
+            epicsInt32          rawIntegral = 0;
+            fromFrame( it, 3, &rawIntegral );
+            rawIntegral /= 4;
+            rogue_info_t    *   pRogueInfo = m_pHlsIntegralRogueInfo[iSig];
+            if ( pRogueInfo )
+            {
+                longinRecord    *   pliRecord   = (longinRecord *) pRogueInfo->m_pRecCommon;
+                pRogueInfo->m_newDataCount = 1;
+                update_longin( pliRecord, tcUpdate, rawIntegral );
+            }
+        }
 
-		epicsFloat32 rawIntegralPosition = 0;
-		fromFrame( it, sizeof(rawIntegralPosition), &rawIntegralPosition );
-		rogue_info_t* pRogueInfo = m_pIntegralXRogueInfo;
-		if ( pRogueInfo )
-		{
-			aiRecord    *       paiRecord       = (aiRecord *) pRogueInfo->m_pRecCommon;
-			pRogueInfo->m_newDataCount = 1;
-			update_ai( paiRecord, tcUpdate, static_cast<epicsFloat64>( rawIntegralPosition ) );
+        epicsFloat32 rawIntegralPosition = 0;
+        fromFrame( it, sizeof(rawIntegralPosition), &rawIntegralPosition );
+        rogue_info_t* pRogueInfo = m_pIntegralXRogueInfo;
+        if ( pRogueInfo )
+        {
+            aiRecord    *       paiRecord       = (aiRecord *) pRogueInfo->m_pRecCommon;
+            pRogueInfo->m_newDataCount = 1;
+            update_ai( paiRecord, tcUpdate, static_cast<epicsFloat64>( rawIntegralPosition ) );
 
-		}
+        }
 
-		rawIntegralPosition = 0;
-                fromFrame( it, sizeof(rawIntegralPosition), &rawIntegralPosition );
-                pRogueInfo = m_pIntegralYRogueInfo;
-                if ( pRogueInfo )
-                {
-                        aiRecord    *       paiRecord       = (aiRecord *) pRogueInfo->m_pRecCommon;
-                        pRogueInfo->m_newDataCount = 1;
-                        update_ai( paiRecord, tcUpdate, static_cast<epicsFloat64>( rawIntegralPosition ) );
+    rawIntegralPosition = 0;
+    fromFrame( it, sizeof(rawIntegralPosition), &rawIntegralPosition );
+    pRogueInfo = m_pIntegralYRogueInfo;
+    if ( pRogueInfo )
+    {
+        aiRecord    *       paiRecord       = (aiRecord *) pRogueInfo->m_pRecCommon;
+        pRogueInfo->m_newDataCount = 1;
+        update_ai( paiRecord, tcUpdate, static_cast<epicsFloat64>( rawIntegralPosition ) );
+    }
 
-                }
-
-		pDataFrame.reset();
-	}
-	return status;
+        pDataFrame.reset();
+    }
+    return status;
 }
 
 long pgpRogueDev::update_peaks( epicsTimeStamp tcUpdate, ris::FramePtr      pDataFrame )
@@ -551,15 +550,15 @@ long pgpRogueDev::update_peaks( epicsTimeStamp tcUpdate, ris::FramePtr      pDat
                                 pRogueInfo->m_newDataCount = 1;
                                 update_longin( pliRecord, tcUpdate, ((rawPeak & 0x00FFFFFF) / 4) );
                         }
-			pRogueInfo = m_pPeakPosRogueInfo[iSig];
-			if ( pRogueInfo )
+                        pRogueInfo = m_pPeakPosRogueInfo[iSig];
+                        if ( pRogueInfo )
                         {
                                 longinRecord    *       pliRecord       = (longinRecord *) pRogueInfo->m_pRecCommon;
                                 pRogueInfo->m_newDataCount = 1;
                                 update_longin( pliRecord, tcUpdate, ((rawPeak >> 24) & 0xFF) );
                         }
                 }
-		for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
+        for ( size_t iSig = 0; iSig < PGP_NUM_SIGNALS; iSig++ )
                 {
                         epicsInt32                      rawBaseline     = 0;
                         fromFrame( it, 3, &rawBaseline );
@@ -603,274 +602,274 @@ long pgpRogueDev::update_peaks( epicsTimeStamp tcUpdate, ris::FramePtr      pDat
 
 extern "C" int
 pgpRogueDevConfig(
-	int				board,
-	int				lane,
-	const char *	szAddrMapPath,
-	const char *	szPgpReg )
+    int             board,
+    int             lane,
+    const char *    szAddrMapPath,
+    const char *    szPgpReg )
 {
-	if ( gPgpRogueDev[board] )
-	{
-		gPgpRogueDev[board]->disconnect();
-		gPgpRogueDev[board].reset();
-	}
-	gPgpRogueDev[board] = pgpRogueDev::create( board, lane, szAddrMapPath, szPgpReg );
+    if ( gPgpRogueDev[board] )
+    {
+        gPgpRogueDev[board]->disconnect();
+        gPgpRogueDev[board].reset();
+    }
+    gPgpRogueDev[board] = pgpRogueDev::create( board, lane, szAddrMapPath, szPgpReg );
     return 0;
 }
 
-pgpRogueDevPtr	pgpRogueDev::RogueFindByBoard( unsigned int board )
+pgpRogueDevPtr  pgpRogueDev::RogueFindByBoard( unsigned int board )
 {
-	if ( board >= N_PGP_ROGUE_DEV )
-	{
-		return NULL;
-	}
-	return gPgpRogueDev[board];
+    if ( board >= N_PGP_ROGUE_DEV )
+    {
+        return NULL;
+    }
+    return gPgpRogueDev[board];
 }
 
 int pgpRogueDev::ShowReport( int level )
 {
     if ( level < 0 )
-		return 0;
+        return 0;
 
-	cout << "\tRogue " << m_devName	<< " is installed on board " << m_board << " Lane " << m_lane << endl;
-	if ( level >= 1 )
-	{
-		//cout	<< "\t\tType: "			<< m_RogueClass
-		//		<< " "					<< m_RogueModel
-		//		<< ", configuration: " 	<< m_ConfigFile << endl;
-	}
-	if ( level >= 3 && m_pRogueLib )
-	{
-		m_pRogueLib->showVariableList( level >= 4 );
-	}
+    cout << "\tRogue " << m_devName << " is installed on board " << m_board << " Lane " << m_lane << endl;
+    if ( level >= 1 )
+    {
+        //cout  << "\t\tType: "         << m_RogueClass
+        //      << " "                  << m_RogueModel
+        //      << ", configuration: "  << m_ConfigFile << endl;
+    }
+    if ( level >= 3 && m_pRogueLib )
+    {
+        m_pRogueLib->showVariableList( level >= 4 );
+    }
     return 0;
 }
 
 extern "C"
 int ShowAllRogueDev( int level )
 {
-	if ( level < 0 )
-		return 0;
+    if ( level < 0 )
+        return 0;
 
-	for ( size_t i = 0; i < N_PGP_ROGUE_DEV; i++ )
-	{
-		if ( !gPgpRogueDev[i] )
-			continue;
-		cout << "\tPGP Board " << i	<< ":" << endl;
-		gPgpRogueDev[i]->ShowReport( level );
-	}
+    for ( size_t i = 0; i < N_PGP_ROGUE_DEV; i++ )
+    {
+        if ( !gPgpRogueDev[i] )
+            continue;
+        cout << "\tPGP Board " << i << ":" << endl;
+        gPgpRogueDev[i]->ShowReport( level );
+    }
 
     return 0;
 }
 
 
 // Register function:
-//		int ShowAllRogue( int level )
-static const iocshArg		ShowAllRogueArg0		= { "level",		iocshArgInt };
-static const iocshArg	*	ShowAllRogueArgs[1]	=
+//      int ShowAllRogue( int level )
+static const iocshArg       ShowAllRogueArg0        = { "level",        iocshArgInt };
+static const iocshArg   *   ShowAllRogueArgs[1] =
 {
-	&ShowAllRogueArg0
+    &ShowAllRogueArg0
 };
-static const iocshFuncDef   ShowAllRogueFuncDef	= { "ShowAllRogue", 1, ShowAllRogueArgs };
+static const iocshFuncDef   ShowAllRogueFuncDef = { "ShowAllRogue", 1, ShowAllRogueArgs };
 static int  ShowAllRogueCallFunc( const iocshArgBuf * args )
 {
-	return static_cast<int>( ShowAllRogueDev( args[0].ival ) );
+    return static_cast<int>( ShowAllRogueDev( args[0].ival ) );
 }
 void ShowAllRogueRegister(void)
 {
-	iocshRegister( &ShowAllRogueFuncDef, reinterpret_cast<iocshCallFunc>(ShowAllRogueCallFunc) );
+    iocshRegister( &ShowAllRogueFuncDef, reinterpret_cast<iocshCallFunc>(ShowAllRogueCallFunc) );
 }
 
 // Register Function:
-//	int pgpRogueDevConfig( int board, int lane )
-static const iocshArg		pgpRogueDevConfigArg0	= { "board",		iocshArgInt };
-static const iocshArg		pgpRogueDevConfigArg1	= { "lane",			iocshArgInt };
-static const iocshArg		pgpRogueDevConfigArg2	= { "szAddrMapPath",iocshArgString };
-static const iocshArg		pgpRogueDevConfigArg3	= { "szPgpRegPrefix",iocshArgString };
-static const iocshArg	*	pgpRogueDevConfigArgs[4]	=
+//  int pgpRogueDevConfig( int board, int lane )
+static const iocshArg       pgpRogueDevConfigArg0   = { "board",        iocshArgInt };
+static const iocshArg       pgpRogueDevConfigArg1   = { "lane",         iocshArgInt };
+static const iocshArg       pgpRogueDevConfigArg2   = { "szAddrMapPath",iocshArgString };
+static const iocshArg       pgpRogueDevConfigArg3   = { "szPgpRegPrefix",iocshArgString };
+static const iocshArg   *   pgpRogueDevConfigArgs[4]    =
 {
-	&pgpRogueDevConfigArg0, &pgpRogueDevConfigArg1, &pgpRogueDevConfigArg2, &pgpRogueDevConfigArg3
+    &pgpRogueDevConfigArg0, &pgpRogueDevConfigArg1, &pgpRogueDevConfigArg2, &pgpRogueDevConfigArg3
 };
-static const iocshFuncDef   pgpRogueDevConfigFuncDef	= { "pgpRogueDevConfig", 4, pgpRogueDevConfigArgs };
+static const iocshFuncDef   pgpRogueDevConfigFuncDef    = { "pgpRogueDevConfig", 4, pgpRogueDevConfigArgs };
 static int  pgpRogueDevConfigCallFunc( const iocshArgBuf * args )
 {
     return pgpRogueDevConfig( args[0].ival, args[1].ival, args[2].sval, args[3].sval );
 }
 void pgpRogueDevConfigRegister(void)
 {
-	iocshRegister( &pgpRogueDevConfigFuncDef, reinterpret_cast<iocshCallFunc>(pgpRogueDevConfigCallFunc) );
+    iocshRegister( &pgpRogueDevConfigFuncDef, reinterpret_cast<iocshCallFunc>(pgpRogueDevConfigCallFunc) );
 }
 
 extern "C"
 int DumpPgpVars( uint32_t iBoard, const char * pszFilePath, int fWriteOnly, int fForceRead )
 {
-	const char	*	functionName = "DumpPgpVars";
-	if ( pszFilePath == NULL )
-	{
-		printf( "%s Usage: boardNum camPortName dumpPath fWriteOnly fForceRead\n", functionName );
-		printf( "%s Example: 0 CAM dumpConfig.yml 1 1\n", functionName );
-		return -1;
-	}
+    const char  *   functionName = "DumpPgpVars";
+    if ( pszFilePath == NULL )
+    {
+        printf( "%s Usage: boardNum camPortName dumpPath fWriteOnly fForceRead\n", functionName );
+        printf( "%s Example: 0 CAM dumpConfig.yml 1 1\n", functionName );
+        return -1;
+    }
 
-	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( iBoard );
-	if ( pRogue == NULL )
-	{
-		printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
-		return -1;
-	}
+    pgpRogueDevPtr  pRogue = pgpRogueDev::RogueFindByBoard( iBoard );
+    if ( pRogue == NULL )
+    {
+        printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
+        return -1;
+    }
 
-	return pRogue->DumpPgpVars( pszFilePath, fWriteOnly, fForceRead );
+    return pRogue->DumpPgpVars( pszFilePath, fWriteOnly, fForceRead );
 }
 
 // Register function:
-//		int DumpPgpVars( camName, dumpFile, fWriteOnly, fForceRead )
-static const iocshArg		DumpPgpVarsArg0		= { "boardNumber",	iocshArgInt };
-static const iocshArg		DumpPgpVarsArg1		= { "dumpFile",		iocshArgString };
-static const iocshArg		DumpPgpVarsArg2		= { "fWriteOnly",	iocshArgInt };
-static const iocshArg		DumpPgpVarsArg3		= { "fForceRead",	iocshArgInt };
-static const iocshArg	*	DumpPgpVarsArgs[4]	=
+//      int DumpPgpVars( camName, dumpFile, fWriteOnly, fForceRead )
+static const iocshArg       DumpPgpVarsArg0     = { "boardNumber",  iocshArgInt };
+static const iocshArg       DumpPgpVarsArg1     = { "dumpFile",     iocshArgString };
+static const iocshArg       DumpPgpVarsArg2     = { "fWriteOnly",   iocshArgInt };
+static const iocshArg       DumpPgpVarsArg3     = { "fForceRead",   iocshArgInt };
+static const iocshArg   *   DumpPgpVarsArgs[4]  =
 {
-	&DumpPgpVarsArg0, &DumpPgpVarsArg1, &DumpPgpVarsArg2, &DumpPgpVarsArg3
+    &DumpPgpVarsArg0, &DumpPgpVarsArg1, &DumpPgpVarsArg2, &DumpPgpVarsArg3
 };
-static const iocshFuncDef   DumpPgpVarsFuncDef	= { "DumpPgpVars", 4, DumpPgpVarsArgs };
+static const iocshFuncDef   DumpPgpVarsFuncDef  = { "DumpPgpVars", 4, DumpPgpVarsArgs };
 static int  DumpPgpVarsCallFunc( const iocshArgBuf * args )
 {
-	return static_cast<int>( DumpPgpVars( args[0].ival, args[1].sval, args[2].ival, args[3].ival ) );
+    return static_cast<int>( DumpPgpVars( args[0].ival, args[1].sval, args[2].ival, args[3].ival ) );
 }
 void DumpPgpVarsRegister(void)
 {
-	iocshRegister( &DumpPgpVarsFuncDef, reinterpret_cast<iocshCallFunc>(DumpPgpVarsCallFunc) );
+    iocshRegister( &DumpPgpVarsFuncDef, reinterpret_cast<iocshCallFunc>(DumpPgpVarsCallFunc) );
 }
 
 extern "C"
 int SetPgpVariable( uint32_t iBoard, const char * pszVarPath, double value )
 {
-	const char	*	functionName = "SetPgpVariable";
-	if ( pszVarPath == NULL )
-	{
-		printf( "Usage: %s boardNum varPath\n", functionName );
-		printf( "Example: %s 0 Top.AxiVersion.BuildStamp\n", functionName );
-		return -1;
-	}
+    const char  *   functionName = "SetPgpVariable";
+    if ( pszVarPath == NULL )
+    {
+        printf( "Usage: %s boardNum varPath\n", functionName );
+        printf( "Example: %s 0 Top.AxiVersion.BuildStamp\n", functionName );
+        return -1;
+    }
 
-	//pgpRogueDev	*	pRogue = pgpRogueDev::RogueFindByName( std::string(pszCamName) );
-	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( 0 );
-	if ( pRogue == NULL )
-	{
-		printf( "%s error: Rogue %u not found!\n", functionName, iBoard);
-		return -1;
-	}
+    //pgpRogueDev   *   pRogue = pgpRogueDev::RogueFindByName( std::string(pszCamName) );
+    pgpRogueDevPtr  pRogue = pgpRogueDev::RogueFindByBoard( 0 );
+    if ( pRogue == NULL )
+    {
+        printf( "%s error: Rogue %u not found!\n", functionName, iBoard);
+        return -1;
+    }
 
-	return pRogue->SetPgpVariable( pszVarPath, value );
+    return pRogue->SetPgpVariable( pszVarPath, value );
 }
 
 // Register function:
-//		int SetPgpVar( camName, varName, value )
-static const iocshArg		SetPgpVarArg0		= { "boardNum",		iocshArgInt };
-static const iocshArg		SetPgpVarArg1		= { "varName",		iocshArgString };
-static const iocshArg		SetPgpVarArg2		= { "value",		iocshArgDouble };
-static const iocshArg	*	SetPgpVarArgs[3]	=
+//      int SetPgpVar( camName, varName, value )
+static const iocshArg       SetPgpVarArg0       = { "boardNum",     iocshArgInt };
+static const iocshArg       SetPgpVarArg1       = { "varName",      iocshArgString };
+static const iocshArg       SetPgpVarArg2       = { "value",        iocshArgDouble };
+static const iocshArg   *   SetPgpVarArgs[3]    =
 {
-	&SetPgpVarArg0, &SetPgpVarArg1, &SetPgpVarArg2
+    &SetPgpVarArg0, &SetPgpVarArg1, &SetPgpVarArg2
 };
-static const iocshFuncDef   SetPgpVarFuncDef	= { "SetPgpVar", 3, SetPgpVarArgs };
+static const iocshFuncDef   SetPgpVarFuncDef    = { "SetPgpVar", 3, SetPgpVarArgs };
 static int  SetPgpVarCallFunc( const iocshArgBuf * args )
 {
-	return static_cast<int>( SetPgpVariable( args[0].ival, args[1].sval, args[2].dval ) );
+    return static_cast<int>( SetPgpVariable( args[0].ival, args[1].sval, args[2].dval ) );
 }
 void SetPgpVarRegister(void)
 {
-	iocshRegister( &SetPgpVarFuncDef, reinterpret_cast<iocshCallFunc>(SetPgpVarCallFunc) );
+    iocshRegister( &SetPgpVarFuncDef, reinterpret_cast<iocshCallFunc>(SetPgpVarCallFunc) );
 }
 
 extern "C"
 int ShowPgpVariable( uint32_t iBoard, const char * pszVarPath, int level )
 {
-	const char	*	functionName = "ShowPgpVariable";
-	if ( pszVarPath == NULL )
-	{
-		printf( "Usage: %s boardNum varPath\n", functionName );
-		printf( "Example: %s 0 Top.AxiPcieCore.AxiVersion.BuildStamp\n", functionName );
-		return -1;
-	}
+    const char  *   functionName = "ShowPgpVariable";
+    if ( pszVarPath == NULL )
+    {
+        printf( "Usage: %s boardNum varPath\n", functionName );
+        printf( "Example: %s 0 Top.AxiPcieCore.AxiVersion.BuildStamp\n", functionName );
+        return -1;
+    }
 
-	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( iBoard );
-	if ( pRogue == NULL )
-	{
-		printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
-		return -1;
-	}
+    pgpRogueDevPtr  pRogue = pgpRogueDev::RogueFindByBoard( iBoard );
+    if ( pRogue == NULL )
+    {
+        printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
+        return -1;
+    }
 
-	return pRogue->ShowPgpVariable( pszVarPath, level );
+    return pRogue->ShowPgpVariable( pszVarPath, level );
 }
 
 extern "C"
 int pgpLoadConfig( uint32_t iBoard, const char * pszFilename, double stepDelay )
 {
-	const char	*	functionName = "pgpLoadConfig";
-	if ( pszFilename == NULL )
-	{
-		printf( "Usage: %s boardNum Filename\n", functionName );
-		printf( "Example: %s 0 db/adcDelay.cfg\n", functionName );
-		return -1;
-	}
+    const char  *   functionName = "pgpLoadConfig";
+    if ( pszFilename == NULL )
+    {
+        printf( "Usage: %s boardNum Filename\n", functionName );
+        printf( "Example: %s 0 db/adcDelay.cfg\n", functionName );
+        return -1;
+    }
 
-	pgpRogueDevPtr	pRogue = pgpRogueDev::RogueFindByBoard( iBoard );
-	if ( pRogue == NULL )
-	{
-		printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
-		return -1;
-	}
+    pgpRogueDevPtr  pRogue = pgpRogueDev::RogueFindByBoard( iBoard );
+    if ( pRogue == NULL )
+    {
+        printf( "%s error: Rogue board %u not found!\n", functionName, iBoard );
+        return -1;
+    }
 
-	return pRogue->pgpLoadConfig( pszFilename, stepDelay );
+    return pRogue->pgpLoadConfig( pszFilename, stepDelay );
 }
 
 // Register function:
-//		int ShowPgpVar( camName, varName, level )
-static const iocshArg		ShowPgpVarArg0		= { "boardNum",		iocshArgInt };
-static const iocshArg		ShowPgpVarArg1		= { "varName",		iocshArgString };
-static const iocshArg		ShowPgpVarArg2		= { "level",		iocshArgInt };
-static const iocshArg	*	ShowPgpVarArgs[3]	=
+//      int ShowPgpVar( camName, varName, level )
+static const iocshArg       ShowPgpVarArg0      = { "boardNum",     iocshArgInt };
+static const iocshArg       ShowPgpVarArg1      = { "varName",      iocshArgString };
+static const iocshArg       ShowPgpVarArg2      = { "level",        iocshArgInt };
+static const iocshArg   *   ShowPgpVarArgs[3]   =
 {
-	&ShowPgpVarArg0, &ShowPgpVarArg1, &ShowPgpVarArg2
+    &ShowPgpVarArg0, &ShowPgpVarArg1, &ShowPgpVarArg2
 };
-static const iocshFuncDef   ShowPgpVarFuncDef	= { "ShowPgpVar", 3, ShowPgpVarArgs };
+static const iocshFuncDef   ShowPgpVarFuncDef   = { "ShowPgpVar", 3, ShowPgpVarArgs };
 static int  ShowPgpVarCallFunc( const iocshArgBuf * args )
 {
-	return static_cast<int>( ShowPgpVariable( args[0].ival, args[1].sval, args[2].ival ) );
+    return static_cast<int>( ShowPgpVariable( args[0].ival, args[1].sval, args[2].ival ) );
 }
 void ShowPgpVarRegister(void)
 {
-	iocshRegister( &ShowPgpVarFuncDef, reinterpret_cast<iocshCallFunc>(ShowPgpVarCallFunc) );
+    iocshRegister( &ShowPgpVarFuncDef, reinterpret_cast<iocshCallFunc>(ShowPgpVarCallFunc) );
 }
 
 // Register function:
-//		int pgpLoadConfig( camName, fileName, stepDelay )
-static const iocshArg		pgpLoadConfigArg0		= { "boardNum",		iocshArgInt };
-static const iocshArg		pgpLoadConfigArg1		= { "fileName",		iocshArgString };
-static const iocshArg		pgpLoadConfigArg2		= { "stepDelay",	iocshArgDouble };
-static const iocshArg	*	pgpLoadConfigArgs[3]	=
+//      int pgpLoadConfig( camName, fileName, stepDelay )
+static const iocshArg       pgpLoadConfigArg0       = { "boardNum",     iocshArgInt };
+static const iocshArg       pgpLoadConfigArg1       = { "fileName",     iocshArgString };
+static const iocshArg       pgpLoadConfigArg2       = { "stepDelay",    iocshArgDouble };
+static const iocshArg   *   pgpLoadConfigArgs[3]    =
 {
-	&pgpLoadConfigArg0, &pgpLoadConfigArg1, &pgpLoadConfigArg2
+    &pgpLoadConfigArg0, &pgpLoadConfigArg1, &pgpLoadConfigArg2
 };
-static const iocshFuncDef   pgpLoadConfigFuncDef	= { "pgpLoadConfig", 3, pgpLoadConfigArgs };
+static const iocshFuncDef   pgpLoadConfigFuncDef    = { "pgpLoadConfig", 3, pgpLoadConfigArgs };
 static int  pgpLoadConfigCallFunc( const iocshArgBuf * args )
 {
-	return static_cast<int>( pgpLoadConfig( args[0].ival, args[1].sval, args[2].dval ) );
+    return static_cast<int>( pgpLoadConfig( args[0].ival, args[1].sval, args[2].dval ) );
 }
 void pgpLoadConfigRegister(void)
 {
-	iocshRegister( &pgpLoadConfigFuncDef, reinterpret_cast<iocshCallFunc>(pgpLoadConfigCallFunc) );
+    iocshRegister( &pgpLoadConfigFuncDef, reinterpret_cast<iocshCallFunc>(pgpLoadConfigCallFunc) );
 }
 
 extern "C"
 {
-	epicsExportRegistrar( pgpRogueDevConfigRegister );
-	epicsExportRegistrar( DumpPgpVarsRegister );
-	epicsExportRegistrar( SetPgpVarRegister );
-	epicsExportRegistrar( ShowAllRogueRegister );
-	epicsExportRegistrar( ShowPgpVarRegister );
-	epicsExportRegistrar( pgpLoadConfigRegister );
-	epicsExportAddress( int, DEBUG_PGP_ROGUE_DEV );
-	epicsExportAddress( int, DEBUG_PGP_ROGUE_LIB );
+    epicsExportRegistrar( pgpRogueDevConfigRegister );
+    epicsExportRegistrar( DumpPgpVarsRegister );
+    epicsExportRegistrar( SetPgpVarRegister );
+    epicsExportRegistrar( ShowAllRogueRegister );
+    epicsExportRegistrar( ShowPgpVarRegister );
+    epicsExportRegistrar( pgpLoadConfigRegister );
+    epicsExportAddress( int, DEBUG_PGP_ROGUE_DEV );
+    epicsExportAddress( int, DEBUG_PGP_ROGUE_LIB );
 }
 
