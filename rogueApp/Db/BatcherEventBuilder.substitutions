@@ -27,6 +27,18 @@ file boolDevRogue.template
 		SAVE	= ""
 		SCAN	= "\$(SCAN=1 second)"
 	}
+        {
+                NAME    = "EnableAlignCheck"
+                PATH    = "$(PTOP).BatcherEventBuilder.EnableAlignCheck"
+                PYPV    = "$(PTOP):BatcherEventBuilder:EnableAlignCheck"
+                DESC    = "Check batch streams share tUserFirst"
+                ZNAM    = "Disabled"
+                ONAM    = "Enabled"
+                DOL     = "1"
+                PINI    = "YES"
+                SAVE    = "VAL"
+                SCAN    = "\$(SCAN=1 second)"
+        }
 }
 
 file liDevRogue.template
@@ -288,6 +300,16 @@ file liDevRogue.template
 		PYPV	= "$(PTOP):BatcherEventBuilder:State"
 		DESC	= "current state of FSM (for debugging)"
 		SCAN	= "\$(SCAN=1 second)"
+	}
+        {
+                NAME    = "EventBuilder:ErrorAlignDet"
+                PATH    = "$(PTOP).BatcherEventBuilder.ErrorAlignDet"
+                PYPV    = "$(PTOP):BatcherEventBuilder:ErrorAlignDet"
+                DESC    = "tUserFirst misalignment alert"
+                SCAN    = "\$(SCAN=1 second)"
+                HIGH    = "1"
+                HSV     = "MAJOR"
+        }
 }
 
 file longDevRogue.template

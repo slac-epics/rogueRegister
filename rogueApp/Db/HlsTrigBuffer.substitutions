@@ -1,0 +1,46 @@
+file liDevRogue.template
+{
+	{
+		NAME	= "HlsTrigBuffer:MAX_CNT_C"
+		PATH	= "Top.HlsTrigBuffer.MAX_CNT_C"
+		PYPV	= "Top:HlsTrigBuffer:MAX_CNT_C"
+		DESC	= "Max timeslices per trigger"
+	}
+	{
+                NAME    = "HlsTrigBuffer:TrigCnt"
+                PATH    = "Top.HlsTrigBuffer.TrigCnt"
+                PYPV    = "Top:HlsTrigBuffer:TrigCnt"
+                DESC    = "Trigger counter"
+                SCAN    = "\$(SCAN=1 second)"
+        }
+	{
+                NAME    = "HlsTrigBuffer:OverflowCnt"
+                PATH    = "Top.HlsTrigBuffer.OverflowCnt"
+                PYPV    = "Top:HlsTrigBuffer:OverflowCnt"
+                DESC    = "Buffer overflow count"
+                SCAN    = "\$(SCAN=1 second)"
+        }
+}
+
+file longDevRogue.template
+{
+	{
+		NAME	= "HlsTrigBuffer:PauseThresh"
+		PATH	= "Top.HlsTrigBuffer.PauseThresh"
+		PYPV	= "Top:HlsTrigBuffer:PauseThresh"
+		DESC	= "Buffer pause threshold"
+		SAVE    = ""
+	}
+}
+
+file loDevRogue.template
+{
+	{
+		NAME	= "HlsTrigBuffer:CntRst"
+		PATH	= "Top.HlsTrigBuffer.CntRst"
+		PYPV	= "Top:HlsTrigBuffer:CntRst"
+		DESC 	= "Counter reset"
+		SAVE	= ""
+	}
+
+}

@@ -1,0 +1,2129 @@
+file boolDevRogue.template
+{
+	{
+		NAME	= "FirFiltering:BypassFilter"
+		PATH	= "Top.FirFiltering.BypassFilter"
+		PYPV	= "Top:FirFiltering:BypassFilter"
+		DESC	= "Used to bypass the FIR filtering"
+		SAVE	= "VAL"
+		PINI	= "YES"
+	}
+}
+
+file aInOutDevRogue.template
+{
+
+{
+        NAME    = "FirFiltering:Ch0:Taps0"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[0]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[0]"
+        DESC    = "Channel 0 FIR Filter Tap 0"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps1"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[1]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[1]"
+        DESC    = "Channel 0 FIR Filter Tap 1"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps2"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[2]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[2]"
+        DESC    = "Channel 0 FIR Filter Tap 2"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps3"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[3]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[3]"
+        DESC    = "Channel 0 FIR Filter Tap 3"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps4"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[4]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[4]"
+        DESC    = "Channel 0 FIR Filter Tap 4"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps5"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[5]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[5]"
+        DESC    = "Channel 0 FIR Filter Tap 5"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps6"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[6]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[6]"
+        DESC    = "Channel 0 FIR Filter Tap 6"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps7"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[7]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[7]"
+        DESC    = "Channel 0 FIR Filter Tap 7"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps8"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[8]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[8]"
+        DESC    = "Channel 0 FIR Filter Tap 8"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps9"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[9]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[9]"
+        DESC    = "Channel 0 FIR Filter Tap 9"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps10"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[10]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[10]"
+        DESC    = "Channel 0 FIR Filter Tap 10"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps11"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[11]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[11]"
+        DESC    = "Channel 0 FIR Filter Tap 11"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps12"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[12]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[12]"
+        DESC    = "Channel 0 FIR Filter Tap 12"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps13"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[13]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[13]"
+        DESC    = "Channel 0 FIR Filter Tap 13"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps14"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[14]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[14]"
+        DESC    = "Channel 0 FIR Filter Tap 14"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps15"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[15]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[15]"
+        DESC    = "Channel 0 FIR Filter Tap 15"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps16"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[16]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[16]"
+        DESC    = "Channel 0 FIR Filter Tap 16"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps17"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[17]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[17]"
+        DESC    = "Channel 0 FIR Filter Tap 17"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps18"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[18]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[18]"
+        DESC    = "Channel 0 FIR Filter Tap 18"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps19"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[19]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[19]"
+        DESC    = "Channel 0 FIR Filter Tap 19"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps20"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[20]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[20]"
+        DESC    = "Channel 0 FIR Filter Tap 20"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps21"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[21]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[21]"
+        DESC    = "Channel 0 FIR Filter Tap 21"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps22"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[22]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[22]"
+        DESC    = "Channel 0 FIR Filter Tap 22"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps23"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[23]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[23]"
+        DESC    = "Channel 0 FIR Filter Tap 23"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps24"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[24]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[24]"
+        DESC    = "Channel 0 FIR Filter Tap 24"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps25"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[25]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[25]"
+        DESC    = "Channel 0 FIR Filter Tap 25"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps26"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[26]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[26]"
+        DESC    = "Channel 0 FIR Filter Tap 26"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps27"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[27]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[27]"
+        DESC    = "Channel 0 FIR Filter Tap 27"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps28"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[28]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[28]"
+        DESC    = "Channel 0 FIR Filter Tap 28"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps29"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[29]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[29]"
+        DESC    = "Channel 0 FIR Filter Tap 29"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps30"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[30]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[30]"
+        DESC    = "Channel 0 FIR Filter Tap 30"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps31"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[31]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[31]"
+        DESC    = "Channel 0 FIR Filter Tap 31"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch0:Taps32"
+        PATH    = "Top.FirFiltering.Ch[0].Taps[32]"
+        PYPV    = "Top:FirFiltering:Ch[0]:Taps[32]"
+        DESC    = "Channel 0 FIR Filter Tap 32"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps0"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[0]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[0]"
+        DESC    = "Channel 1 FIR Filter Tap 0"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps1"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[1]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[1]"
+        DESC    = "Channel 1 FIR Filter Tap 1"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps2"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[2]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[2]"
+        DESC    = "Channel 1 FIR Filter Tap 2"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps3"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[3]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[3]"
+        DESC    = "Channel 1 FIR Filter Tap 3"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps4"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[4]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[4]"
+        DESC    = "Channel 1 FIR Filter Tap 4"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps5"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[5]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[5]"
+        DESC    = "Channel 1 FIR Filter Tap 5"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps6"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[6]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[6]"
+        DESC    = "Channel 1 FIR Filter Tap 6"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps7"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[7]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[7]"
+        DESC    = "Channel 1 FIR Filter Tap 7"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps8"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[8]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[8]"
+        DESC    = "Channel 1 FIR Filter Tap 8"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps9"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[9]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[9]"
+        DESC    = "Channel 1 FIR Filter Tap 9"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps10"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[10]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[10]"
+        DESC    = "Channel 1 FIR Filter Tap 10"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps11"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[11]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[11]"
+        DESC    = "Channel 1 FIR Filter Tap 11"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps12"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[12]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[12]"
+        DESC    = "Channel 1 FIR Filter Tap 12"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps13"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[13]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[13]"
+        DESC    = "Channel 1 FIR Filter Tap 13"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps14"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[14]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[14]"
+        DESC    = "Channel 1 FIR Filter Tap 14"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps15"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[15]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[15]"
+        DESC    = "Channel 1 FIR Filter Tap 15"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps16"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[16]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[16]"
+        DESC    = "Channel 1 FIR Filter Tap 16"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps17"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[17]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[17]"
+        DESC    = "Channel 1 FIR Filter Tap 17"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps18"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[18]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[18]"
+        DESC    = "Channel 1 FIR Filter Tap 18"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps19"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[19]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[19]"
+        DESC    = "Channel 1 FIR Filter Tap 19"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps20"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[20]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[20]"
+        DESC    = "Channel 1 FIR Filter Tap 20"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps21"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[21]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[21]"
+        DESC    = "Channel 1 FIR Filter Tap 21"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps22"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[22]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[22]"
+        DESC    = "Channel 1 FIR Filter Tap 22"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps23"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[23]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[23]"
+        DESC    = "Channel 1 FIR Filter Tap 23"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps24"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[24]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[24]"
+        DESC    = "Channel 1 FIR Filter Tap 24"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps25"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[25]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[25]"
+        DESC    = "Channel 1 FIR Filter Tap 25"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps26"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[26]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[26]"
+        DESC    = "Channel 1 FIR Filter Tap 26"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps27"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[27]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[27]"
+        DESC    = "Channel 1 FIR Filter Tap 27"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps28"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[28]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[28]"
+        DESC    = "Channel 1 FIR Filter Tap 28"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps29"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[29]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[29]"
+        DESC    = "Channel 1 FIR Filter Tap 29"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps30"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[30]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[30]"
+        DESC    = "Channel 1 FIR Filter Tap 30"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps31"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[31]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[31]"
+        DESC    = "Channel 1 FIR Filter Tap 31"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch1:Taps32"
+        PATH    = "Top.FirFiltering.Ch[1].Taps[32]"
+        PYPV    = "Top:FirFiltering:Ch[1]:Taps[32]"
+        DESC    = "Channel 1 FIR Filter Tap 32"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps0"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[0]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[0]"
+        DESC    = "Channel 2 FIR Filter Tap 0"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps1"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[1]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[1]"
+        DESC    = "Channel 2 FIR Filter Tap 1"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps2"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[2]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[2]"
+        DESC    = "Channel 2 FIR Filter Tap 2"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps3"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[3]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[3]"
+        DESC    = "Channel 2 FIR Filter Tap 3"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps4"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[4]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[4]"
+        DESC    = "Channel 2 FIR Filter Tap 4"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps5"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[5]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[5]"
+        DESC    = "Channel 2 FIR Filter Tap 5"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps6"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[6]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[6]"
+        DESC    = "Channel 2 FIR Filter Tap 6"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps7"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[7]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[7]"
+        DESC    = "Channel 2 FIR Filter Tap 7"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps8"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[8]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[8]"
+        DESC    = "Channel 2 FIR Filter Tap 8"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps9"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[9]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[9]"
+        DESC    = "Channel 2 FIR Filter Tap 9"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps10"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[10]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[10]"
+        DESC    = "Channel 2 FIR Filter Tap 10"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps11"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[11]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[11]"
+        DESC    = "Channel 2 FIR Filter Tap 11"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps12"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[12]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[12]"
+        DESC    = "Channel 2 FIR Filter Tap 12"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps13"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[13]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[13]"
+        DESC    = "Channel 2 FIR Filter Tap 13"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps14"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[14]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[14]"
+        DESC    = "Channel 2 FIR Filter Tap 14"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps15"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[15]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[15]"
+        DESC    = "Channel 2 FIR Filter Tap 15"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps16"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[16]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[16]"
+        DESC    = "Channel 2 FIR Filter Tap 16"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps17"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[17]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[17]"
+        DESC    = "Channel 2 FIR Filter Tap 17"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps18"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[18]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[18]"
+        DESC    = "Channel 2 FIR Filter Tap 18"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps19"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[19]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[19]"
+        DESC    = "Channel 2 FIR Filter Tap 19"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps20"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[20]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[20]"
+        DESC    = "Channel 2 FIR Filter Tap 20"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps21"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[21]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[21]"
+        DESC    = "Channel 2 FIR Filter Tap 21"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps22"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[22]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[22]"
+        DESC    = "Channel 2 FIR Filter Tap 22"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps23"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[23]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[23]"
+        DESC    = "Channel 2 FIR Filter Tap 23"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps24"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[24]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[24]"
+        DESC    = "Channel 2 FIR Filter Tap 24"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps25"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[25]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[25]"
+        DESC    = "Channel 2 FIR Filter Tap 25"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps26"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[26]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[26]"
+        DESC    = "Channel 2 FIR Filter Tap 26"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps27"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[27]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[27]"
+        DESC    = "Channel 2 FIR Filter Tap 27"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps28"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[28]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[28]"
+        DESC    = "Channel 2 FIR Filter Tap 28"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps29"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[29]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[29]"
+        DESC    = "Channel 2 FIR Filter Tap 29"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps30"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[30]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[30]"
+        DESC    = "Channel 2 FIR Filter Tap 30"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps31"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[31]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[31]"
+        DESC    = "Channel 2 FIR Filter Tap 31"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch2:Taps32"
+        PATH    = "Top.FirFiltering.Ch[2].Taps[32]"
+        PYPV    = "Top:FirFiltering:Ch[2]:Taps[32]"
+        DESC    = "Channel 2 FIR Filter Tap 32"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps0"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[0]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[0]"
+        DESC    = "Channel 3 FIR Filter Tap 0"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps1"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[1]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[1]"
+        DESC    = "Channel 3 FIR Filter Tap 1"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps2"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[2]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[2]"
+        DESC    = "Channel 3 FIR Filter Tap 2"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps3"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[3]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[3]"
+        DESC    = "Channel 3 FIR Filter Tap 3"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps4"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[4]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[4]"
+        DESC    = "Channel 3 FIR Filter Tap 4"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps5"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[5]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[5]"
+        DESC    = "Channel 3 FIR Filter Tap 5"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps6"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[6]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[6]"
+        DESC    = "Channel 3 FIR Filter Tap 6"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps7"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[7]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[7]"
+        DESC    = "Channel 3 FIR Filter Tap 7"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps8"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[8]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[8]"
+        DESC    = "Channel 3 FIR Filter Tap 8"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps9"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[9]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[9]"
+        DESC    = "Channel 3 FIR Filter Tap 9"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps10"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[10]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[10]"
+        DESC    = "Channel 3 FIR Filter Tap 10"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps11"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[11]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[11]"
+        DESC    = "Channel 3 FIR Filter Tap 11"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps12"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[12]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[12]"
+        DESC    = "Channel 3 FIR Filter Tap 12"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps13"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[13]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[13]"
+        DESC    = "Channel 3 FIR Filter Tap 13"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps14"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[14]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[14]"
+        DESC    = "Channel 3 FIR Filter Tap 14"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps15"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[15]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[15]"
+        DESC    = "Channel 3 FIR Filter Tap 15"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps16"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[16]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[16]"
+        DESC    = "Channel 3 FIR Filter Tap 16"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps17"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[17]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[17]"
+        DESC    = "Channel 3 FIR Filter Tap 17"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps18"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[18]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[18]"
+        DESC    = "Channel 3 FIR Filter Tap 18"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps19"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[19]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[19]"
+        DESC    = "Channel 3 FIR Filter Tap 19"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps20"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[20]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[20]"
+        DESC    = "Channel 3 FIR Filter Tap 20"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps21"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[21]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[21]"
+        DESC    = "Channel 3 FIR Filter Tap 21"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps22"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[22]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[22]"
+        DESC    = "Channel 3 FIR Filter Tap 22"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps23"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[23]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[23]"
+        DESC    = "Channel 3 FIR Filter Tap 23"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps24"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[24]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[24]"
+        DESC    = "Channel 3 FIR Filter Tap 24"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps25"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[25]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[25]"
+        DESC    = "Channel 3 FIR Filter Tap 25"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps26"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[26]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[26]"
+        DESC    = "Channel 3 FIR Filter Tap 26"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps27"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[27]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[27]"
+        DESC    = "Channel 3 FIR Filter Tap 27"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps28"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[28]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[28]"
+        DESC    = "Channel 3 FIR Filter Tap 28"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps29"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[29]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[29]"
+        DESC    = "Channel 3 FIR Filter Tap 29"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps30"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[30]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[30]"
+        DESC    = "Channel 3 FIR Filter Tap 30"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps31"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[31]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[31]"
+        DESC    = "Channel 3 FIR Filter Tap 31"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch3:Taps32"
+        PATH    = "Top.FirFiltering.Ch[3].Taps[32]"
+        PYPV    = "Top:FirFiltering:Ch[3]:Taps[32]"
+        DESC    = "Channel 3 FIR Filter Tap 32"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps0"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[0]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[0]"
+        DESC    = "Channel 4 FIR Filter Tap 0"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps1"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[1]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[1]"
+        DESC    = "Channel 4 FIR Filter Tap 1"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps2"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[2]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[2]"
+        DESC    = "Channel 4 FIR Filter Tap 2"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps3"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[3]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[3]"
+        DESC    = "Channel 4 FIR Filter Tap 3"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps4"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[4]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[4]"
+        DESC    = "Channel 4 FIR Filter Tap 4"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps5"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[5]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[5]"
+        DESC    = "Channel 4 FIR Filter Tap 5"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps6"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[6]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[6]"
+        DESC    = "Channel 4 FIR Filter Tap 6"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps7"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[7]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[7]"
+        DESC    = "Channel 4 FIR Filter Tap 7"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps8"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[8]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[8]"
+        DESC    = "Channel 4 FIR Filter Tap 8"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps9"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[9]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[9]"
+        DESC    = "Channel 4 FIR Filter Tap 9"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps10"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[10]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[10]"
+        DESC    = "Channel 4 FIR Filter Tap 10"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps11"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[11]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[11]"
+        DESC    = "Channel 4 FIR Filter Tap 11"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps12"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[12]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[12]"
+        DESC    = "Channel 4 FIR Filter Tap 12"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps13"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[13]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[13]"
+        DESC    = "Channel 4 FIR Filter Tap 13"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps14"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[14]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[14]"
+        DESC    = "Channel 4 FIR Filter Tap 14"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps15"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[15]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[15]"
+        DESC    = "Channel 4 FIR Filter Tap 15"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps16"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[16]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[16]"
+        DESC    = "Channel 4 FIR Filter Tap 16"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps17"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[17]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[17]"
+        DESC    = "Channel 4 FIR Filter Tap 17"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps18"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[18]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[18]"
+        DESC    = "Channel 4 FIR Filter Tap 18"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps19"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[19]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[19]"
+        DESC    = "Channel 4 FIR Filter Tap 19"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps20"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[20]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[20]"
+        DESC    = "Channel 4 FIR Filter Tap 20"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps21"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[21]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[21]"
+        DESC    = "Channel 4 FIR Filter Tap 21"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps22"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[22]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[22]"
+        DESC    = "Channel 4 FIR Filter Tap 22"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps23"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[23]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[23]"
+        DESC    = "Channel 4 FIR Filter Tap 23"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps24"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[24]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[24]"
+        DESC    = "Channel 4 FIR Filter Tap 24"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps25"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[25]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[25]"
+        DESC    = "Channel 4 FIR Filter Tap 25"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps26"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[26]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[26]"
+        DESC    = "Channel 4 FIR Filter Tap 26"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps27"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[27]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[27]"
+        DESC    = "Channel 4 FIR Filter Tap 27"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps28"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[28]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[28]"
+        DESC    = "Channel 4 FIR Filter Tap 28"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps29"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[29]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[29]"
+        DESC    = "Channel 4 FIR Filter Tap 29"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps30"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[30]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[30]"
+        DESC    = "Channel 4 FIR Filter Tap 30"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps31"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[31]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[31]"
+        DESC    = "Channel 4 FIR Filter Tap 31"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch4:Taps32"
+        PATH    = "Top.FirFiltering.Ch[4].Taps[32]"
+        PYPV    = "Top:FirFiltering:Ch[4]:Taps[32]"
+        DESC    = "Channel 4 FIR Filter Tap 32"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps0"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[0]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[0]"
+        DESC    = "Channel 5 FIR Filter Tap 0"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps1"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[1]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[1]"
+        DESC    = "Channel 5 FIR Filter Tap 1"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps2"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[2]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[2]"
+        DESC    = "Channel 5 FIR Filter Tap 2"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps3"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[3]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[3]"
+        DESC    = "Channel 5 FIR Filter Tap 3"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps4"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[4]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[4]"
+        DESC    = "Channel 5 FIR Filter Tap 4"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps5"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[5]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[5]"
+        DESC    = "Channel 5 FIR Filter Tap 5"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps6"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[6]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[6]"
+        DESC    = "Channel 5 FIR Filter Tap 6"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps7"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[7]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[7]"
+        DESC    = "Channel 5 FIR Filter Tap 7"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps8"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[8]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[8]"
+        DESC    = "Channel 5 FIR Filter Tap 8"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps9"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[9]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[9]"
+        DESC    = "Channel 5 FIR Filter Tap 9"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps10"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[10]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[10]"
+        DESC    = "Channel 5 FIR Filter Tap 10"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps11"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[11]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[11]"
+        DESC    = "Channel 5 FIR Filter Tap 11"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps12"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[12]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[12]"
+        DESC    = "Channel 5 FIR Filter Tap 12"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps13"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[13]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[13]"
+        DESC    = "Channel 5 FIR Filter Tap 13"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps14"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[14]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[14]"
+        DESC    = "Channel 5 FIR Filter Tap 14"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps15"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[15]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[15]"
+        DESC    = "Channel 5 FIR Filter Tap 15"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps16"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[16]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[16]"
+        DESC    = "Channel 5 FIR Filter Tap 16"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps17"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[17]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[17]"
+        DESC    = "Channel 5 FIR Filter Tap 17"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps18"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[18]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[18]"
+        DESC    = "Channel 5 FIR Filter Tap 18"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps19"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[19]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[19]"
+        DESC    = "Channel 5 FIR Filter Tap 19"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps20"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[20]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[20]"
+        DESC    = "Channel 5 FIR Filter Tap 20"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps21"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[21]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[21]"
+        DESC    = "Channel 5 FIR Filter Tap 21"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps22"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[22]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[22]"
+        DESC    = "Channel 5 FIR Filter Tap 22"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps23"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[23]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[23]"
+        DESC    = "Channel 5 FIR Filter Tap 23"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps24"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[24]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[24]"
+        DESC    = "Channel 5 FIR Filter Tap 24"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps25"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[25]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[25]"
+        DESC    = "Channel 5 FIR Filter Tap 25"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps26"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[26]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[26]"
+        DESC    = "Channel 5 FIR Filter Tap 26"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps27"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[27]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[27]"
+        DESC    = "Channel 5 FIR Filter Tap 27"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps28"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[28]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[28]"
+        DESC    = "Channel 5 FIR Filter Tap 28"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps29"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[29]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[29]"
+        DESC    = "Channel 5 FIR Filter Tap 29"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps30"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[30]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[30]"
+        DESC    = "Channel 5 FIR Filter Tap 30"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps31"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[31]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[31]"
+        DESC    = "Channel 5 FIR Filter Tap 31"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch5:Taps32"
+        PATH    = "Top.FirFiltering.Ch[5].Taps[32]"
+        PYPV    = "Top:FirFiltering:Ch[5]:Taps[32]"
+        DESC    = "Channel 5 FIR Filter Tap 32"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps0"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[0]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[0]"
+        DESC    = "Channel 6 FIR Filter Tap 0"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps1"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[1]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[1]"
+        DESC    = "Channel 6 FIR Filter Tap 1"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps2"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[2]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[2]"
+        DESC    = "Channel 6 FIR Filter Tap 2"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps3"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[3]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[3]"
+        DESC    = "Channel 6 FIR Filter Tap 3"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps4"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[4]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[4]"
+        DESC    = "Channel 6 FIR Filter Tap 4"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps5"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[5]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[5]"
+        DESC    = "Channel 6 FIR Filter Tap 5"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps6"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[6]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[6]"
+        DESC    = "Channel 6 FIR Filter Tap 6"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps7"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[7]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[7]"
+        DESC    = "Channel 6 FIR Filter Tap 7"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps8"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[8]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[8]"
+        DESC    = "Channel 6 FIR Filter Tap 8"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps9"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[9]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[9]"
+        DESC    = "Channel 6 FIR Filter Tap 9"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps10"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[10]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[10]"
+        DESC    = "Channel 6 FIR Filter Tap 10"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps11"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[11]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[11]"
+        DESC    = "Channel 6 FIR Filter Tap 11"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps12"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[12]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[12]"
+        DESC    = "Channel 6 FIR Filter Tap 12"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps13"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[13]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[13]"
+        DESC    = "Channel 6 FIR Filter Tap 13"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps14"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[14]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[14]"
+        DESC    = "Channel 6 FIR Filter Tap 14"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps15"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[15]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[15]"
+        DESC    = "Channel 6 FIR Filter Tap 15"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps16"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[16]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[16]"
+        DESC    = "Channel 6 FIR Filter Tap 16"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps17"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[17]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[17]"
+        DESC    = "Channel 6 FIR Filter Tap 17"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps18"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[18]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[18]"
+        DESC    = "Channel 6 FIR Filter Tap 18"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps19"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[19]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[19]"
+        DESC    = "Channel 6 FIR Filter Tap 19"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps20"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[20]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[20]"
+        DESC    = "Channel 6 FIR Filter Tap 20"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps21"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[21]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[21]"
+        DESC    = "Channel 6 FIR Filter Tap 21"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps22"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[22]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[22]"
+        DESC    = "Channel 6 FIR Filter Tap 22"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps23"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[23]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[23]"
+        DESC    = "Channel 6 FIR Filter Tap 23"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps24"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[24]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[24]"
+        DESC    = "Channel 6 FIR Filter Tap 24"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps25"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[25]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[25]"
+        DESC    = "Channel 6 FIR Filter Tap 25"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps26"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[26]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[26]"
+        DESC    = "Channel 6 FIR Filter Tap 26"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps27"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[27]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[27]"
+        DESC    = "Channel 6 FIR Filter Tap 27"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps28"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[28]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[28]"
+        DESC    = "Channel 6 FIR Filter Tap 28"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps29"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[29]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[29]"
+        DESC    = "Channel 6 FIR Filter Tap 29"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps30"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[30]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[30]"
+        DESC    = "Channel 6 FIR Filter Tap 30"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps31"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[31]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[31]"
+        DESC    = "Channel 6 FIR Filter Tap 31"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch6:Taps32"
+        PATH    = "Top.FirFiltering.Ch[6].Taps[32]"
+        PYPV    = "Top:FirFiltering:Ch[6]:Taps[32]"
+        DESC    = "Channel 6 FIR Filter Tap 32"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps0"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[0]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[0]"
+        DESC    = "Channel 7 FIR Filter Tap 0"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps1"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[1]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[1]"
+        DESC    = "Channel 7 FIR Filter Tap 1"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps2"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[2]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[2]"
+        DESC    = "Channel 7 FIR Filter Tap 2"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps3"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[3]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[3]"
+        DESC    = "Channel 7 FIR Filter Tap 3"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps4"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[4]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[4]"
+        DESC    = "Channel 7 FIR Filter Tap 4"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps5"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[5]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[5]"
+        DESC    = "Channel 7 FIR Filter Tap 5"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps6"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[6]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[6]"
+        DESC    = "Channel 7 FIR Filter Tap 6"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps7"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[7]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[7]"
+        DESC    = "Channel 7 FIR Filter Tap 7"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps8"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[8]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[8]"
+        DESC    = "Channel 7 FIR Filter Tap 8"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps9"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[9]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[9]"
+        DESC    = "Channel 7 FIR Filter Tap 9"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps10"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[10]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[10]"
+        DESC    = "Channel 7 FIR Filter Tap 10"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps11"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[11]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[11]"
+        DESC    = "Channel 7 FIR Filter Tap 11"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps12"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[12]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[12]"
+        DESC    = "Channel 7 FIR Filter Tap 12"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps13"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[13]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[13]"
+        DESC    = "Channel 7 FIR Filter Tap 13"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps14"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[14]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[14]"
+        DESC    = "Channel 7 FIR Filter Tap 14"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps15"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[15]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[15]"
+        DESC    = "Channel 7 FIR Filter Tap 15"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps16"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[16]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[16]"
+        DESC    = "Channel 7 FIR Filter Tap 16"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps17"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[17]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[17]"
+        DESC    = "Channel 7 FIR Filter Tap 17"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps18"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[18]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[18]"
+        DESC    = "Channel 7 FIR Filter Tap 18"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps19"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[19]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[19]"
+        DESC    = "Channel 7 FIR Filter Tap 19"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps20"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[20]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[20]"
+        DESC    = "Channel 7 FIR Filter Tap 20"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps21"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[21]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[21]"
+        DESC    = "Channel 7 FIR Filter Tap 21"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps22"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[22]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[22]"
+        DESC    = "Channel 7 FIR Filter Tap 22"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps23"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[23]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[23]"
+        DESC    = "Channel 7 FIR Filter Tap 23"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps24"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[24]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[24]"
+        DESC    = "Channel 7 FIR Filter Tap 24"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps25"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[25]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[25]"
+        DESC    = "Channel 7 FIR Filter Tap 25"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps26"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[26]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[26]"
+        DESC    = "Channel 7 FIR Filter Tap 26"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps27"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[27]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[27]"
+        DESC    = "Channel 7 FIR Filter Tap 27"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps28"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[28]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[28]"
+        DESC    = "Channel 7 FIR Filter Tap 28"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps29"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[29]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[29]"
+        DESC    = "Channel 7 FIR Filter Tap 29"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps30"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[30]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[30]"
+        DESC    = "Channel 7 FIR Filter Tap 30"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps31"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[31]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[31]"
+        DESC    = "Channel 7 FIR Filter Tap 31"
+        SAVE    = ""
+        PINI    = ""
+}
+{
+        NAME    = "FirFiltering:Ch7:Taps32"
+        PATH    = "Top.FirFiltering.Ch[7].Taps[32]"
+        PYPV    = "Top:FirFiltering:Ch[7]:Taps[32]"
+        DESC    = "Channel 7 FIR Filter Tap 32"
+        SAVE    = ""
+        PINI    = ""
+}
+
+}
