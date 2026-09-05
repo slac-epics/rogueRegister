@@ -1,0 +1,187 @@
+file longDevRogue.template
+{
+	{
+		NAME	= "HlsProcessor:BaselineBeg"
+		PATH	= "Top.HlsProcessor.BaselineBeg"
+		PYPV	= "Top:HlsProcessor:BaselineBeg"
+		DESC	= "Baseline beginning sample"
+		SAVE	= "VAL"
+		DRVH	= "254"
+		DRVL	= "0"
+	}
+        {
+                NAME    = "HlsProcessor:BaselineEnd"
+                PATH    = "Top.HlsProcessor.BaselineEnd"
+                PYPV    = "Top:HlsProcessor:BaselineEnd"
+                DESC    = "Baseline ending sample, inclusive"
+                SAVE    = "VAL"
+		DRVH    = "254"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:BaselineCnt"
+                PATH    = "Top.HlsProcessor.BaselineCnt"
+                PYPV    = "Top:HlsProcessor:BaselineCnt"
+                DESC    = "Baseline sample count"
+                SAVE    = ""
+		DRVH    = "254"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:SignalBeg"
+                PATH    = "Top.HlsProcessor.SignalBeg"
+                PYPV    = "Top:HlsProcessor:SignalBeg"
+                DESC    = "Signal beginning sample"
+                SAVE    = "VAL"
+		DRVH    = "254"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:SignalEnd"
+                PATH    = "Top.HlsProcessor.SignalEnd"
+                PYPV    = "Top:HlsProcessor:SignalEnd"
+                DESC    = "Signal ending sample, inclusive"
+                SAVE    = "VAL"
+		DRVH    = "254"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:SignalCnt"
+                PATH    = "Top.HlsProcessor.SignalCnt"
+                PYPV    = "Top:HlsProcessor:SignalCnt"
+                DESC    = "Signal sample count"
+                SAVE    = ""
+		DRVH    = "254"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:CalcCfg_blScale"
+                PATH    = "Top.HlsProcessor.CalcCfg_blScale"
+                PYPV    = "Top:HlsProcessor:CalcCfg_blScale"
+                DESC    = "Baseline peak normalization factor"
+                SAVE    = ""
+        }
+	{
+                NAME    = "HlsProcessor:CalcCfg_intBlScale"
+                PATH    = "Top.HlsProcessor.CalcCfg_intBlScale"
+                PYPV    = "Top:HlsProcessor:CalcCfg_intBlScale"
+                DESC    = "Baseline integral normalization factor"
+                SAVE    = ""
+        }
+	{
+                NAME    = "HlsProcessor:PosPeak_xm"
+                PATH    = "Top.HlsProcessor.PosPeak_xm"
+                PYPV    = "Top:HlsProcessor:PosPeak_xm"
+                DESC    = "Negative x diode for peak"
+                SAVE    = "VAL"
+		PINI    = "YES"
+		DRVH    = "7"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:PosPeak_xp"
+                PATH    = "Top.HlsProcessor.PosPeak_xp"
+                PYPV    = "Top:HlsProcessor:PosPeak_xp"
+                DESC    = "Positive x diode for peak"
+                SAVE    = "VAL"
+		PINI    = "YES"
+		DRVH    = "7"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:PosPeak_ym"
+                PATH    = "Top.HlsProcessor.PosPeak_ym"
+                PYPV    = "Top:HlsProcessor:PosPeak_ym"
+                DESC    = "Negative y diode for peak"
+                SAVE    = "VAL"
+		PINI    = "YES"
+		DRVH    = "7"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:PosPeak_yp"
+                PATH    = "Top.HlsProcessor.PosPeak_yp"
+                PYPV    = "Top:HlsProcessor:PosPeak_yp"
+                DESC    = "Positive y diode for peak"
+                SAVE    = "VAL"
+		PINI    = "YES"
+		DRVH    = "7"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:PosIntegral_xm"
+                PATH    = "Top.HlsProcessor.PosIntegral_xm"
+                PYPV    = "Top:HlsProcessor:PosIntegral_xm"
+                DESC    = "Negative x diode for integral"
+                SAVE    = "VAL"
+		PINI    = "YES"
+		DRVH    = "7"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:PosIntegral_xp"
+                PATH    = "Top.HlsProcessor.PosIntegral_xp"
+                PYPV    = "Top:HlsProcessor:PosIntegral_xp"
+                DESC    = "Positive x diode for integral"
+                SAVE    = "VAL"
+		PINI    = "YES"
+		DRVH    = "7"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:PosIntegral_ym"
+                PATH    = "Top.HlsProcessor.PosIntegral_ym"
+                PYPV    = "Top:HlsProcessor:PosIntegral_ym"
+                DESC    = "Negative y diode for integral"
+                SAVE    = "VAL"
+		PINI    = "YES"
+		DRVH    = "7"
+                DRVL    = "0"
+        }
+	{
+                NAME    = "HlsProcessor:PosIntegral_yp"
+                PATH    = "Top.HlsProcessor.PosIntegral_yp"
+                PYPV    = "Top:HlsProcessor:PosIntegral_yp"
+                DESC    = "Positive y diode for integral"
+                SAVE    = "VAL"
+		PINI    = "YES"
+		DRVH    = "7"
+                DRVL    = "0"
+        }
+}
+
+file aInOutDevRogue.template
+{
+        {
+                NAME    = "HlsProcessor:PosPeak_cx"
+                PATH    = "Top.HlsProcessor.PosPeak_cx"
+                PYPV    = "Top:HlsProcessor:PosPeak_cx"
+                DESC    = "X peak conversion constant"
+                SAVE    = "VAL"
+		PINI	= "YES"
+        }
+	{
+                NAME    = "HlsProcessor:PosPeak_cy"
+                PATH    = "Top.HlsProcessor.PosPeak_cy"
+                PYPV    = "Top:HlsProcessor:PosPeak_cy"
+                DESC    = "Y peak conversion constant"
+                SAVE    = "VAL"
+		PINI    = "YES"
+        }
+	{
+                NAME    = "HlsProcessor:PosIntegral_cx"
+                PATH    = "Top.HlsProcessor.PosIntegral_cx"
+                PYPV    = "Top:HlsProcessor:PosIntegral_cx"
+                DESC    = "X integral conversion constant"
+                SAVE    = "VAL"
+		PINI    = "YES"
+        }
+	{
+                NAME    = "HlsProcessor:PosIntegral_cy"
+                PATH    = "Top.HlsProcessor.PosIntegral_cy"
+                PYPV    = "Top:HlsProcessor:PosIntegral_cy"
+                DESC    = "Y integral conversion constant"
+                SAVE    = "VAL"
+		PINI    = "YES"
+        }
+}

@@ -8,45 +8,45 @@
 // the terms contained in the LICENSE.txt file.
 //////////////////////////////////////////////////////////////////////////////
 //
-//	memoryBuffer.h
+//  memoryBuffer.h
 //
-//	Header file for memoryBuffer class.
-//	It provides a wrapper to encapsulate a block of memory with
-//	a std::basic_streambuf template.
+//  Header file for memoryBuffer class.
+//  It provides a wrapper to encapsulate a block of memory with
+//  a std::basic_streambuf template.
 //
-#ifndef	memoryBuffer_H
-#define	memoryBuffer_H
+#ifndef memoryBuffer_H
+#define memoryBuffer_H
 
 
-template<	class ItemT,
-			class Traits = std::char_traits<ItemT>
-		>	class basic_MemoryBuffer : public std::basic_streambuf<ItemT, Traits>
+template<   class ItemT,
+            class Traits = std::char_traits<ItemT>
+        >   class basic_MemoryBuffer : public std::basic_streambuf<ItemT, Traits>
 {
 public:
-	basic_MemoryBuffer( ItemT * ptr, std::size_t size )
-	{
-		setg( ptr, ptr, ptr + size );
-	}
+    basic_MemoryBuffer( ItemT * ptr, std::size_t size )
+    {
+        setg( ptr, ptr, ptr + size );
+    }
 };
 
-#endif	//	memoryBuffer_H
-#ifndef	MemoryStream_H
-#define	MemoryStream_H
+#endif  //  memoryBuffer_H
+#ifndef MemoryStream_H
+#define MemoryStream_H
 #include <ostream>
 
-template<	class ItemT,
-			class Traits = std::char_traits<ItemT>
-		>	class basic_MemoryOutputString : public std::basic_ostream<ItemT>
+template<   class ItemT,
+            class Traits = std::char_traits<ItemT>
+        >   class basic_MemoryOutputString : public std::basic_ostream<ItemT>
 {
 public:
-	basic_MemoryOutputString( ItemT * ptr, std::size_t size )
-		:	std::basic_ostream<ItemT>( &m_Buffer ),
-			m_Buffer( ptr, size )
-	{
-		rdbuf( &m_Buffer );
-	}
+    basic_MemoryOutputString( ItemT * ptr, std::size_t size )
+        :   std::basic_ostream<ItemT>( &m_Buffer ),
+            m_Buffer( ptr, size )
+    {
+        rdbuf( &m_Buffer );
+    }
 
 private:
-	basic_MemoryBuffer<ItemT>	m_Buffer;
+    basic_MemoryBuffer<ItemT>   m_Buffer;
 };
-#endif	//	MemoryStream_H
+#endif  //  MemoryStream_H

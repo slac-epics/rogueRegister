@@ -12,12 +12,17 @@ include $(TOP)/configure/CONFIG
 # databases, templates, substitutions like this
 
 # db templates
-DB += AdcIntegrals.db
 DB += AxiVersion.db
 DB += w8-aliases.db
 DB += Ads42Lbx9.db
 DB += BatcherEventBuilder.db
 DB += roguePcie.db
+DB += FirFiltering.db
+DB += HlsProcessor.db
+DB += HlsTrigBuffer.db
+DB += HlsDataStream.db
+DB += HEReg.db
+DB += Integrators.db
 DB += SfpEnums.template
 DB += SfpTransceiver.db
 DB += TimingRx.template

@@ -1,0 +1,93 @@
+#
+# HEBase rogue PVs
+#
+# Required macros:
+#       P                               - Prefix
+#       R                               - Region, common camera PV prefix is $(P)$(R)
+#       B                               - Board number
+#       L                               - Lane number
+#
+
+record( calcout, "$(P)$(R)UpdateBCnt" )
+{
+       field( INPA, "$(P)$(R)HlsProcessor:BaselineBeg_RBV CPP" )
+       field( INPB, "$(P)$(R)HlsProcessor:BaselineEnd_RBV CPP" )
+       field( CALC, "MIN(B-A+1,255)" )
+       field( OOPT, "On Change" )
+       field( DOPT, "Use CALC" )
+       field( OUT,  "$(P)$(R)HlsProcessor:BaselineCnt PP" )
+}
+record( calcout, "$(P)$(R)UpdateSCnt" )
+{
+        field( INPA, "$(P)$(R)HlsProcessor:SignalBeg_RBV CPP" )
+        field( INPB, "$(P)$(R)HlsProcessor:SignalEnd_RBV CPP" )
+        field( CALC, "MIN(B-A+1,255)" )
+        field( OOPT, "On Change" )
+        field( DOPT, "Use CALC" )
+        field( OUT,  "$(P)$(R)HlsProcessor:SignalCnt PP" )
+}
+
+record( calcout, "$(P)$(R)UpdateBScale" )
+{
+        field( INPA, "$(P)$(R)HlsProcessor:BaselineCnt_RBV CPP" )
+        field( CALC, "A=0 ? 0 : FLOOR(((1<<26) + FLOOR(A/2)) / A)" )
+        field( OOPT, "On Change" )
+        field( DOPT, "Use CALC" )
+        field( OUT,  "$(P)$(R)HlsProcessor:CalcCfg_blScale PP" )
+}
+record( calcout, "$(P)$(R)UpdateIntBScale" )
+{
+       field( INPB, "$(P)$(R)HlsProcessor:SignalCnt_RBV CPP" )
+        field( INPB, "$(P)$(R)HlsProcessor:BaselineCnt_RBV CPP" )
+        field( CALC, "B=0 ? 0 : FLOOR((A/B)*(1<<26))" )
+        field( OOPT, "On Change" )
+        field( DOPT, "Use CALC" )
+        field( OUT,  "$(P)$(R)HlsProcessor:CalcCfg_intBlScale PP" )
+}
+
+record( calcout, "$(P)$(R)UpdateBS" )
+{
+        field( INPA, "0" )
+        field( INPB, "$(P)$(R)HlsProcessor:BaselineEnd_RBV NPP" )
+        field( CALC, "(B-A)>6" )
+        field( OCAL, "A" )
+        field( OOPT, "When Non-zero" )
+        field( DOPT, "Use OCAL" )
+        field( OUT,  "$(P)$(R)HlsProcessor:BaselineBeg PP" )
+       field( PINI, "YES" )
+}
+record( calcout, "$(P)$(R)UpdateBE" )
+{
+        field( INPA, "0" )
+        field( INPB, "$(P)$(R)HlsProcessor:BaselineBeg_RBV NPP" )
+        field( INPC, "$(P)$(R)HlsProcessor:SignalBeg_RBV NPP" )
+        field( CALC, "((A-B)>6) && ((C-A)>8)" )
+        field( OCAL, "A" )
+        field( OOPT, "When Non-zero" )
+        field( DOPT, "Use OCAL" )
+        field( OUT,  "$(P)$(R)HlsProcessor:BaselineEnd PP" )
+       field( PINI, "YES" )
+}
+record( calcout, "$(P)$(R)UpdateSS" )
+{
+        field( INPA, "0" )
+        field( INPB, "$(P)$(R)HlsProcessor:BaselineEnd_RBV NPP" )
+        field( INPC, "$(P)$(R)HlsProcessor:SignalEnd_RBV NPP" )
+        field( CALC, "((A-B)>8) && (C-A)>6" )
+        field( OCAL, "A" )
+        field( OOPT, "When Non-zero" )
+        field( DOPT, "Use OCAL" )
+        field( OUT,  "$(P)$(R)HlsProcessor:SignalBeg PP" )
+       field( PINI, "YES" )
+}
+record( calcout, "$(P)$(R)UpdateSE" )
+{
+        field( INPA, "0" )
+        field( INPB, "$(P)$(R)HlsProcessor:SignalBeg_RBV NPP" )
+        field( CALC, "((A-B)>6) && (A < 242)" )
+        field( OCAL, "A" )
+        field( OOPT, "When Non-zero" )
+        field( DOPT, "Use OCAL" )
+        field( OUT,  "$(P)$(R)HlsProcessor:SignalEnd PP" )
+       field( PINI, "YES" )
+}

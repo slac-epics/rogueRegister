@@ -1,0 +1,335 @@
+file liDevRogue.template
+{
+        {
+                NAME    = "DataStream:Hls0:PeakPos0",
+                PATH    = "DataStream.Hls0.PeakPos[0]"
+                PYPV    = "HlsPeakPos0"
+                DESC    = "Peak position 0"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakPos1",
+                PATH    = "DataStream.Hls0.PeakPos[1]"
+                PYPV    = "HlsPeakPos1"
+                DESC    = "Peak position 1"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakPos2",
+                PATH    = "DataStream.Hls0.PeakPos[2]"
+                PYPV    = "HlsPeakPos2"
+                DESC    = "Peak position 2"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakPos3",
+                PATH    = "DataStream.Hls0.PeakPos[3]"
+                PYPV    = "HlsPeakPos3"
+                DESC    = "Peak position 3"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakPos4",
+                PATH    = "DataStream.Hls0.PeakPos[4]"
+                PYPV    = "HlsPeakPos4"
+                DESC    = "Peak position 4"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakPos5",
+                PATH    = "DataStream.Hls0.PeakPos[5]"
+                PYPV    = "HlsPeakPos5"
+                DESC    = "Peak position 5"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakPos6",
+                PATH    = "DataStream.Hls0.PeakPos[6]"
+                PYPV    = "HlsPeakPos6"
+                DESC    = "Peak position 6"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakPos7",
+                PATH    = "DataStream.Hls0.PeakPos[7]"
+                PYPV    = "HlsPeakPos7"
+                DESC    = "Peak position 7"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+
+        {
+                NAME    = "DataStream:Hls0:PeakAmp0",
+                PATH    = "DataStream.Hls0.PeakAmp[0]"
+                PYPV    = "HlsPeakAmp0"
+                DESC    = "Peak amplitude 0"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakAmp1",
+                PATH    = "DataStream.Hls0.PeakAmp[1]"
+                PYPV    = "HlsPeakAmp1"
+                DESC    = "Peak amplitude 1"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakAmp2",
+                PATH    = "DataStream.Hls0.PeakAmp[2]"
+                PYPV    = "HlsPeakAmp2"
+                DESC    = "Peak amplitude 2"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakAmp3",
+                PATH    = "DataStream.Hls0.PeakAmp[3]"
+                PYPV    = "HlsPeakAmp3"
+                DESC    = "Peak amplitude 3"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakAmp4",
+                PATH    = "DataStream.Hls0.PeakAmp[4]"
+                PYPV    = "HlsPeakAmp4"
+                DESC    = "Peak amplitude 4"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakAmp5",
+                PATH    = "DataStream.Hls0.PeakAmp[5]"
+                PYPV    = "HlsPeakAmp5"
+                DESC    = "Peak amplitude 5"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakAmp6",
+                PATH    = "DataStream.Hls0.PeakAmp[6]"
+                PYPV    = "HlsPeakAmp6"
+                DESC    = "Peak amplitude 6"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:PeakAmp7",
+                PATH    = "DataStream.Hls0.PeakAmp[7]"
+                PYPV    = "HlsPeakAmp7"
+                DESC    = "Peak amplitude 7"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+
+        {
+                NAME    = "DataStream:Hls0:BaselineVal0",
+                PATH    = "DataStream.Hls0.BaselineVal[0]"
+                PYPV    = "HlsBaselineVal0"
+                DESC    = "Baseline Value 0"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:BaselineVal1",
+                PATH    = "DataStream.Hls0.BaselineVal[1]"
+                PYPV    = "HlsBaselineVal1"
+                DESC    = "Baseline Value 1"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:BaselineVal2",
+                PATH    = "DataStream.Hls0.BaselineVal[2]"
+                PYPV    = "HlsBaselineVal2"
+                DESC    = "Baseline Value 2"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:BaselineVal3",
+                PATH    = "DataStream.Hls0.BaselineVal[3]"
+                PYPV    = "HlsBaselineVal3"
+                DESC    = "Baseline Value 3"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:BaselineVal4",
+                PATH    = "DataStream.Hls0.BaselineVal[4]"
+                PYPV    = "HlsBaselineVal4"
+                DESC    = "Baseline Value 4"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:BaselineVal5",
+                PATH    = "DataStream.Hls0.BaselineVal[5]"
+                PYPV    = "HlsBaselineVal5"
+                DESC    = "Baseline Value 5"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:BaselineVal6",
+                PATH    = "DataStream.Hls0.BaselineVal[6]"
+                PYPV    = "HlsBaselineVal6"
+                DESC    = "Baseline Value 6"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls0:BaselineVal7",
+                PATH    = "DataStream.Hls0.BaselineVal[7]"
+                PYPV    = "HlsBaselineVal7"
+                DESC    = "Baseline Value 7"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+
+	{
+		NAME	= "DataStream:Hls1:Integral0",
+		PATH	= "DataStream.Hls1.Integral[0]"
+		PYPV	= "HlsIntegral0"
+		DESC	= "Integration of A/D value 0"
+		SCAN	= "I/O Intr"
+		PRIO	= "HIGH"
+		TSE	= "-2"
+	}
+	{
+                NAME    = "DataStream:Hls1:Integral1",
+                PATH    = "DataStream.Hls1.Integral[1]"
+                PYPV    = "HlsIntegral1"
+                DESC    = "Integration of A/D value 1"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls1:Integral2",
+                PATH    = "DataStream.Hls1.Integral[2]"
+                PYPV    = "HlsIntegral2"
+                DESC    = "Integration of A/D value 2"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls1:Integral3",
+                PATH    = "DataStream.Hls1.Integral[3]"
+                PYPV    = "HlsIntegral3"
+                DESC    = "Integration of A/D value 3"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls1:Integral4",
+                PATH    = "DataStream.Hls1.Integral[4]"
+                PYPV    = "HlsIntegral4"
+                DESC    = "Integration of A/D value 4"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls1:Integral5",
+                PATH    = "DataStream.Hls1.Integral[5]"
+                PYPV    = "HlsIntegral5"
+                DESC    = "Integration of A/D value 5"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls1:Integral6",
+                PATH    = "DataStream.Hls1.Integral[6]"
+                PYPV    = "HlsIntegral6"
+                DESC    = "Integration of A/D value 6"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls1:Integral7",
+                PATH    = "DataStream.Hls1.Integral[7]"
+                PYPV    = "HlsIntegral7"
+                DESC    = "Integration of A/D value 7"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+}
+
+file aiDevRogue.template
+{
+        {
+                NAME    = "DataStream:Hls0:PeakPosX",
+                PATH    = "DataStream.Hls0.PeakPosX"
+                PYPV    = "HlsPeakPosX"
+                DESC    = "Peak position X"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+	{
+                NAME    = "DataStream:Hls0:PeakPosY",
+                PATH    = "DataStream.Hls0.PeakPosY"
+                PYPV    = "HlsPeakPosY"
+                DESC    = "Peak position Y"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+
+        {
+                NAME    = "DataStream:Hls1:IntegralPosX",
+                PATH    = "DataStream.Hls1.IntegralPosX"
+                PYPV    = "HlsIntegralPosX"
+                DESC    = "Integral position X"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+        {
+                NAME    = "DataStream:Hls1:IntegralPosY",
+                PATH    = "DataStream.Hls1.IntegralPosY"
+                PYPV    = "HlsIntegralPosY"
+                DESC    = "Integral position Y"
+                SCAN    = "I/O Intr"
+                PRIO    = "HIGH"
+                TSE     = "-2"
+        }
+}

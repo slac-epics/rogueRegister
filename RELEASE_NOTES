@@ -1,5 +1,8 @@
 Release Notes for rogueRegister EPICS module
 
+R2.7.0: 2026-09-02 Kaushik Malapati
+    Added support for new wave8 firmware
+
 R2.6.0: 2026-05-26 Kaushik Malapati
     Added SeqUEDTiming
 
